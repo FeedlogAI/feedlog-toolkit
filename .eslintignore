@@ -1,0 +1,11 @@
+node_modules
+dist
+build
+coverage
+*.config.js
+*.config.ts
+packages/*/dist
+packages/*/loader
+packages/react/src/components/stencil-generated
+packages/vue/src/components.ts
+

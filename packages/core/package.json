@@ -1,0 +1,40 @@
+{
+  "name": "@feedlog-toolkit/core",
+  "version": "1.0.0",
+  "description": "Core SDK for Feedlog Toolkit",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "feedlog",
+    "sdk",
+    "core"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.11.24",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.2",
+    "typescript": "^5.3.3"
+  }
+}
+

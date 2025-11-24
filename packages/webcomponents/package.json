@@ -1,0 +1,45 @@
+{
+  "name": "@feedlog-toolkit/webcomponents",
+  "version": "1.0.0",
+  "description": "Stencil web components for Feedlog Toolkit - Data visualization components",
+  "main": "./dist/index.cjs.js",
+  "module": "./dist/index.js",
+  "types": "./dist/types/index.d.ts",
+  "collection": "./dist/collection/collection-manifest.json",
+  "collection:main": "./dist/collection/index.js",
+  "unpkg": "./dist/feedlog-toolkit/feedlog-toolkit.esm.js",
+  "files": [
+    "dist",
+    "loader"
+  ],
+  "scripts": {
+    "build": "stencil build",
+    "start": "stencil build --dev --watch --serve",
+    "dev": "stencil build --dev --watch --serve",
+    "test": "stencil test --spec --e2e",
+    "test:watch": "stencil test --spec --e2e --watch",
+    "test:spec": "stencil test --spec",
+    "test:e2e": "stencil test --e2e",
+    "generate": "stencil generate",
+    "clean": "rm -rf dist loader"
+  },
+  "dependencies": {
+    "@feedlog-toolkit/core": "*"
+  },
+  "devDependencies": {
+    "@stencil/core": "^4.0.0",
+    "@stencil/react-output-target": "^0.5.0",
+    "@stencil/vue-output-target": "^0.8.0",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.11.24",
+    "typescript": "^5.3.3"
+  },
+  "license": "MIT",
+  "keywords": [
+    "feedlog",
+    "webcomponents",
+    "stencil",
+    "data-visualization"
+  ]
+}
+
