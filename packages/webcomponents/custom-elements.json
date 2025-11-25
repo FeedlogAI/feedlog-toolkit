@@ -1,0 +1,397 @@
+{
+  "timestamp": "2025-11-25T19:12:23",
+  "compiler": {
+    "name": "@stencil/core",
+    "version": "4.38.3",
+    "typescriptVersion": "5.9.3"
+  },
+  "components": [
+    {
+      "filePath": "src/components/feedlog-badge/feedlog-badge.tsx",
+      "encapsulation": "shadow",
+      "tag": "feedlog-badge",
+      "readme": "# feedlog-badge\n\n\n",
+      "docs": "Feedlog Badge Component\n\nA label component with variant support for different styles.",
+      "docsTags": [],
+      "usage": {},
+      "props": [
+        {
+          "name": "variant",
+          "type": "\"default\" | \"destructive\"",
+          "complexType": {
+            "original": "'default' | 'destructive'",
+            "resolved": "\"default\" | \"destructive\"",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "variant",
+          "reflectToAttr": false,
+          "docs": "Badge variant style",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "'default'"
+            }
+          ],
+          "default": "'default'",
+          "values": [
+            {
+              "value": "default",
+              "type": "string"
+            },
+            {
+              "value": "destructive",
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false,
+          "getter": false,
+          "setter": false
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "listeners": [],
+      "styles": [],
+      "slots": [],
+      "parts": [],
+      "dependents": [
+        "feedlog-github-issues"
+      ],
+      "dependencies": [],
+      "dependencyGraph": {
+        "feedlog-github-issues": [
+          "feedlog-badge"
+        ]
+      }
+    },
+    {
+      "filePath": "src/components/feedlog-button/feedlog-button.tsx",
+      "encapsulation": "shadow",
+      "tag": "feedlog-button",
+      "readme": "# feedlog-button\n\n\n",
+      "docs": "Feedlog Button Component\n\nA button component with variant and size support.",
+      "docsTags": [],
+      "usage": {},
+      "props": [
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "complexType": {
+            "original": "boolean",
+            "resolved": "boolean",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "disabled",
+          "reflectToAttr": false,
+          "docs": "Disabled state",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "false"
+            }
+          ],
+          "default": "false",
+          "values": [
+            {
+              "type": "boolean"
+            }
+          ],
+          "optional": false,
+          "required": false,
+          "getter": false,
+          "setter": false
+        },
+        {
+          "name": "size",
+          "type": "\"default\" | \"lg\" | \"sm\"",
+          "complexType": {
+            "original": "'default' | 'sm' | 'lg'",
+            "resolved": "\"default\" | \"lg\" | \"sm\"",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "size",
+          "reflectToAttr": false,
+          "docs": "Button size",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "'default'"
+            }
+          ],
+          "default": "'default'",
+          "values": [
+            {
+              "value": "default",
+              "type": "string"
+            },
+            {
+              "value": "lg",
+              "type": "string"
+            },
+            {
+              "value": "sm",
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false,
+          "getter": false,
+          "setter": false
+        },
+        {
+          "name": "type",
+          "type": "\"button\" | \"reset\" | \"submit\"",
+          "complexType": {
+            "original": "'button' | 'submit' | 'reset'",
+            "resolved": "\"button\" | \"reset\" | \"submit\"",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "type",
+          "reflectToAttr": false,
+          "docs": "Button type",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "'button'"
+            }
+          ],
+          "default": "'button'",
+          "values": [
+            {
+              "value": "button",
+              "type": "string"
+            },
+            {
+              "value": "reset",
+              "type": "string"
+            },
+            {
+              "value": "submit",
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false,
+          "getter": false,
+          "setter": false
+        },
+        {
+          "name": "variant",
+          "type": "\"default\" | \"destructive\" | \"ghost\" | \"outline\"",
+          "complexType": {
+            "original": "'default' | 'outline' | 'ghost' | 'destructive'",
+            "resolved": "\"default\" | \"destructive\" | \"ghost\" | \"outline\"",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "variant",
+          "reflectToAttr": false,
+          "docs": "Button variant style",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "'default'"
+            }
+          ],
+          "default": "'default'",
+          "values": [
+            {
+              "value": "default",
+              "type": "string"
+            },
+            {
+              "value": "destructive",
+              "type": "string"
+            },
+            {
+              "value": "ghost",
+              "type": "string"
+            },
+            {
+              "value": "outline",
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false,
+          "getter": false,
+          "setter": false
+        }
+      ],
+      "methods": [],
+      "events": [
+        {
+          "event": "feedlogClick",
+          "detail": "MouseEvent",
+          "bubbles": true,
+          "complexType": {
+            "original": "MouseEvent",
+            "resolved": "MouseEvent",
+            "references": {
+              "MouseEvent": {
+                "location": "global",
+                "id": "global::MouseEvent"
+              }
+            }
+          },
+          "cancelable": true,
+          "composed": true,
+          "docs": "Event emitted when button is clicked",
+          "docsTags": []
+        }
+      ],
+      "listeners": [],
+      "styles": [],
+      "slots": [],
+      "parts": [],
+      "dependents": [
+        "feedlog-github-issues"
+      ],
+      "dependencies": [],
+      "dependencyGraph": {
+        "feedlog-github-issues": [
+          "feedlog-button"
+        ]
+      }
+    },
+    {
+      "filePath": "src/components/feedlog-card/feedlog-card.tsx",
+      "encapsulation": "shadow",
+      "tag": "feedlog-card",
+      "readme": "# feedlog-card\n\n\n",
+      "docs": "Feedlog Card Component\n\nA reusable card container component with header and content areas.",
+      "docsTags": [],
+      "usage": {},
+      "props": [],
+      "methods": [],
+      "events": [],
+      "listeners": [],
+      "styles": [],
+      "slots": [],
+      "parts": [],
+      "dependents": [
+        "feedlog-github-issues"
+      ],
+      "dependencies": [],
+      "dependencyGraph": {
+        "feedlog-github-issues": [
+          "feedlog-card"
+        ]
+      }
+    },
+    {
+      "filePath": "src/components/feedlog-github-issues/feedlog-github-issues.tsx",
+      "encapsulation": "shadow",
+      "tag": "feedlog-github-issues",
+      "readme": "# feedlog-github-issues\n\n\n",
+      "docs": "Feedlog GitHub Issues Component\n\nA component for displaying a list of GitHub issues with support for bugs and enhancements.",
+      "docsTags": [],
+      "usage": {},
+      "props": [
+        {
+          "name": "data",
+          "type": "GitHubIssue[] | string | undefined",
+          "complexType": {
+            "original": "string | GitHubIssue[]",
+            "resolved": "GitHubIssue[] | string | undefined",
+            "references": {
+              "GitHubIssue": {
+                "location": "global",
+                "id": "global::GitHubIssue"
+              }
+            }
+          },
+          "mutable": false,
+          "attr": "data",
+          "reflectToAttr": false,
+          "docs": "Issues data as JSON string or array",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "GitHubIssue[]"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "undefined"
+            }
+          ],
+          "optional": true,
+          "required": false,
+          "getter": false,
+          "setter": false
+        },
+        {
+          "name": "maxWidth",
+          "type": "string",
+          "complexType": {
+            "original": "string",
+            "resolved": "string",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "max-width",
+          "reflectToAttr": false,
+          "docs": "Maximum width of the container",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "'56rem'"
+            }
+          ],
+          "default": "'56rem'",
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false,
+          "getter": false,
+          "setter": false
+        }
+      ],
+      "methods": [],
+      "events": [
+        {
+          "event": "feedlogUpvote",
+          "detail": "number",
+          "bubbles": true,
+          "complexType": {
+            "original": "number",
+            "resolved": "number",
+            "references": {}
+          },
+          "cancelable": true,
+          "composed": true,
+          "docs": "Event emitted when an issue is upvoted",
+          "docsTags": []
+        }
+      ],
+      "listeners": [],
+      "styles": [],
+      "slots": [],
+      "parts": [],
+      "dependents": [],
+      "dependencies": [
+        "feedlog-card",
+        "feedlog-button",
+        "feedlog-badge"
+      ],
+      "dependencyGraph": {
+        "feedlog-github-issues": [
+          "feedlog-card",
+          "feedlog-button",
+          "feedlog-badge"
+        ]
+      }
+    }
+  ],
+  "typeLibrary": {}
+}

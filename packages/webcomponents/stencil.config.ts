@@ -31,6 +31,11 @@ export const config: Config = {
     {
       type: 'docs-readme',
     },
+    // Storybook docs-json for auto-generated props documentation
+    {
+      type: 'docs-json',
+      file: './custom-elements.json',
+    },
     // Collection for lazy loading
     {
       type: 'dist-collection',
@@ -39,7 +44,7 @@ export const config: Config = {
     },
   ],
   testing: {
-    browserHeadless: true,
+    browserHeadless: 'shell',
   },
   globalStyle: 'src/global/global.css',
 };

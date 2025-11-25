@@ -1,0 +1,15 @@
+{
+  "entries": [
+    "components/feedlog-card/feedlog-card.js",
+    "components/feedlog-badge/feedlog-badge.js",
+    "components/feedlog-button/feedlog-button.js",
+    "components/feedlog-github-issues/feedlog-github-issues.js"
+  ],
+  "compiler": {
+    "name": "@stencil/core",
+    "version": "4.38.3",
+    "typescriptVersion": "5.9.3"
+  },
+  "collections": [],
+  "bundles": []
+}
