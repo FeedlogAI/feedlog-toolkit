@@ -34,12 +34,12 @@ export const config: Config = {
     // Collection for lazy loading
     {
       type: 'dist-collection',
+      dir: 'dist/collection',
       collectionDir: 'collection',
     },
   ],
   testing: {
-    browserHeadless: 'new',
+    browserHeadless: true,
   },
   globalStyle: 'src/global/global.css',
 };
-
