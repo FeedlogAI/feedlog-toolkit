@@ -1,8 +1,7 @@
 /**
  * Global styles for Feedlog Toolkit Web Components
+ * 
+ * Note: These styles are scoped to web components only and do not affect
+ * the host page. Each component uses shadow DOM for style isolation.
  */
-
-* {
-  box-sizing: border-box;
-}
 

@@ -1,20 +1,32 @@
 :host {
   display: block;
-  --issues-gap: 0.5rem;
-  --issue-card-bg: #ffffff;
-  --issue-card-border: #e5e7eb;
-  --issue-card-padding: 1rem;
-  --issue-title-color: #171717;
-  --issue-body-color: #525252;
-  --bug-icon-color: #dc2626;
-  --badge-enhancement-bg: #2563eb;
-  --badge-enhancement-hover: #1d4ed8;
+  /* Light theme defaults */
+  --feedlog-bg-primary: #fafafa;
+  --feedlog-bg-secondary: #ffffff;
+  --feedlog-text-primary: #171717;
+  --feedlog-text-secondary: #525252;
+  --feedlog-border-color: #e5e7eb;
+  --feedlog-accent-color: #2563eb;
+  --feedlog-destructive-color: #dc2626;
+  --feedlog-gap: 0.5rem;
+  --feedlog-card-padding: 1rem;
+}
+
+:host(.dark) {
+  /* Dark theme values */
+  --feedlog-bg-primary: #0a0a0a;
+  --feedlog-bg-secondary: #171717;
+  --feedlog-text-primary: #fafafa;
+  --feedlog-text-secondary: #a3a3a3;
+  --feedlog-border-color: #262626;
+  --feedlog-accent-color: #3b82f6;
+  --feedlog-destructive-color: #ef4444;
 }
 
 .issues-list {
   display: flex;
   flex-direction: column;
-  gap: var(--issues-gap);
+  gap: var(--feedlog-gap);
 }
 
 .issue-card {
@@ -26,7 +38,7 @@
 }
 
 .issue-header {
-  padding: var(--issue-card-padding);
+  padding: var(--feedlog-card-padding);
 }
 
 .issue-content-wrapper {
@@ -65,7 +77,7 @@
 .bug-icon {
   width: 16px;
   height: 16px;
-  color: var(--bug-icon-color);
+  color: var(--feedlog-destructive-color);
 }
 
 .issue-details {
@@ -82,7 +94,7 @@
 }
 
 .issue-title {
-  color: var(--issue-title-color);
+  color: var(--feedlog-text-primary);
   flex: 1;
   font-size: 0.875rem;
   font-weight: 600;
@@ -91,7 +103,7 @@
 }
 
 .issue-body {
-  color: var(--issue-body-color);
+  color: var(--feedlog-text-secondary);
   font-size: 0.75rem;
   line-height: 1.6;
   margin: 0;

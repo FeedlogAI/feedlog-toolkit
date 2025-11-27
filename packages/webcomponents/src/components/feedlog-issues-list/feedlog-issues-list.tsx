@@ -1,4 +1,4 @@
-import { Component, Prop, Event, EventEmitter, h } from '@stencil/core';
+import { Component, Prop, Event, EventEmitter, h, Host } from '@stencil/core';
 
 interface GitHubIssue {
   id: number;
@@ -23,6 +23,11 @@ export class FeedlogIssuesList {
    * Array of issues to display
    */
   @Prop() issues: GitHubIssue[] = [];
+
+  /**
+   * Theme variant: 'light' or 'dark'
+   */
+  @Prop() theme: 'light' | 'dark' = 'light';
 
   /**
    * Event emitted when an issue is upvoted
@@ -87,39 +92,43 @@ export class FeedlogIssuesList {
 
   render() {
     return (
-      <div class="issues-list">
-        {this.issues.map(issue => (
-          <feedlog-card key={issue.id} class="issue-card">
-            <div slot="header" class="issue-header">
-              <div class="issue-content-wrapper">
-                {issue.type === 'enhancement' && (
-                  <feedlog-button
-                    variant="outline"
-                    size="sm"
-                    class="upvote-button"
-                    onFeedlogClick={(e: CustomEvent) => this.handleUpvote(e, issue.id)}
-                  >
-                    {this.renderThumbsUpIcon()}
-                    <span class="upvote-count">{issue.upvotes || 0}</span>
-                  </feedlog-button>
-                )}
-                {issue.type === 'bug' && <div class="bug-icon-wrapper">{this.renderBugIcon()}</div>}
-                <div class="issue-details">
-                  <div class="issue-title-row">
-                    <h3 class="issue-title">{issue.title}</h3>
-                    {issue.type === 'bug' ? (
-                      <feedlog-badge variant="destructive">Bug</feedlog-badge>
-                    ) : (
-                      <feedlog-badge>Enhancement</feedlog-badge>
-                    )}
+      <Host class={this.theme === 'dark' ? 'dark' : ''}>
+        <div class="issues-list">
+          {this.issues.map(issue => (
+            <feedlog-card key={issue.id} class="issue-card">
+              <div slot="header" class="issue-header">
+                <div class="issue-content-wrapper">
+                  {issue.type === 'enhancement' && (
+                    <feedlog-button
+                      variant="outline"
+                      size="sm"
+                      class="upvote-button"
+                      onFeedlogClick={(e: CustomEvent) => this.handleUpvote(e, issue.id)}
+                    >
+                      {this.renderThumbsUpIcon()}
+                      <span class="upvote-count">{issue.upvotes || 0}</span>
+                    </feedlog-button>
+                  )}
+                  {issue.type === 'bug' && (
+                    <div class="bug-icon-wrapper">{this.renderBugIcon()}</div>
+                  )}
+                  <div class="issue-details">
+                    <div class="issue-title-row">
+                      <h3 class="issue-title">{issue.title}</h3>
+                      {issue.type === 'bug' ? (
+                        <feedlog-badge variant="destructive">Bug</feedlog-badge>
+                      ) : (
+                        <feedlog-badge>Enhancement</feedlog-badge>
+                      )}
+                    </div>
+                    <p class="issue-body">{issue.body}</p>
                   </div>
-                  <p class="issue-body">{issue.body}</p>
                 </div>
               </div>
-            </div>
-          </feedlog-card>
-        ))}
-      </div>
+            </feedlog-card>
+          ))}
+        </div>
+      </Host>
     );
   }
 }

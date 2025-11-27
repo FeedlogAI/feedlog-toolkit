@@ -1,45 +1,66 @@
 :host {
   display: inline-block;
-  --badge-font-size: 0.75rem;
-  --badge-font-weight: 500;
-  --badge-padding-x: 0.5rem;
-  --badge-padding-y: 0.125rem;
-  --badge-border-radius: 0.375rem;
-  --badge-default-bg: #2563eb;
-  --badge-default-text: #ffffff;
-  --badge-default-hover-bg: #1d4ed8;
-  --badge-destructive-bg: #dc2626;
-  --badge-destructive-text: #ffffff;
-  --badge-destructive-hover-bg: #b91c1c;
+  /* Light theme defaults */
+  --feedlog-bg-primary: #fafafa;
+  --feedlog-bg-secondary: #ffffff;
+  --feedlog-text-primary: #171717;
+  --feedlog-text-secondary: #525252;
+  --feedlog-border-color: #e5e7eb;
+  --feedlog-accent-color: #2563eb;
+  --feedlog-destructive-color: #dc2626;
+  --feedlog-badge-font-size: 0.75rem;
+  --feedlog-badge-font-weight: 500;
+  --feedlog-badge-padding-x: 0.5rem;
+  --feedlog-badge-padding-y: 0.125rem;
+  --feedlog-badge-border-radius: 0.375rem;
+  --feedlog-badge-default-bg: var(--feedlog-accent-color);
+  --feedlog-badge-default-text: #ffffff;
+  --feedlog-badge-default-hover-bg: #1d4ed8;
+  --feedlog-badge-destructive-bg: var(--feedlog-destructive-color);
+  --feedlog-badge-destructive-text: #ffffff;
+  --feedlog-badge-destructive-hover-bg: #b91c1c;
+}
+
+:host(.dark) {
+  /* Dark theme values */
+  --feedlog-bg-primary: #0a0a0a;
+  --feedlog-bg-secondary: #171717;
+  --feedlog-text-primary: #fafafa;
+  --feedlog-text-secondary: #a3a3a3;
+  --feedlog-border-color: #262626;
+  --feedlog-accent-color: #3b82f6;
+  --feedlog-destructive-color: #ef4444;
+  --feedlog-badge-default-hover-bg: #2563eb;
+  --feedlog-badge-destructive-hover-bg: #dc2626;
 }
 
 .badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: var(--badge-font-size);
-  font-weight: var(--badge-font-weight);
-  padding: var(--badge-padding-y) var(--badge-padding-x);
-  border-radius: var(--badge-border-radius);
+  font-size: var(--feedlog-badge-font-size);
+  font-weight: var(--feedlog-badge-font-weight);
+  padding: var(--feedlog-badge-padding-y) var(--feedlog-badge-padding-x);
+  border-radius: var(--feedlog-badge-border-radius);
   white-space: nowrap;
   transition: background-color 0.2s ease;
 }
 
 .badge-default {
-  background-color: var(--badge-default-bg);
-  color: var(--badge-default-text);
+  background-color: var(--feedlog-badge-default-bg);
+  color: var(--feedlog-badge-default-text);
 }
 
 .badge-default:hover {
-  background-color: var(--badge-default-hover-bg);
+  background-color: var(--feedlog-badge-default-hover-bg);
 }
 
 .badge-destructive {
-  background-color: var(--badge-destructive-bg);
-  color: var(--badge-destructive-text);
+  background-color: var(--feedlog-badge-destructive-bg);
+  color: var(--feedlog-badge-destructive-text);
 }
 
 .badge-destructive:hover {
-  background-color: var(--badge-destructive-hover-bg);
+  background-color: var(--feedlog-badge-destructive-hover-bg);
 }
 
