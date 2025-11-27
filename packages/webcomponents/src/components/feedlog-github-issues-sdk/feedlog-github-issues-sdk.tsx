@@ -56,9 +56,8 @@ export class FeedlogGithubIssuesSdk {
   componentDidUpdate() {
     // Re-fetch if pk or repos changed
     const pkChanged = this.previousPk !== this.pk;
-    const reposChanged = this.previousRepos !== this.repos && 
-      JSON.stringify(this.previousRepos) !== JSON.stringify(this.repos);
-    
+    const reposChanged = JSON.stringify(this.previousRepos) !== JSON.stringify(this.repos);
+
     if (pkChanged || reposChanged) {
       if (pkChanged) {
         this.initializeSDK();
@@ -77,7 +76,6 @@ export class FeedlogGithubIssuesSdk {
     }
 
     this.sdk = new FeedlogSDK(this.pk);
-    this.sdk.initialize({ apiKey: this.pk });
   }
 
   private parseRepos(): string[] {
@@ -104,7 +102,7 @@ export class FeedlogGithubIssuesSdk {
     }
 
     const repos = this.parseRepos();
-    
+
     if (repos.length === 0) {
       this.error = 'At least one repository is required';
       this.loading = false;
@@ -164,4 +162,3 @@ export class FeedlogGithubIssuesSdk {
     );
   }
 }
-
