@@ -132,11 +132,7 @@ export class FeedlogGithubIssues {
               <p class="issues-subtitle">Track bugs and enhancements for your project</p>
             </div>
             {this.showThemeToggle && (
-              <feedlog-button
-                variant="outline"
-                size="sm"
-                onFeedlogClick={this.toggleTheme}
-              >
+              <feedlog-button variant="outline" size="sm" onFeedlogClick={this.toggleTheme}>
                 {this.currentTheme === 'dark' ? <SunIcon /> : <MoonIcon />}
               </feedlog-button>
             )}
