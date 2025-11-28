@@ -3,9 +3,8 @@
     "components/feedlog-card/feedlog-card.js",
     "components/feedlog-badge/feedlog-badge.js",
     "components/feedlog-button/feedlog-button.js",
-    "components/feedlog-github-issues-base/feedlog-github-issues-base.js",
     "components/feedlog-github-issues/feedlog-github-issues.js",
-    "components/feedlog-github-issues-sdk/feedlog-github-issues-sdk.js",
+    "components/feedlog-github-issues-client/feedlog-github-issues-client.js",
     "components/feedlog-issues-list/feedlog-issues-list.js"
   ],
   "compiler": {

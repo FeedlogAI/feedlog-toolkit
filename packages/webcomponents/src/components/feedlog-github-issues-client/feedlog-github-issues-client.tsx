@@ -2,16 +2,16 @@ import { Component, Prop, Event, EventEmitter, h, State } from '@stencil/core';
 import { FeedlogSDK, GitHubIssue } from '@feedlog-toolkit/core';
 
 /**
- * Feedlog GitHub Issues SDK Component
+ * Feedlog GitHub Issues Client Component
  *
  * A component for displaying GitHub issues fetched using the Feedlog SDK.
- * This component uses the SDK internally to fetch data and delegates to the base component for rendering.
+ * This component uses the SDK internally to fetch data and delegates to feedlog-github-issues for rendering.
  */
 @Component({
-  tag: 'feedlog-github-issues-sdk',
+  tag: 'feedlog-github-issues-client',
   shadow: true,
 })
-export class FeedlogGithubIssuesSdk {
+export class FeedlogGithubIssuesClient {
   /**
    * API key (public key) for the Feedlog SDK
    */
@@ -140,7 +140,7 @@ export class FeedlogGithubIssuesSdk {
 
   render() {
     return (
-      <feedlog-github-issues-base
+      <feedlog-github-issues
         issues={this.issues}
         maxWidth={this.maxWidth}
         theme={this.theme}
@@ -149,7 +149,7 @@ export class FeedlogGithubIssuesSdk {
         error={this.error}
         onFeedlogUpvote={this.handleUpvote}
         onFeedlogThemeChange={this.handleThemeChange}
-      ></feedlog-github-issues-base>
+      ></feedlog-github-issues>
     );
   }
 }

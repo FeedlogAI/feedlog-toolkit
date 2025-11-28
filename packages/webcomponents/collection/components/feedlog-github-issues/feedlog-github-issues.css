@@ -1,131 +1,63 @@
 :host {
   display: block;
-  --issues-bg-color: #fafafa;
-  --issues-text-color: #171717;
-  --issues-text-secondary: #525252;
-  --issues-font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
-  --issues-padding: 2rem;
-  --issues-gap: 0.5rem;
-  --issues-max-width: 56rem;
-  --issue-card-bg: #ffffff;
-  --issue-card-border: #e5e7eb;
-  --issue-card-padding: 1rem;
-  --issue-title-color: #171717;
-  --issue-body-color: #525252;
-  --bug-icon-color: #dc2626;
-  --badge-enhancement-bg: #2563eb;
-  --badge-enhancement-hover: #1d4ed8;
+  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+  
+  /* Light theme defaults */
+  --feedlog-background: #ffffff;
+  --feedlog-foreground: oklch(0.145 0 0);
+  --feedlog-muted-foreground: #717182;
+  --feedlog-destructive: #d4183d;
+  --feedlog-padding: 2rem;
+}
+
+:host(.dark) {
+  /* Dark theme values */
+  --feedlog-background: oklch(0.145 0 0);
+  --feedlog-foreground: oklch(0.985 0 0);
+  --feedlog-muted-foreground: oklch(0.708 0 0);
+  --feedlog-destructive: oklch(0.637 0.237 25.331);
 }
 
 .github-issues-container {
   min-height: 100vh;
-  background-color: var(--issues-bg-color);
-  padding: var(--issues-padding);
-  font-family: var(--issues-font-family);
+  background-color: var(--feedlog-background);
+  padding: var(--feedlog-padding);
   margin: 0 auto;
 }
 
 .issues-header {
   margin-bottom: 1.5rem;
-}
-
-.issues-title {
-  color: var(--issues-text-color);
-  margin: 0 0 0.25rem 0;
-  font-size: 1.5rem;
-  font-weight: 600;
-  line-height: 1.2;
-}
-
-.issues-subtitle {
-  color: var(--issues-text-secondary);
-  font-size: 0.875rem;
-  margin: 0;
-}
-
-.issues-list {
-  display: flex;
-  flex-direction: column;
-  gap: var(--issues-gap);
-}
-
-.issue-card {
-  transition: box-shadow 0.2s ease;
-}
-
-.issue-card:hover {
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-}
-
-.issue-header {
-  padding: var(--issue-card-padding);
-}
-
-.issue-content-wrapper {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-}
-
-.upvote-button {
-  display: flex;
-  flex-direction: column;
-  height: auto;
-  padding: 0.375rem 0.5rem;
-  min-width: 50px;
-  font-size: 0.75rem;
-  gap: 0.125rem;
-}
-
-.thumbs-up-icon {
-  width: 14px;
-  height: 14px;
-}
-
-.upvote-count {
-  margin-top: 0.125rem;
-}
-
-.bug-icon-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 50px;
-  flex-shrink: 0;
-}
-
-.bug-icon {
-  width: 16px;
-  height: 16px;
-  color: var(--bug-icon-color);
-}
-
-.issue-details {
-  flex: 1;
-  min-width: 0;
-}
-
-.issue-title-row {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 0.5rem;
-  margin-bottom: 0.375rem;
 }
 
-.issue-title {
-  color: var(--issue-title-color);
+.header-content {
   flex: 1;
-  font-size: 0.875rem;
-  font-weight: 600;
-  margin: 0;
-  line-height: 1.4;
 }
 
-.issue-body {
-  color: var(--issue-body-color);
-  font-size: 0.75rem;
-  line-height: 1.6;
+.issues-title {
+  color: var(--feedlog-foreground);
+  margin: 0 0 0.25rem 0;
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.issues-subtitle {
+  color: var(--feedlog-muted-foreground);
+  font-size: 0.875rem;
   margin: 0;
+}
+
+.loading-state,
+.error-state {
+  padding: 2rem;
+  text-align: center;
+  color: var(--feedlog-muted-foreground);
+}
+
+.error-state {
+  color: var(--feedlog-destructive);
 }
 

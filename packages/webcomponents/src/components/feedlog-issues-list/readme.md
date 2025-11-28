@@ -30,7 +30,7 @@ A component for displaying a list of GitHub issues with support for bugs and enh
 
 ### Used by
 
- - [feedlog-github-issues-base](../feedlog-github-issues-base)
+ - [feedlog-github-issues](../feedlog-github-issues)
 
 ### Depends on
 
@@ -40,7 +40,7 @@ A component for displaying a list of GitHub issues with support for bugs and enh
 ```mermaid
 graph TD;
   feedlog-issues-list --> feedlog-badge
-  feedlog-github-issues-base --> feedlog-issues-list
+  feedlog-github-issues --> feedlog-issues-list
   style feedlog-issues-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

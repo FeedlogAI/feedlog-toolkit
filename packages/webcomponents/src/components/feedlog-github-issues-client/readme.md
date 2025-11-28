@@ -1,4 +1,4 @@
-# feedlog-github-issues-sdk
+# feedlog-github-issues-client
 
 
 
@@ -7,10 +7,10 @@
 
 ## Overview
 
-Feedlog GitHub Issues SDK Component
+Feedlog GitHub Issues Client Component
 
 A component for displaying GitHub issues fetched using the Feedlog SDK.
-This component uses the SDK internally to fetch data and delegates to the base component for rendering.
+This component uses the SDK internally to fetch data and delegates to feedlog-github-issues for rendering.
 
 ## Properties
 
@@ -35,16 +35,16 @@ This component uses the SDK internally to fetch data and delegates to the base c
 
 ### Depends on
 
-- [feedlog-github-issues-base](../feedlog-github-issues-base)
+- [feedlog-github-issues](../feedlog-github-issues)
 
 ### Graph
 ```mermaid
 graph TD;
-  feedlog-github-issues-sdk --> feedlog-github-issues-base
-  feedlog-github-issues-base --> feedlog-button
-  feedlog-github-issues-base --> feedlog-issues-list
+  feedlog-github-issues-client --> feedlog-github-issues
+  feedlog-github-issues --> feedlog-button
+  feedlog-github-issues --> feedlog-issues-list
   feedlog-issues-list --> feedlog-badge
-  style feedlog-github-issues-sdk fill:#f9f,stroke:#333,stroke-width:4px
+  style feedlog-github-issues-client fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

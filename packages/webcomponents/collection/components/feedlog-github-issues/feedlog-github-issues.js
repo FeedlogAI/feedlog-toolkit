@@ -1,12 +1,24 @@
-import { h } from "@stencil/core";
+import { h, Host } from "@stencil/core";
+/**
+ * Sun icon SVG component
+ */
+const SunIcon = () => (h("svg", { xmlns: "http://www.w3.org/2000/svg", width: "16", height: "16", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "2", "stroke-linecap": "round", "stroke-linejoin": "round" }, h("circle", { cx: "12", cy: "12", r: "4" }), h("path", { d: "M12 2v2" }), h("path", { d: "M12 20v2" }), h("path", { d: "m4.93 4.93 1.41 1.41" }), h("path", { d: "m17.66 17.66 1.41 1.41" }), h("path", { d: "M2 12h2" }), h("path", { d: "M20 12h2" }), h("path", { d: "m6.34 17.66-1.41 1.41" }), h("path", { d: "m19.07 4.93-1.41 1.41" })));
+/**
+ * Moon icon SVG component
+ */
+const MoonIcon = () => (h("svg", { xmlns: "http://www.w3.org/2000/svg", width: "16", height: "16", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "2", "stroke-linecap": "round", "stroke-linejoin": "round" }, h("path", { d: "M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" })));
 /**
  * Feedlog GitHub Issues Component
  *
- * A component for displaying a list of GitHub issues with support for bugs and enhancements.
- * This component accepts data directly and delegates to the base component for rendering.
+ * Component for displaying GitHub issues with support for bugs and enhancements.
+ * This component handles the UI rendering and delegates to feedlog-issues-list for the actual list.
  */
 export class FeedlogGithubIssues {
     constructor() {
+        /**
+         * Array of issues to display
+         */
+        this.issues = [];
         /**
          * Maximum width of the container
          */
@@ -16,44 +28,59 @@ export class FeedlogGithubIssues {
          */
         this.theme = 'light';
         /**
+         * Loading state - shows loading indicator when true
+         */
+        this.loading = false;
+        /**
+         * Error message - shows error state when set
+         */
+        this.error = null;
+        /**
          * Whether to show the theme toggle button
          */
         this.showThemeToggle = true;
+        /**
+         * Internal state for theme
+         */
+        this.currentTheme = 'light';
         this.handleUpvote = (event) => {
             this.feedlogUpvote.emit(event.detail);
         };
-        this.handleThemeChange = (event) => {
-            this.feedlogThemeChange.emit(event.detail);
+        this.toggleTheme = () => {
+            this.currentTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
+            this.theme = this.currentTheme;
+            this.feedlogThemeChange.emit(this.currentTheme);
         };
     }
-    parseData() {
-        if (!this.data) {
-            return [];
-        }
-        if (typeof this.data === 'string') {
-            try {
-                return JSON.parse(this.data);
-            }
-            catch (_a) {
-                return [];
-            }
-        }
-        return Array.isArray(this.data) ? this.data : [];
+    componentWillLoad() {
+        this.currentTheme = this.theme;
     }
     render() {
-        const issues = this.parseData();
-        return (h("feedlog-github-issues-base", { key: '571f86cb7c9e12bdcccd7d7816f18ed2530fbe85', issues: issues, maxWidth: this.maxWidth, theme: this.theme, showThemeToggle: this.showThemeToggle, loading: false, error: null, onFeedlogUpvote: this.handleUpvote, onFeedlogThemeChange: this.handleThemeChange }));
+        const containerStyle = {
+            maxWidth: this.maxWidth,
+        };
+        return (h(Host, { key: '5d6203df6327ffff8f17da5fffd43993d442a60b', class: this.currentTheme === 'dark' ? 'dark' : '' }, h("div", { key: 'ac9bcac5bc23ecbc7ea79c32eecc14b3ecc8b530', class: "github-issues-container", style: containerStyle }, h("header", { key: 'f7950ec9a7a84fafb74d80648372ba7d85acfc6a', class: "issues-header" }, h("div", { key: 'bec0c5385ae569556f8f12d18d991f12dd732760', class: "header-content" }, h("h1", { key: '07576812a0c43c81b4ec83ac2fd106b24504148a', class: "issues-title" }, "GitHub Issues"), h("p", { key: '1e19055e3f328f5fd516aebcc3c736669ba0573d', class: "issues-subtitle" }, "Track bugs and enhancements for your project")), this.showThemeToggle && (h("feedlog-button", { key: 'f26360f4df8dd2fca4be7826ccfd2741d03a3239', variant: "outline", size: "sm", onFeedlogClick: this.toggleTheme }, this.currentTheme === 'dark' ? h(SunIcon, null) : h(MoonIcon, null)))), this.loading && (h("div", { key: '32779a0980c5ebcc259f042c6d34df96040db6f9', class: "loading-state" }, h("p", { key: 'b9acf33f1fc35ed634501ad81ce1b6ea1813ce9e' }, "Loading issues..."))), this.error && (h("div", { key: '996ca69d9476e741c85eb505e29384fccb47700c', class: "error-state" }, h("p", { key: '717ba2ef46c2a2b0873faa51cdb3513376d5bc99' }, "Error: ", this.error))), !this.loading && !this.error && (h("feedlog-issues-list", { key: '5a91b17fcd67198209af0f0f18b7331ecaeb2d73', issues: this.issues, theme: this.currentTheme, onFeedlogUpvote: this.handleUpvote })))));
     }
     static get is() { return "feedlog-github-issues"; }
     static get encapsulation() { return "shadow"; }
+    static get originalStyleUrls() {
+        return {
+            "$": ["feedlog-github-issues.css"]
+        };
+    }
+    static get styleUrls() {
+        return {
+            "$": ["feedlog-github-issues.css"]
+        };
+    }
     static get properties() {
         return {
-            "data": {
-                "type": "string",
+            "issues": {
+                "type": "unknown",
                 "mutable": false,
                 "complexType": {
-                    "original": "string | GitHubIssue[]",
-                    "resolved": "GitHubIssue[] | string | undefined",
+                    "original": "GitHubIssue[]",
+                    "resolved": "GitHubIssue[]",
                     "references": {
                         "GitHubIssue": {
                             "location": "import",
@@ -63,15 +90,14 @@ export class FeedlogGithubIssues {
                     }
                 },
                 "required": false,
-                "optional": true,
+                "optional": false,
                 "docs": {
                     "tags": [],
-                    "text": "Issues data as JSON string or array"
+                    "text": "Array of issues to display"
                 },
                 "getter": false,
                 "setter": false,
-                "reflect": false,
-                "attribute": "data"
+                "defaultValue": "[]"
             },
             "maxWidth": {
                 "type": "string",
@@ -95,7 +121,7 @@ export class FeedlogGithubIssues {
             },
             "theme": {
                 "type": "string",
-                "mutable": false,
+                "mutable": true,
                 "complexType": {
                     "original": "'light' | 'dark'",
                     "resolved": "\"dark\" | \"light\"",
@@ -112,6 +138,46 @@ export class FeedlogGithubIssues {
                 "reflect": false,
                 "attribute": "theme",
                 "defaultValue": "'light'"
+            },
+            "loading": {
+                "type": "boolean",
+                "mutable": false,
+                "complexType": {
+                    "original": "boolean",
+                    "resolved": "boolean",
+                    "references": {}
+                },
+                "required": false,
+                "optional": false,
+                "docs": {
+                    "tags": [],
+                    "text": "Loading state - shows loading indicator when true"
+                },
+                "getter": false,
+                "setter": false,
+                "reflect": false,
+                "attribute": "loading",
+                "defaultValue": "false"
+            },
+            "error": {
+                "type": "string",
+                "mutable": false,
+                "complexType": {
+                    "original": "string | null",
+                    "resolved": "null | string",
+                    "references": {}
+                },
+                "required": false,
+                "optional": false,
+                "docs": {
+                    "tags": [],
+                    "text": "Error message - shows error state when set"
+                },
+                "getter": false,
+                "setter": false,
+                "reflect": false,
+                "attribute": "error",
+                "defaultValue": "null"
             },
             "showThemeToggle": {
                 "type": "boolean",
@@ -133,6 +199,11 @@ export class FeedlogGithubIssues {
                 "attribute": "show-theme-toggle",
                 "defaultValue": "true"
             }
+        };
+    }
+    static get states() {
+        return {
+            "currentTheme": {}
         };
     }
     static get events() {

@@ -50,18 +50,34 @@ const meta: Meta<FeedlogGithubIssues> = {
     layout: 'padded',
   },
   argTypes: {
-    data: {
+    issues: {
       control: 'object',
-      description: 'Issues data as JSON string or array',
+      description: 'Array of GitHub issues to display',
     },
     maxWidth: {
       control: 'text',
       description: 'Maximum width of the container',
     },
+    theme: {
+      control: 'select',
+      options: ['light', 'dark'],
+      description: 'Theme variant',
+    },
+    loading: {
+      control: 'boolean',
+      description: 'Loading state',
+    },
+    error: {
+      control: 'text',
+      description: 'Error message',
+    },
   },
   args: {
-    data: JSON.stringify(sampleIssues),
+    issues: sampleIssues,
     maxWidth: '56rem',
+    theme: 'light',
+    loading: false,
+    error: null,
   },
 };
 
@@ -71,43 +87,85 @@ type Story = StoryObj<FeedlogGithubIssues>;
 
 export const Default: Story = {
   args: {
-    data: JSON.stringify(sampleIssues),
+    issues: sampleIssues,
   },
   render: props => <feedlog-github-issues {...props} />,
+  play: async ({ canvasElement, args }) => {
+    const element = canvasElement.querySelector('feedlog-github-issues');
+    if (element && args.issues) {
+      (element as any).issues = args.issues;
+    }
+  },
 };
 
-export const EnhancementsOnly: Story = {
+export const Loading: Story = {
   args: {
-    data: JSON.stringify(sampleIssues.filter(issue => issue.type === 'enhancement')),
+    issues: [],
+    loading: true,
   },
   render: props => <feedlog-github-issues {...props} />,
+  play: async ({ canvasElement, args }) => {
+    const element = canvasElement.querySelector('feedlog-github-issues');
+    if (element && args.issues) {
+      (element as any).issues = args.issues;
+    }
+  },
 };
 
-export const BugsOnly: Story = {
+export const Error: Story = {
   args: {
-    data: JSON.stringify(sampleIssues.filter(issue => issue.type === 'bug')),
+    issues: [],
+    loading: false,
+    error: 'Failed to fetch issues from GitHub API',
   },
   render: props => <feedlog-github-issues {...props} />,
+  play: async ({ canvasElement, args }) => {
+    const element = canvasElement.querySelector('feedlog-github-issues');
+    if (element && args.issues) {
+      (element as any).issues = args.issues;
+    }
+  },
 };
 
-export const EmptyState: Story = {
+export const Empty: Story = {
   args: {
-    data: JSON.stringify([]),
+    issues: [],
+    loading: false,
+    error: null,
   },
   render: props => <feedlog-github-issues {...props} />,
+  play: async ({ canvasElement, args }) => {
+    const element = canvasElement.querySelector('feedlog-github-issues');
+    if (element && args.issues) {
+      (element as any).issues = args.issues;
+    }
+  },
+};
+
+export const DarkTheme: Story = {
+  args: {
+    issues: sampleIssues,
+    theme: 'dark',
+  },
+  render: props => <feedlog-github-issues {...props} />,
+  play: async ({ canvasElement, args }) => {
+    const element = canvasElement.querySelector('feedlog-github-issues');
+    if (element && args.issues) {
+      (element as any).issues = args.issues;
+    }
+  },
 };
 
 export const NarrowWidth: Story = {
   args: {
-    data: JSON.stringify(sampleIssues.slice(0, 3)),
+    issues: sampleIssues.slice(0, 3),
     maxWidth: '32rem',
   },
   render: props => <feedlog-github-issues {...props} />,
-};
-
-export const SingleIssue: Story = {
-  args: {
-    data: JSON.stringify([sampleIssues[0]]),
+  play: async ({ canvasElement, args }) => {
+    const element = canvasElement.querySelector('feedlog-github-issues');
+    if (element && args.issues) {
+      (element as any).issues = args.issues;
+    }
   },
-  render: props => <feedlog-github-issues {...props} />,
 };

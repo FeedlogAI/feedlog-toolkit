@@ -47,55 +47,77 @@ const meta = {
         layout: 'padded',
     },
     argTypes: {
-        data: {
+        issues: {
             control: 'object',
-            description: 'Issues data as JSON string or array',
+            description: 'Array of GitHub issues to display',
         },
         maxWidth: {
             control: 'text',
             description: 'Maximum width of the container',
         },
+        theme: {
+            control: 'select',
+            options: ['light', 'dark'],
+            description: 'Theme variant',
+        },
+        loading: {
+            control: 'boolean',
+            description: 'Loading state',
+        },
+        error: {
+            control: 'text',
+            description: 'Error message',
+        },
     },
     args: {
-        data: JSON.stringify(sampleIssues),
+        issues: sampleIssues,
         maxWidth: '56rem',
+        theme: 'light',
+        loading: false,
+        error: null,
     },
 };
 export default meta;
 export const Default = {
     args: {
-        data: JSON.stringify(sampleIssues),
+        issues: sampleIssues,
     },
     render: props => h("feedlog-github-issues", Object.assign({}, props)),
 };
-export const EnhancementsOnly = {
+export const Loading = {
     args: {
-        data: JSON.stringify(sampleIssues.filter(issue => issue.type === 'enhancement')),
+        issues: [],
+        loading: true,
     },
     render: props => h("feedlog-github-issues", Object.assign({}, props)),
 };
-export const BugsOnly = {
+export const Error = {
     args: {
-        data: JSON.stringify(sampleIssues.filter(issue => issue.type === 'bug')),
+        issues: [],
+        loading: false,
+        error: 'Failed to fetch issues from GitHub API',
     },
     render: props => h("feedlog-github-issues", Object.assign({}, props)),
 };
-export const EmptyState = {
+export const Empty = {
     args: {
-        data: JSON.stringify([]),
+        issues: [],
+        loading: false,
+        error: null,
+    },
+    render: props => h("feedlog-github-issues", Object.assign({}, props)),
+};
+export const DarkTheme = {
+    args: {
+        issues: sampleIssues,
+        theme: 'dark',
     },
     render: props => h("feedlog-github-issues", Object.assign({}, props)),
 };
 export const NarrowWidth = {
     args: {
-        data: JSON.stringify(sampleIssues.slice(0, 3)),
+        issues: sampleIssues.slice(0, 3),
         maxWidth: '32rem',
-    },
-    render: props => h("feedlog-github-issues", Object.assign({}, props)),
-};
-export const SingleIssue = {
-    args: {
-        data: JSON.stringify([sampleIssues[0]]),
     },
     render: props => h("feedlog-github-issues", Object.assign({}, props)),
 };
