@@ -32,15 +32,12 @@ export const createForwardRef = <PropType, ElementType>(ReactComponent: any, dis
   const forwardRef = (
     props: StencilReactExternalProps<PropType, ElementType>,
     ref: StencilReactForwardedRef<ElementType>
-  ): React.ReactElement => {
+  ) => {
     return <ReactComponent {...props} forwardedRef={ref} />;
   };
   forwardRef.displayName = displayName;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return React.forwardRef(forwardRef as any) as React.ForwardRefExoticComponent<
-    React.PropsWithoutRef<StencilReactExternalProps<PropType, ElementType>> & React.RefAttributes<ElementType>
-  >;
+  return React.forwardRef(forwardRef);
 };
 
 export const defineCustomElement = (tagName: string, customElement: any) => {

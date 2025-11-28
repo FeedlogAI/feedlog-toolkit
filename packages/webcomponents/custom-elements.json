@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-11-25T19:12:23",
+  "timestamp": "2025-11-28T09:29:53",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.38.3",
@@ -57,11 +57,11 @@
       "slots": [],
       "parts": [],
       "dependents": [
-        "feedlog-github-issues"
+        "feedlog-issues-list"
       ],
       "dependencies": [],
       "dependencyGraph": {
-        "feedlog-github-issues": [
+        "feedlog-issues-list": [
           "feedlog-badge"
         ]
       }
@@ -250,11 +250,11 @@
       "slots": [],
       "parts": [],
       "dependents": [
-        "feedlog-github-issues"
+        "feedlog-issues-list"
       ],
       "dependencies": [],
       "dependencyGraph": {
-        "feedlog-github-issues": [
+        "feedlog-issues-list": [
           "feedlog-button"
         ]
       }
@@ -275,11 +275,11 @@
       "slots": [],
       "parts": [],
       "dependents": [
-        "feedlog-github-issues"
+        "feedlog-issues-list"
       ],
       "dependencies": [],
       "dependencyGraph": {
-        "feedlog-github-issues": [
+        "feedlog-issues-list": [
           "feedlog-card"
         ]
       }
@@ -289,7 +289,7 @@
       "encapsulation": "shadow",
       "tag": "feedlog-github-issues",
       "readme": "# feedlog-github-issues\n\n\n",
-      "docs": "Feedlog GitHub Issues Component\n\nA component for displaying a list of GitHub issues with support for bugs and enhancements.",
+      "docs": "Feedlog GitHub Issues Component\n\nA component for displaying a list of GitHub issues with support for bugs and enhancements.\nThis component accepts data directly and delegates to the base component for rendering.",
       "docsTags": [],
       "usage": {},
       "props": [
@@ -301,8 +301,9 @@
             "resolved": "GitHubIssue[] | string | undefined",
             "references": {
               "GitHubIssue": {
-                "location": "global",
-                "id": "global::GitHubIssue"
+                "location": "import",
+                "path": "@feedlog-toolkit/core",
+                "id": "../core/dist/index.d.ts::GitHubIssue"
               }
             }
           },
@@ -355,6 +356,40 @@
           "required": false,
           "getter": false,
           "setter": false
+        },
+        {
+          "name": "theme",
+          "type": "\"dark\" | \"light\"",
+          "complexType": {
+            "original": "'light' | 'dark'",
+            "resolved": "\"dark\" | \"light\"",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "theme",
+          "reflectToAttr": false,
+          "docs": "Theme variant: 'light' or 'dark'",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "'light'"
+            }
+          ],
+          "default": "'light'",
+          "values": [
+            {
+              "value": "dark",
+              "type": "string"
+            },
+            {
+              "value": "light",
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false,
+          "getter": false,
+          "setter": false
         }
       ],
       "methods": [],
@@ -380,18 +415,522 @@
       "parts": [],
       "dependents": [],
       "dependencies": [
-        "feedlog-card",
-        "feedlog-button",
-        "feedlog-badge"
+        "feedlog-github-issues-base"
       ],
       "dependencyGraph": {
         "feedlog-github-issues": [
+          "feedlog-github-issues-base"
+        ],
+        "feedlog-github-issues-base": [
+          "feedlog-issues-list"
+        ],
+        "feedlog-issues-list": [
           "feedlog-card",
           "feedlog-button",
           "feedlog-badge"
         ]
       }
+    },
+    {
+      "filePath": "src/components/feedlog-github-issues-base/feedlog-github-issues-base.tsx",
+      "encapsulation": "shadow",
+      "tag": "feedlog-github-issues-base",
+      "readme": "# feedlog-github-issues-base\n\n\n",
+      "docs": "Feedlog GitHub Issues Base Component\n\nShared base component for displaying GitHub issues with support for bugs and enhancements.\nThis component handles the UI rendering and delegates to feedlog-issues-list for the actual list.",
+      "docsTags": [],
+      "usage": {},
+      "props": [
+        {
+          "name": "error",
+          "type": "null | string",
+          "complexType": {
+            "original": "string | null",
+            "resolved": "null | string",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "error",
+          "reflectToAttr": false,
+          "docs": "Error message - shows error state when set",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "null"
+            }
+          ],
+          "default": "null",
+          "values": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false,
+          "getter": false,
+          "setter": false
+        },
+        {
+          "name": "issues",
+          "type": "GitHubIssue[]",
+          "complexType": {
+            "original": "GitHubIssue[]",
+            "resolved": "GitHubIssue[]",
+            "references": {
+              "GitHubIssue": {
+                "location": "import",
+                "path": "@feedlog-toolkit/core",
+                "id": "../core/dist/index.d.ts::GitHubIssue"
+              }
+            }
+          },
+          "mutable": false,
+          "reflectToAttr": false,
+          "docs": "Array of issues to display",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "[]"
+            }
+          ],
+          "default": "[]",
+          "values": [
+            {
+              "type": "GitHubIssue[]"
+            }
+          ],
+          "optional": false,
+          "required": false,
+          "getter": false,
+          "setter": false
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "complexType": {
+            "original": "boolean",
+            "resolved": "boolean",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "loading",
+          "reflectToAttr": false,
+          "docs": "Loading state - shows loading indicator when true",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "false"
+            }
+          ],
+          "default": "false",
+          "values": [
+            {
+              "type": "boolean"
+            }
+          ],
+          "optional": false,
+          "required": false,
+          "getter": false,
+          "setter": false
+        },
+        {
+          "name": "maxWidth",
+          "type": "string",
+          "complexType": {
+            "original": "string",
+            "resolved": "string",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "max-width",
+          "reflectToAttr": false,
+          "docs": "Maximum width of the container",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "'56rem'"
+            }
+          ],
+          "default": "'56rem'",
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false,
+          "getter": false,
+          "setter": false
+        },
+        {
+          "name": "theme",
+          "type": "\"dark\" | \"light\"",
+          "complexType": {
+            "original": "'light' | 'dark'",
+            "resolved": "\"dark\" | \"light\"",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "theme",
+          "reflectToAttr": false,
+          "docs": "Theme variant: 'light' or 'dark'",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "'light'"
+            }
+          ],
+          "default": "'light'",
+          "values": [
+            {
+              "value": "dark",
+              "type": "string"
+            },
+            {
+              "value": "light",
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false,
+          "getter": false,
+          "setter": false
+        }
+      ],
+      "methods": [],
+      "events": [
+        {
+          "event": "feedlogUpvote",
+          "detail": "number",
+          "bubbles": true,
+          "complexType": {
+            "original": "number",
+            "resolved": "number",
+            "references": {}
+          },
+          "cancelable": true,
+          "composed": true,
+          "docs": "Event emitted when an issue is upvoted",
+          "docsTags": []
+        }
+      ],
+      "listeners": [],
+      "styles": [],
+      "slots": [],
+      "parts": [],
+      "dependents": [
+        "feedlog-github-issues",
+        "feedlog-github-issues-sdk"
+      ],
+      "dependencies": [
+        "feedlog-issues-list"
+      ],
+      "dependencyGraph": {
+        "feedlog-github-issues-base": [
+          "feedlog-issues-list"
+        ],
+        "feedlog-issues-list": [
+          "feedlog-card",
+          "feedlog-button",
+          "feedlog-badge"
+        ],
+        "feedlog-github-issues": [
+          "feedlog-github-issues-base"
+        ],
+        "feedlog-github-issues-sdk": [
+          "feedlog-github-issues-base"
+        ]
+      }
+    },
+    {
+      "filePath": "src/components/feedlog-github-issues-sdk/feedlog-github-issues-sdk.tsx",
+      "encapsulation": "shadow",
+      "tag": "feedlog-github-issues-sdk",
+      "readme": "# feedlog-github-issues-sdk\n\n\n",
+      "docs": "Feedlog GitHub Issues SDK Component\n\nA component for displaying GitHub issues fetched using the Feedlog SDK.\nThis component uses the SDK internally to fetch data and delegates to the base component for rendering.",
+      "docsTags": [],
+      "usage": {},
+      "props": [
+        {
+          "name": "maxWidth",
+          "type": "string",
+          "complexType": {
+            "original": "string",
+            "resolved": "string",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "max-width",
+          "reflectToAttr": false,
+          "docs": "Maximum width of the container",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "'56rem'"
+            }
+          ],
+          "default": "'56rem'",
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false,
+          "getter": false,
+          "setter": false
+        },
+        {
+          "name": "pk",
+          "type": "string",
+          "complexType": {
+            "original": "string",
+            "resolved": "string",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "pk",
+          "reflectToAttr": false,
+          "docs": "API key (public key) for the Feedlog SDK",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": true,
+          "getter": false,
+          "setter": false
+        },
+        {
+          "name": "repos",
+          "type": "string | string[] | undefined",
+          "complexType": {
+            "original": "string[] | string",
+            "resolved": "string | string[] | undefined",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "repos",
+          "reflectToAttr": false,
+          "docs": "Array of repository IDs (e.g., ['owner/repo']) or JSON string",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "string[]"
+            },
+            {
+              "type": "undefined"
+            }
+          ],
+          "optional": true,
+          "required": false,
+          "getter": false,
+          "setter": false
+        },
+        {
+          "name": "theme",
+          "type": "\"dark\" | \"light\"",
+          "complexType": {
+            "original": "'light' | 'dark'",
+            "resolved": "\"dark\" | \"light\"",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "theme",
+          "reflectToAttr": false,
+          "docs": "Theme variant: 'light' or 'dark'",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "'light'"
+            }
+          ],
+          "default": "'light'",
+          "values": [
+            {
+              "value": "dark",
+              "type": "string"
+            },
+            {
+              "value": "light",
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false,
+          "getter": false,
+          "setter": false
+        }
+      ],
+      "methods": [],
+      "events": [
+        {
+          "event": "feedlogUpvote",
+          "detail": "number",
+          "bubbles": true,
+          "complexType": {
+            "original": "number",
+            "resolved": "number",
+            "references": {}
+          },
+          "cancelable": true,
+          "composed": true,
+          "docs": "Event emitted when an issue is upvoted",
+          "docsTags": []
+        }
+      ],
+      "listeners": [],
+      "styles": [],
+      "slots": [],
+      "parts": [],
+      "dependents": [],
+      "dependencies": [
+        "feedlog-github-issues-base"
+      ],
+      "dependencyGraph": {
+        "feedlog-github-issues-sdk": [
+          "feedlog-github-issues-base"
+        ],
+        "feedlog-github-issues-base": [
+          "feedlog-issues-list"
+        ],
+        "feedlog-issues-list": [
+          "feedlog-card",
+          "feedlog-button",
+          "feedlog-badge"
+        ]
+      }
+    },
+    {
+      "filePath": "src/components/feedlog-issues-list/feedlog-issues-list.tsx",
+      "encapsulation": "shadow",
+      "tag": "feedlog-issues-list",
+      "readme": "# feedlog-issues-list\n\n\n",
+      "docs": "Feedlog Issues List Component\n\nA component for displaying a list of GitHub issues with support for bugs and enhancements.",
+      "docsTags": [],
+      "usage": {},
+      "props": [
+        {
+          "name": "issues",
+          "type": "GitHubIssue[]",
+          "complexType": {
+            "original": "GitHubIssue[]",
+            "resolved": "GitHubIssue[]",
+            "references": {
+              "GitHubIssue": {
+                "location": "global",
+                "id": "global::GitHubIssue"
+              }
+            }
+          },
+          "mutable": false,
+          "reflectToAttr": false,
+          "docs": "Array of issues to display",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "[]"
+            }
+          ],
+          "default": "[]",
+          "values": [
+            {
+              "type": "GitHubIssue[]"
+            }
+          ],
+          "optional": false,
+          "required": false,
+          "getter": false,
+          "setter": false
+        },
+        {
+          "name": "theme",
+          "type": "\"dark\" | \"light\"",
+          "complexType": {
+            "original": "'light' | 'dark'",
+            "resolved": "\"dark\" | \"light\"",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "theme",
+          "reflectToAttr": false,
+          "docs": "Theme variant: 'light' or 'dark'",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "'light'"
+            }
+          ],
+          "default": "'light'",
+          "values": [
+            {
+              "value": "dark",
+              "type": "string"
+            },
+            {
+              "value": "light",
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false,
+          "getter": false,
+          "setter": false
+        }
+      ],
+      "methods": [],
+      "events": [
+        {
+          "event": "feedlogUpvote",
+          "detail": "number",
+          "bubbles": true,
+          "complexType": {
+            "original": "number",
+            "resolved": "number",
+            "references": {}
+          },
+          "cancelable": true,
+          "composed": true,
+          "docs": "Event emitted when an issue is upvoted",
+          "docsTags": []
+        }
+      ],
+      "listeners": [],
+      "styles": [],
+      "slots": [],
+      "parts": [],
+      "dependents": [
+        "feedlog-github-issues-base"
+      ],
+      "dependencies": [
+        "feedlog-card",
+        "feedlog-button",
+        "feedlog-badge"
+      ],
+      "dependencyGraph": {
+        "feedlog-issues-list": [
+          "feedlog-card",
+          "feedlog-button",
+          "feedlog-badge"
+        ],
+        "feedlog-github-issues-base": [
+          "feedlog-issues-list"
+        ]
+      }
     }
   ],
-  "typeLibrary": {}
+  "typeLibrary": {
+    "../core/dist/index.d.ts::GitHubIssue": {
+      "declaration": "export interface GitHubIssue {\n    id: number;\n    title: string;\n    body: string;\n    type: 'bug' | 'enhancement';\n    upvotes?: number;\n}",
+      "docstring": "",
+      "path": "../core/dist/index.d.ts"
+    }
+  }
 }

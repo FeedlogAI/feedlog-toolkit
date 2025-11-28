@@ -50,3 +50,14 @@
   margin: 0;
 }
 
+.loading-state,
+.error-state {
+  padding: 2rem;
+  text-align: center;
+  color: var(--feedlog-text-secondary);
+}
+
+.error-state {
+  color: var(--feedlog-destructive-color);
+}
+

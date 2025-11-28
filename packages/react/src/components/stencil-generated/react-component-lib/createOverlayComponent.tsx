@@ -136,7 +136,7 @@ export const createOverlayComponent = <OverlayComponent extends object, OverlayT
     }
   }
 
-  return React.forwardRef<OverlayType, Omit<Props, 'forwardedRef'>>((props, ref) => {
-    return <Overlay {...(props as Props)} forwardedRef={ref} />;
+  return React.forwardRef<OverlayType, Props>((props, ref) => {
+    return <Overlay {...props} forwardedRef={ref} />;
   });
 };

@@ -22,12 +22,12 @@ A label component with variant support for different styles.
 
 ### Used by
 
- - [feedlog-github-issues](../feedlog-github-issues)
+ - [feedlog-issues-list](../feedlog-issues-list)
 
 ### Graph
 ```mermaid
 graph TD;
-  feedlog-github-issues --> feedlog-badge
+  feedlog-issues-list --> feedlog-badge
   style feedlog-badge fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

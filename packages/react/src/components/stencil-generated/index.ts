@@ -12,3 +12,6 @@ export const FeedlogBadge = /*@__PURE__*/createReactComponent<JSX.FeedlogBadge, 
 export const FeedlogButton = /*@__PURE__*/createReactComponent<JSX.FeedlogButton, HTMLFeedlogButtonElement>('feedlog-button');
 export const FeedlogCard = /*@__PURE__*/createReactComponent<JSX.FeedlogCard, HTMLFeedlogCardElement>('feedlog-card');
 export const FeedlogGithubIssues = /*@__PURE__*/createReactComponent<JSX.FeedlogGithubIssues, HTMLFeedlogGithubIssuesElement>('feedlog-github-issues');
+export const FeedlogGithubIssuesBase = /*@__PURE__*/createReactComponent<JSX.FeedlogGithubIssuesBase, HTMLFeedlogGithubIssuesBaseElement>('feedlog-github-issues-base');
+export const FeedlogGithubIssuesSdk = /*@__PURE__*/createReactComponent<JSX.FeedlogGithubIssuesSdk, HTMLFeedlogGithubIssuesSdkElement>('feedlog-github-issues-sdk');
+export const FeedlogIssuesList = /*@__PURE__*/createReactComponent<JSX.FeedlogIssuesList, HTMLFeedlogIssuesListElement>('feedlog-issues-list');

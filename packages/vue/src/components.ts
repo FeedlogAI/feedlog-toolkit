@@ -29,6 +29,33 @@ export const FeedlogCard = /*@__PURE__*/ defineContainer<JSX.FeedlogCard>('feedl
 export const FeedlogGithubIssues = /*@__PURE__*/ defineContainer<JSX.FeedlogGithubIssues>('feedlog-github-issues', undefined, [
   'data',
   'maxWidth',
+  'theme',
+  'feedlogUpvote'
+]);
+
+
+export const FeedlogGithubIssuesBase = /*@__PURE__*/ defineContainer<JSX.FeedlogGithubIssuesBase>('feedlog-github-issues-base', undefined, [
+  'issues',
+  'maxWidth',
+  'theme',
+  'loading',
+  'error',
+  'feedlogUpvote'
+]);
+
+
+export const FeedlogGithubIssuesSdk = /*@__PURE__*/ defineContainer<JSX.FeedlogGithubIssuesSdk>('feedlog-github-issues-sdk', undefined, [
+  'pk',
+  'repos',
+  'maxWidth',
+  'theme',
+  'feedlogUpvote'
+]);
+
+
+export const FeedlogIssuesList = /*@__PURE__*/ defineContainer<JSX.FeedlogIssuesList>('feedlog-issues-list', undefined, [
+  'issues',
+  'theme',
   'feedlogUpvote'
 ]);
 

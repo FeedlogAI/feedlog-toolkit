@@ -15,12 +15,12 @@ A reusable card container component with header and content areas.
 
 ### Used by
 
- - [feedlog-github-issues](../feedlog-github-issues)
+ - [feedlog-issues-list](../feedlog-issues-list)
 
 ### Graph
 ```mermaid
 graph TD;
-  feedlog-github-issues --> feedlog-card
+  feedlog-issues-list --> feedlog-card
   style feedlog-card fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

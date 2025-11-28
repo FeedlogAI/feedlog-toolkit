@@ -1,21 +1,14 @@
-import { Component, Prop, Event, EventEmitter, h, Host } from '@stencil/core';
-
-interface GitHubIssue {
-  id: number;
-  title: string;
-  body: string;
-  type: 'bug' | 'enhancement';
-  upvotes?: number;
-}
+import { Component, Prop, Event, EventEmitter, h } from '@stencil/core';
+import { GitHubIssue } from '@feedlog-toolkit/core';
 
 /**
  * Feedlog GitHub Issues Component
  *
  * A component for displaying a list of GitHub issues with support for bugs and enhancements.
+ * This component accepts data directly and delegates to the base component for rendering.
  */
 @Component({
   tag: 'feedlog-github-issues',
-  styleUrl: 'feedlog-github-issues.css',
   shadow: true,
 })
 export class FeedlogGithubIssues {
@@ -61,25 +54,16 @@ export class FeedlogGithubIssues {
 
   render() {
     const issues = this.parseData();
-    const containerStyle = {
-      maxWidth: this.maxWidth,
-    };
 
     return (
-      <Host class={this.theme === 'dark' ? 'dark' : ''}>
-        <div class="github-issues-container" style={containerStyle}>
-          <header class="issues-header">
-            <h1 class="issues-title">GitHub Issues</h1>
-            <p class="issues-subtitle">Track bugs and enhancements for your project</p>
-          </header>
-
-          <feedlog-issues-list
-            issues={issues}
-            theme={this.theme}
-            onFeedlogUpvote={this.handleUpvote}
-          ></feedlog-issues-list>
-        </div>
-      </Host>
+      <feedlog-github-issues-base
+        issues={issues}
+        maxWidth={this.maxWidth}
+        theme={this.theme}
+        loading={false}
+        error={null}
+        onFeedlogUpvote={this.handleUpvote}
+      ></feedlog-github-issues-base>
     );
   }
 }

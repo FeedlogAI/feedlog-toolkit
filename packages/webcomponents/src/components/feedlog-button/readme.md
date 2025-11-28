@@ -32,12 +32,12 @@ A button component with variant and size support.
 
 ### Used by
 
- - [feedlog-github-issues](../feedlog-github-issues)
+ - [feedlog-issues-list](../feedlog-issues-list)
 
 ### Graph
 ```mermaid
 graph TD;
-  feedlog-github-issues --> feedlog-button
+  feedlog-issues-list --> feedlog-button
   style feedlog-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

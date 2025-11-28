@@ -1,15 +1,14 @@
-import { Component, Prop, Event, EventEmitter, h, Host, State } from '@stencil/core';
+import { Component, Prop, Event, EventEmitter, h, State } from '@stencil/core';
 import { FeedlogSDK, GitHubIssue } from '@feedlog-toolkit/core';
 
 /**
  * Feedlog GitHub Issues SDK Component
  *
  * A component for displaying GitHub issues fetched using the Feedlog SDK.
- * This component uses the SDK internally to fetch data.
+ * This component uses the SDK internally to fetch data and delegates to the base component for rendering.
  */
 @Component({
   tag: 'feedlog-github-issues-sdk',
-  styleUrl: 'feedlog-github-issues-sdk.css',
   shadow: true,
 })
 export class FeedlogGithubIssuesSdk {
@@ -126,39 +125,15 @@ export class FeedlogGithubIssuesSdk {
   };
 
   render() {
-    const containerStyle = {
-      maxWidth: this.maxWidth,
-    };
-
     return (
-      <Host class={this.theme === 'dark' ? 'dark' : ''}>
-        <div class="github-issues-container" style={containerStyle}>
-          <header class="issues-header">
-            <h1 class="issues-title">GitHub Issues</h1>
-            <p class="issues-subtitle">Track bugs and enhancements for your project</p>
-          </header>
-
-          {this.loading && (
-            <div class="loading-state">
-              <p>Loading issues...</p>
-            </div>
-          )}
-
-          {this.error && (
-            <div class="error-state">
-              <p>Error: {this.error}</p>
-            </div>
-          )}
-
-          {!this.loading && !this.error && (
-            <feedlog-issues-list
-              issues={this.issues}
-              theme={this.theme}
-              onFeedlogUpvote={this.handleUpvote}
-            ></feedlog-issues-list>
-          )}
-        </div>
-      </Host>
+      <feedlog-github-issues-base
+        issues={this.issues}
+        maxWidth={this.maxWidth}
+        theme={this.theme}
+        loading={this.loading}
+        error={this.error}
+        onFeedlogUpvote={this.handleUpvote}
+      ></feedlog-github-issues-base>
     );
   }
 }

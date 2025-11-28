@@ -22,7 +22,7 @@
     "test:e2e": "stencil test --e2e",
     "generate": "stencil generate",
     "clean": "rm -rf dist loader",
-    "storybook": "storybook dev -p 6006 --no-open",
+    "storybook": "storybook dev -p 6007 --no-open",
     "build-storybook": "storybook build"
   },
   "dependencies": {
@@ -35,7 +35,7 @@
     "@stencil/vue-output-target": "^0.8.0",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.11.24",
-    "storybook": "^9.1.16",
+    "storybook": "^10.1.0",
     "typescript": "^5.3.3"
   },
   "license": "MIT",
