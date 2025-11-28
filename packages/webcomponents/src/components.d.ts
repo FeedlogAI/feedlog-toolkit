@@ -17,7 +17,7 @@ export namespace Components {
           * Badge variant style
           * @default 'default'
          */
-        "variant": 'default' | 'destructive';
+        "variant": 'default' | 'destructive' | 'enhancement';
     }
     /**
      * Feedlog Button Component
@@ -63,9 +63,14 @@ export namespace Components {
         "data"?: string | GitHubIssue[];
         /**
           * Maximum width of the container
-          * @default '56rem'
+          * @default '42rem'
          */
         "maxWidth": string;
+        /**
+          * Whether to show the theme toggle button
+          * @default true
+         */
+        "showThemeToggle": boolean;
         /**
           * Theme variant: 'light' or 'dark'
           * @default 'light'
@@ -95,9 +100,14 @@ export namespace Components {
         "loading": boolean;
         /**
           * Maximum width of the container
-          * @default '56rem'
+          * @default '42rem'
          */
         "maxWidth": string;
+        /**
+          * Whether to show the theme toggle button
+          * @default true
+         */
+        "showThemeToggle": boolean;
         /**
           * Theme variant: 'light' or 'dark'
           * @default 'light'
@@ -112,7 +122,7 @@ export namespace Components {
     interface FeedlogGithubIssuesSdk {
         /**
           * Maximum width of the container
-          * @default '56rem'
+          * @default '42rem'
          */
         "maxWidth": string;
         /**
@@ -123,6 +133,11 @@ export namespace Components {
           * Array of repository IDs (e.g., ['owner/repo']) or JSON string
          */
         "repos"?: string[] | string;
+        /**
+          * Whether to show the theme toggle button
+          * @default true
+         */
+        "showThemeToggle": boolean;
         /**
           * Theme variant: 'light' or 'dark'
           * @default 'light'
@@ -210,6 +225,7 @@ declare global {
     };
     interface HTMLFeedlogGithubIssuesElementEventMap {
         "feedlogUpvote": number;
+        "feedlogThemeChange": 'light' | 'dark';
     }
     /**
      * Feedlog GitHub Issues Component
@@ -232,6 +248,7 @@ declare global {
     };
     interface HTMLFeedlogGithubIssuesBaseElementEventMap {
         "feedlogUpvote": number;
+        "feedlogThemeChange": 'light' | 'dark';
     }
     /**
      * Feedlog GitHub Issues Base Component
@@ -254,6 +271,7 @@ declare global {
     };
     interface HTMLFeedlogGithubIssuesSdkElementEventMap {
         "feedlogUpvote": number;
+        "feedlogThemeChange": 'light' | 'dark';
     }
     /**
      * Feedlog GitHub Issues SDK Component
@@ -315,7 +333,7 @@ declare namespace LocalJSX {
           * Badge variant style
           * @default 'default'
          */
-        "variant"?: 'default' | 'destructive';
+        "variant"?: 'default' | 'destructive' | 'enhancement';
     }
     /**
      * Feedlog Button Component
@@ -365,13 +383,22 @@ declare namespace LocalJSX {
         "data"?: string | GitHubIssue[];
         /**
           * Maximum width of the container
-          * @default '56rem'
+          * @default '42rem'
          */
         "maxWidth"?: string;
+        /**
+          * Event emitted when theme changes
+         */
+        "onFeedlogThemeChange"?: (event: FeedlogGithubIssuesCustomEvent<'light' | 'dark'>) => void;
         /**
           * Event emitted when an issue is upvoted
          */
         "onFeedlogUpvote"?: (event: FeedlogGithubIssuesCustomEvent<number>) => void;
+        /**
+          * Whether to show the theme toggle button
+          * @default true
+         */
+        "showThemeToggle"?: boolean;
         /**
           * Theme variant: 'light' or 'dark'
           * @default 'light'
@@ -401,13 +428,22 @@ declare namespace LocalJSX {
         "loading"?: boolean;
         /**
           * Maximum width of the container
-          * @default '56rem'
+          * @default '42rem'
          */
         "maxWidth"?: string;
+        /**
+          * Event emitted when theme changes
+         */
+        "onFeedlogThemeChange"?: (event: FeedlogGithubIssuesBaseCustomEvent<'light' | 'dark'>) => void;
         /**
           * Event emitted when an issue is upvoted
          */
         "onFeedlogUpvote"?: (event: FeedlogGithubIssuesBaseCustomEvent<number>) => void;
+        /**
+          * Whether to show the theme toggle button
+          * @default true
+         */
+        "showThemeToggle"?: boolean;
         /**
           * Theme variant: 'light' or 'dark'
           * @default 'light'
@@ -422,9 +458,13 @@ declare namespace LocalJSX {
     interface FeedlogGithubIssuesSdk {
         /**
           * Maximum width of the container
-          * @default '56rem'
+          * @default '42rem'
          */
         "maxWidth"?: string;
+        /**
+          * Event emitted when theme changes
+         */
+        "onFeedlogThemeChange"?: (event: FeedlogGithubIssuesSdkCustomEvent<'light' | 'dark'>) => void;
         /**
           * Event emitted when an issue is upvoted
          */
@@ -437,6 +477,11 @@ declare namespace LocalJSX {
           * Array of repository IDs (e.g., ['owner/repo']) or JSON string
          */
         "repos"?: string[] | string;
+        /**
+          * Whether to show the theme toggle button
+          * @default true
+         */
+        "showThemeToggle"?: boolean;
         /**
           * Theme variant: 'light' or 'dark'
           * @default 'light'

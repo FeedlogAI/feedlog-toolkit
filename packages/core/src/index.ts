@@ -17,6 +17,7 @@ export interface GitHubIssue {
   body: string;
   type: 'bug' | 'enhancement';
   upvotes?: number;
+  postedAt?: string;
 }
 
 // Export main SDK class (example structure)
@@ -51,22 +52,40 @@ export class FeedlogSDK {
     const mockIssues: GitHubIssue[] = [
       {
         id: 1,
-        title: 'Sample Bug Issue',
-        body: 'This is a sample bug issue description.',
+        title: 'Tooltip flickers when cursor moves between nested hover targets',
+        body: 'Tooltips display inconsistently when hovering over elements with nested children. The tooltip rapidly appears and disappears causing a flicker effect in Chrome 120+.',
         type: 'bug',
+        postedAt: '2 hours ago',
       },
       {
         id: 2,
-        title: 'Sample Enhancement Request',
-        body: 'This is a sample enhancement request description.',
+        title: 'Add support for LaTeX math equations in markdown editor',
+        body: 'Enable inline and block LaTeX rendering using KaTeX or MathJax for scientific documentation. Should support $inline$ and $$block$$ syntax.',
         type: 'enhancement',
-        upvotes: 5,
+        upvotes: 42,
+        postedAt: '5 hours ago',
       },
       {
         id: 3,
-        title: 'Another Bug',
-        body: 'Another sample bug issue.',
+        title: 'WebGL context lost error after prolonged canvas usage',
+        body: 'After approximately 2 hours of continuous 3D visualization rendering, the WebGL context is lost and not properly recovered. Happens consistently on discrete GPUs.',
         type: 'bug',
+        postedAt: '1 day ago',
+      },
+      {
+        id: 4,
+        title: 'Implement vim keybindings mode for code editor',
+        body: 'Add optional vim keybindings (normal, insert, visual modes) for the Monaco code editor component. Should include custom keybinding configuration.',
+        type: 'enhancement',
+        upvotes: 127,
+        postedAt: '2 days ago',
+      },
+      {
+        id: 5,
+        title: 'Race condition in WebSocket reconnection logic',
+        body: 'When network connection drops and recovers quickly, multiple reconnection attempts fire simultaneously leading to duplicate message subscriptions.',
+        type: 'bug',
+        postedAt: '3 days ago',
       },
     ];
 

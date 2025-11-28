@@ -1,5 +1,9 @@
 import { h, Host } from "@stencil/core";
 /**
+ * TrendingUp icon SVG component
+ */
+const TrendingUpIcon = () => (h("svg", { class: "upvote-icon", xmlns: "http://www.w3.org/2000/svg", width: "16", height: "16", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "2", "stroke-linecap": "round", "stroke-linejoin": "round" }, h("polyline", { points: "22 7 13.5 15.5 8.5 10.5 2 17" }), h("polyline", { points: "16 7 22 7 22 13" })));
+/**
  * Feedlog Issues List Component
  *
  * A component for displaying a list of GitHub issues with support for bugs and enhancements.
@@ -20,7 +24,7 @@ export class FeedlogIssuesList {
         };
     }
     render() {
-        return (h(Host, { key: '4aebc8672aa96ea1404d4f889f9a428d1c1a27d7', class: this.theme === 'dark' ? 'dark' : '' }, h("div", { key: '8ab05bf07b0e6c85a4bf47bba5cec5b81545e80b', class: "issues-list" }, this.issues.map(issue => (h("feedlog-card", { key: issue.id, class: "issue-card" }, h("div", { slot: "header", class: "issue-header" }, h("div", { class: "issue-content-wrapper" }, issue.type === 'enhancement' && (h("feedlog-button", { variant: "outline", size: "sm", class: "upvote-button", onFeedlogClick: (e) => this.handleUpvote(e, issue.id) }, h("span", { class: "upvote-count" }, issue.upvotes || 0))), h("div", { class: "issue-details" }, h("div", { class: "issue-title-row" }, h("h3", { class: "issue-title" }, issue.title)), h("p", { class: "issue-body" }, issue.body)))), h("div", { slot: "footer", class: "issue-footer" }, issue.type === 'bug' ? (h("feedlog-badge", { variant: "destructive" }, "Bug")) : (h("feedlog-badge", null, "Enhancement")))))))));
+        return (h(Host, { key: 'f258ab26fb38d039576b218d315bea80ff5ac6a0', class: this.theme === 'dark' ? 'dark' : '' }, h("div", { key: '65ecefdc430775f7f420dae6c8b7a5be6174c6b4', class: "issues-list" }, this.issues.map(issue => (h("div", { key: issue.id, class: "issue-card" }, h("div", { class: "issue-content" }, h("div", { class: "issue-main" }, h("div", { class: "issue-details" }, h("h3", { class: "issue-title" }, issue.title), h("p", { class: "issue-body" }, issue.body), h("div", { class: "issue-badge" }, issue.type === 'bug' ? (h("feedlog-badge", { variant: "destructive" }, "Bug")) : (h("feedlog-badge", { variant: "enhancement" }, "Enhancement")))), issue.type === 'enhancement' && (h("button", { class: "upvote-button", onClick: (e) => this.handleUpvote(e, issue.id) }, h(TrendingUpIcon, null), h("span", { class: "upvote-count" }, issue.upvotes || 0)))), issue.postedAt && (h("span", { class: "posted-at" }, "Posted ", issue.postedAt)))))))));
     }
     static get is() { return "feedlog-issues-list"; }
     static get encapsulation() { return "shadow"; }

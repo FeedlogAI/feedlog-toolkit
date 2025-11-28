@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-11-28T09:52:47",
+  "timestamp": "2025-11-28T10:28:03",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.38.3",
@@ -17,10 +17,10 @@
       "props": [
         {
           "name": "variant",
-          "type": "\"default\" | \"destructive\"",
+          "type": "\"default\" | \"destructive\" | \"enhancement\"",
           "complexType": {
-            "original": "'default' | 'destructive'",
-            "resolved": "\"default\" | \"destructive\"",
+            "original": "'default' | 'destructive' | 'enhancement'",
+            "resolved": "\"default\" | \"destructive\" | \"enhancement\"",
             "references": {}
           },
           "mutable": false,
@@ -41,6 +41,10 @@
             },
             {
               "value": "destructive",
+              "type": "string"
+            },
+            {
+              "value": "enhancement",
               "type": "string"
             }
           ],
@@ -250,11 +254,11 @@
       "slots": [],
       "parts": [],
       "dependents": [
-        "feedlog-issues-list"
+        "feedlog-github-issues-base"
       ],
       "dependencies": [],
       "dependencyGraph": {
-        "feedlog-issues-list": [
+        "feedlog-github-issues-base": [
           "feedlog-button"
         ]
       }
@@ -274,15 +278,9 @@
       "styles": [],
       "slots": [],
       "parts": [],
-      "dependents": [
-        "feedlog-issues-list"
-      ],
+      "dependents": [],
       "dependencies": [],
-      "dependencyGraph": {
-        "feedlog-issues-list": [
-          "feedlog-card"
-        ]
-      }
+      "dependencyGraph": {}
     },
     {
       "filePath": "src/components/feedlog-github-issues/feedlog-github-issues.tsx",
@@ -343,13 +341,42 @@
           "docsTags": [
             {
               "name": "default",
-              "text": "'56rem'"
+              "text": "'42rem'"
             }
           ],
-          "default": "'56rem'",
+          "default": "'42rem'",
           "values": [
             {
               "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false,
+          "getter": false,
+          "setter": false
+        },
+        {
+          "name": "showThemeToggle",
+          "type": "boolean",
+          "complexType": {
+            "original": "boolean",
+            "resolved": "boolean",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "show-theme-toggle",
+          "reflectToAttr": false,
+          "docs": "Whether to show the theme toggle button",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "true"
+            }
+          ],
+          "default": "true",
+          "values": [
+            {
+              "type": "boolean"
             }
           ],
           "optional": false,
@@ -395,6 +422,20 @@
       "methods": [],
       "events": [
         {
+          "event": "feedlogThemeChange",
+          "detail": "\"dark\" | \"light\"",
+          "bubbles": true,
+          "complexType": {
+            "original": "'light' | 'dark'",
+            "resolved": "\"dark\" | \"light\"",
+            "references": {}
+          },
+          "cancelable": true,
+          "composed": true,
+          "docs": "Event emitted when theme changes",
+          "docsTags": []
+        },
+        {
           "event": "feedlogUpvote",
           "detail": "number",
           "bubbles": true,
@@ -422,11 +463,10 @@
           "feedlog-github-issues-base"
         ],
         "feedlog-github-issues-base": [
+          "feedlog-button",
           "feedlog-issues-list"
         ],
         "feedlog-issues-list": [
-          "feedlog-card",
-          "feedlog-button",
           "feedlog-badge"
         ]
       }
@@ -550,13 +590,42 @@
           "docsTags": [
             {
               "name": "default",
-              "text": "'56rem'"
+              "text": "'42rem'"
             }
           ],
-          "default": "'56rem'",
+          "default": "'42rem'",
           "values": [
             {
               "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false,
+          "getter": false,
+          "setter": false
+        },
+        {
+          "name": "showThemeToggle",
+          "type": "boolean",
+          "complexType": {
+            "original": "boolean",
+            "resolved": "boolean",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "show-theme-toggle",
+          "reflectToAttr": false,
+          "docs": "Whether to show the theme toggle button",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "true"
+            }
+          ],
+          "default": "true",
+          "values": [
+            {
+              "type": "boolean"
             }
           ],
           "optional": false,
@@ -572,7 +641,7 @@
             "resolved": "\"dark\" | \"light\"",
             "references": {}
           },
-          "mutable": false,
+          "mutable": true,
           "attr": "theme",
           "reflectToAttr": false,
           "docs": "Theme variant: 'light' or 'dark'",
@@ -602,6 +671,20 @@
       "methods": [],
       "events": [
         {
+          "event": "feedlogThemeChange",
+          "detail": "\"dark\" | \"light\"",
+          "bubbles": true,
+          "complexType": {
+            "original": "'light' | 'dark'",
+            "resolved": "\"dark\" | \"light\"",
+            "references": {}
+          },
+          "cancelable": true,
+          "composed": true,
+          "docs": "Event emitted when theme changes",
+          "docsTags": []
+        },
+        {
           "event": "feedlogUpvote",
           "detail": "number",
           "bubbles": true,
@@ -625,15 +708,15 @@
         "feedlog-github-issues-sdk"
       ],
       "dependencies": [
+        "feedlog-button",
         "feedlog-issues-list"
       ],
       "dependencyGraph": {
         "feedlog-github-issues-base": [
+          "feedlog-button",
           "feedlog-issues-list"
         ],
         "feedlog-issues-list": [
-          "feedlog-card",
-          "feedlog-button",
           "feedlog-badge"
         ],
         "feedlog-github-issues": [
@@ -668,10 +751,10 @@
           "docsTags": [
             {
               "name": "default",
-              "text": "'56rem'"
+              "text": "'42rem'"
             }
           ],
-          "default": "'56rem'",
+          "default": "'42rem'",
           "values": [
             {
               "type": "string"
@@ -735,6 +818,35 @@
           "setter": false
         },
         {
+          "name": "showThemeToggle",
+          "type": "boolean",
+          "complexType": {
+            "original": "boolean",
+            "resolved": "boolean",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "show-theme-toggle",
+          "reflectToAttr": false,
+          "docs": "Whether to show the theme toggle button",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "true"
+            }
+          ],
+          "default": "true",
+          "values": [
+            {
+              "type": "boolean"
+            }
+          ],
+          "optional": false,
+          "required": false,
+          "getter": false,
+          "setter": false
+        },
+        {
           "name": "theme",
           "type": "\"dark\" | \"light\"",
           "complexType": {
@@ -772,6 +884,20 @@
       "methods": [],
       "events": [
         {
+          "event": "feedlogThemeChange",
+          "detail": "\"dark\" | \"light\"",
+          "bubbles": true,
+          "complexType": {
+            "original": "'light' | 'dark'",
+            "resolved": "\"dark\" | \"light\"",
+            "references": {}
+          },
+          "cancelable": true,
+          "composed": true,
+          "docs": "Event emitted when theme changes",
+          "docsTags": []
+        },
+        {
           "event": "feedlogUpvote",
           "detail": "number",
           "bubbles": true,
@@ -799,11 +925,10 @@
           "feedlog-github-issues-base"
         ],
         "feedlog-github-issues-base": [
+          "feedlog-button",
           "feedlog-issues-list"
         ],
         "feedlog-issues-list": [
-          "feedlog-card",
-          "feedlog-button",
           "feedlog-badge"
         ]
       }
@@ -910,14 +1035,10 @@
         "feedlog-github-issues-base"
       ],
       "dependencies": [
-        "feedlog-card",
-        "feedlog-button",
         "feedlog-badge"
       ],
       "dependencyGraph": {
         "feedlog-issues-list": [
-          "feedlog-card",
-          "feedlog-button",
           "feedlog-badge"
         ],
         "feedlog-github-issues-base": [
@@ -928,7 +1049,7 @@
   ],
   "typeLibrary": {
     "../core/dist/index.d.ts::GitHubIssue": {
-      "declaration": "export interface GitHubIssue {\n    id: number;\n    title: string;\n    body: string;\n    type: 'bug' | 'enhancement';\n    upvotes?: number;\n}",
+      "declaration": "export interface GitHubIssue {\n    id: number;\n    title: string;\n    body: string;\n    type: 'bug' | 'enhancement';\n    upvotes?: number;\n    postedAt?: string;\n}",
       "docstring": "",
       "path": "../core/dist/index.d.ts"
     }

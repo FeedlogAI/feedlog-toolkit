@@ -10,13 +10,20 @@ export class FeedlogGithubIssues {
         /**
          * Maximum width of the container
          */
-        this.maxWidth = '56rem';
+        this.maxWidth = '42rem';
         /**
          * Theme variant: 'light' or 'dark'
          */
         this.theme = 'light';
+        /**
+         * Whether to show the theme toggle button
+         */
+        this.showThemeToggle = true;
         this.handleUpvote = (event) => {
             this.feedlogUpvote.emit(event.detail);
+        };
+        this.handleThemeChange = (event) => {
+            this.feedlogThemeChange.emit(event.detail);
         };
     }
     parseData() {
@@ -35,7 +42,7 @@ export class FeedlogGithubIssues {
     }
     render() {
         const issues = this.parseData();
-        return (h("feedlog-github-issues-base", { key: '3930e2562bd370186c0cee2e3c969ea506fb6009', issues: issues, maxWidth: this.maxWidth, theme: this.theme, loading: false, error: null, onFeedlogUpvote: this.handleUpvote }));
+        return (h("feedlog-github-issues-base", { key: '571f86cb7c9e12bdcccd7d7816f18ed2530fbe85', issues: issues, maxWidth: this.maxWidth, theme: this.theme, showThemeToggle: this.showThemeToggle, loading: false, error: null, onFeedlogUpvote: this.handleUpvote, onFeedlogThemeChange: this.handleThemeChange }));
     }
     static get is() { return "feedlog-github-issues"; }
     static get encapsulation() { return "shadow"; }
@@ -84,7 +91,7 @@ export class FeedlogGithubIssues {
                 "setter": false,
                 "reflect": false,
                 "attribute": "max-width",
-                "defaultValue": "'56rem'"
+                "defaultValue": "'42rem'"
             },
             "theme": {
                 "type": "string",
@@ -105,6 +112,26 @@ export class FeedlogGithubIssues {
                 "reflect": false,
                 "attribute": "theme",
                 "defaultValue": "'light'"
+            },
+            "showThemeToggle": {
+                "type": "boolean",
+                "mutable": false,
+                "complexType": {
+                    "original": "boolean",
+                    "resolved": "boolean",
+                    "references": {}
+                },
+                "required": false,
+                "optional": false,
+                "docs": {
+                    "tags": [],
+                    "text": "Whether to show the theme toggle button"
+                },
+                "getter": false,
+                "setter": false,
+                "reflect": false,
+                "attribute": "show-theme-toggle",
+                "defaultValue": "true"
             }
         };
     }
@@ -122,6 +149,21 @@ export class FeedlogGithubIssues {
                 "complexType": {
                     "original": "number",
                     "resolved": "number",
+                    "references": {}
+                }
+            }, {
+                "method": "feedlogThemeChange",
+                "name": "feedlogThemeChange",
+                "bubbles": true,
+                "cancelable": true,
+                "composed": true,
+                "docs": {
+                    "tags": [],
+                    "text": "Event emitted when theme changes"
+                },
+                "complexType": {
+                    "original": "'light' | 'dark'",
+                    "resolved": "\"dark\" | \"light\"",
                     "references": {}
                 }
             }];

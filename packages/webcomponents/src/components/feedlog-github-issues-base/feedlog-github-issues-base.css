@@ -1,51 +1,51 @@
 :host {
   display: block;
+  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+  
   /* Light theme defaults */
-  --feedlog-bg-primary: #fafafa;
-  --feedlog-bg-secondary: #ffffff;
-  --feedlog-text-primary: #171717;
-  --feedlog-text-secondary: #525252;
-  --feedlog-border-color: #e5e7eb;
-  --feedlog-accent-color: #2563eb;
-  --feedlog-destructive-color: #dc2626;
-  --feedlog-font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+  --feedlog-background: #ffffff;
+  --feedlog-foreground: oklch(0.145 0 0);
+  --feedlog-muted-foreground: #717182;
+  --feedlog-destructive: #d4183d;
   --feedlog-padding: 2rem;
-  --feedlog-max-width: 56rem;
 }
 
 :host(.dark) {
   /* Dark theme values */
-  --feedlog-bg-primary: #0a0a0a;
-  --feedlog-bg-secondary: #171717;
-  --feedlog-text-primary: #fafafa;
-  --feedlog-text-secondary: #a3a3a3;
-  --feedlog-border-color: #262626;
-  --feedlog-accent-color: #3b82f6;
-  --feedlog-destructive-color: #ef4444;
+  --feedlog-background: oklch(0.145 0 0);
+  --feedlog-foreground: oklch(0.985 0 0);
+  --feedlog-muted-foreground: oklch(0.708 0 0);
+  --feedlog-destructive: oklch(0.637 0.237 25.331);
 }
 
 .github-issues-container {
   min-height: 100vh;
-  background-color: var(--feedlog-bg-primary);
+  background-color: var(--feedlog-background);
   padding: var(--feedlog-padding);
-  font-family: var(--feedlog-font-family);
   margin: 0 auto;
 }
 
 .issues-header {
   margin-bottom: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.header-content {
+  flex: 1;
 }
 
 .issues-title {
-  color: var(--feedlog-text-primary);
+  color: var(--feedlog-foreground);
   margin: 0 0 0.25rem 0;
   font-size: 1.5rem;
-  font-weight: 600;
-  line-height: 1.2;
+  font-weight: 500;
+  line-height: 1.5;
 }
 
 .issues-subtitle {
-  color: var(--feedlog-text-secondary);
+  color: var(--feedlog-muted-foreground);
   font-size: 0.875rem;
   margin: 0;
 }
@@ -54,10 +54,9 @@
 .error-state {
   padding: 2rem;
   text-align: center;
-  color: var(--feedlog-text-secondary);
+  color: var(--feedlog-muted-foreground);
 }
 
 .error-state {
-  color: var(--feedlog-destructive-color);
+  color: var(--feedlog-destructive);
 }
-

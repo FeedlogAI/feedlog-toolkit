@@ -1,26 +1,38 @@
 :host {
   display: block;
+  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+  
   /* Light theme defaults */
-  --feedlog-bg-primary: #fafafa;
-  --feedlog-bg-secondary: #ffffff;
-  --feedlog-text-primary: #171717;
-  --feedlog-text-secondary: #525252;
-  --feedlog-border-color: #e5e7eb;
+  --feedlog-background: #ffffff;
+  --feedlog-foreground: oklch(0.145 0 0);
+  --feedlog-card: #ffffff;
+  --feedlog-card-foreground: oklch(0.145 0 0);
+  --feedlog-muted: #ececf0;
+  --feedlog-muted-foreground: #717182;
+  --feedlog-border: rgba(0, 0, 0, 0.1);
   --feedlog-accent-color: #2563eb;
-  --feedlog-destructive-color: #dc2626;
+  --feedlog-destructive: #d4183d;
+  --feedlog-blue-400: oklch(0.707 0.165 254.624);
+  --feedlog-blue-600: oklch(0.546 0.245 262.881);
+  --feedlog-blue-100: oklch(0.932 0.032 255.585);
+  --feedlog-radius: 0.625rem;
   --feedlog-gap: 0.5rem;
-  --feedlog-card-padding: 1rem;
 }
 
 :host(.dark) {
   /* Dark theme values */
-  --feedlog-bg-primary: #0a0a0a;
-  --feedlog-bg-secondary: #171717;
-  --feedlog-text-primary: #fafafa;
-  --feedlog-text-secondary: #a3a3a3;
-  --feedlog-border-color: #262626;
+  --feedlog-background: oklch(0.145 0 0);
+  --feedlog-foreground: oklch(0.985 0 0);
+  --feedlog-card: oklch(0.145 0 0);
+  --feedlog-card-foreground: oklch(0.985 0 0);
+  --feedlog-muted: oklch(0.269 0 0);
+  --feedlog-muted-foreground: oklch(0.708 0 0);
+  --feedlog-border: oklch(0.269 0 0);
   --feedlog-accent-color: #3b82f6;
-  --feedlog-destructive-color: #ef4444;
+  --feedlog-destructive: oklch(0.396 0.141 25.723);
+  --feedlog-blue-400: oklch(0.707 0.165 254.624);
+  --feedlog-blue-600: oklch(0.546 0.245 262.881);
+  --feedlog-blue-900-30: color-mix(in oklab, oklch(0.379 0.146 265.522) 30%, transparent);
 }
 
 .issues-list {
@@ -30,35 +42,27 @@
 }
 
 .issue-card {
-  transition: box-shadow 0.2s ease;
+  background-color: var(--feedlog-card);
+  border: 1px solid var(--feedlog-border);
+  border-radius: var(--feedlog-radius);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.15s ease;
+  position: relative;
 }
 
 .issue-card:hover {
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
 }
 
-.issue-header {
-  padding: var(--feedlog-card-padding);
+.issue-content {
+  padding: 1.5rem 1.5rem 2.5rem 1.5rem;
 }
 
-.issue-content-wrapper {
+.issue-main {
   display: flex;
   align-items: flex-start;
-  gap: 0.75rem;
-}
-
-.upvote-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: auto;
-  padding: 0.375rem 0.5rem;
-  min-width: 50px;
-  font-size: 0.75rem;
-}
-
-.upvote-count {
-  margin: 0;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
 .issue-details {
@@ -66,30 +70,70 @@
   min-width: 0;
 }
 
-.issue-title-row {
-  margin-bottom: 0.375rem;
-}
-
 .issue-title {
-  color: var(--feedlog-text-primary);
-  flex: 1;
+  color: var(--feedlog-card-foreground);
   font-size: 0.875rem;
   font-weight: 600;
-  margin: 0;
+  margin: 0 0 0.375rem 0;
   line-height: 1.4;
 }
 
 .issue-body {
-  color: var(--feedlog-text-secondary);
+  color: var(--feedlog-muted-foreground);
   font-size: 0.75rem;
-  line-height: 1.6;
-  margin: 0;
+  line-height: 1.625;
+  margin: 0 0 0.75rem 0;
 }
 
-.issue-footer {
-  padding: var(--feedlog-card-padding);
-  padding-top: 0;
+.issue-badge {
+  width: fit-content;
+}
+
+.upvote-button {
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.125rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  background-color: var(--feedlog-muted);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
 }
 
+.upvote-button:hover {
+  background-color: var(--feedlog-blue-100);
+  border-color: var(--feedlog-blue-400);
+}
+
+:host(.dark) .upvote-button:hover {
+  background-color: var(--feedlog-blue-900-30);
+  border-color: var(--feedlog-blue-600);
+}
+
+.upvote-icon {
+  width: 1rem;
+  height: 1rem;
+  color: var(--feedlog-blue-600);
+  stroke-width: 2;
+}
+
+:host(.dark) .upvote-icon {
+  color: var(--feedlog-blue-400);
+}
+
+.upvote-count {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--feedlog-card-foreground);
+}
+
+.posted-at {
+  position: absolute;
+  bottom: 0.75rem;
+  left: 1.5rem;
+  color: var(--feedlog-muted-foreground);
+  font-size: 0.75rem;
+}

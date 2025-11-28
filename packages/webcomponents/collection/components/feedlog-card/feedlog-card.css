@@ -1,37 +1,33 @@
 :host {
   display: block;
+  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+  
   /* Light theme defaults */
-  --feedlog-bg-primary: #fafafa;
-  --feedlog-bg-secondary: #ffffff;
-  --feedlog-text-primary: #171717;
-  --feedlog-text-secondary: #525252;
-  --feedlog-border-color: #e5e7eb;
-  --feedlog-accent-color: #2563eb;
-  --feedlog-destructive-color: #dc2626;
-  --feedlog-border-radius: 0.75rem;
-  --feedlog-card-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-  --feedlog-card-hover-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --feedlog-card: #ffffff;
+  --feedlog-card-foreground: oklch(0.145 0 0);
+  --feedlog-border: rgba(0, 0, 0, 0.1);
+  --feedlog-radius: 0.625rem;
+  --feedlog-card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --feedlog-card-hover-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
 }
 
 :host(.dark) {
   /* Dark theme values */
-  --feedlog-bg-primary: #0a0a0a;
-  --feedlog-bg-secondary: #171717;
-  --feedlog-text-primary: #fafafa;
-  --feedlog-text-secondary: #a3a3a3;
-  --feedlog-border-color: #262626;
-  --feedlog-accent-color: #3b82f6;
-  --feedlog-destructive-color: #ef4444;
-  --feedlog-card-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
-  --feedlog-card-hover-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  --feedlog-card: oklch(0.145 0 0);
+  --feedlog-card-foreground: oklch(0.985 0 0);
+  --feedlog-border: oklch(0.269 0 0);
+  --feedlog-card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+  --feedlog-card-hover-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
 }
 
 .feedlog-card {
-  background-color: var(--feedlog-bg-secondary);
-  border: 1px solid var(--feedlog-border-color);
-  border-radius: var(--feedlog-border-radius);
+  background-color: var(--feedlog-card);
+  color: var(--feedlog-card-foreground);
+  border: 1px solid var(--feedlog-border);
+  border-radius: var(--feedlog-radius);
   box-shadow: var(--feedlog-card-shadow);
-  transition: box-shadow 0.2s ease;
+  transition: box-shadow 0.15s ease;
+  position: relative;
 }
 
 .feedlog-card:hover {
@@ -49,4 +45,3 @@
 ::slotted([slot="footer"]) {
   display: block;
 }
-

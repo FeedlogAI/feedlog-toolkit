@@ -1,5 +1,51 @@
-import { Component, Prop, Event, EventEmitter, h, Host } from '@stencil/core';
+import { Component, Prop, State, Event, EventEmitter, h, Host } from '@stencil/core';
 import { GitHubIssue } from '@feedlog-toolkit/core';
+
+/**
+ * Sun icon SVG component
+ */
+const SunIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <circle cx="12" cy="12" r="4"></circle>
+    <path d="M12 2v2"></path>
+    <path d="M12 20v2"></path>
+    <path d="m4.93 4.93 1.41 1.41"></path>
+    <path d="m17.66 17.66 1.41 1.41"></path>
+    <path d="M2 12h2"></path>
+    <path d="M20 12h2"></path>
+    <path d="m6.34 17.66-1.41 1.41"></path>
+    <path d="m19.07 4.93-1.41 1.41"></path>
+  </svg>
+);
+
+/**
+ * Moon icon SVG component
+ */
+const MoonIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+  </svg>
+);
 
 /**
  * Feedlog GitHub Issues Base Component
@@ -21,12 +67,12 @@ export class FeedlogGithubIssuesBase {
   /**
    * Maximum width of the container
    */
-  @Prop() maxWidth: string = '56rem';
+  @Prop() maxWidth: string = '42rem';
 
   /**
    * Theme variant: 'light' or 'dark'
    */
-  @Prop() theme: 'light' | 'dark' = 'light';
+  @Prop({ mutable: true }) theme: 'light' | 'dark' = 'light';
 
   /**
    * Loading state - shows loading indicator when true
@@ -39,12 +85,37 @@ export class FeedlogGithubIssuesBase {
   @Prop() error: string | null = null;
 
   /**
+   * Whether to show the theme toggle button
+   */
+  @Prop() showThemeToggle: boolean = true;
+
+  /**
+   * Internal state for theme
+   */
+  @State() currentTheme: 'light' | 'dark' = 'light';
+
+  /**
    * Event emitted when an issue is upvoted
    */
   @Event() feedlogUpvote!: EventEmitter<number>;
 
+  /**
+   * Event emitted when theme changes
+   */
+  @Event() feedlogThemeChange!: EventEmitter<'light' | 'dark'>;
+
+  componentWillLoad() {
+    this.currentTheme = this.theme;
+  }
+
   private handleUpvote = (event: CustomEvent<number>) => {
     this.feedlogUpvote.emit(event.detail);
+  };
+
+  private toggleTheme = () => {
+    this.currentTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
+    this.theme = this.currentTheme;
+    this.feedlogThemeChange.emit(this.currentTheme);
   };
 
   render() {
@@ -53,11 +124,22 @@ export class FeedlogGithubIssuesBase {
     };
 
     return (
-      <Host class={this.theme === 'dark' ? 'dark' : ''}>
+      <Host class={this.currentTheme === 'dark' ? 'dark' : ''}>
         <div class="github-issues-container" style={containerStyle}>
           <header class="issues-header">
-            <h1 class="issues-title">GitHub Issues</h1>
-            <p class="issues-subtitle">Track bugs and enhancements for your project</p>
+            <div class="header-content">
+              <h1 class="issues-title">GitHub Issues</h1>
+              <p class="issues-subtitle">Track bugs and enhancements for your project</p>
+            </div>
+            {this.showThemeToggle && (
+              <feedlog-button
+                variant="outline"
+                size="sm"
+                onFeedlogClick={this.toggleTheme}
+              >
+                {this.currentTheme === 'dark' ? <SunIcon /> : <MoonIcon />}
+              </feedlog-button>
+            )}
           </header>
 
           {this.loading && (
@@ -75,7 +157,7 @@ export class FeedlogGithubIssuesBase {
           {!this.loading && !this.error && (
             <feedlog-issues-list
               issues={this.issues}
-              theme={this.theme}
+              theme={this.currentTheme}
               onFeedlogUpvote={this.handleUpvote}
             ></feedlog-issues-list>
           )}
@@ -84,4 +166,3 @@ export class FeedlogGithubIssuesBase {
     );
   }
 }
-

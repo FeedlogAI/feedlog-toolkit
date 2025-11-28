@@ -30,7 +30,9 @@ export const FeedlogGithubIssues = /*@__PURE__*/ defineContainer<JSX.FeedlogGith
   'data',
   'maxWidth',
   'theme',
-  'feedlogUpvote'
+  'showThemeToggle',
+  'feedlogUpvote',
+  'feedlogThemeChange'
 ]);
 
 
@@ -40,7 +42,9 @@ export const FeedlogGithubIssuesBase = /*@__PURE__*/ defineContainer<JSX.Feedlog
   'theme',
   'loading',
   'error',
-  'feedlogUpvote'
+  'showThemeToggle',
+  'feedlogUpvote',
+  'feedlogThemeChange'
 ]);
 
 
@@ -49,7 +53,9 @@ export const FeedlogGithubIssuesSdk = /*@__PURE__*/ defineContainer<JSX.FeedlogG
   'repos',
   'maxWidth',
   'theme',
-  'feedlogUpvote'
+  'showThemeToggle',
+  'feedlogUpvote',
+  'feedlogThemeChange'
 ]);
 
 

@@ -25,7 +25,7 @@ export class FeedlogGithubIssuesSdk {
   /**
    * Maximum width of the container
    */
-  @Prop() maxWidth: string = '56rem';
+  @Prop() maxWidth: string = '42rem';
 
   /**
    * Theme variant: 'light' or 'dark'
@@ -33,9 +33,19 @@ export class FeedlogGithubIssuesSdk {
   @Prop() theme: 'light' | 'dark' = 'light';
 
   /**
+   * Whether to show the theme toggle button
+   */
+  @Prop() showThemeToggle: boolean = true;
+
+  /**
    * Event emitted when an issue is upvoted
    */
   @Event() feedlogUpvote!: EventEmitter<number>;
+
+  /**
+   * Event emitted when theme changes
+   */
+  @Event() feedlogThemeChange!: EventEmitter<'light' | 'dark'>;
 
   @State() issues: GitHubIssue[] = [];
   @State() loading: boolean = true;
@@ -124,15 +134,21 @@ export class FeedlogGithubIssuesSdk {
     this.feedlogUpvote.emit(event.detail);
   };
 
+  private handleThemeChange = (event: CustomEvent<'light' | 'dark'>) => {
+    this.feedlogThemeChange.emit(event.detail);
+  };
+
   render() {
     return (
       <feedlog-github-issues-base
         issues={this.issues}
         maxWidth={this.maxWidth}
         theme={this.theme}
+        showThemeToggle={this.showThemeToggle}
         loading={this.loading}
         error={this.error}
         onFeedlogUpvote={this.handleUpvote}
+        onFeedlogThemeChange={this.handleThemeChange}
       ></feedlog-github-issues-base>
     );
   }

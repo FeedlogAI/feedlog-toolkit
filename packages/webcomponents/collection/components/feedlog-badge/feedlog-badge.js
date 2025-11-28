@@ -12,7 +12,7 @@ export class FeedlogBadge {
         this.variant = 'default';
     }
     render() {
-        return (h("span", { key: '806ea58eca5ff9b2f441309a853e455a1d043d17', class: `badge badge-${this.variant}` }, h("slot", { key: '3eba106b833c0b828d11b43455909bd07061c09c' })));
+        return (h("span", { key: '7083252523527e2c714694fb23cb5dbcc5247681', class: `badge badge-${this.variant}` }, h("slot", { key: 'fb561a8635cdeecc3dd150197ddee98f137d26ff' })));
     }
     static get is() { return "feedlog-badge"; }
     static get encapsulation() { return "shadow"; }
@@ -32,8 +32,8 @@ export class FeedlogBadge {
                 "type": "string",
                 "mutable": false,
                 "complexType": {
-                    "original": "'default' | 'destructive'",
-                    "resolved": "\"default\" | \"destructive\"",
+                    "original": "'default' | 'destructive' | 'enhancement'",
+                    "resolved": "\"default\" | \"destructive\" | \"enhancement\"",
                     "references": {}
                 },
                 "required": false,

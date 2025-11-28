@@ -14,7 +14,7 @@ export class FeedlogBadge {
   /**
    * Badge variant style
    */
-  @Prop() variant: 'default' | 'destructive' = 'default';
+  @Prop() variant: 'default' | 'destructive' | 'enhancement' = 'default';
 
   render() {
     return (
@@ -24,4 +24,3 @@ export class FeedlogBadge {
     );
   }
 }
-

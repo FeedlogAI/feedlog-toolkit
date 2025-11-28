@@ -1,41 +1,39 @@
 :host {
   display: inline-block;
+  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+  
   /* Light theme defaults */
-  --feedlog-bg-primary: #fafafa;
-  --feedlog-bg-secondary: #ffffff;
-  --feedlog-text-primary: #171717;
-  --feedlog-text-secondary: #525252;
-  --feedlog-border-color: #e5e7eb;
-  --feedlog-accent-color: #2563eb;
-  --feedlog-destructive-color: #dc2626;
-  --feedlog-button-font-size: 0.875rem;
-  --feedlog-button-font-weight: 500;
-  --feedlog-button-border-radius: 0.375rem;
-  --feedlog-button-transition: all 0.2s ease;
-  --feedlog-button-default-bg: #3b82f6;
-  --feedlog-button-default-text: #ffffff;
-  --feedlog-button-default-hover-bg: #2563eb;
-  --feedlog-button-outline-border: var(--feedlog-border-color);
-  --feedlog-button-outline-bg: transparent;
-  --feedlog-button-outline-text: #374151;
-  --feedlog-button-outline-hover-bg: #f9fafb;
-  --feedlog-button-disabled-opacity: 0.5;
-  --feedlog-button-padding-sm: 0.375rem 0.5rem;
-  --feedlog-button-padding-default: 0.5rem 1rem;
-  --feedlog-button-padding-lg: 0.625rem 1.5rem;
+  --feedlog-background: #ffffff;
+  --feedlog-foreground: oklch(0.145 0 0);
+  --feedlog-primary: #030213;
+  --feedlog-primary-foreground: oklch(1 0 0);
+  --feedlog-secondary: oklch(0.95 0.0058 264.53);
+  --feedlog-secondary-foreground: #030213;
+  --feedlog-muted: #ececf0;
+  --feedlog-accent: #e9ebef;
+  --feedlog-accent-foreground: #030213;
+  --feedlog-border: rgba(0, 0, 0, 0.1);
+  --feedlog-input: transparent;
+  --feedlog-ring: oklch(0.708 0 0);
+  --feedlog-destructive: #d4183d;
+  --feedlog-radius: 0.625rem;
 }
 
 :host(.dark) {
   /* Dark theme values */
-  --feedlog-bg-primary: #0a0a0a;
-  --feedlog-bg-secondary: #171717;
-  --feedlog-text-primary: #fafafa;
-  --feedlog-text-secondary: #a3a3a3;
-  --feedlog-border-color: #262626;
-  --feedlog-accent-color: #3b82f6;
-  --feedlog-destructive-color: #ef4444;
-  --feedlog-button-outline-text: #a3a3a3;
-  --feedlog-button-outline-hover-bg: #262626;
+  --feedlog-background: oklch(0.145 0 0);
+  --feedlog-foreground: oklch(0.985 0 0);
+  --feedlog-primary: oklch(0.985 0 0);
+  --feedlog-primary-foreground: oklch(0.205 0 0);
+  --feedlog-secondary: oklch(0.269 0 0);
+  --feedlog-secondary-foreground: oklch(0.985 0 0);
+  --feedlog-muted: oklch(0.269 0 0);
+  --feedlog-accent: oklch(0.269 0 0);
+  --feedlog-accent-foreground: oklch(0.985 0 0);
+  --feedlog-border: oklch(0.269 0 0);
+  --feedlog-input: oklch(0.269 0 0);
+  --feedlog-ring: oklch(0.439 0 0);
+  --feedlog-destructive: oklch(0.396 0.141 25.723);
 }
 
 button {
@@ -43,59 +41,115 @@ button {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  font-size: var(--feedlog-button-font-size);
-  font-weight: var(--feedlog-button-font-weight);
-  border-radius: var(--feedlog-button-border-radius);
+  white-space: nowrap;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: calc(var(--feedlog-radius) - 2px);
   border: 1px solid transparent;
   cursor: pointer;
-  transition: var(--feedlog-button-transition);
+  transition: all 0.15s ease;
   outline: none;
   font-family: inherit;
 }
 
 button:disabled {
-  opacity: var(--feedlog-button-disabled-opacity);
+  opacity: 0.5;
   cursor: not-allowed;
   pointer-events: none;
 }
 
 button:focus-visible {
-  outline: 2px solid var(--feedlog-accent-color);
-  outline-offset: 2px;
+  border-color: var(--feedlog-ring);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--feedlog-ring) 50%, transparent);
 }
 
+/* Default variant */
 .button-default {
-  background-color: var(--feedlog-button-default-bg);
-  color: var(--feedlog-button-default-text);
-  border-color: var(--feedlog-button-default-bg);
+  background-color: var(--feedlog-primary);
+  color: var(--feedlog-primary-foreground);
+  border-color: transparent;
 }
 
 .button-default:hover:not(:disabled) {
-  background-color: var(--feedlog-button-default-hover-bg);
-  border-color: var(--feedlog-button-default-hover-bg);
+  background-color: color-mix(in oklab, var(--feedlog-primary) 90%, transparent);
 }
 
+/* Outline variant */
 .button-outline {
-  background-color: var(--feedlog-button-outline-bg);
-  color: var(--feedlog-button-outline-text);
-  border-color: var(--feedlog-button-outline-border);
+  background-color: var(--feedlog-background);
+  color: var(--feedlog-foreground);
+  border-color: var(--feedlog-border);
 }
 
 .button-outline:hover:not(:disabled) {
-  background-color: var(--feedlog-button-outline-hover-bg);
+  background-color: var(--feedlog-accent);
+  color: var(--feedlog-accent-foreground);
 }
 
+:host(.dark) .button-outline {
+  background-color: transparent;
+  border-color: var(--feedlog-input);
+}
+
+:host(.dark) .button-outline:hover:not(:disabled) {
+  background-color: color-mix(in oklab, var(--feedlog-accent) 50%, transparent);
+}
+
+/* Ghost variant */
+.button-ghost {
+  background-color: transparent;
+  color: var(--feedlog-foreground);
+  border-color: transparent;
+}
+
+.button-ghost:hover:not(:disabled) {
+  background-color: var(--feedlog-accent);
+  color: var(--feedlog-accent-foreground);
+}
+
+/* Destructive variant */
+.button-destructive {
+  background-color: var(--feedlog-destructive);
+  color: #ffffff;
+  border-color: transparent;
+}
+
+.button-destructive:hover:not(:disabled) {
+  background-color: color-mix(in oklab, var(--feedlog-destructive) 90%, transparent);
+}
+
+:host(.dark) .button-destructive {
+  background-color: color-mix(in oklab, var(--feedlog-destructive) 60%, transparent);
+}
+
+/* Size variants */
 .button-size-sm {
-  padding: var(--feedlog-button-padding-sm);
+  height: 2rem;
+  padding: 0 0.75rem;
   font-size: 0.75rem;
 }
 
+/* Icon-only small buttons */
+.button-size-sm:has(svg:only-child) {
+  width: 2rem;
+  padding: 0;
+}
+
 .button-size-default {
-  padding: var(--feedlog-button-padding-default);
+  height: 2.25rem;
+  padding: 0.5rem 1rem;
 }
 
 .button-size-lg {
-  padding: var(--feedlog-button-padding-lg);
+  height: 2.5rem;
+  padding: 0.625rem 1.5rem;
   font-size: 1rem;
 }
 
+/* SVG icons styling */
+button svg {
+  pointer-events: none;
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+}
