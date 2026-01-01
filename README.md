@@ -1,6 +1,6 @@
 # Feedlog Toolkit
 
-A monorepo containing the Feedlog Toolkit - a comprehensive set of packages for building data visualization components and SDKs.
+A monorepo containing the Feedlog Toolkit - a comprehensive set of packages for building GitHub issue management components and SDKs.
 
 ## 📦 Packages
 
@@ -19,13 +19,13 @@ Core SDK package providing shared utilities, types, and functionality used acros
 
 ### `@feedlog-toolkit/webcomponents`
 
-Stencil-based web components for data visualization. These are framework-agnostic web components that can be used in any JavaScript framework or vanilla HTML.
+Stencil-based web components for GitHub issue management. These are framework-agnostic web components that can be used in any JavaScript framework or vanilla HTML.
 
 **Features:**
 
 - Built with [Stencil](https://stenciljs.com/)
 - Web Components standard (Custom Elements, Shadow DOM)
-- Data visualization components
+- GitHub issue display and management components
 - Tree-shakeable builds
 - Auto-generated React and Vue wrappers
 
@@ -38,7 +38,7 @@ React bindings for Feedlog Toolkit web components. Auto-generated from Stencil c
 - React components with TypeScript support
 - Auto-generated from Stencil components
 - Full type safety
-- Peer dependency on React >=16.8.0
+- Peer dependency on React >=17.0.0
 
 ### `@feedlog-toolkit/vue`
 
@@ -55,7 +55,7 @@ Vue bindings for Feedlog Toolkit web components. Auto-generated from Stencil com
 
 ### Prerequisites
 
-- Node.js >= 18.0.0
+- Node.js >= 22.0.0
 - npm >= 9.0.0
 
 ### Installation
@@ -112,31 +112,68 @@ npm run build:vue
 ```
 feedlog-toolkit/
 ├── packages/
-│   ├── core/              # Core SDK package
+│   ├── core/                    # Core SDK package
 │   │   ├── src/
-│   │   │   ├── types/     # TypeScript types
-│   │   │   ├── utils/     # Utility functions
-│   │   │   └── index.ts   # Main exports
-│   │   └── package.json
-│   ├── webcomponents/     # Stencil web components
+│   │   │   ├── __tests__/       # Unit tests
+│   │   │   ├── types/           # TypeScript types
+│   │   │   ├── utils/           # Utility functions
+│   │   │   ├── errors.ts        # Error handling
+│   │   │   └── index.ts         # Main exports
+│   │   ├── dist/                # Compiled output
+│   │   ├── jest.config.js       # Jest configuration
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── webcomponents/           # Stencil web components
 │   │   ├── src/
-│   │   │   ├── components/  # Stencil components
-│   │   │   └── global/      # Global styles
+│   │   │   ├── components/      # Stencil components
+│   │   │   │   ├── feedlog-badge/
+│   │   │   │   ├── feedlog-button/
+│   │   │   │   ├── feedlog-card/
+│   │   │   │   ├── feedlog-github-issues/
+│   │   │   │   └── ...
+│   │   │   ├── global/          # Global styles
+│   │   │   └── index.ts
+│   │   ├── collection/          # Stencil collection output
+│   │   ├── dist/                # Build output (esm, cjs, types)
+│   │   ├── loader/              # Script loader utilities
+│   │   ├── scripts/             # Build scripts
+│   │   ├── storybook-static/    # Storybook build output
 │   │   ├── stencil.config.ts
-│   │   └── package.json
-│   ├── react/             # React wrappers
+│   │   ├── stencil.test.config.ts
+│   │   ├── custom-elements.json
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── react/                   # React wrappers
 │   │   ├── src/
-│   │   │   └── components/
-│   │   │       └── stencil-generated/  # Auto-generated React components
-│   │   └── package.json
-│   └── vue/               # Vue wrappers
+│   │   │   ├── __tests__/
+│   │   │   ├── components/
+│   │   │   │   └── stencil-generated/  # Auto-generated React components
+│   │   │   └── index.ts
+│   │   ├── dist/                # Compiled output
+│   │   ├── jest.config.js
+│   │   ├── package.json
+│   │   ├── tsconfig.json
+│   │   ├── tsconfig.stencil-generated.json
+│   │   └── tsconfig.stencil.json
+│   └── vue/                     # Vue wrappers
 │       ├── src/
-│       │   └── components.ts  # Auto-generated Vue components
-│       └── package.json
-├── package.json           # Root package.json with workspaces
-├── tsconfig.json          # Root TypeScript config
-├── .eslintrc.js          # ESLint configuration
-├── .prettierrc           # Prettier configuration
+│       │   ├── __tests__/
+│       │   ├── components.ts    # Auto-generated Vue components
+│       │   ├── vue-component-lib/
+│       │   │   └── utils.ts     # Vue-specific utilities
+│       │   └── index.ts
+│       ├── dist/                # Compiled output
+│       ├── jest.config.js
+│       ├── package.json
+│       └── tsconfig.json
+├── scripts/
+│   └── release.js               # Release automation script
+├── .github/
+│   └── workflows/               # GitHub Actions CI/CD
+├── package.json                 # Root package.json with workspaces
+├── tsconfig.json                # Root TypeScript config
+├── README.md
+└── [config files]               # ESLint, Prettier, etc.
 ```
 
 ## 📚 Usage Examples
@@ -146,8 +183,25 @@ feedlog-toolkit/
 ```typescript
 import { FeedlogSDK } from '@feedlog-toolkit/core';
 
-const sdk = new FeedlogSDK('your-api-key');
-sdk.initialize({ apiKey: 'your-api-key' });
+// Initialize with default configuration
+const sdk = new FeedlogSDK();
+
+// Or initialize with custom configuration
+const customSdk = new FeedlogSDK({
+  endpoint: 'https://api.feedlog.app', // Custom API endpoint (optional)
+  timeout: 30000, // Request timeout in milliseconds (optional)
+  credentials: 'include', // Fetch credentials mode (optional)
+});
+
+// Fetch issues
+const issues = await sdk.fetchIssues({
+  repositoryIds: 'your-repo-id',
+  type: 'bug', // 'bug' or 'enhancement'
+  limit: 10,
+});
+
+// Toggle upvote on an issue
+const upvoteResult = await sdk.toggleUpvote('issue-id');
 ```
 
 ### Using Web Components (Vanilla HTML)
@@ -162,8 +216,9 @@ sdk.initialize({ apiKey: 'your-api-key' });
     ></script>
   </head>
   <body>
-    <feedlog-chart type="line" title="My Chart" data='[{"x": 1, "y": 2}, {"x": 2, "y": 3}]'>
-    </feedlog-chart>
+    <feedlog-card title="My Card" content="Hello World!"></feedlog-card>
+    <feedlog-badge variant="primary" text="New"></feedlog-badge>
+    <feedlog-button variant="primary">Click me</feedlog-button>
   </body>
 </html>
 ```
@@ -172,15 +227,16 @@ sdk.initialize({ apiKey: 'your-api-key' });
 
 ```tsx
 import React from 'react';
-import { FeedlogChart } from '@feedlog-toolkit/react';
+import { FeedlogCard, FeedlogBadge, FeedlogButton } from '@feedlog-toolkit/react';
 
 function App() {
-  const chartData = [
-    { x: 1, y: 2 },
-    { x: 2, y: 3 },
-  ];
-
-  return <FeedlogChart type="line" title="My Chart" data={chartData} />;
+  return (
+    <div>
+      <FeedlogCard title="My Card" content="Hello World!" />
+      <FeedlogBadge variant="primary" text="New" />
+      <FeedlogButton variant="primary">Click me</FeedlogButton>
+    </div>
+  );
 }
 ```
 
@@ -188,16 +244,13 @@ function App() {
 
 ```vue
 <template>
-  <feedlog-chart type="line" title="My Chart" :data="chartData" />
+  <feedlog-card title="My Card" content="Hello World!" />
+  <feedlog-badge variant="primary" text="New" />
+  <feedlog-button variant="primary">Click me</feedlog-button>
 </template>
 
 <script setup lang="ts">
-import { FeedlogChart } from '@feedlog-toolkit/vue';
-
-const chartData = [
-  { x: 1, y: 2 },
-  { x: 2, y: 3 },
-];
+import { FeedlogCard, FeedlogBadge, FeedlogButton } from '@feedlog-toolkit/vue';
 </script>
 ```
 
@@ -212,24 +265,133 @@ const chartData = [
 ### Creating a New Component with Stencil
 
 ```bash
+# Navigate to the webcomponents package
 cd packages/webcomponents
+
+# Generate a new component
 npm run generate
 # Follow the prompts to create a new component
+
+# Build the webcomponents package (this also generates React/Vue wrappers)
+npm run build
+```
+
+## 🚀 Publishing & CI/CD
+
+### Automated Releases
+
+This project uses GitHub Actions for automated CI/CD:
+
+- **CI Workflow**: Runs on every push/PR to `main`/`master` branches
+  - Uses Node.js 22.x
+  - Installs dependencies
+  - Runs linting and formatting checks
+  - Executes test suites with coverage
+  - Builds all packages
+
+- **Release Workflow**: Triggers on version tags (`v*.*.*`)
+  - Uses Node.js 22.x
+  - Runs full CI checks
+  - Publishes all packages to npm
+  - Creates a GitHub release
+
+### Publishing a Release
+
+1. **Update versions and create release**:
+
+   ```bash
+   # Increment patch version (default)
+   npm run release
+
+   # Or specify version type
+   npm run release minor  # 0.0.1 → 0.1.0
+   npm run release major  # 0.0.1 → 1.0.0
+   ```
+
+2. **Push to GitHub**:
+
+   ```bash
+   git push && git push --tags
+   ```
+
+3. **GitHub Actions will automatically**:
+   - Build all packages
+   - Publish to npm (requires `NPM_TOKEN` secret)
+   - Create a GitHub release
+
+### Required GitHub Secrets
+
+For automated publishing, set these secrets in your GitHub repository:
+
+- `NPM_TOKEN`: npm authentication token with publish permissions
+- `CODECOV_TOKEN`: Optional, for code coverage reporting
+
+### Manual Publishing
+
+If you need to publish manually:
+
+```bash
+# Build all packages
+npm run build
+
+# Publish each package
+cd packages/core && npm publish
+cd ../webcomponents && npm publish
+cd ../react && npm publish
+cd ../vue && npm publish
 ```
 
 ## 📋 Scripts Reference
 
 ### Root Scripts
 
-- `npm run build` - Build all packages
+**Build Commands:**
+
+- `npm run build` - Build all packages in dependency order
+- `npm run build:core` - Build only the core package
+- `npm run build:webcomponents` - Build web components (generates React/Vue wrappers)
+- `npm run build:react` - Build React package
+- `npm run build:vue` - Build Vue package
+
+**Development:**
+
 - `npm run dev` - Start development server for web components
+- `npm run storybook` - Start Storybook for component development
+
+**Testing:**
+
+- `npm run test` - Run tests for all packages
+- `npm run test:core` - Run tests for core package
+- `npm run test:webcomponents` - Run tests for web components
+- `npm run test:react` - Run tests for React package
+- `npm run test:vue` - Run tests for Vue package
+- `npm run test:coverage` - Run tests with coverage for all packages
+
+**Code Quality:**
+
 - `npm run lint` - Lint all packages
+- `npm run lint:fix` - Lint and auto-fix issues
 - `npm run format` - Format all code with Prettier
-- `npm run clean` - Clean all build artifacts
+- `npm run format:check` - Check code formatting
+
+**Maintenance:**
+
+- `npm run clean` - Clean all build artifacts and node_modules
+- `npm run release` - Update versions and prepare release (patch by default)
+- `npm run release minor` - Prepare minor version release
+- `npm run release major` - Prepare major version release
 
 ### Package-Specific Scripts
 
-Each package has its own scripts defined in its `package.json`. Use `npm run <script> --workspace=<package-name>` to run them.
+Each package has additional scripts defined in its `package.json`:
+
+**Web Components Package:**
+
+- `npm run generate` - Generate new Stencil components
+- `npm run storybook` - Start Storybook for web components
+- `npm run build-storybook` - Build Storybook static site
+
+Use `npm run <script> --workspace=<package-name>` to run package-specific scripts.
 
 ## 🤝 Contributing
 
