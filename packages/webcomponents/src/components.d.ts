@@ -5,8 +5,8 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { GitHubIssue } from "@feedlog-toolkit/core";
-export { GitHubIssue } from "@feedlog-toolkit/core";
+import { FeedlogIssue } from "@feedlog-toolkit/core";
+export { FeedlogIssue } from "@feedlog-toolkit/core";
 export namespace Components {
     /**
      * Feedlog Badge Component
@@ -63,10 +63,20 @@ export namespace Components {
          */
         "error": string | null;
         /**
+          * Whether there are more issues to load
+          * @default false
+         */
+        "hasMore": boolean;
+        /**
+          * Whether more issues are currently loading
+          * @default false
+         */
+        "isLoadingMore": boolean;
+        /**
           * Array of issues to display
           * @default []
          */
-        "issues": GitHubIssue[];
+        "issues": FeedlogIssue[];
         /**
           * Loading state - shows loading indicator when true
           * @default false
@@ -95,16 +105,20 @@ export namespace Components {
      */
     interface FeedlogGithubIssuesClient {
         /**
+          * Custom API endpoint
+         */
+        "endpoint"?: string;
+        /**
+          * Maximum number of issues to fetch (1-100, default 10)
+         */
+        "limit"?: number;
+        /**
           * Maximum width of the container
           * @default '42rem'
          */
         "maxWidth": string;
         /**
-          * API key (public key) for the Feedlog SDK
-         */
-        "pk": string;
-        /**
-          * Array of repository IDs (e.g., ['owner/repo']) or JSON string
+          * Array of repository public IDs or single ID Format: repository public ID (not owner/repo)
          */
         "repos"?: string[] | string;
         /**
@@ -117,6 +131,10 @@ export namespace Components {
           * @default 'light'
          */
         "theme": 'light' | 'dark';
+        /**
+          * Filter issues by type: 'bug' or 'enhancement'
+         */
+        "type"?: 'bug' | 'enhancement';
     }
     /**
      * Feedlog Issues List Component
@@ -127,7 +145,7 @@ export namespace Components {
           * Array of issues to display
           * @default []
          */
-        "issues": GitHubIssue[];
+        "issues": FeedlogIssue[];
         /**
           * Theme variant: 'light' or 'dark'
           * @default 'light'
@@ -194,8 +212,13 @@ declare global {
         new (): HTMLFeedlogCardElement;
     };
     interface HTMLFeedlogGithubIssuesElementEventMap {
-        "feedlogUpvote": number;
+        "feedlogUpvote": {
+    issueId: string;
+    currentUpvoted: boolean;
+    currentCount: number;
+  };
         "feedlogThemeChange": 'light' | 'dark';
+        "feedlogLoadMore": void;
     }
     /**
      * Feedlog GitHub Issues Component
@@ -217,8 +240,9 @@ declare global {
         new (): HTMLFeedlogGithubIssuesElement;
     };
     interface HTMLFeedlogGithubIssuesClientElementEventMap {
-        "feedlogUpvote": number;
+        "feedlogUpvote": { issueId: string; upvoted: boolean; upvoteCount: number };
         "feedlogThemeChange": 'light' | 'dark';
+        "feedlogError": { error: string; code?: number };
     }
     /**
      * Feedlog GitHub Issues Client Component
@@ -240,7 +264,11 @@ declare global {
         new (): HTMLFeedlogGithubIssuesClientElement;
     };
     interface HTMLFeedlogIssuesListElementEventMap {
-        "feedlogUpvote": number;
+        "feedlogUpvote": {
+    issueId: string;
+    currentUpvoted: boolean;
+    currentCount: number;
+  };
     }
     /**
      * Feedlog Issues List Component
@@ -329,10 +357,20 @@ declare namespace LocalJSX {
          */
         "error"?: string | null;
         /**
+          * Whether there are more issues to load
+          * @default false
+         */
+        "hasMore"?: boolean;
+        /**
+          * Whether more issues are currently loading
+          * @default false
+         */
+        "isLoadingMore"?: boolean;
+        /**
           * Array of issues to display
           * @default []
          */
-        "issues"?: GitHubIssue[];
+        "issues"?: FeedlogIssue[];
         /**
           * Loading state - shows loading indicator when true
           * @default false
@@ -344,13 +382,21 @@ declare namespace LocalJSX {
          */
         "maxWidth"?: string;
         /**
+          * Event emitted to load more issues
+         */
+        "onFeedlogLoadMore"?: (event: FeedlogGithubIssuesCustomEvent<void>) => void;
+        /**
           * Event emitted when theme changes
          */
         "onFeedlogThemeChange"?: (event: FeedlogGithubIssuesCustomEvent<'light' | 'dark'>) => void;
         /**
           * Event emitted when an issue is upvoted
          */
-        "onFeedlogUpvote"?: (event: FeedlogGithubIssuesCustomEvent<number>) => void;
+        "onFeedlogUpvote"?: (event: FeedlogGithubIssuesCustomEvent<{
+    issueId: string;
+    currentUpvoted: boolean;
+    currentCount: number;
+  }>) => void;
         /**
           * Whether to show the theme toggle button
           * @default true
@@ -369,10 +415,22 @@ declare namespace LocalJSX {
      */
     interface FeedlogGithubIssuesClient {
         /**
+          * Custom API endpoint
+         */
+        "endpoint"?: string;
+        /**
+          * Maximum number of issues to fetch (1-100, default 10)
+         */
+        "limit"?: number;
+        /**
           * Maximum width of the container
           * @default '42rem'
          */
         "maxWidth"?: string;
+        /**
+          * Event emitted on error
+         */
+        "onFeedlogError"?: (event: FeedlogGithubIssuesClientCustomEvent<{ error: string; code?: number }>) => void;
         /**
           * Event emitted when theme changes
          */
@@ -380,13 +438,9 @@ declare namespace LocalJSX {
         /**
           * Event emitted when an issue is upvoted
          */
-        "onFeedlogUpvote"?: (event: FeedlogGithubIssuesClientCustomEvent<number>) => void;
+        "onFeedlogUpvote"?: (event: FeedlogGithubIssuesClientCustomEvent<{ issueId: string; upvoted: boolean; upvoteCount: number }>) => void;
         /**
-          * API key (public key) for the Feedlog SDK
-         */
-        "pk": string;
-        /**
-          * Array of repository IDs (e.g., ['owner/repo']) or JSON string
+          * Array of repository public IDs or single ID Format: repository public ID (not owner/repo)
          */
         "repos"?: string[] | string;
         /**
@@ -399,6 +453,10 @@ declare namespace LocalJSX {
           * @default 'light'
          */
         "theme"?: 'light' | 'dark';
+        /**
+          * Filter issues by type: 'bug' or 'enhancement'
+         */
+        "type"?: 'bug' | 'enhancement';
     }
     /**
      * Feedlog Issues List Component
@@ -409,11 +467,15 @@ declare namespace LocalJSX {
           * Array of issues to display
           * @default []
          */
-        "issues"?: GitHubIssue[];
+        "issues"?: FeedlogIssue[];
         /**
           * Event emitted when an issue is upvoted
          */
-        "onFeedlogUpvote"?: (event: FeedlogIssuesListCustomEvent<number>) => void;
+        "onFeedlogUpvote"?: (event: FeedlogIssuesListCustomEvent<{
+    issueId: string;
+    currentUpvoted: boolean;
+    currentCount: number;
+  }>) => void;
         /**
           * Theme variant: 'light' or 'dark'
           * @default 'light'

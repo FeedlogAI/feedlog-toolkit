@@ -23,40 +23,75 @@ export class FeedlogGithubIssuesClient {
         this.issues = [];
         this.loading = true;
         this.error = null;
+        this.cursor = null;
+        this.hasMore = false;
+        this.isLoadingMore = false;
         this.sdk = null;
-        this.handleUpvote = (event) => {
-            this.feedlogUpvote.emit(event.detail);
+        this.handleUpvote = async (event) => {
+            if (!this.sdk) {
+                return;
+            }
+            const { issueId, currentUpvoted, currentCount } = event.detail;
+            // Optimistic update
+            this.issues = this.issues.map(issue => issue.id === issueId
+                ? Object.assign(Object.assign({}, issue), { hasUpvoted: !currentUpvoted, upvoteCount: currentUpvoted ? currentCount - 1 : currentCount + 1 }) : issue);
+            try {
+                const result = await this.sdk.toggleUpvote(issueId);
+                // Update with server response
+                this.issues = this.issues.map(issue => issue.id === issueId
+                    ? Object.assign(Object.assign({}, issue), { hasUpvoted: result.upvoted, upvoteCount: result.upvoteCount }) : issue);
+                this.feedlogUpvote.emit({
+                    issueId,
+                    upvoted: result.upvoted,
+                    upvoteCount: result.upvoteCount,
+                });
+            }
+            catch (err) {
+                // Revert optimistic update on error
+                this.issues = this.issues.map(issue => issue.id === issueId
+                    ? Object.assign(Object.assign({}, issue), { hasUpvoted: currentUpvoted, upvoteCount: currentCount }) : issue);
+                const errorMsg = err instanceof Error ? err.message : 'Failed to toggle upvote';
+                this.feedlogError.emit({ error: errorMsg });
+            }
         };
         this.handleThemeChange = (event) => {
+            this.theme = event.detail;
             this.feedlogThemeChange.emit(event.detail);
         };
     }
     componentWillLoad() {
-        this.previousPk = this.pk;
         this.previousRepos = this.repos;
+        this.previousType = this.type;
+        this.previousLimit = this.limit;
         this.initializeSDK();
         this.fetchIssues();
     }
     componentDidUpdate() {
-        // Re-fetch if pk or repos changed
-        const pkChanged = this.previousPk !== this.pk;
+        // Re-fetch if any props changed
         const reposChanged = JSON.stringify(this.previousRepos) !== JSON.stringify(this.repos);
-        if (pkChanged || reposChanged) {
-            if (pkChanged) {
-                this.initializeSDK();
-            }
+        const typeChanged = this.previousType !== this.type;
+        const limitChanged = this.previousLimit !== this.limit;
+        if (reposChanged || typeChanged || limitChanged) {
+            // Reset pagination when filters change
+            this.cursor = null;
+            this.hasMore = false;
+            this.issues = [];
             this.fetchIssues();
-            this.previousPk = this.pk;
             this.previousRepos = this.repos;
+            this.previousType = this.type;
+            this.previousLimit = this.limit;
         }
     }
     initializeSDK() {
-        if (!this.pk) {
-            this.error = 'API key (pk) is required';
-            this.loading = false;
-            return;
+        try {
+            this.sdk = new FeedlogSDK(Object.assign({}, (this.endpoint && { endpoint: this.endpoint })));
+            this.error = null;
         }
-        this.sdk = new FeedlogSDK(this.pk);
+        catch (err) {
+            const errorMsg = err instanceof Error ? err.message : 'Failed to initialize SDK';
+            this.error = errorMsg;
+            this.feedlogError.emit({ error: errorMsg });
+        }
     }
     parseRepos() {
         if (!this.repos) {
@@ -65,10 +100,10 @@ export class FeedlogGithubIssuesClient {
         if (typeof this.repos === 'string') {
             try {
                 const parsed = JSON.parse(this.repos);
-                return Array.isArray(parsed) ? parsed : [];
+                return Array.isArray(parsed) ? parsed : [this.repos];
             }
             catch (_a) {
-                // If not valid JSON, treat as single repo string
+                // If not valid JSON, treat as single repo ID
                 return [this.repos];
             }
         }
@@ -82,47 +117,85 @@ export class FeedlogGithubIssuesClient {
         if (repos.length === 0) {
             this.error = 'At least one repository is required';
             this.loading = false;
+            this.feedlogError.emit({ error: 'At least one repository is required' });
             return;
         }
         try {
             this.loading = true;
             this.error = null;
-            this.issues = await this.sdk.fetchIssues(repos);
+            const params = {
+                repositoryIds: repos,
+            };
+            if (this.type) {
+                params.type = this.type;
+            }
+            if (this.limit) {
+                params.limit = this.limit;
+            }
+            if (this.cursor) {
+                params.cursor = this.cursor;
+            }
+            const response = await this.sdk.fetchIssues(params);
+            this.issues = response.issues;
+            this.cursor = response.pagination.cursor;
+            this.hasMore = response.pagination.hasMore;
         }
         catch (err) {
-            this.error = err instanceof Error ? err.message : 'Failed to fetch issues';
+            const errorMsg = err instanceof Error ? err.message : 'Failed to fetch issues';
+            this.error = errorMsg;
             this.issues = [];
+            this.feedlogError.emit({
+                error: errorMsg,
+                code: err === null || err === void 0 ? void 0 : err.statusCode,
+            });
         }
         finally {
             this.loading = false;
+            this.isLoadingMore = false;
+        }
+    }
+    async loadMore() {
+        if (!this.sdk || !this.hasMore || this.isLoadingMore || this.loading) {
+            return;
+        }
+        this.isLoadingMore = true;
+        try {
+            const repos = this.parseRepos();
+            const params = {
+                repositoryIds: repos,
+            };
+            if (this.type) {
+                params.type = this.type;
+            }
+            if (this.limit) {
+                params.limit = this.limit;
+            }
+            if (this.cursor) {
+                params.cursor = this.cursor;
+            }
+            const response = await this.sdk.fetchIssues(params);
+            this.issues = [...this.issues, ...response.issues];
+            this.cursor = response.pagination.cursor;
+            this.hasMore = response.pagination.hasMore;
+        }
+        catch (err) {
+            const errorMsg = err instanceof Error ? err.message : 'Failed to load more issues';
+            this.feedlogError.emit({
+                error: errorMsg,
+                code: err === null || err === void 0 ? void 0 : err.statusCode,
+            });
+        }
+        finally {
+            this.isLoadingMore = false;
         }
     }
     render() {
-        return (h("feedlog-github-issues", { key: '38b1f084bd7a44bd45d1809b9c78d317691a5c70', issues: this.issues, maxWidth: this.maxWidth, theme: this.theme, showThemeToggle: this.showThemeToggle, loading: this.loading, error: this.error, onFeedlogUpvote: this.handleUpvote, onFeedlogThemeChange: this.handleThemeChange }));
+        return (h("feedlog-github-issues", { key: '6cdf1a12be2ebf2ee170c442618de502c1057740', issues: this.issues, maxWidth: this.maxWidth, theme: this.theme, showThemeToggle: this.showThemeToggle, loading: this.loading, error: this.error, hasMore: this.hasMore, isLoadingMore: this.isLoadingMore, onFeedlogUpvote: this.handleUpvote, onFeedlogThemeChange: this.handleThemeChange, onFeedlogLoadMore: async () => this.loadMore() }));
     }
     static get is() { return "feedlog-github-issues-client"; }
     static get encapsulation() { return "shadow"; }
     static get properties() {
         return {
-            "pk": {
-                "type": "string",
-                "mutable": false,
-                "complexType": {
-                    "original": "string",
-                    "resolved": "string",
-                    "references": {}
-                },
-                "required": true,
-                "optional": false,
-                "docs": {
-                    "tags": [],
-                    "text": "API key (public key) for the Feedlog SDK"
-                },
-                "getter": false,
-                "setter": false,
-                "reflect": false,
-                "attribute": "pk"
-            },
             "repos": {
                 "type": "string",
                 "mutable": false,
@@ -135,12 +208,69 @@ export class FeedlogGithubIssuesClient {
                 "optional": true,
                 "docs": {
                     "tags": [],
-                    "text": "Array of repository IDs (e.g., ['owner/repo']) or JSON string"
+                    "text": "Array of repository public IDs or single ID\nFormat: repository public ID (not owner/repo)"
                 },
                 "getter": false,
                 "setter": false,
                 "reflect": false,
                 "attribute": "repos"
+            },
+            "type": {
+                "type": "string",
+                "mutable": false,
+                "complexType": {
+                    "original": "'bug' | 'enhancement'",
+                    "resolved": "\"bug\" | \"enhancement\" | undefined",
+                    "references": {}
+                },
+                "required": false,
+                "optional": true,
+                "docs": {
+                    "tags": [],
+                    "text": "Filter issues by type: 'bug' or 'enhancement'"
+                },
+                "getter": false,
+                "setter": false,
+                "reflect": false,
+                "attribute": "type"
+            },
+            "limit": {
+                "type": "number",
+                "mutable": false,
+                "complexType": {
+                    "original": "number",
+                    "resolved": "number | undefined",
+                    "references": {}
+                },
+                "required": false,
+                "optional": true,
+                "docs": {
+                    "tags": [],
+                    "text": "Maximum number of issues to fetch (1-100, default 10)"
+                },
+                "getter": false,
+                "setter": false,
+                "reflect": false,
+                "attribute": "limit"
+            },
+            "endpoint": {
+                "type": "string",
+                "mutable": false,
+                "complexType": {
+                    "original": "string",
+                    "resolved": "string | undefined",
+                    "references": {}
+                },
+                "required": false,
+                "optional": true,
+                "docs": {
+                    "tags": [],
+                    "text": "Custom API endpoint"
+                },
+                "getter": false,
+                "setter": false,
+                "reflect": false,
+                "attribute": "endpoint"
             },
             "maxWidth": {
                 "type": "string",
@@ -208,7 +338,10 @@ export class FeedlogGithubIssuesClient {
         return {
             "issues": {},
             "loading": {},
-            "error": {}
+            "error": {},
+            "cursor": {},
+            "hasMore": {},
+            "isLoadingMore": {}
         };
     }
     static get events() {
@@ -223,8 +356,8 @@ export class FeedlogGithubIssuesClient {
                     "text": "Event emitted when an issue is upvoted"
                 },
                 "complexType": {
-                    "original": "number",
-                    "resolved": "number",
+                    "original": "{ issueId: string; upvoted: boolean; upvoteCount: number }",
+                    "resolved": "{ issueId: string; upvoted: boolean; upvoteCount: number; }",
                     "references": {}
                 }
             }, {
@@ -240,6 +373,21 @@ export class FeedlogGithubIssuesClient {
                 "complexType": {
                     "original": "'light' | 'dark'",
                     "resolved": "\"dark\" | \"light\"",
+                    "references": {}
+                }
+            }, {
+                "method": "feedlogError",
+                "name": "feedlogError",
+                "bubbles": true,
+                "cancelable": true,
+                "composed": true,
+                "docs": {
+                    "tags": [],
+                    "text": "Event emitted on error"
+                },
+                "complexType": {
+                    "original": "{ error: string; code?: number }",
+                    "resolved": "{ error: string; code?: number | undefined; }",
                     "references": {}
                 }
             }];

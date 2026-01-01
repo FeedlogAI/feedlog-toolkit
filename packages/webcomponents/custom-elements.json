@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-11-28T12:22:17",
+  "timestamp": "2026-01-01T09:18:47",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.38.3",
@@ -324,16 +324,74 @@
           "setter": false
         },
         {
-          "name": "issues",
-          "type": "GitHubIssue[]",
+          "name": "hasMore",
+          "type": "boolean",
           "complexType": {
-            "original": "GitHubIssue[]",
-            "resolved": "GitHubIssue[]",
+            "original": "boolean",
+            "resolved": "boolean",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "has-more",
+          "reflectToAttr": false,
+          "docs": "Whether there are more issues to load",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "false"
+            }
+          ],
+          "default": "false",
+          "values": [
+            {
+              "type": "boolean"
+            }
+          ],
+          "optional": false,
+          "required": false,
+          "getter": false,
+          "setter": false
+        },
+        {
+          "name": "isLoadingMore",
+          "type": "boolean",
+          "complexType": {
+            "original": "boolean",
+            "resolved": "boolean",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "is-loading-more",
+          "reflectToAttr": false,
+          "docs": "Whether more issues are currently loading",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "false"
+            }
+          ],
+          "default": "false",
+          "values": [
+            {
+              "type": "boolean"
+            }
+          ],
+          "optional": false,
+          "required": false,
+          "getter": false,
+          "setter": false
+        },
+        {
+          "name": "issues",
+          "type": "FeedlogIssue[]",
+          "complexType": {
+            "original": "FeedlogIssue[]",
+            "resolved": "FeedlogIssue[]",
             "references": {
-              "GitHubIssue": {
+              "FeedlogIssue": {
                 "location": "import",
                 "path": "@feedlog-toolkit/core",
-                "id": "../core/dist/index.d.ts::GitHubIssue"
+                "id": "../core/dist/index.d.ts::FeedlogIssue"
               }
             }
           },
@@ -349,7 +407,7 @@
           "default": "[]",
           "values": [
             {
-              "type": "GitHubIssue[]"
+              "type": "FeedlogIssue[]"
             }
           ],
           "optional": false,
@@ -482,6 +540,20 @@
       "methods": [],
       "events": [
         {
+          "event": "feedlogLoadMore",
+          "detail": "void",
+          "bubbles": true,
+          "complexType": {
+            "original": "void",
+            "resolved": "void",
+            "references": {}
+          },
+          "cancelable": true,
+          "composed": true,
+          "docs": "Event emitted to load more issues",
+          "docsTags": []
+        },
+        {
           "event": "feedlogThemeChange",
           "detail": "\"dark\" | \"light\"",
           "bubbles": true,
@@ -497,11 +569,11 @@
         },
         {
           "event": "feedlogUpvote",
-          "detail": "number",
+          "detail": "{ issueId: string; currentUpvoted: boolean; currentCount: number; }",
           "bubbles": true,
           "complexType": {
-            "original": "number",
-            "resolved": "number",
+            "original": "{\n    issueId: string;\n    currentUpvoted: boolean;\n    currentCount: number;\n  }",
+            "resolved": "{ issueId: string; currentUpvoted: boolean; currentCount: number; }",
             "references": {}
           },
           "cancelable": true,
@@ -544,6 +616,58 @@
       "usage": {},
       "props": [
         {
+          "name": "endpoint",
+          "type": "string | undefined",
+          "complexType": {
+            "original": "string",
+            "resolved": "string | undefined",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "endpoint",
+          "reflectToAttr": false,
+          "docs": "Custom API endpoint",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "undefined"
+            }
+          ],
+          "optional": true,
+          "required": false,
+          "getter": false,
+          "setter": false
+        },
+        {
+          "name": "limit",
+          "type": "number | undefined",
+          "complexType": {
+            "original": "number",
+            "resolved": "number | undefined",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "limit",
+          "reflectToAttr": false,
+          "docs": "Maximum number of issues to fetch (1-100, default 10)",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "undefined"
+            }
+          ],
+          "optional": true,
+          "required": false,
+          "getter": false,
+          "setter": false
+        },
+        {
           "name": "maxWidth",
           "type": "string",
           "complexType": {
@@ -573,29 +697,6 @@
           "setter": false
         },
         {
-          "name": "pk",
-          "type": "string",
-          "complexType": {
-            "original": "string",
-            "resolved": "string",
-            "references": {}
-          },
-          "mutable": false,
-          "attr": "pk",
-          "reflectToAttr": false,
-          "docs": "API key (public key) for the Feedlog SDK",
-          "docsTags": [],
-          "values": [
-            {
-              "type": "string"
-            }
-          ],
-          "optional": false,
-          "required": true,
-          "getter": false,
-          "setter": false
-        },
-        {
           "name": "repos",
           "type": "string | string[] | undefined",
           "complexType": {
@@ -606,7 +707,7 @@
           "mutable": false,
           "attr": "repos",
           "reflectToAttr": false,
-          "docs": "Array of repository IDs (e.g., ['owner/repo']) or JSON string",
+          "docs": "Array of repository public IDs or single ID\nFormat: repository public ID (not owner/repo)",
           "docsTags": [],
           "values": [
             {
@@ -686,10 +787,55 @@
           "required": false,
           "getter": false,
           "setter": false
+        },
+        {
+          "name": "type",
+          "type": "\"bug\" | \"enhancement\" | undefined",
+          "complexType": {
+            "original": "'bug' | 'enhancement'",
+            "resolved": "\"bug\" | \"enhancement\" | undefined",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "type",
+          "reflectToAttr": false,
+          "docs": "Filter issues by type: 'bug' or 'enhancement'",
+          "docsTags": [],
+          "values": [
+            {
+              "value": "bug",
+              "type": "string"
+            },
+            {
+              "value": "enhancement",
+              "type": "string"
+            },
+            {
+              "type": "undefined"
+            }
+          ],
+          "optional": true,
+          "required": false,
+          "getter": false,
+          "setter": false
         }
       ],
       "methods": [],
       "events": [
+        {
+          "event": "feedlogError",
+          "detail": "{ error: string; code?: number | undefined; }",
+          "bubbles": true,
+          "complexType": {
+            "original": "{ error: string; code?: number }",
+            "resolved": "{ error: string; code?: number | undefined; }",
+            "references": {}
+          },
+          "cancelable": true,
+          "composed": true,
+          "docs": "Event emitted on error",
+          "docsTags": []
+        },
         {
           "event": "feedlogThemeChange",
           "detail": "\"dark\" | \"light\"",
@@ -706,11 +852,11 @@
         },
         {
           "event": "feedlogUpvote",
-          "detail": "number",
+          "detail": "{ issueId: string; upvoted: boolean; upvoteCount: number; }",
           "bubbles": true,
           "complexType": {
-            "original": "number",
-            "resolved": "number",
+            "original": "{ issueId: string; upvoted: boolean; upvoteCount: number }",
+            "resolved": "{ issueId: string; upvoted: boolean; upvoteCount: number; }",
             "references": {}
           },
           "cancelable": true,
@@ -751,14 +897,15 @@
       "props": [
         {
           "name": "issues",
-          "type": "GitHubIssue[]",
+          "type": "FeedlogIssue[]",
           "complexType": {
-            "original": "GitHubIssue[]",
-            "resolved": "GitHubIssue[]",
+            "original": "FeedlogIssue[]",
+            "resolved": "FeedlogIssue[]",
             "references": {
-              "GitHubIssue": {
-                "location": "global",
-                "id": "global::GitHubIssue"
+              "FeedlogIssue": {
+                "location": "import",
+                "path": "@feedlog-toolkit/core",
+                "id": "../core/dist/index.d.ts::FeedlogIssue"
               }
             }
           },
@@ -774,7 +921,7 @@
           "default": "[]",
           "values": [
             {
-              "type": "GitHubIssue[]"
+              "type": "FeedlogIssue[]"
             }
           ],
           "optional": false,
@@ -821,11 +968,11 @@
       "events": [
         {
           "event": "feedlogUpvote",
-          "detail": "number",
+          "detail": "{ issueId: string; currentUpvoted: boolean; currentCount: number; }",
           "bubbles": true,
           "complexType": {
-            "original": "number",
-            "resolved": "number",
+            "original": "{\n    issueId: string;\n    currentUpvoted: boolean;\n    currentCount: number;\n  }",
+            "resolved": "{ issueId: string; currentUpvoted: boolean; currentCount: number; }",
             "references": {}
           },
           "cancelable": true,
@@ -855,8 +1002,8 @@
     }
   ],
   "typeLibrary": {
-    "../core/dist/index.d.ts::GitHubIssue": {
-      "declaration": "export interface GitHubIssue {\n    id: number;\n    title: string;\n    body: string;\n    type: 'bug' | 'enhancement';\n    upvotes?: number;\n    postedAt?: string;\n}",
+    "../core/dist/index.d.ts::FeedlogIssue": {
+      "declaration": "any",
       "docstring": "",
       "path": "../core/dist/index.d.ts"
     }

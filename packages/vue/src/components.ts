@@ -33,19 +33,25 @@ export const FeedlogGithubIssues = /*@__PURE__*/ defineContainer<JSX.FeedlogGith
   'loading',
   'error',
   'showThemeToggle',
+  'hasMore',
+  'isLoadingMore',
   'feedlogUpvote',
-  'feedlogThemeChange'
+  'feedlogThemeChange',
+  'feedlogLoadMore'
 ]);
 
 
 export const FeedlogGithubIssuesClient = /*@__PURE__*/ defineContainer<JSX.FeedlogGithubIssuesClient>('feedlog-github-issues-client', undefined, [
-  'pk',
   'repos',
+  'type',
+  'limit',
+  'endpoint',
   'maxWidth',
   'theme',
   'showThemeToggle',
   'feedlogUpvote',
-  'feedlogThemeChange'
+  'feedlogThemeChange',
+  'feedlogError'
 ]);
 
 

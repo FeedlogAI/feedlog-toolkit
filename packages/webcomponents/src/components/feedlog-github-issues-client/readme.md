@@ -14,21 +14,24 @@ This component uses the SDK internally to fetch data and delegates to feedlog-gi
 
 ## Properties
 
-| Property          | Attribute           | Description                                                   | Type                              | Default     |
-| ----------------- | ------------------- | ------------------------------------------------------------- | --------------------------------- | ----------- |
-| `maxWidth`        | `max-width`         | Maximum width of the container                                | `string`                          | `'42rem'`   |
-| `pk` _(required)_ | `pk`                | API key (public key) for the Feedlog SDK                      | `string`                          | `undefined` |
-| `repos`           | `repos`             | Array of repository IDs (e.g., ['owner/repo']) or JSON string | `string \| string[] \| undefined` | `undefined` |
-| `showThemeToggle` | `show-theme-toggle` | Whether to show the theme toggle button                       | `boolean`                         | `true`      |
-| `theme`           | `theme`             | Theme variant: 'light' or 'dark'                              | `"dark" \| "light"`               | `'light'`   |
+| Property          | Attribute           | Description                                                                               | Type                                  | Default     |
+| ----------------- | ------------------- | ----------------------------------------------------------------------------------------- | ------------------------------------- | ----------- |
+| `endpoint`        | `endpoint`          | Custom API endpoint                                                                       | `string \| undefined`                 | `undefined` |
+| `limit`           | `limit`             | Maximum number of issues to fetch (1-100, default 10)                                     | `number \| undefined`                 | `undefined` |
+| `maxWidth`        | `max-width`         | Maximum width of the container                                                            | `string`                              | `'42rem'`   |
+| `repos`           | `repos`             | Array of repository public IDs or single ID Format: repository public ID (not owner/repo) | `string \| string[] \| undefined`     | `undefined` |
+| `showThemeToggle` | `show-theme-toggle` | Whether to show the theme toggle button                                                   | `boolean`                             | `true`      |
+| `theme`           | `theme`             | Theme variant: 'light' or 'dark'                                                          | `"dark" \| "light"`                   | `'light'`   |
+| `type`            | `type`              | Filter issues by type: 'bug' or 'enhancement'                                             | `"bug" \| "enhancement" \| undefined` | `undefined` |
 
 
 ## Events
 
-| Event                | Description                            | Type                             |
-| -------------------- | -------------------------------------- | -------------------------------- |
-| `feedlogThemeChange` | Event emitted when theme changes       | `CustomEvent<"dark" \| "light">` |
-| `feedlogUpvote`      | Event emitted when an issue is upvoted | `CustomEvent<number>`            |
+| Event                | Description                            | Type                                                                       |
+| -------------------- | -------------------------------------- | -------------------------------------------------------------------------- |
+| `feedlogError`       | Event emitted on error                 | `CustomEvent<{ error: string; code?: number \| undefined; }>`              |
+| `feedlogThemeChange` | Event emitted when theme changes       | `CustomEvent<"dark" \| "light">`                                           |
+| `feedlogUpvote`      | Event emitted when an issue is upvoted | `CustomEvent<{ issueId: string; upvoted: boolean; upvoteCount: number; }>` |
 
 
 ## Dependencies

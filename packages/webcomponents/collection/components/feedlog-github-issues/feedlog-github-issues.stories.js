@@ -83,6 +83,12 @@ export const Default = {
         issues: sampleIssues,
     },
     render: props => h("feedlog-github-issues", Object.assign({}, props)),
+    play: async ({ canvasElement, args }) => {
+        const element = canvasElement.querySelector('feedlog-github-issues');
+        if (element && args.issues) {
+            element.issues = args.issues;
+        }
+    },
 };
 export const Loading = {
     args: {
@@ -90,6 +96,12 @@ export const Loading = {
         loading: true,
     },
     render: props => h("feedlog-github-issues", Object.assign({}, props)),
+    play: async ({ canvasElement, args }) => {
+        const element = canvasElement.querySelector('feedlog-github-issues');
+        if (element && args.issues) {
+            element.issues = args.issues;
+        }
+    },
 };
 export const Error = {
     args: {
@@ -98,6 +110,12 @@ export const Error = {
         error: 'Failed to fetch issues from GitHub API',
     },
     render: props => h("feedlog-github-issues", Object.assign({}, props)),
+    play: async ({ canvasElement, args }) => {
+        const element = canvasElement.querySelector('feedlog-github-issues');
+        if (element && args.issues) {
+            element.issues = args.issues;
+        }
+    },
 };
 export const Empty = {
     args: {
@@ -106,6 +124,12 @@ export const Empty = {
         error: null,
     },
     render: props => h("feedlog-github-issues", Object.assign({}, props)),
+    play: async ({ canvasElement, args }) => {
+        const element = canvasElement.querySelector('feedlog-github-issues');
+        if (element && args.issues) {
+            element.issues = args.issues;
+        }
+    },
 };
 export const DarkTheme = {
     args: {
@@ -113,6 +137,12 @@ export const DarkTheme = {
         theme: 'dark',
     },
     render: props => h("feedlog-github-issues", Object.assign({}, props)),
+    play: async ({ canvasElement, args }) => {
+        const element = canvasElement.querySelector('feedlog-github-issues');
+        if (element && args.issues) {
+            element.issues = args.issues;
+        }
+    },
 };
 export const NarrowWidth = {
     args: {
@@ -120,5 +150,11 @@ export const NarrowWidth = {
         maxWidth: '32rem',
     },
     render: props => h("feedlog-github-issues", Object.assign({}, props)),
+    play: async ({ canvasElement, args }) => {
+        const element = canvasElement.querySelector('feedlog-github-issues');
+        if (element && args.issues) {
+            element.issues = args.issues;
+        }
+    },
 };
 //# sourceMappingURL=feedlog-github-issues.stories.js.map

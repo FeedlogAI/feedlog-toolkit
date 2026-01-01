@@ -226,7 +226,7 @@ export class FeedlogGithubIssuesClient {
     }
   }
 
-  private async handleUpvote = async (event: CustomEvent<{
+  private handleUpvote = async (event: CustomEvent<{
     issueId: string;
     currentUpvoted: boolean;
     currentCount: number;
