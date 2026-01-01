@@ -31,6 +31,7 @@
     "@feedlog-toolkit/webcomponents": "*"
   },
   "devDependencies": {
+    "@jest/test-sequencer": "^29.7.0",
     "@testing-library/vue": "^8.0.1",
     "@types/jest": "^29.5.11",
     "@types/node": "^20.11.24",

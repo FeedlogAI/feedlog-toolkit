@@ -4,7 +4,7 @@ module.exports = {
   roots: ['<rootDir>/src'],
   testMatch: ['**/__tests__/**/?(*.)+(spec|test).ts', '**/__tests__/**/?(*.)+(spec|test).tsx'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node', 'vue'],
-  collectCoverageFrom: ['src/**/*.{ts,tsx}', '!src/**/*.d.ts', '!src/**/index.ts'],
+  collectCoverageFrom: ['src/**/*.{ts,tsx}', '!src/**/*.d.ts', '!src/**/__tests__/**/*'],
   setupFilesAfterEnv: ['<rootDir>/src/__tests__/setup.ts'],
   coverageThreshold: {
     global: {

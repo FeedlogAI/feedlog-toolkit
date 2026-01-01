@@ -27,11 +27,13 @@
     "@feedlog-toolkit/core": "*"
   },
   "devDependencies": {
+    "@rollup/plugin-node-resolve": "^15.0.0",
     "@stencil/core": "^4.0.0",
     "@stencil/react-output-target": "^0.8.0",
     "@stencil/storybook-plugin": "^0.5.6",
     "@stencil/vue-output-target": "^0.8.0",
     "@types/node": "^20.11.24",
+    "rollup": "^4.0.0",
     "storybook": "^9.1.17",
     "typescript": "^5.3.3",
     "vite": "^7.3.0",
