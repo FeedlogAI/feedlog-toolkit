@@ -1,45 +1,103 @@
 import type { Meta, StoryObj } from '@stencil/storybook-plugin';
 import { h } from '@stencil/core';
 import { FeedlogGithubIssues } from './feedlog-github-issues';
+import type { FeedlogIssue } from '@feedlog-toolkit/core';
 
-const sampleIssues = [
+const sampleIssues: FeedlogIssue[] = [
   {
-    id: 1,
+    id: 'issue-1',
+    githubIssueNumber: 123,
     title: 'Add dark mode support',
     body: 'It would be great to have a dark mode option for the dashboard.',
     type: 'enhancement' as const,
-    upvotes: 24,
-    postedAt: '2 hours ago',
+    status: 'open' as const,
+    pinnedAt: null,
+    revision: 1,
+    repository: {
+      id: 'repo-1',
+      name: 'feedlog-toolkit',
+      owner: 'feedlog',
+    },
+    updatedAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(), // 2 hours ago
+    createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
+    upvoteCount: 24,
+    hasUpvoted: false,
   },
   {
-    id: 2,
+    id: 'issue-2',
+    githubIssueNumber: 124,
     title: 'Charts not rendering on mobile',
     body: 'The chart components are not properly responsive on smaller screens.',
     type: 'bug' as const,
-    postedAt: '5 hours ago',
+    status: 'open' as const,
+    pinnedAt: null,
+    revision: 1,
+    repository: {
+      id: 'repo-1',
+      name: 'feedlog-toolkit',
+      owner: 'feedlog',
+    },
+    updatedAt: new Date(Date.now() - 5 * 60 * 60 * 1000).toISOString(), // 5 hours ago
+    createdAt: new Date(Date.now() - 5 * 60 * 60 * 1000).toISOString(),
+    upvoteCount: 0,
+    hasUpvoted: false,
   },
   {
-    id: 3,
+    id: 'issue-3',
+    githubIssueNumber: 125,
     title: 'Export data to CSV',
     body: 'Add functionality to export chart data as CSV files.',
     type: 'enhancement' as const,
-    upvotes: 15,
-    postedAt: '1 day ago',
+    status: 'open' as const,
+    pinnedAt: null,
+    revision: 1,
+    repository: {
+      id: 'repo-1',
+      name: 'feedlog-toolkit',
+      owner: 'feedlog',
+    },
+    updatedAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(), // 1 day ago
+    createdAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
+    upvoteCount: 15,
+    hasUpvoted: false,
   },
   {
-    id: 4,
+    id: 'issue-4',
+    githubIssueNumber: 126,
     title: 'Memory leak in real-time updates',
     body: 'When leaving the dashboard open for extended periods, memory usage increases significantly.',
     type: 'bug' as const,
-    postedAt: '2 days ago',
+    status: 'open' as const,
+    pinnedAt: null,
+    revision: 1,
+    repository: {
+      id: 'repo-1',
+      name: 'feedlog-toolkit',
+      owner: 'feedlog',
+    },
+    updatedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(), // 2 days ago
+    createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
+    upvoteCount: 0,
+    hasUpvoted: false,
   },
   {
-    id: 5,
+    id: 'issue-5',
+    githubIssueNumber: 127,
     title: 'Custom color themes',
     body: 'Allow users to customize the color palette for charts and UI elements.',
     type: 'enhancement' as const,
-    upvotes: 8,
-    postedAt: '1 week ago',
+    status: 'open' as const,
+    pinnedAt: null,
+    revision: 1,
+    repository: {
+      id: 'repo-1',
+      name: 'feedlog-toolkit',
+      owner: 'feedlog',
+    },
+    updatedAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(), // 1 week ago
+    createdAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
+    upvoteCount: 8,
+    hasUpvoted: false,
   },
 ];
 
