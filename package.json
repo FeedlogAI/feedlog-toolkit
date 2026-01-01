@@ -7,7 +7,7 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "npm run build --workspaces",
+    "build": "npm run build --workspaces && npm run format",
     "build:core": "npm run build --workspace=@feedlog-toolkit/core",
     "build:webcomponents": "npm run build --workspace=@feedlog-toolkit/webcomponents",
     "build:react": "npm run build --workspace=@feedlog-toolkit/react",
