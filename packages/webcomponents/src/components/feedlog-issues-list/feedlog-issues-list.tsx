@@ -1,20 +1,29 @@
 import { Component, Prop, Event, EventEmitter, h, Host } from '@stencil/core';
-
-interface GitHubIssue {
-  id: number;
-  title: string;
-  body: string;
-  type: 'bug' | 'enhancement';
-  upvotes?: number;
-  postedAt?: string;
-}
+import { FeedlogIssue } from '@feedlog-toolkit/core';
 
 /**
- * TrendingUp icon SVG component
+ * Heart icon SVG component (filled)
  */
-const TrendingUpIcon = () => (
+const HeartFilledIcon = () => (
   <svg
-    class="upvote-icon"
+    class="upvote-icon filled"
+    xmlns="http://www.w3.org/2000/svg"
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    stroke="none"
+  >
+    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+  </svg>
+);
+
+/**
+ * Heart icon SVG component (outline)
+ */
+const HeartOutlineIcon = () => (
+  <svg
+    class="upvote-icon outline"
     xmlns="http://www.w3.org/2000/svg"
     width="16"
     height="16"
@@ -25,8 +34,7 @@ const TrendingUpIcon = () => (
     stroke-linecap="round"
     stroke-linejoin="round"
   >
-    <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
-    <polyline points="16 7 22 7 22 13"></polyline>
+    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
   </svg>
 );
 
@@ -44,7 +52,7 @@ export class FeedlogIssuesList {
   /**
    * Array of issues to display
    */
-  @Prop() issues: GitHubIssue[] = [];
+  @Prop() issues: FeedlogIssue[] = [];
 
   /**
    * Theme variant: 'light' or 'dark'
@@ -54,50 +62,108 @@ export class FeedlogIssuesList {
   /**
    * Event emitted when an issue is upvoted
    */
-  @Event() feedlogUpvote!: EventEmitter<number>;
+  @Event() feedlogUpvote!: EventEmitter<{
+    issueId: string;
+    currentUpvoted: boolean;
+    currentCount: number;
+  }>;
 
-  private handleUpvote = (event: MouseEvent, issueId: number) => {
+  private handleUpvote = (event: MouseEvent, issue: FeedlogIssue) => {
     event.stopPropagation();
-    this.feedlogUpvote.emit(issueId);
+    this.feedlogUpvote.emit({
+      issueId: issue.id,
+      currentUpvoted: issue.hasUpvoted,
+      currentCount: issue.upvoteCount,
+    });
   };
 
   render() {
     return (
       <Host class={this.theme === 'dark' ? 'dark' : ''}>
         <div class="issues-list">
-          {this.issues.map(issue => (
-            <div key={issue.id} class="issue-card">
-              <div class="issue-content">
-                <div class="issue-main">
-                  <div class="issue-details">
-                    <h3 class="issue-title">{issue.title}</h3>
-                    <p class="issue-body">{issue.body}</p>
-                    <div class="issue-badge">
+          {this.issues.length === 0 ? (
+            <div class="empty-state">
+              <p>No issues found</p>
+            </div>
+          ) : (
+            this.issues.map(issue => (
+              <div key={issue.id} class="issue-card">
+                <div class="issue-content">
+                  <div class="issue-header">
+                    <div class="issue-type-badge">
                       {issue.type === 'bug' ? (
                         <feedlog-badge variant="destructive">Bug</feedlog-badge>
                       ) : (
                         <feedlog-badge variant="enhancement">Enhancement</feedlog-badge>
                       )}
                     </div>
+                    {issue.pinnedAt && (
+                      <div class="pinned-indicator" title="Pinned issue">
+                        📌
+                      </div>
+                    )}
                   </div>
-                  {issue.type === 'enhancement' && (
+
+                  <div class="issue-main">
+                    <div class="issue-details">
+                      <h3 class="issue-title">{issue.title}</h3>
+                      <p class="issue-body">{issue.body}</p>
+
+                      <div class="issue-repository">
+                        <span class="repo-name">
+                          {issue.repository.owner}/{issue.repository.name}
+                        </span>
+                        {issue.githubIssueNumber > 0 && (
+                          <span class="github-number">#{issue.githubIssueNumber}</span>
+                        )}
+                      </div>
+                    </div>
+
                     <button
-                      class="upvote-button"
-                      onClick={(e: MouseEvent) => this.handleUpvote(e, issue.id)}
+                      class={`upvote-button ${issue.hasUpvoted ? 'upvoted' : ''}`}
+                      onClick={(e: MouseEvent) => this.handleUpvote(e, issue)}
+                      title={issue.hasUpvoted ? 'Remove upvote' : 'Upvote this issue'}
                     >
-                      <TrendingUpIcon />
-                      <span class="upvote-count">{issue.upvotes || 0}</span>
+                      {issue.hasUpvoted ? <HeartFilledIcon /> : <HeartOutlineIcon />}
+                      <span class="upvote-count">{issue.upvoteCount}</span>
                     </button>
-                  )}
+                  </div>
+
+                  <div class="issue-footer">
+                    <span class="issue-date" title={`Updated: ${issue.updatedAt}`}>
+                      Updated {this.formatDate(issue.updatedAt)}
+                    </span>
+                    <span class="issue-date" title={`Created: ${issue.createdAt}`}>
+                      Created {this.formatDate(issue.createdAt)}
+                    </span>
+                  </div>
                 </div>
-                {issue.postedAt && (
-                  <span class="posted-at">Posted {issue.postedAt}</span>
-                )}
               </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
       </Host>
     );
+  }
+
+  /**
+   * Format an ISO date string to a relative time string
+   */
+  private formatDate(dateString: string): string {
+    try {
+      const date = new Date(dateString);
+      const now = new Date();
+      const seconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+
+      if (seconds < 60) return 'just now';
+      if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
+      if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
+      if (seconds < 604800) return `${Math.floor(seconds / 86400)}d ago`;
+      if (seconds < 2592000) return `${Math.floor(seconds / 604800)}w ago`;
+
+      return date.toLocaleDateString();
+    } catch {
+      return 'unknown date';
+    }
   }
 }

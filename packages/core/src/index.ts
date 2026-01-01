@@ -1,98 +1,347 @@
 /**
  * Core SDK for Feedlog Toolkit
- * 
+ *
  * This package provides the core functionality and utilities
  * used across all Feedlog Toolkit packages.
  */
 
-// Export types
 export * from './types';
 
-// Export utilities
 export * from './utils';
 
-export interface GitHubIssue {
-  id: number;
-  title: string;
-  body: string;
-  type: 'bug' | 'enhancement';
-  upvotes?: number;
-  postedAt?: string;
-}
+export * from './errors';
 
-// Export main SDK class (example structure)
+import {
+  FeedlogSDKConfig,
+  FetchIssuesParams,
+  FetchIssuesResponse,
+  UpvoteResponse,
+  FeedlogIssue,
+} from './types';
+import { sanitizeHtml } from './utils';
+import {
+  FeedlogError,
+  FeedlogNetworkError,
+  FeedlogTimeoutError,
+  FeedlogValidationError,
+} from './errors';
+
+/**
+ * Main Feedlog SDK class
+ * Provides methods to interact with the Feedlog API
+ */
 export class FeedlogSDK {
-  private apiKey?: string;
+  private config: FeedlogSDKConfig;
+  private endpoint: string;
+  private timeout: number;
 
-  constructor(apiKey?: string) {
-    this.apiKey = apiKey;
+  constructor(config: FeedlogSDKConfig = {}) {
+    this.config = {
+      credentials: 'include',
+      ...config,
+    };
+
+    this.endpoint = this.config.endpoint || 'https://api.feedlog.app';
+    this.timeout = this.config.timeout || 30000;
+
+    // Ensure endpoint doesn't have trailing slash
+    this.endpoint = this.endpoint.replace(/\/$/, '');
   }
 
   /**
-   * Initialize the SDK with configuration
+   * Fetch issues from the API
+   * Supports filtering by repository IDs, type, pagination, and limit
    */
-  initialize(config: { apiKey: string }): void {
-    this.apiKey = config.apiKey;
+  async fetchIssues(params: FetchIssuesParams = {}): Promise<FetchIssuesResponse> {
+    try {
+      const url = this.buildIssuesUrl(params);
+      const response = await this.fetchWithTimeout(url, {
+        method: 'GET',
+        headers: this.getAuthHeaders(),
+        credentials: this.config.credentials || 'include',
+      });
+
+      if (!response.ok) {
+        throw new FeedlogNetworkError(
+          `Failed to fetch issues: ${response.statusText}`,
+          response.status
+        );
+      }
+
+      const data = await response.json();
+      return this.validateIssuesResponse(data);
+    } catch (error) {
+      if (error instanceof FeedlogError) {
+        throw error;
+      }
+
+      if (error instanceof TypeError && error.message.includes('fetch')) {
+        throw new FeedlogNetworkError('Network error: Unable to reach API', undefined, error);
+      }
+
+      throw new FeedlogError(
+        `Failed to fetch issues: ${error instanceof Error ? error.message : 'Unknown error'}`,
+        undefined,
+        error
+      );
+    }
   }
 
   /**
-   * Get the current API key
+   * Toggle upvote on an issue
+   * Adds upvote if not already upvoted, removes if already upvoted
    */
-  getApiKey(): string | undefined {
-    return this.apiKey;
+  async toggleUpvote(issueId: string): Promise<UpvoteResponse> {
+    if (!issueId || typeof issueId !== 'string') {
+      throw new FeedlogValidationError('Issue ID is required');
+    }
+
+    try {
+      const url = `${this.endpoint}/api/issues/${encodeURIComponent(issueId)}/upvote`;
+      const response = await this.fetchWithTimeout(url, {
+        method: 'POST',
+        headers: this.getAuthHeaders(),
+        credentials: this.config.credentials || 'include',
+      });
+
+      if (response.status === 404) {
+        throw new FeedlogNetworkError('Issue not found', 404);
+      }
+
+      if (response.status === 401) {
+        throw new FeedlogNetworkError('Unauthorized', 401);
+      }
+
+      if (response.status === 403) {
+        throw new FeedlogNetworkError('Forbidden: Domain not allowed for this repository', 403);
+      }
+
+      if (!response.ok) {
+        throw new FeedlogNetworkError(
+          `Failed to toggle upvote: ${response.statusText}`,
+          response.status
+        );
+      }
+
+      const data = await response.json();
+      return this.validateUpvoteResponse(data);
+    } catch (error) {
+      if (error instanceof FeedlogError) {
+        throw error;
+      }
+
+      if (error instanceof TypeError && error.message.includes('fetch')) {
+        throw new FeedlogNetworkError('Network error: Unable to reach API', undefined, error);
+      }
+
+      throw new FeedlogError(
+        `Failed to toggle upvote: ${error instanceof Error ? error.message : 'Unknown error'}`,
+        undefined,
+        error
+      );
+    }
   }
 
   /**
-   * Fetch issues for the given repositories
-   * This is a mock implementation that returns sample data
+   * Build the full URL for fetching issues with query parameters
    */
-  async fetchIssues(repos: string[]): Promise<GitHubIssue[]> {
-    // Mock implementation - returns sample issues
-    // In a real implementation, this would make an API call
-    const mockIssues: GitHubIssue[] = [
-      {
-        id: 1,
-        title: 'Tooltip flickers when cursor moves between nested hover targets',
-        body: 'Tooltips display inconsistently when hovering over elements with nested children. The tooltip rapidly appears and disappears causing a flicker effect in Chrome 120+.',
-        type: 'bug',
-        postedAt: '2 hours ago',
-      },
-      {
-        id: 2,
-        title: 'Add support for LaTeX math equations in markdown editor',
-        body: 'Enable inline and block LaTeX rendering using KaTeX or MathJax for scientific documentation. Should support $inline$ and $$block$$ syntax.',
-        type: 'enhancement',
-        upvotes: 42,
-        postedAt: '5 hours ago',
-      },
-      {
-        id: 3,
-        title: 'WebGL context lost error after prolonged canvas usage',
-        body: 'After approximately 2 hours of continuous 3D visualization rendering, the WebGL context is lost and not properly recovered. Happens consistently on discrete GPUs.',
-        type: 'bug',
-        postedAt: '1 day ago',
-      },
-      {
-        id: 4,
-        title: 'Implement vim keybindings mode for code editor',
-        body: 'Add optional vim keybindings (normal, insert, visual modes) for the Monaco code editor component. Should include custom keybinding configuration.',
-        type: 'enhancement',
-        upvotes: 127,
-        postedAt: '2 days ago',
-      },
-      {
-        id: 5,
-        title: 'Race condition in WebSocket reconnection logic',
-        body: 'When network connection drops and recovers quickly, multiple reconnection attempts fire simultaneously leading to duplicate message subscriptions.',
-        type: 'bug',
-        postedAt: '3 days ago',
-      },
-    ];
+  private buildIssuesUrl(params: FetchIssuesParams): string {
+    const url = new URL(`${this.endpoint}/api/issues`);
 
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 100));
+    // Handle repositoryIds - can be single string or array
+    if (params.repositoryIds) {
+      const ids = Array.isArray(params.repositoryIds)
+        ? params.repositoryIds
+        : [params.repositoryIds];
 
-    return mockIssues;
+      for (const id of ids) {
+        url.searchParams.append('repositoryIds', id);
+      }
+    }
+
+    if (params.type) {
+      url.searchParams.set('type', params.type);
+    }
+
+    if (params.cursor) {
+      url.searchParams.set('cursor', params.cursor);
+    }
+
+    if (params.limit !== undefined) {
+      url.searchParams.set('limit', params.limit.toString());
+    }
+
+    return url.toString();
+  }
+
+  /**
+   * Get request headers
+   */
+  private getAuthHeaders(): Record<string, string> {
+    return {
+      'Content-Type': 'application/json',
+    };
+  }
+
+  /**
+   * Fetch with timeout support using AbortController
+   */
+  private async fetchWithTimeout(url: string, init?: RequestInit): Promise<Response> {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), this.timeout);
+
+    try {
+      const response = await fetch(url, {
+        ...init,
+        signal: controller.signal,
+      });
+      clearTimeout(timeout);
+      return response;
+    } catch (error) {
+      clearTimeout(timeout);
+
+      if (error instanceof Error && error.name === 'AbortError') {
+        throw new FeedlogTimeoutError(`Request timed out after ${this.timeout}ms`);
+      }
+
+      throw error;
+    }
+  }
+
+  /**
+   * Validate and sanitize issues response
+   */
+  private validateIssuesResponse(data: unknown): FetchIssuesResponse {
+    if (!data || typeof data !== 'object') {
+      throw new FeedlogValidationError('Invalid API response: expected object');
+    }
+
+    const response = data as Record<string, unknown>;
+
+    if (!Array.isArray(response.issues)) {
+      throw new FeedlogValidationError('Invalid API response: issues must be an array');
+    }
+
+    if (!response.pagination || typeof response.pagination !== 'object') {
+      throw new FeedlogValidationError('Invalid API response: pagination is required');
+    }
+
+    const issues = (response.issues as unknown[]).map(issue => this.validateIssue(issue));
+
+    return {
+      issues,
+      pagination: {
+        cursor: (response.pagination as Record<string, unknown>).cursor as string | null,
+        hasMore: Boolean((response.pagination as Record<string, unknown>).hasMore),
+      },
+    };
+  }
+
+  /**
+   * Validate and sanitize an individual issue
+   */
+  private validateIssue(data: unknown): FeedlogIssue {
+    if (!data || typeof data !== 'object') {
+      throw new FeedlogValidationError('Invalid issue: expected object');
+    }
+
+    const issue = data as Record<string, unknown>;
+
+    // Validate required fields
+    if (typeof issue.id !== 'string') {
+      throw new FeedlogValidationError('Invalid issue: id is required and must be a string');
+    }
+
+    if (typeof issue.title !== 'string') {
+      throw new FeedlogValidationError('Invalid issue: title is required and must be a string');
+    }
+
+    if (!['bug', 'enhancement'].includes(String(issue.type))) {
+      throw new FeedlogValidationError('Invalid issue: type must be "bug" or "enhancement"');
+    }
+
+    if (!['open', 'closed'].includes(String(issue.status))) {
+      throw new FeedlogValidationError('Invalid issue: status must be "open" or "closed"');
+    }
+
+    if (!issue.repository || typeof issue.repository !== 'object') {
+      throw new FeedlogValidationError('Invalid issue: repository is required');
+    }
+
+    const repo = issue.repository as Record<string, unknown>;
+    if (
+      typeof repo.id !== 'string' ||
+      typeof repo.name !== 'string' ||
+      typeof repo.owner !== 'string'
+    ) {
+      throw new FeedlogValidationError('Invalid issue: repository must have id, name, and owner');
+    }
+
+    // Sanitize string fields to prevent XSS
+    const sanitizedTitle = sanitizeHtml(String(issue.title));
+    const sanitizedBody = sanitizeHtml(String(issue.body || ''));
+
+    return {
+      id: String(issue.id),
+      githubIssueNumber: Number(issue.githubIssueNumber) || 0,
+      type: (issue.type as 'bug' | 'enhancement') || 'bug',
+      status: (issue.status as 'open' | 'closed') || 'open',
+      pinnedAt: issue.pinnedAt ? String(issue.pinnedAt) : null,
+      title: sanitizedTitle,
+      body: sanitizedBody,
+      revision: Number(issue.revision) || 0,
+      repository: {
+        id: String(repo.id),
+        name: String(repo.name),
+        owner: String(repo.owner),
+      },
+      updatedAt: String(issue.updatedAt) || new Date().toISOString(),
+      createdAt: String(issue.createdAt) || new Date().toISOString(),
+      upvoteCount: Number(issue.upvoteCount) || 0,
+      hasUpvoted: Boolean(issue.hasUpvoted),
+    };
+  }
+
+  /**
+   * Validate upvote response
+   */
+  private validateUpvoteResponse(data: unknown): UpvoteResponse {
+    if (!data || typeof data !== 'object') {
+      throw new FeedlogValidationError('Invalid upvote response: expected object');
+    }
+
+    const response = data as Record<string, unknown>;
+
+    if (typeof response.upvoted !== 'boolean') {
+      throw new FeedlogValidationError('Invalid upvote response: upvoted must be a boolean');
+    }
+
+    if (typeof response.upvoteCount !== 'number') {
+      throw new FeedlogValidationError('Invalid upvote response: upvoteCount must be a number');
+    }
+
+    if (typeof response.anonymousUserId !== 'string') {
+      throw new FeedlogValidationError('Invalid upvote response: anonymousUserId must be a string');
+    }
+
+    return {
+      upvoted: response.upvoted,
+      upvoteCount: response.upvoteCount,
+      anonymousUserId: response.anonymousUserId,
+    };
+  }
+
+  /**
+   * Get the current endpoint
+   */
+  getEndpoint(): string {
+    return this.endpoint;
+  }
+
+  /**
+   * Get the current timeout setting
+   */
+  getTimeout(): number {
+    return this.timeout;
   }
 }
-

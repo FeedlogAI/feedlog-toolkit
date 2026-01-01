@@ -1,5 +1,5 @@
 import { Component, Prop, State, Event, EventEmitter, h, Host } from '@stencil/core';
-import { GitHubIssue } from '@feedlog-toolkit/core';
+import { FeedlogIssue } from '@feedlog-toolkit/core';
 
 /**
  * Sun icon SVG component
@@ -62,7 +62,7 @@ export class FeedlogGithubIssues {
   /**
    * Array of issues to display
    */
-  @Prop() issues: GitHubIssue[] = [];
+  @Prop() issues: FeedlogIssue[] = [];
 
   /**
    * Maximum width of the container
@@ -90,6 +90,16 @@ export class FeedlogGithubIssues {
   @Prop() showThemeToggle: boolean = true;
 
   /**
+   * Whether there are more issues to load
+   */
+  @Prop() hasMore: boolean = false;
+
+  /**
+   * Whether more issues are currently loading
+   */
+  @Prop() isLoadingMore: boolean = false;
+
+  /**
    * Internal state for theme
    */
   @State() currentTheme: 'light' | 'dark' = 'light';
@@ -97,18 +107,27 @@ export class FeedlogGithubIssues {
   /**
    * Event emitted when an issue is upvoted
    */
-  @Event() feedlogUpvote!: EventEmitter<number>;
+  @Event() feedlogUpvote!: EventEmitter<{
+    issueId: string;
+    currentUpvoted: boolean;
+    currentCount: number;
+  }>;
 
   /**
    * Event emitted when theme changes
    */
   @Event() feedlogThemeChange!: EventEmitter<'light' | 'dark'>;
 
+  /**
+   * Event emitted to load more issues
+   */
+  @Event() feedlogLoadMore!: EventEmitter<void>;
+
   componentWillLoad() {
     this.currentTheme = this.theme;
   }
 
-  private handleUpvote = (event: CustomEvent<number>) => {
+  private handleUpvote = (event: any) => {
     this.feedlogUpvote.emit(event.detail);
   };
 
@@ -116,6 +135,10 @@ export class FeedlogGithubIssues {
     this.currentTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
     this.theme = this.currentTheme;
     this.feedlogThemeChange.emit(this.currentTheme);
+  };
+
+  private handleLoadMore = () => {
+    this.feedlogLoadMore.emit();
   };
 
   render() {
@@ -151,11 +174,25 @@ export class FeedlogGithubIssues {
           )}
 
           {!this.loading && !this.error && (
-            <feedlog-issues-list
-              issues={this.issues}
-              theme={this.currentTheme}
-              onFeedlogUpvote={this.handleUpvote}
-            ></feedlog-issues-list>
+            <div>
+              <feedlog-issues-list
+                issues={this.issues}
+                theme={this.currentTheme}
+                onFeedlogUpvote={this.handleUpvote}
+              ></feedlog-issues-list>
+
+              {this.hasMore && (
+                <div class="load-more-container">
+                  <feedlog-button
+                    onFeedlogClick={this.handleLoadMore}
+                    disabled={this.isLoadingMore}
+                    variant="outline"
+                  >
+                    {this.isLoadingMore ? 'Loading...' : 'Load More Issues'}
+                  </feedlog-button>
+                </div>
+              )}
+            </div>
           )}
         </div>
       </Host>
