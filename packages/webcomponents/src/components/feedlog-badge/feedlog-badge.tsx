@@ -2,7 +2,7 @@ import { Component, Prop, h } from '@stencil/core';
 
 /**
  * Feedlog Badge Component
- * 
+ *
  * A label component with variant support for different styles.
  */
 @Component({

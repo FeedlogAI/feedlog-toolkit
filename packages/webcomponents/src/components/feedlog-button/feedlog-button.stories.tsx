@@ -45,77 +45,49 @@ export const Default: Story = {
   args: {
     variant: 'default',
   },
-  render: props => (
-    <feedlog-button {...props}>
-      Click me
-    </feedlog-button>
-  ),
+  render: props => <feedlog-button {...props}>Click me</feedlog-button>,
 };
 
 export const Outline: Story = {
   args: {
     variant: 'outline',
   },
-  render: props => (
-    <feedlog-button {...props}>
-      Outline Button
-    </feedlog-button>
-  ),
+  render: props => <feedlog-button {...props}>Outline Button</feedlog-button>,
 };
 
 export const Ghost: Story = {
   args: {
     variant: 'ghost',
   },
-  render: props => (
-    <feedlog-button {...props}>
-      Ghost Button
-    </feedlog-button>
-  ),
+  render: props => <feedlog-button {...props}>Ghost Button</feedlog-button>,
 };
 
 export const Destructive: Story = {
   args: {
     variant: 'destructive',
   },
-  render: props => (
-    <feedlog-button {...props}>
-      Delete
-    </feedlog-button>
-  ),
+  render: props => <feedlog-button {...props}>Delete</feedlog-button>,
 };
 
 export const Small: Story = {
   args: {
     size: 'sm',
   },
-  render: props => (
-    <feedlog-button {...props}>
-      Small Button
-    </feedlog-button>
-  ),
+  render: props => <feedlog-button {...props}>Small Button</feedlog-button>,
 };
 
 export const Large: Story = {
   args: {
     size: 'lg',
   },
-  render: props => (
-    <feedlog-button {...props}>
-      Large Button
-    </feedlog-button>
-  ),
+  render: props => <feedlog-button {...props}>Large Button</feedlog-button>,
 };
 
 export const Disabled: Story = {
   args: {
     disabled: true,
   },
-  render: props => (
-    <feedlog-button {...props}>
-      Disabled
-    </feedlog-button>
-  ),
+  render: props => <feedlog-button {...props}>Disabled</feedlog-button>,
 };
 
 export const AllVariants: Story = {
@@ -128,4 +100,3 @@ export const AllVariants: Story = {
     </div>
   ),
 };
-

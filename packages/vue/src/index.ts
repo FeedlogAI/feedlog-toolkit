@@ -1,6 +1,6 @@
 /**
  * Vue bindings for Feedlog Toolkit Web Components
- * 
+ *
  * This package provides Vue components that wrap the Stencil web components.
  * Components are auto-generated from the Stencil build process.
  */
@@ -24,4 +24,3 @@ export function install(_app: App): void {
   // Custom elements are automatically registered via defineCustomElements
   // Additional Vue-specific setup can be added here if needed
 }
-

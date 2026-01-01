@@ -13,4 +13,3 @@ defineCustomElements();
  * This enables automatic generation of props, methods, events, slots, shadow parts, and CSS variables tables.
  */
 setCustomElementsManifest(customElements);
-

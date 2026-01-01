@@ -2,7 +2,7 @@ import { Component, Prop, Event, EventEmitter, h } from '@stencil/core';
 
 /**
  * Feedlog Button Component
- * 
+ *
  * A button component with variant and size support.
  */
 @Component({
@@ -56,4 +56,3 @@ export class FeedlogButton {
     );
   }
 }
-

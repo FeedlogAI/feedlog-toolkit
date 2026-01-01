@@ -7,18 +7,22 @@ A monorepo containing the Feedlog Toolkit - a comprehensive set of packages for 
 This monorepo contains the following packages:
 
 ### `@feedlog-toolkit/core`
+
 Core SDK package providing shared utilities, types, and functionality used across all Feedlog Toolkit packages.
 
 **Features:**
+
 - TypeScript-based SDK
 - Shared types and interfaces
 - Utility functions
 - Core Feedlog SDK class
 
 ### `@feedlog-toolkit/webcomponents`
+
 Stencil-based web components for data visualization. These are framework-agnostic web components that can be used in any JavaScript framework or vanilla HTML.
 
 **Features:**
+
 - Built with [Stencil](https://stenciljs.com/)
 - Web Components standard (Custom Elements, Shadow DOM)
 - Data visualization components
@@ -26,18 +30,22 @@ Stencil-based web components for data visualization. These are framework-agnosti
 - Auto-generated React and Vue wrappers
 
 ### `@feedlog-toolkit/react`
+
 React bindings for Feedlog Toolkit web components. Auto-generated from Stencil components.
 
 **Features:**
+
 - React components with TypeScript support
 - Auto-generated from Stencil components
 - Full type safety
 - Peer dependency on React >=16.8.0
 
 ### `@feedlog-toolkit/vue`
+
 Vue bindings for Feedlog Toolkit web components. Auto-generated from Stencil components.
 
 **Features:**
+
 - Vue 3 components with TypeScript support
 - Auto-generated from Stencil components
 - Full type safety
@@ -147,16 +155,16 @@ sdk.initialize({ apiKey: 'your-api-key' });
 ```html
 <!DOCTYPE html>
 <html>
-<head>
-  <script type="module" src="/node_modules/@feedlog-toolkit/webcomponents/dist/feedlog-toolkit/feedlog-toolkit.esm.js"></script>
-</head>
-<body>
-  <feedlog-chart 
-    type="line" 
-    title="My Chart"
-    data='[{"x": 1, "y": 2}, {"x": 2, "y": 3}]'>
-  </feedlog-chart>
-</body>
+  <head>
+    <script
+      type="module"
+      src="/node_modules/@feedlog-toolkit/webcomponents/dist/feedlog-toolkit/feedlog-toolkit.esm.js"
+    ></script>
+  </head>
+  <body>
+    <feedlog-chart type="line" title="My Chart" data='[{"x": 1, "y": 2}, {"x": 2, "y": 3}]'>
+    </feedlog-chart>
+  </body>
 </html>
 ```
 
@@ -169,16 +177,10 @@ import { FeedlogChart } from '@feedlog-toolkit/react';
 function App() {
   const chartData = [
     { x: 1, y: 2 },
-    { x: 2, y: 3 }
+    { x: 2, y: 3 },
   ];
 
-  return (
-    <FeedlogChart
-      type="line"
-      title="My Chart"
-      data={chartData}
-    />
-  );
+  return <FeedlogChart type="line" title="My Chart" data={chartData} />;
 }
 ```
 
@@ -186,11 +188,7 @@ function App() {
 
 ```vue
 <template>
-  <feedlog-chart
-    type="line"
-    title="My Chart"
-    :data="chartData"
-  />
+  <feedlog-chart type="line" title="My Chart" :data="chartData" />
 </template>
 
 <script setup lang="ts">
@@ -198,7 +196,7 @@ import { FeedlogChart } from '@feedlog-toolkit/vue';
 
 const chartData = [
   { x: 1, y: 2 },
-  { x: 2, y: 3 }
+  { x: 2, y: 3 },
 ];
 </script>
 ```
@@ -238,8 +236,8 @@ Each package has its own scripts defined in its `package.json`. Use `npm run <sc
 1. Create a feature branch
 2. Make your changes
 3. Run linter: `npm run lint`
-5. Format code: `npm run format`
-6. Submit a pull request
+4. Format code: `npm run format`
+5. Submit a pull request
 
 ## 📄 License
 
@@ -251,4 +249,3 @@ MIT
 - [Web Components](https://developer.mozilla.org/en-US/docs/Web/Web_Components)
 - [React Documentation](https://react.dev/)
 - [Vue Documentation](https://vuejs.org/)
-

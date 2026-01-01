@@ -117,7 +117,7 @@ describe('Error Hierarchy', () => {
       new FeedlogTimeoutError(),
     ];
 
-    errors.forEach((error) => {
+    errors.forEach(error => {
       expect(error instanceof FeedlogError).toBe(true);
       expect(error instanceof Error).toBe(true);
     });
@@ -154,12 +154,10 @@ describe('Error Hierarchy', () => {
       new FeedlogTimeoutError(),
     ];
 
-    errors.forEach((error) => {
+    errors.forEach(error => {
       expect(() => {
         throw error;
       }).toThrow(FeedlogError);
     });
   });
 });
-
-

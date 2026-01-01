@@ -28,22 +28,14 @@ export const Default: Story = {
   args: {
     variant: 'default',
   },
-  render: props => (
-    <feedlog-badge {...props}>
-      Enhancement
-    </feedlog-badge>
-  ),
+  render: props => <feedlog-badge {...props}>Enhancement</feedlog-badge>,
 };
 
 export const Destructive: Story = {
   args: {
     variant: 'destructive',
   },
-  render: props => (
-    <feedlog-badge {...props}>
-      Bug
-    </feedlog-badge>
-  ),
+  render: props => <feedlog-badge {...props}>Bug</feedlog-badge>,
 };
 
 export const AllVariants: Story = {
@@ -66,4 +58,3 @@ export const Labels: Story = {
     </div>
   ),
 };
-

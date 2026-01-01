@@ -1,6 +1,13 @@
 import React, { createElement } from 'react';
 
-import { attachProps, camelToDashCase, createForwardRef, dashToPascalCase, isCoveredByReact, mergeRefs } from './utils';
+import {
+  attachProps,
+  camelToDashCase,
+  createForwardRef,
+  dashToPascalCase,
+  isCoveredByReact,
+  mergeRefs,
+} from './utils';
 
 export interface HTMLStencilElement extends HTMLElement {
   componentOnReady(): Promise<this>;
@@ -15,7 +22,7 @@ export const createReactComponent = <
   PropType,
   ElementType extends HTMLStencilElement,
   ContextStateType = {},
-  ExpandedPropsTypes = {}
+  ExpandedPropsTypes = {},
 >(
   tagName: string,
   ReactComponentContext?: React.Context<ContextStateType>,

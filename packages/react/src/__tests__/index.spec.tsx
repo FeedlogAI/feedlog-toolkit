@@ -6,7 +6,7 @@ import {
   FeedlogCard,
   FeedlogGithubIssues,
   FeedlogGithubIssuesClient,
-  FeedlogIssuesList
+  FeedlogIssuesList,
 } from '../index';
 
 // Mock the webcomponents module
@@ -128,9 +128,7 @@ describe('React Wrapper - Event Handling', () => {
 
   it('FeedlogGithubIssues supports upvote event handler', () => {
     const handler = jest.fn();
-    const { container } = render(
-      <FeedlogGithubIssues issues={[]} onFeedlogUpvote={handler} />
-    );
+    const { container } = render(<FeedlogGithubIssues issues={[]} onFeedlogUpvote={handler} />);
     const component = container.querySelector('feedlog-github-issues');
     expect(component).toBeDefined();
   });
@@ -142,11 +140,13 @@ describe('React Wrapper - TypeScript Types', () => {
       <>
         <FeedlogBadge>String child</FeedlogBadge>
         <FeedlogButton>Mixed {123} content</FeedlogButton>
-        <FeedlogCard><div>Element</div></FeedlogCard>
+        <FeedlogCard>
+          <div>Element</div>
+        </FeedlogCard>
       </>
     );
-    expect(container.querySelectorAll('feedlog-badge, feedlog-button, feedlog-card').length).toBe(3);
+    expect(container.querySelectorAll('feedlog-badge, feedlog-button, feedlog-card').length).toBe(
+      3
+    );
   });
 });
-
-

@@ -69,7 +69,9 @@ export const IssueCard: Story = {
           👍 12
         </feedlog-button>
         <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
+          <div
+            style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}
+          >
             <h3 style={{ margin: '0' }}>Add dark mode support</h3>
             <feedlog-badge>Enhancement</feedlog-badge>
           </div>
@@ -81,4 +83,3 @@ export const IssueCard: Story = {
     </feedlog-card>
   ),
 };
-

@@ -226,11 +226,13 @@ export class FeedlogGithubIssuesClient {
     }
   }
 
-  private handleUpvote = async (event: CustomEvent<{
-    issueId: string;
-    currentUpvoted: boolean;
-    currentCount: number;
-  }>) => {
+  private handleUpvote = async (
+    event: CustomEvent<{
+      issueId: string;
+      currentUpvoted: boolean;
+      currentCount: number;
+    }>
+  ) => {
     if (!this.sdk) {
       return;
     }

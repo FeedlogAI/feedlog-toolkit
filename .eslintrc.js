@@ -50,7 +50,13 @@ module.exports = {
       },
     },
     {
-      files: ['**/__tests__/**/*.ts', '**/__tests__/**/*.tsx', '**/*.spec.ts', '**/*.spec.tsx', '**/*.stories.tsx'],
+      files: [
+        '**/__tests__/**/*.ts',
+        '**/__tests__/**/*.tsx',
+        '**/*.spec.ts',
+        '**/*.spec.tsx',
+        '**/*.stories.tsx',
+      ],
       rules: {
         // Allow any in test files and stories for mocking and testing invalid inputs
         '@typescript-eslint/no-explicit-any': 'off',

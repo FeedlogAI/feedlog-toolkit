@@ -1,6 +1,6 @@
 /**
  * React bindings for Feedlog Toolkit Web Components
- * 
+ *
  * This package provides React components that wrap the Stencil web components.
  * Components are auto-generated from the Stencil build process.
  */
@@ -15,4 +15,3 @@ import { defineCustomElements } from '@feedlog-toolkit/webcomponents/loader';
 if (typeof window !== 'undefined') {
   defineCustomElements();
 }
-

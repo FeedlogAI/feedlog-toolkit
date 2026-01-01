@@ -269,9 +269,7 @@ describe('FeedlogSDK - fetchIssues() Error Cases', () => {
   });
 
   it('should throw FeedlogNetworkError on network failure', async () => {
-    (global.fetch as jest.Mock).mockRejectedValueOnce(
-      new TypeError('Network error: fetch failed')
-    );
+    (global.fetch as jest.Mock).mockRejectedValueOnce(new TypeError('Network error: fetch failed'));
 
     await expect(sdk.fetchIssues({})).rejects.toThrow(FeedlogNetworkError);
   });
@@ -526,9 +524,7 @@ describe('FeedlogSDK - toggleUpvote() Error Cases', () => {
 
   // Timeout tests are skipped because fake timers don't work well with unresolved promises
   it.skip('should throw FeedlogTimeoutError on timeout', async () => {
-    (global.fetch as jest.Mock).mockImplementationOnce(
-      () => new Promise(() => {})
-    );
+    (global.fetch as jest.Mock).mockImplementationOnce(() => new Promise(() => {}));
 
     const fetchPromise = sdk.toggleUpvote('issue-1');
 
@@ -576,4 +572,3 @@ describe('FeedlogSDK - toggleUpvote() Error Cases', () => {
     await expect(sdk.toggleUpvote('issue-1')).rejects.toThrow(FeedlogValidationError);
   });
 });
-

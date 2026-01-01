@@ -2,7 +2,7 @@ import { Component, h } from '@stencil/core';
 
 /**
  * Feedlog Card Component
- * 
+ *
  * A reusable card container component with header and content areas.
  */
 @Component({
@@ -21,4 +21,3 @@ export class FeedlogCard {
     );
   }
 }
-

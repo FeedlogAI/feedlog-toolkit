@@ -124,4 +124,3 @@ describe('feedlog-badge - Slot Content', () => {
     expect(page.root?.shadowRoot?.querySelector('span')).toBeDefined();
   });
 });
-

@@ -4,5 +4,3 @@ import '@testing-library/jest-dom';
 if (!window.customElements) {
   window.customElements = {} as any;
 }
-
-

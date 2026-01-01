@@ -37,4 +37,3 @@ export class FeedlogTimeoutError extends FeedlogError {
     Object.setPrototypeOf(this, FeedlogTimeoutError.prototype);
   }
 }
-

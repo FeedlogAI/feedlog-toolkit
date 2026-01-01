@@ -90,9 +90,7 @@ describe('sanitizeHtml() - Script Tag Removal', () => {
 
 describe('sanitizeHtml() - Event Handler Removal', () => {
   it('should remove onclick attribute', () => {
-    expect(sanitizeHtml('<button onclick="alert()">Click</button>')).toBe(
-      '<button>Click</button>'
-    );
+    expect(sanitizeHtml('<button onclick="alert()">Click</button>')).toBe('<button>Click</button>');
   });
 
   it('should remove onload attribute', () => {
@@ -275,9 +273,7 @@ describe('stripHtmlTags() - Complete Stripping', () => {
   });
 
   it('should handle mixed content', () => {
-    expect(stripHtmlTags('<p>Text <b>bold</b> <i>italic</i></p>')).toBe(
-      'Text bold italic'
-    );
+    expect(stripHtmlTags('<p>Text <b>bold</b> <i>italic</i></p>')).toBe('Text bold italic');
   });
 
   it('should handle empty tags', () => {
@@ -352,4 +348,3 @@ describe('truncateText() - Text Truncation', () => {
     expect(result).toBe('Hello...');
   });
 });
-

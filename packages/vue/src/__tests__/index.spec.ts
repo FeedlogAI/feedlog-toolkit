@@ -5,7 +5,7 @@ import {
   FeedlogGithubIssues,
   FeedlogGithubIssuesClient,
   FeedlogIssuesList,
-  install
+  install,
 } from '../index';
 
 // Mock the webcomponents module
@@ -109,4 +109,3 @@ describe('Vue Wrapper - Slot Support', () => {
     expect(FeedlogCard).toBeDefined();
   });
 });
-

@@ -235,4 +235,3 @@ describe('feedlog-button - Slot Content', () => {
     expect(slot).toBeDefined();
   });
 });
-
