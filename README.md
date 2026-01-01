@@ -66,12 +66,6 @@ npm run build
 # Start development server for web components
 npm run dev
 
-# Run tests for all packages
-npm run test
-
-# Run tests in watch mode
-npm run test:watch
-
 # Lint all packages
 npm run lint
 
@@ -135,22 +129,6 @@ feedlog-toolkit/
 ├── tsconfig.json          # Root TypeScript config
 ├── .eslintrc.js          # ESLint configuration
 ├── .prettierrc           # Prettier configuration
-└── jest.config.js        # Jest testing configuration
-```
-
-## 🧪 Testing
-
-Each package has its own test suite:
-
-```bash
-# Test all packages
-npm run test
-
-# Test specific package
-npm run test --workspace=@feedlog-toolkit/core
-npm run test --workspace=@feedlog-toolkit/webcomponents
-npm run test --workspace=@feedlog-toolkit/react
-npm run test --workspace=@feedlog-toolkit/vue
 ```
 
 ## 📚 Usage Examples
@@ -247,7 +225,6 @@ npm run generate
 
 - `npm run build` - Build all packages
 - `npm run dev` - Start development server for web components
-- `npm run test` - Run all tests
 - `npm run lint` - Lint all packages
 - `npm run format` - Format all code with Prettier
 - `npm run clean` - Clean all build artifacts
@@ -260,8 +237,7 @@ Each package has its own scripts defined in its `package.json`. Use `npm run <sc
 
 1. Create a feature branch
 2. Make your changes
-3. Run tests: `npm run test`
-4. Run linter: `npm run lint`
+3. Run linter: `npm run lint`
 5. Format code: `npm run format`
 6. Submit a pull request
 

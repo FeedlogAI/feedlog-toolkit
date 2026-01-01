@@ -16,10 +16,6 @@
     "build": "stencil build",
     "start": "stencil build --dev --watch --serve",
     "dev": "stencil build --dev --watch --serve",
-    "test": "stencil test --spec --e2e",
-    "test:watch": "stencil test --spec --e2e --watch",
-    "test:spec": "stencil test --spec",
-    "test:e2e": "stencil test --e2e",
     "generate": "stencil generate",
     "clean": "rm -rf dist loader",
     "storybook": "storybook dev -p 6007 --no-open",
@@ -33,7 +29,6 @@
     "@stencil/react-output-target": "^0.5.0",
     "@stencil/storybook-plugin": "^0.5.6",
     "@stencil/vue-output-target": "^0.8.0",
-    "@types/jest": "^29.5.12",
     "@types/node": "^20.11.24",
     "storybook": "^10.1.0",
     "typescript": "^5.3.3"
