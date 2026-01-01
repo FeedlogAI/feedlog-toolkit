@@ -1,34 +1,24 @@
-import { h } from '@stencil/core';
+import { h } from "@stencil/core";
 /**
  * Feedlog Card Component
  *
  * A reusable card container component with header and content areas.
  */
 export class FeedlogCard {
-  render() {
-    return h(
-      'div',
-      { key: '349c032d1aa72c020a4f8949dec58c98e93f7459', class: 'feedlog-card' },
-      h('slot', { key: '4587b8997083ed0de9dd542a6eaa3acfe3382248', name: 'header' }),
-      h('slot', { key: '5374fbd26d864520ebbed62ce875f8d38674e3be', name: 'content' }),
-      h('slot', { key: '5b9f9c9c1fc2e4e32575ad1d4a2504050e5beb8d', name: 'footer' })
-    );
-  }
-  static get is() {
-    return 'feedlog-card';
-  }
-  static get encapsulation() {
-    return 'shadow';
-  }
-  static get originalStyleUrls() {
-    return {
-      $: ['feedlog-card.css'],
-    };
-  }
-  static get styleUrls() {
-    return {
-      $: ['feedlog-card.css'],
-    };
-  }
+    render() {
+        return (h("div", { key: '293a80e66adedfc1af29daf72390a4f464321b96', class: "feedlog-card" }, h("slot", { key: 'b7e5a827f89035e791d9c756db0f66198e6c5a38', name: "header" }), h("slot", { key: 'da89fee0a01068c8438564848f218faa9c5d849e', name: "content" }), h("slot", { key: '30b05e80e4189c0f73810a48f64e072dfac83267', name: "footer" })));
+    }
+    static get is() { return "feedlog-card"; }
+    static get encapsulation() { return "shadow"; }
+    static get originalStyleUrls() {
+        return {
+            "$": ["feedlog-card.css"]
+        };
+    }
+    static get styleUrls() {
+        return {
+            "$": ["feedlog-card.css"]
+        };
+    }
 }
 //# sourceMappingURL=feedlog-card.js.map

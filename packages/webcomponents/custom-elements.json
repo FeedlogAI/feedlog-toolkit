@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-01T09:18:47",
+  "timestamp": "2026-01-01T09:48:59",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.38.3",
@@ -10,7 +10,7 @@
       "filePath": "src/components/feedlog-badge/feedlog-badge.tsx",
       "encapsulation": "shadow",
       "tag": "feedlog-badge",
-      "readme": "# feedlog-badge\n\n\n",
+      "readme": "# feedlog-badge\n",
       "docs": "Feedlog Badge Component\n\nA label component with variant support for different styles.",
       "docsTags": [],
       "usage": {},
@@ -60,17 +60,21 @@
       "styles": [],
       "slots": [],
       "parts": [],
-      "dependents": ["feedlog-issues-list"],
+      "dependents": [
+        "feedlog-issues-list"
+      ],
       "dependencies": [],
       "dependencyGraph": {
-        "feedlog-issues-list": ["feedlog-badge"]
+        "feedlog-issues-list": [
+          "feedlog-badge"
+        ]
       }
     },
     {
       "filePath": "src/components/feedlog-button/feedlog-button.tsx",
       "encapsulation": "shadow",
       "tag": "feedlog-button",
-      "readme": "# feedlog-button\n\n\n",
+      "readme": "# feedlog-button\n",
       "docs": "Feedlog Button Component\n\nA button component with variant and size support.",
       "docsTags": [],
       "usage": {},
@@ -249,17 +253,21 @@
       "styles": [],
       "slots": [],
       "parts": [],
-      "dependents": ["feedlog-github-issues"],
+      "dependents": [
+        "feedlog-github-issues"
+      ],
       "dependencies": [],
       "dependencyGraph": {
-        "feedlog-github-issues": ["feedlog-button"]
+        "feedlog-github-issues": [
+          "feedlog-button"
+        ]
       }
     },
     {
       "filePath": "src/components/feedlog-card/feedlog-card.tsx",
       "encapsulation": "shadow",
       "tag": "feedlog-card",
-      "readme": "# feedlog-card\n\n\n",
+      "readme": "# feedlog-card\n",
       "docs": "Feedlog Card Component\n\nA reusable card container component with header and content areas.",
       "docsTags": [],
       "usage": {},
@@ -278,7 +286,7 @@
       "filePath": "src/components/feedlog-github-issues/feedlog-github-issues.tsx",
       "encapsulation": "shadow",
       "tag": "feedlog-github-issues",
-      "readme": "# feedlog-github-issues\n\n\n",
+      "readme": "# feedlog-github-issues\n",
       "docs": "Feedlog GitHub Issues Component\n\nComponent for displaying GitHub issues with support for bugs and enhancements.\nThis component handles the UI rendering and delegates to feedlog-issues-list for the actual list.",
       "docsTags": [],
       "usage": {},
@@ -578,19 +586,31 @@
       "styles": [],
       "slots": [],
       "parts": [],
-      "dependents": ["feedlog-github-issues-client"],
-      "dependencies": ["feedlog-button", "feedlog-issues-list"],
+      "dependents": [
+        "feedlog-github-issues-client"
+      ],
+      "dependencies": [
+        "feedlog-button",
+        "feedlog-issues-list"
+      ],
       "dependencyGraph": {
-        "feedlog-github-issues": ["feedlog-button", "feedlog-issues-list"],
-        "feedlog-issues-list": ["feedlog-badge"],
-        "feedlog-github-issues-client": ["feedlog-github-issues"]
+        "feedlog-github-issues": [
+          "feedlog-button",
+          "feedlog-issues-list"
+        ],
+        "feedlog-issues-list": [
+          "feedlog-badge"
+        ],
+        "feedlog-github-issues-client": [
+          "feedlog-github-issues"
+        ]
       }
     },
     {
       "filePath": "src/components/feedlog-github-issues-client/feedlog-github-issues-client.tsx",
       "encapsulation": "shadow",
       "tag": "feedlog-github-issues-client",
-      "readme": "# feedlog-github-issues-client\n\n\n",
+      "readme": "# feedlog-github-issues-client\n",
       "docs": "Feedlog GitHub Issues Client Component\n\nA component for displaying GitHub issues fetched using the Feedlog SDK.\nThis component uses the SDK internally to fetch data and delegates to feedlog-github-issues for rendering.",
       "docsTags": [],
       "usage": {},
@@ -850,18 +870,27 @@
       "slots": [],
       "parts": [],
       "dependents": [],
-      "dependencies": ["feedlog-github-issues"],
+      "dependencies": [
+        "feedlog-github-issues"
+      ],
       "dependencyGraph": {
-        "feedlog-github-issues-client": ["feedlog-github-issues"],
-        "feedlog-github-issues": ["feedlog-button", "feedlog-issues-list"],
-        "feedlog-issues-list": ["feedlog-badge"]
+        "feedlog-github-issues-client": [
+          "feedlog-github-issues"
+        ],
+        "feedlog-github-issues": [
+          "feedlog-button",
+          "feedlog-issues-list"
+        ],
+        "feedlog-issues-list": [
+          "feedlog-badge"
+        ]
       }
     },
     {
       "filePath": "src/components/feedlog-issues-list/feedlog-issues-list.tsx",
       "encapsulation": "shadow",
       "tag": "feedlog-issues-list",
-      "readme": "# feedlog-issues-list\n\n\n",
+      "readme": "# feedlog-issues-list\n",
       "docs": "Feedlog Issues List Component\n\nA component for displaying a list of GitHub issues with support for bugs and enhancements.",
       "docsTags": [],
       "usage": {},
@@ -956,11 +985,19 @@
       "styles": [],
       "slots": [],
       "parts": [],
-      "dependents": ["feedlog-github-issues"],
-      "dependencies": ["feedlog-badge"],
+      "dependents": [
+        "feedlog-github-issues"
+      ],
+      "dependencies": [
+        "feedlog-badge"
+      ],
       "dependencyGraph": {
-        "feedlog-issues-list": ["feedlog-badge"],
-        "feedlog-github-issues": ["feedlog-issues-list"]
+        "feedlog-issues-list": [
+          "feedlog-badge"
+        ],
+        "feedlog-github-issues": [
+          "feedlog-issues-list"
+        ]
       }
     }
   ],
