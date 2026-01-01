@@ -113,9 +113,6 @@ export class FeedlogIssuesList {
                         <span class="repo-name">
                           {issue.repository.owner}/{issue.repository.name}
                         </span>
-                        {issue.githubIssueNumber > 0 && (
-                          <span class="github-number">#{issue.githubIssueNumber}</span>
-                        )}
                       </div>
                     </div>
 

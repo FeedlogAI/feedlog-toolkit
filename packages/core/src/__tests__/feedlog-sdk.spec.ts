@@ -72,7 +72,6 @@ describe('FeedlogSDK - fetchIssues() Success Cases', () => {
 
   const mockIssue = {
     id: 'issue-1',
-    githubIssueNumber: 42,
     type: 'bug' as const,
     status: 'open' as const,
     pinnedAt: null,

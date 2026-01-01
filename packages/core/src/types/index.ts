@@ -16,7 +16,6 @@ export interface Repository {
  */
 export interface FeedlogIssue {
   id: string; // Public issue ID
-  githubIssueNumber: number; // GitHub issue number
   type: 'bug' | 'enhancement';
   status: 'open' | 'closed';
   pinnedAt: string | null; // ISO 8601 timestamp or null

@@ -3,7 +3,6 @@ import { FeedlogGithubIssues } from "./feedlog-github-issues";
 const sampleIssues = [
     {
         id: 'issue-1',
-        githubIssueNumber: 123,
         title: 'Add dark mode support',
         body: 'It would be great to have a dark mode option for the dashboard.',
         type: 'enhancement',
@@ -22,7 +21,6 @@ const sampleIssues = [
     },
     {
         id: 'issue-2',
-        githubIssueNumber: 124,
         title: 'Charts not rendering on mobile',
         body: 'The chart components are not properly responsive on smaller screens.',
         type: 'bug',
@@ -41,7 +39,6 @@ const sampleIssues = [
     },
     {
         id: 'issue-3',
-        githubIssueNumber: 125,
         title: 'Export data to CSV',
         body: 'Add functionality to export chart data as CSV files.',
         type: 'enhancement',
@@ -60,7 +57,6 @@ const sampleIssues = [
     },
     {
         id: 'issue-4',
-        githubIssueNumber: 126,
         title: 'Memory leak in real-time updates',
         body: 'When leaving the dashboard open for extended periods, memory usage increases significantly.',
         type: 'bug',
@@ -79,7 +75,6 @@ const sampleIssues = [
     },
     {
         id: 'issue-5',
-        githubIssueNumber: 127,
         title: 'Custom color themes',
         body: 'Allow users to customize the color palette for charts and UI elements.',
         type: 'enhancement',

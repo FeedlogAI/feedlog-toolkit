@@ -23,7 +23,8 @@
     "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
-    "clean": "npm run clean --workspaces && rm -rf node_modules"
+    "clean": "npm run clean --workspaces && rm -rf node_modules",
+    "storybook": "npm run storybook --workspace=@feedlog-toolkit/webcomponents"
   },
   "devDependencies": {
     "@jest/test-sequencer": "^29.7.0",

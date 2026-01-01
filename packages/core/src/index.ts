@@ -283,13 +283,12 @@ export class FeedlogSDK {
 
     return {
       id: String(issue.id),
-      githubIssueNumber: Number(issue.githubIssueNumber) || 0,
       type: (issue.type as 'bug' | 'enhancement') || 'bug',
       status: (issue.status as 'open' | 'closed') || 'open',
       pinnedAt: issue.pinnedAt ? String(issue.pinnedAt) : null,
+      revision: Number(issue.revision) || 1,
       title: sanitizedTitle,
       body: sanitizedBody,
-      revision: Number(issue.revision) || 0,
       repository: {
         id: String(repo.id),
         name: String(repo.name),
