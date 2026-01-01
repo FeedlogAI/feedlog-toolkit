@@ -8,4 +8,5 @@ packages/*/dist
 packages/*/loader
 packages/react/src/components/stencil-generated
 packages/vue/src/components.ts
+packages/vue/src/vue-component-lib/utils.ts
 

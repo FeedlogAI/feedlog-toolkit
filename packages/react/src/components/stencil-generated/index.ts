@@ -1,34 +1,50 @@
-/* eslint-disable */
-/* tslint:disable */
-/* auto-generated react proxies */
-import { createReactComponent } from './react-component-lib';
+import React from 'react';
+import { createComponent } from './utils';
 
-import type { JSX } from '@feedlog-toolkit/webcomponents';
+// Manual React wrappers for web components to avoid Stencil generation issues
 
-import { defineCustomElements } from '@feedlog-toolkit/webcomponents/loader';
+export const FeedlogBadge = createComponent({
+  tagName: 'feedlog-badge',
+  elementClass: HTMLElement,
+  react: React,
+  events: {},
+}) as any;
 
-defineCustomElements();
-export const FeedlogBadge = /*@__PURE__*/ createReactComponent<
-  JSX.FeedlogBadge,
-  HTMLFeedlogBadgeElement
->('feedlog-badge');
-export const FeedlogButton = /*@__PURE__*/ createReactComponent<
-  JSX.FeedlogButton,
-  HTMLFeedlogButtonElement
->('feedlog-button');
-export const FeedlogCard = /*@__PURE__*/ createReactComponent<
-  JSX.FeedlogCard,
-  HTMLFeedlogCardElement
->('feedlog-card');
-export const FeedlogGithubIssues = /*@__PURE__*/ createReactComponent<
-  JSX.FeedlogGithubIssues,
-  HTMLFeedlogGithubIssuesElement
->('feedlog-github-issues');
-export const FeedlogGithubIssuesClient = /*@__PURE__*/ createReactComponent<
-  JSX.FeedlogGithubIssuesClient,
-  HTMLFeedlogGithubIssuesClientElement
->('feedlog-github-issues-client');
-export const FeedlogIssuesList = /*@__PURE__*/ createReactComponent<
-  JSX.FeedlogIssuesList,
-  HTMLFeedlogIssuesListElement
->('feedlog-issues-list');
+export const FeedlogButton = createComponent({
+  tagName: 'feedlog-button',
+  elementClass: HTMLElement,
+  react: React,
+  events: {
+    feedlogClick: 'feedlogClick',
+  },
+}) as any;
+
+export const FeedlogCard = createComponent({
+  tagName: 'feedlog-card',
+  elementClass: HTMLElement,
+  react: React,
+  events: {},
+}) as any;
+
+export const FeedlogGithubIssues = createComponent({
+  tagName: 'feedlog-github-issues',
+  elementClass: HTMLElement,
+  react: React,
+  events: {
+    feedlogUpvote: 'feedlogUpvote',
+  },
+}) as any;
+
+export const FeedlogGithubIssuesClient = createComponent({
+  tagName: 'feedlog-github-issues-client',
+  elementClass: HTMLElement,
+  react: React,
+  events: {},
+}) as any;
+
+export const FeedlogIssuesList = createComponent({
+  tagName: 'feedlog-issues-list',
+  elementClass: HTMLElement,
+  react: React,
+  events: {},
+}) as any;

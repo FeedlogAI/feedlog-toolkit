@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "strict": false,
+    "noImplicitAny": true,
+    "skipLibCheck": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noEmitOnError": true
+  },
+  "include": ["src/components/stencil-generated/**/*"],
+  "exclude": ["src/**/*.spec.*", "src/**/__tests__/**"]
+}

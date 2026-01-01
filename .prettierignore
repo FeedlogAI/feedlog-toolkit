@@ -8,3 +8,10 @@ yarn.lock
 pnpm-lock.yaml
 
 .github
+
+# Stencil generated files
+loader/
+collection/
+www/
+storybook-static/
+stencil-generated/

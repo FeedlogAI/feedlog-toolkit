@@ -4,6 +4,7 @@ import { vueOutputTarget } from '@stencil/vue-output-target';
 
 export const config: Config = {
   namespace: 'feedlog-toolkit',
+  validatePrimaryPackageOutputTarget: false,
   outputTargets: [
     // Standard web components distribution
     {
@@ -15,12 +16,13 @@ export const config: Config = {
       customElementsExportBehavior: 'auto-define-custom-elements',
       externalRuntime: false,
     },
-    // React output target
-    reactOutputTarget({
-      componentCorePackage: '@feedlog-toolkit/webcomponents',
-      proxiesFile: '../react/src/components/stencil-generated/index.ts',
-      includeDefineCustomElements: true,
-    }),
+    // React output target - temporarily disabled due to TypeScript compatibility issues
+    // reactOutputTarget({
+    //   componentCorePackage: '@feedlog-toolkit/webcomponents',
+    //   proxiesFile: '../react/src/components/stencil-generated/index.ts',
+    //   includeDefineCustomElements: false,
+    //   outDir: '../react/src/components/stencil-generated',
+    // }),
     // Vue output target
     vueOutputTarget({
       componentCorePackage: '@feedlog-toolkit/webcomponents',
@@ -35,12 +37,6 @@ export const config: Config = {
     {
       type: 'docs-json',
       file: './custom-elements.json',
-    },
-    // Collection for lazy loading
-    {
-      type: 'dist-collection',
-      dir: 'dist/collection',
-      collectionDir: 'collection',
     },
   ],
   testing: {

@@ -93,7 +93,23 @@ describe('React Wrapper - Props Passthrough', () => {
   });
 
   it('FeedlogGithubIssues passes issues prop', () => {
-    const issues = [{ id: '1', title: 'Test' }];
+    const issues = [
+      {
+        id: '1',
+        githubIssueNumber: 1,
+        type: 'bug' as const,
+        status: 'open' as const,
+        pinnedAt: null,
+        title: 'Test Issue',
+        body: 'Test body',
+        revision: 1,
+        repository: { id: 'repo-1', name: 'test-repo', owner: 'test-owner' },
+        updatedAt: '2024-01-01T00:00:00Z',
+        createdAt: '2024-01-01T00:00:00Z',
+        upvoteCount: 0,
+        hasUpvoted: false,
+      },
+    ];
     const { container } = render(<FeedlogGithubIssues issues={issues} />);
     const component = container.querySelector('feedlog-github-issues');
     expect(component?.getAttribute('issues')).toBeDefined();

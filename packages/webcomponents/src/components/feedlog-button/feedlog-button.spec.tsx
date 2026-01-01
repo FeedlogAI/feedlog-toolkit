@@ -71,7 +71,7 @@ describe('feedlog-button - Props', () => {
       html: '<feedlog-button type="button">Click</feedlog-button>',
     });
 
-    expect(page.root?.shadowRoot?.querySelector('button')).toHaveAttribute('type', 'button');
+    expect(page.root?.shadowRoot?.querySelector('button')?.getAttribute('type')).toBe('button');
   });
 
   it('should render submit type', async () => {
@@ -80,7 +80,7 @@ describe('feedlog-button - Props', () => {
       html: '<feedlog-button type="submit">Submit</feedlog-button>',
     });
 
-    expect(page.root?.shadowRoot?.querySelector('button')).toHaveAttribute('type', 'submit');
+    expect(page.root?.shadowRoot?.querySelector('button')?.getAttribute('type')).toBe('submit');
   });
 
   it('should render reset type', async () => {
@@ -89,7 +89,7 @@ describe('feedlog-button - Props', () => {
       html: '<feedlog-button type="reset">Reset</feedlog-button>',
     });
 
-    expect(page.root?.shadowRoot?.querySelector('button')).toHaveAttribute('type', 'reset');
+    expect(page.root?.shadowRoot?.querySelector('button')?.getAttribute('type')).toBe('reset');
   });
 
   it('should render enabled state', async () => {
