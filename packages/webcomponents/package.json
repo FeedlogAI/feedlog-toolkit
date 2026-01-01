@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^15.0.0",
+    "@rollup/rollup-linux-x64-gnu": "^4.0.0",
     "@stencil/core": "^4.0.0",
     "@stencil/react-output-target": "^0.8.0",
     "@stencil/storybook-plugin": "^0.5.6",
