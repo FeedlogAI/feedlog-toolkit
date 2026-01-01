@@ -1,5 +1,5 @@
-// @ts-nocheck
-// It's easier and safer for Volar to disable typechecking and let the return type inference do its job.
+// TypeScript checking is enabled for better code quality
+// Specific type issues are handled with eslint-disable comments where needed
 import { defineComponent, getCurrentInstance, h, inject, ref, Ref, withDirectives } from 'vue';
 
 export interface InputProps<T> {
@@ -125,10 +125,10 @@ export const defineContainer = <Props, VModelType = string | number | boolean>(
          */
         ev.preventDefault();
 
-        let navigationPayload: any = { event: ev };
+        const navigationPayload: any = { event: ev };
         for (const key in props) {
           const value = props[key];
-          if (props.hasOwnProperty(key) && key.startsWith(ROUTER_PROP_PREFIX) && value !== EMPTY_PROP) {
+          if (Object.prototype.hasOwnProperty.call(props, key) && key.startsWith(ROUTER_PROP_PREFIX) && value !== EMPTY_PROP) {
             navigationPayload[key] = value;
           }
         }
@@ -170,7 +170,7 @@ export const defineContainer = <Props, VModelType = string | number | boolean>(
        */
       for (const key in props) {
         const value = props[key];
-        if ((props.hasOwnProperty(key) && value !== EMPTY_PROP) || key.startsWith(ARIA_PROP_PREFIX)) {
+        if ((Object.prototype.hasOwnProperty.call(props, key) && value !== EMPTY_PROP) || key.startsWith(ARIA_PROP_PREFIX)) {
           propsToAdd[key] = value;
         }
       }

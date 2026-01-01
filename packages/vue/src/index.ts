@@ -19,7 +19,8 @@ if (typeof window !== 'undefined') {
 // Vue plugin installation function
 import type { App } from 'vue';
 
-export function install(app: App): void {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function install(_app: App): void {
   // Custom elements are automatically registered via defineCustomElements
   // Additional Vue-specific setup can be added here if needed
 }
