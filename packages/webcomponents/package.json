@@ -17,9 +17,12 @@
     "start": "stencil build --dev --watch --serve",
     "dev": "stencil build --dev --watch --serve",
     "generate": "stencil generate",
-    "clean": "rm -rf dist loader",
+    "test": "stencil test --spec",
+    "test:watch": "stencil test --spec --watch",
+    "test:coverage": "stencil test --spec --coverage",
     "storybook": "storybook dev -p 6007 --no-open",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "clean": "rm -rf dist loader"
   },
   "dependencies": {
     "@feedlog-toolkit/core": "*"
