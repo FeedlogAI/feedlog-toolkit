@@ -20,7 +20,7 @@
     "checkJs": false
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "src/components/stencil-generated"],
+  "exclude": ["node_modules", "dist", "src/components/stencil-generated", "**/__tests__/**"],
   "ts-node": {
     "transpileOnly": true
   }
