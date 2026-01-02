@@ -43,28 +43,28 @@ jobs:
     - name: Publish Core Package
       run: |
         cd packages/core
-        npm publish
+        npm publish --access public
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
     - name: Publish Web Components Package
       run: |
         cd packages/webcomponents
-        npm publish
+        npm publish --access public
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
     - name: Publish React Package
       run: |
         cd packages/react
-        npm publish
+        npm publish --access public
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
     - name: Publish Vue Package
       run: |
         cd packages/vue
-        npm publish
+        npm publish --access public
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
