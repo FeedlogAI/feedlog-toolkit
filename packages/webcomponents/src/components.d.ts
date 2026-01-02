@@ -5,8 +5,8 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
-import { FeedlogIssue } from '@feedlog-toolkit/core';
-export { FeedlogIssue } from '@feedlog-toolkit/core';
+import { FeedlogIssue } from '@feedlog-ai/core';
+export { FeedlogIssue } from '@feedlog-ai/core';
 export namespace Components {
   /**
    * Feedlog Badge Component

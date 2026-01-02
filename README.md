@@ -6,7 +6,7 @@ A monorepo containing the Feedlog Toolkit - a comprehensive set of packages for 
 
 This monorepo contains the following packages:
 
-### `@feedlog-toolkit/core`
+### `@feedlog-ai/core`
 
 Core SDK package providing shared utilities, types, and functionality used across all Feedlog Toolkit packages.
 
@@ -17,7 +17,7 @@ Core SDK package providing shared utilities, types, and functionality used acros
 - Utility functions
 - Core Feedlog SDK class
 
-### `@feedlog-toolkit/webcomponents`
+### `@feedlog-ai/webcomponents`
 
 Stencil-based web components for GitHub issue management. These are framework-agnostic web components that can be used in any JavaScript framework or vanilla HTML.
 
@@ -29,7 +29,7 @@ Stencil-based web components for GitHub issue management. These are framework-ag
 - Tree-shakeable builds
 - Auto-generated React and Vue wrappers
 
-### `@feedlog-toolkit/react`
+### `@feedlog-ai/react`
 
 React bindings for Feedlog Toolkit web components. Auto-generated from Stencil components.
 
@@ -40,7 +40,7 @@ React bindings for Feedlog Toolkit web components. Auto-generated from Stencil c
 - Full type safety
 - Peer dependency on React >=17.0.0
 
-### `@feedlog-toolkit/vue`
+### `@feedlog-ai/vue`
 
 Vue bindings for Feedlog Toolkit web components. Auto-generated from Stencil components.
 
@@ -181,7 +181,7 @@ feedlog-toolkit/
 ### Using Core SDK
 
 ```typescript
-import { FeedlogSDK } from '@feedlog-toolkit/core';
+import { FeedlogSDK } from '@feedlog-ai/core';
 
 // Initialize with default configuration
 const sdk = new FeedlogSDK();
@@ -212,7 +212,7 @@ const upvoteResult = await sdk.toggleUpvote('issue-id');
   <head>
     <script
       type="module"
-      src="/node_modules/@feedlog-toolkit/webcomponents/dist/feedlog-toolkit/feedlog-toolkit.esm.js"
+      src="/node_modules/@feedlog-ai/webcomponents/dist/feedlog-toolkit/feedlog-toolkit.esm.js"
     ></script>
   </head>
   <body>
@@ -227,7 +227,7 @@ const upvoteResult = await sdk.toggleUpvote('issue-id');
 
 ```tsx
 import React from 'react';
-import { FeedlogCard, FeedlogBadge, FeedlogButton } from '@feedlog-toolkit/react';
+import { FeedlogCard, FeedlogBadge, FeedlogButton } from '@feedlog-ai/react';
 
 function App() {
   return (
@@ -250,7 +250,7 @@ function App() {
 </template>
 
 <script setup lang="ts">
-import { FeedlogCard, FeedlogBadge, FeedlogButton } from '@feedlog-toolkit/vue';
+import { FeedlogCard, FeedlogBadge, FeedlogButton } from '@feedlog-ai/vue';
 </script>
 ```
 

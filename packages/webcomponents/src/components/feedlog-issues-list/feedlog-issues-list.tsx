@@ -1,5 +1,5 @@
 import { Component, Prop, Event, EventEmitter, h, Host } from '@stencil/core';
-import { FeedlogIssue } from '@feedlog-toolkit/core';
+import { FeedlogIssue } from '@feedlog-ai/core';
 
 /**
  * Heart icon SVG component (filled)

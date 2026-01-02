@@ -26,7 +26,7 @@ module.exports = {
     ],
   },
   moduleNameMapper: {
-    '^@feedlog-toolkit/webcomponents/loader$': '<rootDir>/src/__tests__/mocks/loader.js',
-    '^@feedlog-toolkit/webcomponents$': '<rootDir>/src/__tests__/mocks/webcomponents.js',
+    '^@feedlog-ai/webcomponents/loader$': '<rootDir>/src/__tests__/mocks/loader.js',
+    '^@feedlog-ai/webcomponents$': '<rootDir>/src/__tests__/mocks/webcomponents.js',
   },
 };

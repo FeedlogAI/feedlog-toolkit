@@ -7,13 +7,13 @@
 
 /* eslint-disable */
 
-import { type FeedlogButtonCustomEvent } from "@feedlog-toolkit/webcomponents";
-import { FeedlogBadge as FeedlogBadgeElement, defineCustomElement as defineFeedlogBadge } from "@feedlog-toolkit/webcomponents/dist/components/feedlog-badge.js";
-import { FeedlogButton as FeedlogButtonElement, defineCustomElement as defineFeedlogButton } from "@feedlog-toolkit/webcomponents/dist/components/feedlog-button.js";
-import { FeedlogCard as FeedlogCardElement, defineCustomElement as defineFeedlogCard } from "@feedlog-toolkit/webcomponents/dist/components/feedlog-card.js";
-import { FeedlogGithubIssuesClient as FeedlogGithubIssuesClientElement, defineCustomElement as defineFeedlogGithubIssuesClient } from "@feedlog-toolkit/webcomponents/dist/components/feedlog-github-issues-client.js";
-import { FeedlogGithubIssues as FeedlogGithubIssuesElement, defineCustomElement as defineFeedlogGithubIssues } from "@feedlog-toolkit/webcomponents/dist/components/feedlog-github-issues.js";
-import { FeedlogIssuesList as FeedlogIssuesListElement, defineCustomElement as defineFeedlogIssuesList } from "@feedlog-toolkit/webcomponents/dist/components/feedlog-issues-list.js";
+import { type FeedlogButtonCustomEvent } from "@feedlog-ai/webcomponents";
+import { FeedlogBadge as FeedlogBadgeElement, defineCustomElement as defineFeedlogBadge } from "@feedlog-ai/webcomponents/dist/components/feedlog-badge.js";
+import { FeedlogButton as FeedlogButtonElement, defineCustomElement as defineFeedlogButton } from "@feedlog-ai/webcomponents/dist/components/feedlog-button.js";
+import { FeedlogCard as FeedlogCardElement, defineCustomElement as defineFeedlogCard } from "@feedlog-ai/webcomponents/dist/components/feedlog-card.js";
+import { FeedlogGithubIssuesClient as FeedlogGithubIssuesClientElement, defineCustomElement as defineFeedlogGithubIssuesClient } from "@feedlog-ai/webcomponents/dist/components/feedlog-github-issues-client.js";
+import { FeedlogGithubIssues as FeedlogGithubIssuesElement, defineCustomElement as defineFeedlogGithubIssues } from "@feedlog-ai/webcomponents/dist/components/feedlog-github-issues.js";
+import { FeedlogIssuesList as FeedlogIssuesListElement, defineCustomElement as defineFeedlogIssuesList } from "@feedlog-ai/webcomponents/dist/components/feedlog-issues-list.js";
 import type { EventName, StencilReactComponent } from '@stencil/react-output-target/runtime';
 import { createComponent } from '@stencil/react-output-target/runtime';
 import React from 'react';

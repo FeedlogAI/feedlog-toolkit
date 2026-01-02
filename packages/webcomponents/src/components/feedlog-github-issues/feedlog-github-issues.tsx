@@ -1,5 +1,5 @@
 import { Component, Prop, State, Event, EventEmitter, h, Host } from '@stencil/core';
-import { FeedlogIssue } from '@feedlog-toolkit/core';
+import { FeedlogIssue } from '@feedlog-ai/core';
 
 /**
  * Sun icon SVG component

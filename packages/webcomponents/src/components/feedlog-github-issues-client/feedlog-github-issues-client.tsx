@@ -1,5 +1,5 @@
 import { Component, Prop, Event, EventEmitter, h, State } from '@stencil/core';
-import { FeedlogSDK, FeedlogIssue, FetchIssuesParams } from '@feedlog-toolkit/core';
+import { FeedlogSDK, FeedlogIssue, FetchIssuesParams } from '@feedlog-ai/core';
 
 /**
  * Feedlog GitHub Issues Client Component

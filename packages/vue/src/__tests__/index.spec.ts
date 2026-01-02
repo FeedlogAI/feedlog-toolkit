@@ -9,7 +9,7 @@ import {
 } from '../index';
 
 // Mock the webcomponents module
-jest.mock('@feedlog-toolkit/webcomponents', () => ({
+jest.mock('@feedlog-ai/webcomponents', () => ({
   defineCustomElements: jest.fn(),
 }));
 

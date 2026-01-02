@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-01T16:26:16",
+  "timestamp": "2026-01-02T12:54:21",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.40.1",
@@ -382,7 +382,7 @@
             "references": {
               "FeedlogIssue": {
                 "location": "import",
-                "path": "@feedlog-toolkit/core",
+                "path": "@feedlog-ai/core",
                 "id": "../core/dist/index.d.ts::FeedlogIssue"
               }
             }
@@ -875,7 +875,7 @@
             "references": {
               "FeedlogIssue": {
                 "location": "import",
-                "path": "@feedlog-toolkit/core",
+                "path": "@feedlog-ai/core",
                 "id": "../core/dist/index.d.ts::FeedlogIssue"
               }
             }

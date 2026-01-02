@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@stencil/storybook-plugin';
 import { h } from '@stencil/core';
 import { FeedlogGithubIssues } from './feedlog-github-issues';
-import type { FeedlogIssue } from '@feedlog-toolkit/core';
+import type { FeedlogIssue } from '@feedlog-ai/core';
 
 const sampleIssues: FeedlogIssue[] = [
   {

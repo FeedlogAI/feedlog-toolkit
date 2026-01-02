@@ -1,5 +1,5 @@
 {
-  "name": "@feedlog-toolkit/vue",
+  "name": "@feedlog-ai/vue",
   "version": "0.0.1",
   "description": "Vue bindings for Feedlog Toolkit Web Components",
   "main": "./dist/index.js",
@@ -28,7 +28,7 @@
     "vue": ">=3.0.0 || >=2.6.0"
   },
   "dependencies": {
-    "@feedlog-toolkit/webcomponents": "*"
+    "@feedlog-ai/webcomponents": "*"
   },
   "devDependencies": {
     "@jest/test-sequencer": "^29.7.0",

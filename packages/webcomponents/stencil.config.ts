@@ -18,14 +18,14 @@ export const config: Config = {
     },
     // React output target - temporarily disabled due to TypeScript compatibility issues
     // reactOutputTarget({
-    //   componentCorePackage: '@feedlog-toolkit/webcomponents',
+    //   componentCorePackage: '@feedlog-ai/webcomponents',
     //   proxiesFile: '../react/src/components/stencil-generated/index.ts',
     //   includeDefineCustomElements: false,
     //   outDir: '../react/src/components/stencil-generated',
     // }),
     // Vue output target
     vueOutputTarget({
-      componentCorePackage: '@feedlog-toolkit/webcomponents',
+      componentCorePackage: '@feedlog-ai/webcomponents',
       proxiesFile: '../vue/src/components.ts',
       includeDefineCustomElements: true,
     }),

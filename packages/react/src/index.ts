@@ -6,8 +6,8 @@
  */
 
 import React from 'react';
-import { FeedlogIssue } from '@feedlog-toolkit/core';
-import { defineCustomElements } from '@feedlog-toolkit/webcomponents/loader';
+import { FeedlogIssue } from '@feedlog-ai/core';
+import { defineCustomElements } from '@feedlog-ai/webcomponents/loader';
 
 // Simple React wrappers for web components
 export const FeedlogBadge = React.forwardRef<

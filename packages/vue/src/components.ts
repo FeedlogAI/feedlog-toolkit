@@ -3,9 +3,9 @@
 /* auto-generated vue proxies */
 import { defineContainer } from './vue-component-lib/utils';
 
-import type { JSX } from '@feedlog-toolkit/webcomponents';
+import type { JSX } from '@feedlog-ai/webcomponents';
 
-import { defineCustomElements } from '@feedlog-toolkit/webcomponents/loader';
+import { defineCustomElements } from '@feedlog-ai/webcomponents/loader';
 
 defineCustomElements();
 

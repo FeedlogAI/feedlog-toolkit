@@ -1,5 +1,5 @@
 import { h } from "@stencil/core";
-import { FeedlogSDK } from "@feedlog-toolkit/core";
+import { FeedlogSDK } from "@feedlog-ai/core";
 /**
  * Feedlog GitHub Issues Client Component
  *

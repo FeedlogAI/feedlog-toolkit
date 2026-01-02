@@ -9,7 +9,7 @@
 export * from './components';
 
 // Define custom elements (required for web components to work)
-import { defineCustomElements } from '@feedlog-toolkit/webcomponents/loader';
+import { defineCustomElements } from '@feedlog-ai/webcomponents/loader';
 
 // Auto-define custom elements when this module is imported
 if (typeof window !== 'undefined') {

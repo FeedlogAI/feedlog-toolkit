@@ -189,7 +189,7 @@ export class FeedlogGithubIssuesBase {
           references: {
             GitHubIssue: {
               location: 'import',
-              path: '@feedlog-toolkit/core',
+              path: '@feedlog-ai/core',
               id: '../core/dist/index.d.ts::GitHubIssue',
             },
           },
