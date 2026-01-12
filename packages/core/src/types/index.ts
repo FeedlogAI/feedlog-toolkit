@@ -68,6 +68,7 @@ export interface UpvoteResponse {
  * SDK configuration
  */
 export interface FeedlogSDKConfig {
+  apiKey?: string; // API key for authentication
   endpoint?: string; // API base URL, defaults to https://api.feedlog.app
   timeout?: number; // Request timeout in milliseconds, defaults to 30000
   credentials?: RequestCredentials; // Fetch credentials mode, defaults to 'include'

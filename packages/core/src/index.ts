@@ -32,6 +32,7 @@ import {
  */
 export class FeedlogSDK {
   private config: FeedlogSDKConfig;
+  private apiKey?: string;
   private endpoint: string;
   private timeout: number;
 
@@ -41,6 +42,7 @@ export class FeedlogSDK {
       ...config,
     };
 
+    this.apiKey = this.config.apiKey;
     this.endpoint = this.config.endpoint || 'https://api.feedlog.app';
     this.timeout = this.config.timeout || 30000;
 
@@ -178,9 +180,15 @@ export class FeedlogSDK {
    * Get request headers
    */
   private getAuthHeaders(): Record<string, string> {
-    return {
+    const headers: Record<string, string> = {
       'Content-Type': 'application/json',
     };
+
+    if (this.apiKey) {
+      headers['x-api-key'] = this.apiKey;
+    }
+
+    return headers;
   }
 
   /**

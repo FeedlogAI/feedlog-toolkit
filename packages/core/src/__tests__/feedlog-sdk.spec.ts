@@ -46,6 +46,12 @@ describe('FeedlogSDK - Constructor & Configuration', () => {
     expect(sdk).toBeDefined();
   });
 
+  it('should initialize with custom apiKey', () => {
+    const sdk = new FeedlogSDK({ apiKey: 'test-api-key' });
+    // API key is stored but we can verify through behavior
+    expect(sdk).toBeDefined();
+  });
+
   it('should apply all custom config values together', () => {
     const sdk = new FeedlogSDK({
       endpoint: 'https://api.example.com/',
@@ -107,6 +113,42 @@ describe('FeedlogSDK - fetchIssues() Success Cases', () => {
     expect(result.issues).toHaveLength(1);
     expect(result.issues[0].id).toBe('issue-1');
     expect(result.pagination.hasMore).toBe(false);
+  });
+
+  it('should send x-api-key header when apiKey is provided', async () => {
+    const sdkWithApiKey = new FeedlogSDK({ apiKey: 'test-api-key' });
+    const mockResponse = {
+      issues: [mockIssue],
+      pagination: { cursor: null, hasMore: false },
+    };
+
+    (global.fetch as jest.Mock).mockResolvedValueOnce(createMockResponse(mockResponse));
+
+    await sdkWithApiKey.fetchIssues({});
+
+    const fetchCall = (global.fetch as jest.Mock).mock.calls[0];
+    const headers = fetchCall[1].headers;
+
+    expect(headers['x-api-key']).toBe('test-api-key');
+    expect(headers['Content-Type']).toBe('application/json');
+  });
+
+  it('should not send x-api-key header when apiKey is not provided', async () => {
+    const sdkWithoutApiKey = new FeedlogSDK();
+    const mockResponse = {
+      issues: [mockIssue],
+      pagination: { cursor: null, hasMore: false },
+    };
+
+    (global.fetch as jest.Mock).mockResolvedValueOnce(createMockResponse(mockResponse));
+
+    await sdkWithoutApiKey.fetchIssues({});
+
+    const fetchCall = (global.fetch as jest.Mock).mock.calls[0];
+    const headers = fetchCall[1].headers;
+
+    expect(headers['x-api-key']).toBeUndefined();
+    expect(headers['Content-Type']).toBe('application/json');
   });
 
   it('should fetch issues with single repository ID (string)', async () => {
@@ -450,6 +492,27 @@ describe('FeedlogSDK - toggleUpvote() Success Cases', () => {
 
     const callUrl = (global.fetch as jest.Mock).mock.calls[0][0];
     expect(callUrl).toContain('issue%2Fwith%2Fslashes');
+  });
+
+  it('should send x-api-key header when toggling upvote with apiKey', async () => {
+    const sdkWithApiKey = new FeedlogSDK({ apiKey: 'test-api-key' });
+
+    (global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+      json: jest.fn().mockResolvedValue({
+        upvoted: true,
+        upvoteCount: 1,
+        anonymousUserId: 'user-123',
+      }),
+    });
+
+    await sdkWithApiKey.toggleUpvote('issue-1');
+
+    const fetchCall = (global.fetch as jest.Mock).mock.calls[0];
+    const headers = fetchCall[1].headers;
+
+    expect(headers['x-api-key']).toBe('test-api-key');
+    expect(headers['Content-Type']).toBe('application/json');
   });
 });
 
