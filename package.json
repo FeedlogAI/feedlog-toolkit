@@ -23,9 +23,13 @@
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
     "clean": "npm run clean --workspaces && rm -rf node_modules",
     "storybook": "npm run storybook --workspace=@feedlog-ai/webcomponents",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "publish-packages": "changeset publish",
     "release": "node scripts/release.js"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.29.8",
     "@jest/test-sequencer": "^29.7.0",
     "@stencil/eslint-plugin": "^1.1.0",
     "@types/jest": "^29.5.11",

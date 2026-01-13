@@ -1,13 +1,21 @@
 #!/usr/bin/env node
 
+/**
+ * Release script for Feedlog Toolkit monorepo
+ * 
+ * DEPRECATED: This script is deprecated in favor of Changesets.
+ * 
+ * For automated releases, use:
+ * 1. npm run changeset - to create changesets as you make changes
+ * 2. Changesets bot will automatically create a "Version Packages" PR
+ * 3. Merge the PR to trigger automated publishing
+ * 
+ * This script is kept for reference/manual override purposes.
+ */
+
 const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
-
-/**
- * Release script for Feedlog Toolkit monorepo
- * Updates all package versions and creates a git tag
- */
 
 function getCurrentVersion() {
   const corePkg = JSON.parse(fs.readFileSync('packages/core/package.json', 'utf8'));
