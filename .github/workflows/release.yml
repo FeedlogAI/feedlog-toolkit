@@ -47,22 +47,22 @@ jobs:
     - name: Publish Core Package
       run: |
         cd packages/core
-        npm publish --access public
+        npm publish --provenance --access public
 
     - name: Publish Web Components Package
       run: |
         cd packages/webcomponents
-        npm publish --access public
+        npm publish --provenance --access public
 
     - name: Publish React Package
       run: |
         cd packages/react
-        npm publish --access public
+        npm publish --provenance --access public
 
     - name: Publish Vue Package
       run: |
         cd packages/vue
-        npm publish --access public
+        npm publish --provenance --access public
 
     - name: Create GitHub Release
       uses: actions/create-release@v1
