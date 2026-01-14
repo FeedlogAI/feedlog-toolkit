@@ -1,6 +1,7 @@
 {
   "name": "feedlog-toolkit",
   "description": "Monorepo for Feedlog Toolkit - Core SDK, Web Components, and Framework Wrappers",
+  "private": true,
   "workspaces": [
     "packages/*"
   ],
