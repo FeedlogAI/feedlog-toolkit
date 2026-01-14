@@ -1,8 +1,8 @@
 ---
-'@feedlog-ai/webcomponents': minor
-'@feedlog-ai/react': minor
-'@feedlog-ai/vue': minor
-'@feedlog-ai/core': minor
+'@feedlog-ai/webcomponents': patch
+'@feedlog-ai/react': patch
+'@feedlog-ai/vue': patch
+'@feedlog-ai/core': patch
 ---
 
 Changed core to work with api key
