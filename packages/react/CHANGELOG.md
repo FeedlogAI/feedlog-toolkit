@@ -1,5 +1,13 @@
 # @feedlog-ai/react
 
+## 0.0.4
+
+### Patch Changes
+
+- 96d15d8: changes to core
+- Updated dependencies [96d15d8]
+  - @feedlog-ai/webcomponents@0.0.4
+
 ## 0.0.3
 
 ### Patch Changes
