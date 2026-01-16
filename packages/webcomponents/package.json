@@ -44,5 +44,8 @@
     "webcomponents",
     "stencil",
     "data-visualization"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }
