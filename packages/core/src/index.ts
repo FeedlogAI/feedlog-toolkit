@@ -32,17 +32,20 @@ import {
  */
 export class FeedlogSDK {
   private config: FeedlogSDKConfig;
-  private apiKey?: string;
+  private apiKey: string;
   private endpoint: string;
   private timeout: number;
 
-  constructor(config: FeedlogSDKConfig = {}) {
+  constructor(config: FeedlogSDKConfig) {
     this.config = {
       credentials: 'include',
       ...config,
     };
 
     this.apiKey = this.config.apiKey;
+    if (!this.apiKey) {
+      throw new FeedlogValidationError('apiKey is required in FeedlogSDKConfig');
+    }
     this.endpoint = this.config.endpoint || 'https://api.feedlog.app';
     this.timeout = this.config.timeout || 30000;
 

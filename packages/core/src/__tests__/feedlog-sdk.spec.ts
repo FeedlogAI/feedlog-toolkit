@@ -20,28 +20,28 @@ describe('FeedlogSDK - Constructor & Configuration', () => {
   });
 
   it('should initialize with default configuration', () => {
-    const sdk = new FeedlogSDK();
+    const sdk = new FeedlogSDK({ apiKey: 'test-api-key' });
     expect(sdk.getEndpoint()).toBe('https://api.feedlog.app');
     expect(sdk.getTimeout()).toBe(30000);
   });
 
   it('should initialize with custom endpoint', () => {
-    const sdk = new FeedlogSDK({ endpoint: 'https://custom.api.com' });
+    const sdk = new FeedlogSDK({ apiKey: 'test-api-key', endpoint: 'https://custom.api.com' });
     expect(sdk.getEndpoint()).toBe('https://custom.api.com');
   });
 
   it('should remove trailing slash from endpoint', () => {
-    const sdk = new FeedlogSDK({ endpoint: 'https://custom.api.com/' });
+    const sdk = new FeedlogSDK({ apiKey: 'test-api-key', endpoint: 'https://custom.api.com/' });
     expect(sdk.getEndpoint()).toBe('https://custom.api.com');
   });
 
   it('should initialize with custom timeout', () => {
-    const sdk = new FeedlogSDK({ timeout: 5000 });
+    const sdk = new FeedlogSDK({ apiKey: 'test-api-key', timeout: 5000 });
     expect(sdk.getTimeout()).toBe(5000);
   });
 
   it('should initialize with custom credentials', () => {
-    const sdk = new FeedlogSDK({ credentials: 'omit' });
+    const sdk = new FeedlogSDK({ apiKey: 'test-api-key', credentials: 'omit' });
     // Credentials are stored but we can verify through behavior
     expect(sdk).toBeDefined();
   });
@@ -54,6 +54,7 @@ describe('FeedlogSDK - Constructor & Configuration', () => {
 
   it('should apply all custom config values together', () => {
     const sdk = new FeedlogSDK({
+      apiKey: 'test-api-key',
       endpoint: 'https://api.example.com/',
       timeout: 15000,
       credentials: 'same-origin',
@@ -69,7 +70,7 @@ describe('FeedlogSDK - fetchIssues() Success Cases', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     jest.useFakeTimers();
-    sdk = new FeedlogSDK();
+    sdk = new FeedlogSDK({ apiKey: 'test-api-key' });
   });
 
   afterEach(() => {
@@ -133,22 +134,9 @@ describe('FeedlogSDK - fetchIssues() Success Cases', () => {
     expect(headers['Content-Type']).toBe('application/json');
   });
 
-  it('should not send x-api-key header when apiKey is not provided', async () => {
-    const sdkWithoutApiKey = new FeedlogSDK();
-    const mockResponse = {
-      issues: [mockIssue],
-      pagination: { cursor: null, hasMore: false },
-    };
-
-    (global.fetch as jest.Mock).mockResolvedValueOnce(createMockResponse(mockResponse));
-
-    await sdkWithoutApiKey.fetchIssues({});
-
-    const fetchCall = (global.fetch as jest.Mock).mock.calls[0];
-    const headers = fetchCall[1].headers;
-
-    expect(headers['x-api-key']).toBeUndefined();
-    expect(headers['Content-Type']).toBe('application/json');
+  it('should throw error when apiKey is not provided', () => {
+    // @ts-expect-error - apiKey is required
+    expect(() => new FeedlogSDK({})).toThrow('apiKey is required in FeedlogSDKConfig');
   });
 
   it('should fetch issues with single repository ID (string)', async () => {
@@ -302,7 +290,7 @@ describe('FeedlogSDK - fetchIssues() Error Cases', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     jest.useFakeTimers();
-    sdk = new FeedlogSDK();
+    sdk = new FeedlogSDK({ apiKey: 'test-api-key' });
   });
 
   afterEach(() => {
@@ -438,7 +426,7 @@ describe('FeedlogSDK - toggleUpvote() Success Cases', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     jest.useFakeTimers();
-    sdk = new FeedlogSDK();
+    sdk = new FeedlogSDK({ apiKey: 'test-api-key' });
   });
 
   afterEach(() => {
@@ -522,7 +510,7 @@ describe('FeedlogSDK - toggleUpvote() Error Cases', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     jest.useFakeTimers();
-    sdk = new FeedlogSDK();
+    sdk = new FeedlogSDK({ apiKey: 'test-api-key' });
   });
 
   afterEach(() => {

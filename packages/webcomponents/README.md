@@ -1,0 +1,246 @@
+# @feedlog-ai/webcomponents
+
+Stencil-based web components for GitHub issue management. These are framework-agnostic web components that can be used in any JavaScript framework or vanilla HTML.
+
+## Features
+
+- **Framework Agnostic**: Built with [Stencil](https://stenciljs.com/) - works with any JavaScript framework or vanilla HTML
+- **Web Components Standard**: Uses Custom Elements, Shadow DOM for true encapsulation
+- **GitHub Issue Management**: Complete solution for displaying and interacting with GitHub issues
+- **Auto-generated Framework Bindings**: React and Vue wrappers generated automatically
+- **Tree-shakeable**: Multiple output formats for optimal bundle sizes
+- **TypeScript Support**: Full type safety with generated TypeScript definitions
+- **Theme Support**: Built-in light/dark theme switching
+- **Event System**: Custom events for upvoting, theme changes, and errors
+
+## Installation
+
+```bash
+npm install @feedlog-ai/webcomponents
+```
+
+## Components
+
+### FeedlogGithubIssuesClient
+
+The main component for displaying GitHub issues with built-in SDK integration.
+
+**Props:**
+
+- `apiKey` (required): API key for Feedlog authentication
+- `type` (optional): Filter by issue type - `'bug'` or `'enhancement'`
+- `limit` (optional): Maximum issues to fetch (1-100, default: 10)
+- `endpoint` (optional): Custom API endpoint
+- `maxWidth` (optional): Container max width (default: `'42rem'`)
+- `theme` (optional): Theme variant - `'light'` or `'dark'` (default: `'light'`)
+- `showThemeToggle` (optional): Show theme toggle button (default: `true`)
+
+**Events:**
+
+- `feedlogUpvote`: Emitted when an issue is upvoted
+- `feedlogThemeChange`: Emitted when theme changes
+- `feedlogError`: Emitted on errors
+
+## Usage
+
+### Vanilla HTML
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <script
+      type="module"
+      src="/node_modules/@feedlog-ai/webcomponents/dist/feedlog-toolkit/feedlog-toolkit.esm.js"
+    ></script>
+  </head>
+  <body>
+    <feedlog-github-issues-client
+      api-key="your-api-key"
+      type="bug"
+      limit="10"
+      theme="light"
+      max-width="42rem"
+    >
+    </feedlog-github-issues-client>
+
+    <script>
+      // Listen for events
+      const client = document.querySelector('feedlog-github-issues-client');
+
+      client.addEventListener('feedlogUpvote', event => {
+        console.log('Issue upvoted:', event.detail);
+      });
+
+      client.addEventListener('feedlogError', event => {
+        console.error('Error:', event.detail);
+      });
+    </script>
+  </body>
+</html>
+```
+
+### React (with generated bindings)
+
+```tsx
+import React from 'react';
+import { FeedlogGithubIssuesClient } from '@feedlog-ai/webcomponents/dist/components';
+
+function App() {
+  return (
+    <div>
+      <feedlog-github-issues-client
+        api-key="your-api-key"
+        type="bug"
+        limit={10}
+        theme="light"
+        max-width="42rem"
+        onFeedlogUpvote={event => {
+          console.log('Issue upvoted:', event.detail);
+        }}
+        onFeedlogError={event => {
+          console.error('Error:', event.detail);
+        }}
+      />
+    </div>
+  );
+}
+```
+
+### Vue (with generated bindings)
+
+```vue
+<template>
+  <feedlog-github-issues-client
+    api-key="your-api-key"
+    type="bug"
+    :limit="10"
+    theme="light"
+    max-width="42rem"
+    @feedlog-upvote="handleUpvote"
+    @feedlog-error="handleError"
+  >
+  </feedlog-github-issues-client>
+</template>
+
+<script setup lang="ts">
+const handleUpvote = (event: CustomEvent) => {
+  console.log('Issue upvoted:', event.detail);
+};
+
+const handleError = (event: CustomEvent) => {
+  console.error('Error:', event.detail);
+};
+</script>
+```
+
+### Angular
+
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <feedlog-github-issues-client
+      api-key="your-api-key"
+      type="bug"
+      limit="10"
+      theme="light"
+      max-width="42rem"
+      (feedlogUpvote)="onUpvote($event)"
+      (feedlogError)="onError($event)"
+    >
+    </feedlog-github-issues-client>
+  `,
+})
+export class AppComponent {
+  onUpvote(event: CustomEvent) {
+    console.log('Issue upvoted:', event.detail);
+  }
+
+  onError(event: CustomEvent) {
+    console.error('Error:', event.detail);
+  }
+}
+```
+
+## Other Components
+
+The package also includes additional UI components:
+
+- `feedlog-badge`: Label component with variant support
+- `feedlog-button`: Button component with variants and sizes
+- `feedlog-card`: Reusable card container component
+- `feedlog-github-issues`: Issues display component (used internally by client)
+- `feedlog-issues-list`: Issues list component (used internally)
+
+## Build Outputs
+
+The package provides multiple build formats:
+
+- **ESM**: `dist/feedlog-toolkit/feedlog-toolkit.esm.js` - Modern ES modules
+- **CommonJS**: `dist/index.cjs.js` - Node.js compatible
+- **Loader**: `loader/` - Dynamic loader for different environments
+
+## Events
+
+### feedlogUpvote
+
+Emitted when a user upvotes or removes an upvote from an issue.
+
+```typescript
+interface UpvoteEventDetail {
+  issueId: string;
+  upvoted: boolean; // true if added, false if removed
+  upvoteCount: number; // Updated total count
+}
+```
+
+### feedlogThemeChange
+
+Emitted when the theme is changed via the theme toggle.
+
+```typescript
+type ThemeEventDetail = 'light' | 'dark';
+```
+
+### feedlogError
+
+Emitted when an error occurs during API calls or other operations.
+
+```typescript
+interface ErrorEventDetail {
+  error: string; // Error message
+  code?: number; // HTTP status code (if applicable)
+}
+```
+
+## Styling
+
+Components use Shadow DOM for encapsulation. You can style them using CSS custom properties:
+
+```css
+feedlog-github-issues-client {
+  --feedlog-primary-color: #007acc;
+  --feedlog-border-radius: 8px;
+  --feedlog-font-family: 'Inter', sans-serif;
+}
+```
+
+## Requirements
+
+- Modern browsers with Web Components support
+- ES2017+ for modern builds
+- For older browsers, use the loader build
+
+## Browser Support
+
+- Chrome 61+
+- Firefox 63+
+- Safari 11+
+- Edge 79+
+
+## License
+
+MIT

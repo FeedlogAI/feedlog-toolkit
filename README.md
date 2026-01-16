@@ -107,102 +107,7 @@ npm run build:react
 npm run build:vue
 ```
 
-## 🏗️ Project Structure
-
-```
-feedlog-toolkit/
-├── packages/
-│   ├── core/                    # Core SDK package
-│   │   ├── src/
-│   │   │   ├── __tests__/       # Unit tests
-│   │   │   ├── types/           # TypeScript types
-│   │   │   ├── utils/           # Utility functions
-│   │   │   ├── errors.ts        # Error handling
-│   │   │   └── index.ts         # Main exports
-│   │   ├── dist/                # Compiled output
-│   │   ├── jest.config.js       # Jest configuration
-│   │   ├── package.json
-│   │   └── tsconfig.json
-│   ├── webcomponents/           # Stencil web components
-│   │   ├── src/
-│   │   │   ├── components/      # Stencil components
-│   │   │   │   ├── feedlog-badge/
-│   │   │   │   ├── feedlog-button/
-│   │   │   │   ├── feedlog-card/
-│   │   │   │   ├── feedlog-github-issues/
-│   │   │   │   └── ...
-│   │   │   ├── global/          # Global styles
-│   │   │   └── index.ts
-│   │   ├── collection/          # Stencil collection output
-│   │   ├── dist/                # Build output (esm, cjs, types)
-│   │   ├── loader/              # Script loader utilities
-│   │   ├── scripts/             # Build scripts
-│   │   ├── storybook-static/    # Storybook build output
-│   │   ├── stencil.config.ts
-│   │   ├── stencil.test.config.ts
-│   │   ├── custom-elements.json
-│   │   ├── package.json
-│   │   └── tsconfig.json
-│   ├── react/                   # React wrappers
-│   │   ├── src/
-│   │   │   ├── __tests__/
-│   │   │   ├── components/
-│   │   │   │   └── stencil-generated/  # Auto-generated React components
-│   │   │   └── index.ts
-│   │   ├── dist/                # Compiled output
-│   │   ├── jest.config.js
-│   │   ├── package.json
-│   │   ├── tsconfig.json
-│   │   ├── tsconfig.stencil-generated.json
-│   │   └── tsconfig.stencil.json
-│   └── vue/                     # Vue wrappers
-│       ├── src/
-│       │   ├── __tests__/
-│       │   ├── components.ts    # Auto-generated Vue components
-│       │   ├── vue-component-lib/
-│       │   │   └── utils.ts     # Vue-specific utilities
-│       │   └── index.ts
-│       ├── dist/                # Compiled output
-│       ├── jest.config.js
-│       ├── package.json
-│       └── tsconfig.json
-├── scripts/
-│   └── release.js               # Release automation script
-├── .github/
-│   └── workflows/               # GitHub Actions CI/CD
-├── package.json                 # Root package.json with workspaces
-├── tsconfig.json                # Root TypeScript config
-├── README.md
-└── [config files]               # ESLint, Prettier, etc.
-```
-
 ## 📚 Usage Examples
-
-### Using Core SDK
-
-```typescript
-import { FeedlogSDK } from '@feedlog-ai/core';
-
-// Initialize with default configuration
-const sdk = new FeedlogSDK();
-
-// Or initialize with custom configuration
-const customSdk = new FeedlogSDK({
-  endpoint: 'https://api.feedlog.app', // Custom API endpoint (optional)
-  timeout: 30000, // Request timeout in milliseconds (optional)
-  credentials: 'include', // Fetch credentials mode (optional)
-});
-
-// Fetch issues
-const issues = await sdk.fetchIssues({
-  repositoryIds: 'your-repo-id',
-  type: 'bug', // 'bug' or 'enhancement'
-  limit: 10,
-});
-
-// Toggle upvote on an issue
-const upvoteResult = await sdk.toggleUpvote('issue-id');
-```
 
 ### Using Web Components (Vanilla HTML)
 
@@ -216,9 +121,14 @@ const upvoteResult = await sdk.toggleUpvote('issue-id');
     ></script>
   </head>
   <body>
-    <feedlog-card title="My Card" content="Hello World!"></feedlog-card>
-    <feedlog-badge variant="primary" text="New"></feedlog-badge>
-    <feedlog-button variant="primary">Click me</feedlog-button>
+    <feedlog-github-issues-client
+      api-key="your-api-key"
+      type="bug"
+      limit="10"
+      theme="light"
+      max-width="42rem"
+    >
+    </feedlog-github-issues-client>
   </body>
 </html>
 ```
@@ -227,14 +137,24 @@ const upvoteResult = await sdk.toggleUpvote('issue-id');
 
 ```tsx
 import React from 'react';
-import { FeedlogCard, FeedlogBadge, FeedlogButton } from '@feedlog-ai/react';
+import { FeedlogGithubIssuesClient } from '@feedlog-ai/react';
 
 function App() {
   return (
     <div>
-      <FeedlogCard title="My Card" content="Hello World!" />
-      <FeedlogBadge variant="primary" text="New" />
-      <FeedlogButton variant="primary">Click me</FeedlogButton>
+      <FeedlogGithubIssuesClient
+        apiKey="your-api-key"
+        type="bug"
+        limit={10}
+        theme="light"
+        maxWidth="42rem"
+        onFeedlogUpvote={event => {
+          console.log('Issue upvoted:', event.detail);
+        }}
+        onFeedlogError={event => {
+          console.error('Error:', event.detail);
+        }}
+      />
     </div>
   );
 }
@@ -244,13 +164,28 @@ function App() {
 
 ```vue
 <template>
-  <feedlog-card title="My Card" content="Hello World!" />
-  <feedlog-badge variant="primary" text="New" />
-  <feedlog-button variant="primary">Click me</feedlog-button>
+  <feedlog-github-issues-client
+    api-key="your-api-key"
+    type="bug"
+    :limit="10"
+    theme="light"
+    max-width="42rem"
+    @feedlog-upvote="handleUpvote"
+    @feedlog-error="handleError"
+  >
+  </feedlog-github-issues-client>
 </template>
 
 <script setup lang="ts">
-import { FeedlogCard, FeedlogBadge, FeedlogButton } from '@feedlog-ai/vue';
+import { FeedlogGithubIssuesClient } from '@feedlog-ai/vue';
+
+const handleUpvote = (event: CustomEvent) => {
+  console.log('Issue upvoted:', event.detail);
+};
+
+const handleError = (event: CustomEvent) => {
+  console.error('Error:', event.detail);
+};
 </script>
 ```
 
