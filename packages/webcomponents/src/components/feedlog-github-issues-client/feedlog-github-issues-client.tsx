@@ -13,10 +13,10 @@ import { FeedlogSDK, FeedlogIssue, FetchIssuesParams } from '@feedlog-ai/core';
 })
 export class FeedlogGithubIssuesClient {
   /**
-   * Array of repository public IDs or single ID
-   * Format: repository public ID (not owner/repo)
+   * API key for Feedlog authentication (required)
+   * The API key determines which repositories' issues are fetched
    */
-  @Prop() repos?: string[] | string;
+  @Prop() apiKey!: string;
 
   /**
    * Filter issues by type: 'bug' or 'enhancement'
@@ -71,12 +71,10 @@ export class FeedlogGithubIssuesClient {
   @State() isLoadingMore: boolean = false;
 
   private sdk: FeedlogSDK | null = null;
-  private previousRepos?: string[] | string;
   private previousType?: 'bug' | 'enhancement';
   private previousLimit?: number;
 
   componentWillLoad() {
-    this.previousRepos = this.repos;
     this.previousType = this.type;
     this.previousLimit = this.limit;
     this.initializeSDK();
@@ -85,18 +83,16 @@ export class FeedlogGithubIssuesClient {
 
   componentDidUpdate() {
     // Re-fetch if any props changed
-    const reposChanged = JSON.stringify(this.previousRepos) !== JSON.stringify(this.repos);
     const typeChanged = this.previousType !== this.type;
     const limitChanged = this.previousLimit !== this.limit;
 
-    if (reposChanged || typeChanged || limitChanged) {
+    if (typeChanged || limitChanged) {
       // Reset pagination when filters change
       this.cursor = null;
       this.hasMore = false;
       this.issues = [];
 
       this.fetchIssues();
-      this.previousRepos = this.repos;
       this.previousType = this.type;
       this.previousLimit = this.limit;
     }
@@ -104,7 +100,12 @@ export class FeedlogGithubIssuesClient {
 
   private initializeSDK() {
     try {
+      if (!this.apiKey) {
+        throw new Error('API key is required for the Feedlog SDK');
+      }
+
       this.sdk = new FeedlogSDK({
+        apiKey: this.apiKey,
         ...(this.endpoint && { endpoint: this.endpoint }),
       });
       this.error = null;
@@ -115,35 +116,8 @@ export class FeedlogGithubIssuesClient {
     }
   }
 
-  private parseRepos(): string[] {
-    if (!this.repos) {
-      return [];
-    }
-
-    if (typeof this.repos === 'string') {
-      try {
-        const parsed = JSON.parse(this.repos);
-        return Array.isArray(parsed) ? parsed : [this.repos];
-      } catch {
-        // If not valid JSON, treat as single repo ID
-        return [this.repos];
-      }
-    }
-
-    return Array.isArray(this.repos) ? this.repos : [];
-  }
-
   private async fetchIssues() {
     if (!this.sdk) {
-      return;
-    }
-
-    const repos = this.parseRepos();
-
-    if (repos.length === 0) {
-      this.error = 'At least one repository is required';
-      this.loading = false;
-      this.feedlogError.emit({ error: 'At least one repository is required' });
       return;
     }
 
@@ -151,9 +125,7 @@ export class FeedlogGithubIssuesClient {
       this.loading = true;
       this.error = null;
 
-      const params: FetchIssuesParams = {
-        repositoryIds: repos,
-      };
+      const params: FetchIssuesParams = {};
 
       if (this.type) {
         params.type = this.type;
@@ -193,11 +165,7 @@ export class FeedlogGithubIssuesClient {
     this.isLoadingMore = true;
 
     try {
-      const repos = this.parseRepos();
-
-      const params: FetchIssuesParams = {
-        repositoryIds: repos,
-      };
+      const params: FetchIssuesParams = {};
 
       if (this.type) {
         params.type = this.type;

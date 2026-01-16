@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-02T13:15:51",
+  "timestamp": "2026-01-16T12:42:37",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.40.1",
@@ -60,10 +60,14 @@
       "styles": [],
       "slots": [],
       "parts": [],
-      "dependents": ["feedlog-issues-list"],
+      "dependents": [
+        "feedlog-issues-list"
+      ],
       "dependencies": [],
       "dependencyGraph": {
-        "feedlog-issues-list": ["feedlog-badge"]
+        "feedlog-issues-list": [
+          "feedlog-badge"
+        ]
       }
     },
     {
@@ -249,10 +253,14 @@
       "styles": [],
       "slots": [],
       "parts": [],
-      "dependents": ["feedlog-github-issues"],
+      "dependents": [
+        "feedlog-github-issues"
+      ],
       "dependencies": [],
       "dependencyGraph": {
-        "feedlog-github-issues": ["feedlog-button"]
+        "feedlog-github-issues": [
+          "feedlog-button"
+        ]
       }
     },
     {
@@ -578,12 +586,24 @@
       "styles": [],
       "slots": [],
       "parts": [],
-      "dependents": ["feedlog-github-issues-client"],
-      "dependencies": ["feedlog-button", "feedlog-issues-list"],
+      "dependents": [
+        "feedlog-github-issues-client"
+      ],
+      "dependencies": [
+        "feedlog-button",
+        "feedlog-issues-list"
+      ],
       "dependencyGraph": {
-        "feedlog-github-issues": ["feedlog-button", "feedlog-issues-list"],
-        "feedlog-issues-list": ["feedlog-badge"],
-        "feedlog-github-issues-client": ["feedlog-github-issues"]
+        "feedlog-github-issues": [
+          "feedlog-button",
+          "feedlog-issues-list"
+        ],
+        "feedlog-issues-list": [
+          "feedlog-badge"
+        ],
+        "feedlog-github-issues-client": [
+          "feedlog-github-issues"
+        ]
       }
     },
     {
@@ -595,6 +615,29 @@
       "docsTags": [],
       "usage": {},
       "props": [
+        {
+          "name": "apiKey",
+          "type": "string",
+          "complexType": {
+            "original": "string",
+            "resolved": "string",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "api-key",
+          "reflectToAttr": false,
+          "docs": "API key for Feedlog authentication (required)\nThe API key determines which repositories' issues are fetched",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": true,
+          "getter": false,
+          "setter": false
+        },
         {
           "name": "endpoint",
           "type": "string | undefined",
@@ -672,35 +715,6 @@
             }
           ],
           "optional": false,
-          "required": false,
-          "getter": false,
-          "setter": false
-        },
-        {
-          "name": "repos",
-          "type": "string | string[] | undefined",
-          "complexType": {
-            "original": "string[] | string",
-            "resolved": "string | string[] | undefined",
-            "references": {}
-          },
-          "mutable": false,
-          "attr": "repos",
-          "reflectToAttr": false,
-          "docs": "Array of repository public IDs or single ID\nFormat: repository public ID (not owner/repo)",
-          "docsTags": [],
-          "values": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "string[]"
-            },
-            {
-              "type": "undefined"
-            }
-          ],
-          "optional": true,
           "required": false,
           "getter": false,
           "setter": false
@@ -850,11 +864,20 @@
       "slots": [],
       "parts": [],
       "dependents": [],
-      "dependencies": ["feedlog-github-issues"],
+      "dependencies": [
+        "feedlog-github-issues"
+      ],
       "dependencyGraph": {
-        "feedlog-github-issues-client": ["feedlog-github-issues"],
-        "feedlog-github-issues": ["feedlog-button", "feedlog-issues-list"],
-        "feedlog-issues-list": ["feedlog-badge"]
+        "feedlog-github-issues-client": [
+          "feedlog-github-issues"
+        ],
+        "feedlog-github-issues": [
+          "feedlog-button",
+          "feedlog-issues-list"
+        ],
+        "feedlog-issues-list": [
+          "feedlog-badge"
+        ]
       }
     },
     {
@@ -956,11 +979,19 @@
       "styles": [],
       "slots": [],
       "parts": [],
-      "dependents": ["feedlog-github-issues"],
-      "dependencies": ["feedlog-badge"],
+      "dependents": [
+        "feedlog-github-issues"
+      ],
+      "dependencies": [
+        "feedlog-badge"
+      ],
       "dependencyGraph": {
-        "feedlog-issues-list": ["feedlog-badge"],
-        "feedlog-github-issues": ["feedlog-issues-list"]
+        "feedlog-issues-list": [
+          "feedlog-badge"
+        ],
+        "feedlog-github-issues": [
+          "feedlog-issues-list"
+        ]
       }
     }
   ],
