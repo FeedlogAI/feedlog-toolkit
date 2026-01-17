@@ -1,5 +1,11 @@
 # @feedlog-ai/core
 
+## 0.0.5
+
+### Patch Changes
+
+- e1d105a: Add publishConfig for scoped packages to enable npm publishing
+
 ## 0.0.4
 
 ### Patch Changes

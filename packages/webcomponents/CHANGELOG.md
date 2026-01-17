@@ -1,5 +1,13 @@
 # @feedlog-ai/webcomponents
 
+## 0.0.5
+
+### Patch Changes
+
+- e1d105a: Add publishConfig for scoped packages to enable npm publishing
+- Updated dependencies [e1d105a]
+  - @feedlog-ai/core@0.0.5
+
 ## 0.0.4
 
 ### Patch Changes
