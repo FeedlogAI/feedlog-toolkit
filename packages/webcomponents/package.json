@@ -1,6 +1,6 @@
 {
   "name": "@feedlog-ai/webcomponents",
-  "version": "0.0.5",
+  "version": "0.0.4",
   "description": "Stencil web components for Feedlog Toolkit - Data visualization components",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.js",

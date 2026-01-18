@@ -1,6 +1,6 @@
 {
   "name": "@feedlog-ai/vue",
-  "version": "0.0.5",
+  "version": "0.0.4",
   "description": "Vue bindings for Feedlog Toolkit Web Components",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
