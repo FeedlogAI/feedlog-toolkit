@@ -2,7 +2,7 @@
 
 /**
  * Publish script for Feedlog Toolkit monorepo
- * 
+ *
  * Publishes all packages to npm with public access.
  * Runs 'npm publish --access=public' in each package directory.
  */
@@ -14,10 +14,10 @@ import { fileURLToPath } from 'url';
 function publishPackage(packageName) {
   const packagePath = path.join('packages', packageName);
   console.log(`\nPublishing ${packageName}...`);
-  
+
   try {
     execSync(`cd ${packagePath} && npm publish --access=public`, {
-      stdio: 'inherit'
+      stdio: 'inherit',
     });
     console.log(`✅ Successfully published ${packageName}`);
   } catch (error) {
@@ -28,7 +28,7 @@ function publishPackage(packageName) {
 
 function main() {
   const packages = ['core', 'webcomponents', 'react', 'vue'];
-  
+
   console.log('Starting publication of all packages...\n');
 
   for (const pkg of packages) {

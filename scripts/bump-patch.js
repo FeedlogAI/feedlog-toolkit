@@ -2,7 +2,7 @@
 
 /**
  * Bump patch version script for Feedlog Toolkit monorepo
- * 
+ *
  * Increments the patch version of all packages by one.
  * Example: 0.0.1 -> 0.0.2
  */
