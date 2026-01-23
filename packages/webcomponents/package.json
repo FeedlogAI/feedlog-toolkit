@@ -24,7 +24,7 @@
     "clean": "rm -rf dist loader"
   },
   "dependencies": {
-    "@feedlog-ai/core": "*"
+    "@feedlog-ai/core": "workspace:*"
   },
   "devDependencies": {
     "@stencil/core": "^4.0.0",
