@@ -2,52 +2,6 @@ import { Component, Prop, State, Event, EventEmitter, h, Host } from '@stencil/c
 import { FeedlogIssue } from '@feedlog-ai/core';
 
 /**
- * Sun icon SVG component
- */
-const SunIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="16"
-    height="16"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    stroke-width="2"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-  >
-    <circle cx="12" cy="12" r="4"></circle>
-    <path d="M12 2v2"></path>
-    <path d="M12 20v2"></path>
-    <path d="m4.93 4.93 1.41 1.41"></path>
-    <path d="m17.66 17.66 1.41 1.41"></path>
-    <path d="M2 12h2"></path>
-    <path d="M20 12h2"></path>
-    <path d="m6.34 17.66-1.41 1.41"></path>
-    <path d="m19.07 4.93-1.41 1.41"></path>
-  </svg>
-);
-
-/**
- * Moon icon SVG component
- */
-const MoonIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="16"
-    height="16"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    stroke-width="2"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-  >
-    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
-  </svg>
-);
-
-/**
  * Feedlog GitHub Issues Component
  *
  * Component for displaying GitHub issues with support for bugs and enhancements.
@@ -85,11 +39,6 @@ export class FeedlogGithubIssues {
   @Prop() error: string | null = null;
 
   /**
-   * Whether to show the theme toggle button
-   */
-  @Prop() showThemeToggle: boolean = true;
-
-  /**
    * Whether there are more issues to load
    */
   @Prop() hasMore: boolean = false;
@@ -114,11 +63,6 @@ export class FeedlogGithubIssues {
   }>;
 
   /**
-   * Event emitted when theme changes
-   */
-  @Event() feedlogThemeChange!: EventEmitter<'light' | 'dark'>;
-
-  /**
    * Event emitted to load more issues
    */
   @Event() feedlogLoadMore!: EventEmitter<void>;
@@ -129,12 +73,6 @@ export class FeedlogGithubIssues {
 
   private handleUpvote = (event: any) => {
     this.feedlogUpvote.emit(event.detail);
-  };
-
-  private toggleTheme = () => {
-    this.currentTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
-    this.theme = this.currentTheme;
-    this.feedlogThemeChange.emit(this.currentTheme);
   };
 
   private handleLoadMore = () => {
@@ -154,11 +92,6 @@ export class FeedlogGithubIssues {
               <h1 class="issues-title">GitHub Issues</h1>
               <p class="issues-subtitle">Track bugs and enhancements for your project</p>
             </div>
-            {this.showThemeToggle && (
-              <feedlog-button variant="outline" size="sm" onFeedlogClick={this.toggleTheme}>
-                {this.currentTheme === 'dark' ? <SunIcon /> : <MoonIcon />}
-              </feedlog-button>
-            )}
           </header>
 
           {this.loading && (

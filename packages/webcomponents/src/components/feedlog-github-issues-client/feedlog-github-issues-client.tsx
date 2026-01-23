@@ -43,20 +43,12 @@ export class FeedlogGithubIssuesClient {
    */
   @Prop() theme: 'light' | 'dark' = 'light';
 
-  /**
-   * Whether to show the theme toggle button
-   */
-  @Prop() showThemeToggle: boolean = true;
 
   /**
    * Event emitted when an issue is upvoted
    */
   @Event() feedlogUpvote!: EventEmitter<{ issueId: string; upvoted: boolean; upvoteCount: number }>;
 
-  /**
-   * Event emitted when theme changes
-   */
-  @Event() feedlogThemeChange!: EventEmitter<'light' | 'dark'>;
 
   /**
    * Event emitted on error
@@ -254,10 +246,6 @@ export class FeedlogGithubIssuesClient {
     }
   };
 
-  private handleThemeChange = (event: CustomEvent<'light' | 'dark'>) => {
-    this.theme = event.detail;
-    this.feedlogThemeChange.emit(event.detail);
-  };
 
   render() {
     return (
@@ -265,13 +253,11 @@ export class FeedlogGithubIssuesClient {
         issues={this.issues}
         maxWidth={this.maxWidth}
         theme={this.theme}
-        showThemeToggle={this.showThemeToggle}
         loading={this.loading}
         error={this.error}
         hasMore={this.hasMore}
         isLoadingMore={this.isLoadingMore}
         onFeedlogUpvote={this.handleUpvote}
-        onFeedlogThemeChange={this.handleThemeChange}
         onFeedlogLoadMore={async () => this.loadMore()}
       ></feedlog-github-issues>
     );
