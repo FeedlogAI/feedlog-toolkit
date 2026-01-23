@@ -26,8 +26,45 @@ function updatePackageVersion(packagePath, newVersion) {
   const pkgPath = path.join(packagePath, 'package.json');
   const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
   pkg.version = newVersion;
+
+  // Update internal dependencies to match the new version
+  updateInternalDependencies(pkg, newVersion);
+
   fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n');
   console.log(`Updated ${packagePath} to version ${newVersion}`);
+}
+
+function updateInternalDependencies(pkg, newVersion) {
+  const internalPackages = [
+    '@feedlog-ai/core',
+    '@feedlog-ai/webcomponents',
+    '@feedlog-ai/react',
+    '@feedlog-ai/vue',
+  ];
+
+  if (pkg.dependencies) {
+    internalPackages.forEach(pkgName => {
+      if (pkg.dependencies[pkgName]) {
+        pkg.dependencies[pkgName] = `^${newVersion}`;
+      }
+    });
+  }
+
+  if (pkg.peerDependencies) {
+    internalPackages.forEach(pkgName => {
+      if (pkg.peerDependencies[pkgName]) {
+        pkg.peerDependencies[pkgName] = `^${newVersion}`;
+      }
+    });
+  }
+
+  if (pkg.devDependencies) {
+    internalPackages.forEach(pkgName => {
+      if (pkg.devDependencies[pkgName]) {
+        pkg.devDependencies[pkgName] = `^${newVersion}`;
+      }
+    });
+  }
 }
 
 function main() {

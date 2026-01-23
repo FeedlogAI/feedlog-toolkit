@@ -53,12 +53,10 @@ export class FeedlogGithubIssuesClient {
    */
   @Prop() subtitle?: string;
 
-
   /**
    * Event emitted when an issue is upvoted
    */
   @Event() feedlogUpvote!: EventEmitter<{ issueId: string; upvoted: boolean; upvoteCount: number }>;
-
 
   /**
    * Event emitted on error
@@ -255,7 +253,6 @@ export class FeedlogGithubIssuesClient {
       this.feedlogError.emit({ error: errorMsg });
     }
   };
-
 
   render() {
     return (

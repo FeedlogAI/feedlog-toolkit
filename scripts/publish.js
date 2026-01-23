@@ -29,7 +29,18 @@ function publishPackage(packageName) {
 function main() {
   const packages = ['core', 'webcomponents', 'react', 'vue'];
 
-  console.log('Starting publication of all packages...\n');
+  console.log('Starting build of all packages...\n');
+
+  try {
+    execSync('npm run build', {
+      stdio: 'inherit',
+    });
+  } catch (error) {
+    console.error('❌ Build failed');
+    throw error;
+  }
+
+  console.log('\nStarting publication of all packages...\n');
 
   for (const pkg of packages) {
     publishPackage(pkg);

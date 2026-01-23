@@ -1,6 +1,6 @@
 {
   "name": "@feedlog-ai/webcomponents",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Stencil web components for Feedlog Toolkit - Data visualization components",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.js",
@@ -19,12 +19,12 @@
     "test": "stencil test --spec",
     "test:watch": "stencil test --spec --watch",
     "test:coverage": "echo 'Webcomponents coverage skipped due to rollup issues'",
-    "storybook": "storybook dev -p 6008 --no-open",
+    "storybook": "storybook dev -p 6010 --no-open",
     "build-storybook": "storybook build",
     "clean": "rm -rf dist loader"
   },
   "dependencies": {
-    "@feedlog-ai/core": "workspace:*"
+    "@feedlog-ai/core": "*"
   },
   "devDependencies": {
     "@stencil/core": "^4.0.0",
