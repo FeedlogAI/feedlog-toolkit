@@ -107,6 +107,7 @@ export class FeedlogSDK {
         method: 'POST',
         headers: this.getAuthHeaders(),
         credentials: this.config.credentials || 'include',
+        body: JSON.stringify({}),
       });
 
       if (response.status === 404) {
