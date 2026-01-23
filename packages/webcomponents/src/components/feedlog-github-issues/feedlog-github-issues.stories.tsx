@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@stencil/storybook-plugin';
 import { h } from '@stencil/core';
-import { FeedlogGithubIssues } from './feedlog-github-issues';
 import type { FeedlogIssue } from '@feedlog-ai/core';
 
 const sampleIssues: FeedlogIssue[] = [
@@ -96,9 +95,9 @@ const sampleIssues: FeedlogIssue[] = [
   },
 ];
 
-const meta: Meta<FeedlogGithubIssues> = {
+const meta: Meta = {
   title: 'Components/GitHub Issues',
-  component: FeedlogGithubIssues,
+  component: 'feedlog-github-issues',
   parameters: {
     layout: 'padded',
   },
@@ -136,7 +135,7 @@ const meta: Meta<FeedlogGithubIssues> = {
 
 export default meta;
 
-type Story = StoryObj<FeedlogGithubIssues>;
+type Story = StoryObj;
 
 export const Default: Story = {
   args: {

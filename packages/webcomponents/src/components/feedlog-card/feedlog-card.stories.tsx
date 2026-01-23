@@ -1,10 +1,9 @@
 import type { Meta, StoryObj } from '@stencil/storybook-plugin';
 import { h } from '@stencil/core';
-import { FeedlogCard } from './feedlog-card';
 
-const meta: Meta<FeedlogCard> = {
+const meta: Meta = {
   title: 'Components/Card',
-  component: FeedlogCard,
+  component: 'feedlog-card',
   parameters: {
     layout: 'centered',
   },
@@ -12,7 +11,7 @@ const meta: Meta<FeedlogCard> = {
 
 export default meta;
 
-type Story = StoryObj<FeedlogCard>;
+type Story = StoryObj;
 
 export const Default: Story = {
   render: () => (
