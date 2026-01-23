@@ -29,6 +29,16 @@ export class FeedlogGithubIssues {
   @Prop({ mutable: true }) theme: 'light' | 'dark' = 'light';
 
   /**
+   * Custom heading for the issues section
+   */
+  @Prop() heading?: string;
+
+  /**
+   * Custom subtitle for the issues section
+   */
+  @Prop() subtitle?: string;
+
+  /**
    * Loading state - shows loading indicator when true
    */
   @Prop() loading: boolean = false;
@@ -87,12 +97,14 @@ export class FeedlogGithubIssues {
     return (
       <Host class={this.currentTheme === 'dark' ? 'dark' : ''}>
         <div class="github-issues-container" style={containerStyle}>
-          <header class="issues-header">
-            <div class="header-content">
-              <h1 class="issues-title">GitHub Issues</h1>
-              <p class="issues-subtitle">Track bugs and enhancements for your project</p>
-            </div>
-          </header>
+          {(this.heading || this.subtitle) && (
+            <header class="issues-header">
+              <div class="header-content">
+                {this.heading && <h1 class="issues-title">{this.heading}</h1>}
+                {this.subtitle && <p class="issues-subtitle">{this.subtitle}</p>}
+              </div>
+            </header>
+          )}
 
           {this.loading && (
             <div class="loading-state">

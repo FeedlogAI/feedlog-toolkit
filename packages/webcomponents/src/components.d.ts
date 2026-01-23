@@ -68,6 +68,10 @@ export namespace Components {
          */
         "hasMore": boolean;
         /**
+          * Custom heading for the issues section
+         */
+        "heading"?: string;
+        /**
           * Whether more issues are currently loading
           * @default false
          */
@@ -88,10 +92,9 @@ export namespace Components {
          */
         "maxWidth": string;
         /**
-          * Whether to show the theme toggle button
-          * @default true
+          * Custom subtitle for the issues section
          */
-        "showThemeToggle": boolean;
+        "subtitle"?: string;
         /**
           * Theme variant: 'light' or 'dark'
           * @default 'light'
@@ -113,6 +116,10 @@ export namespace Components {
          */
         "endpoint"?: string;
         /**
+          * Custom heading for the issues section
+         */
+        "heading"?: string;
+        /**
           * Maximum number of issues to fetch (1-100, default 10)
          */
         "limit"?: number;
@@ -122,10 +129,9 @@ export namespace Components {
          */
         "maxWidth": string;
         /**
-          * Whether to show the theme toggle button
-          * @default true
+          * Custom subtitle for the issues section
          */
-        "showThemeToggle": boolean;
+        "subtitle"?: string;
         /**
           * Theme variant: 'light' or 'dark'
           * @default 'light'
@@ -217,7 +223,6 @@ declare global {
     currentUpvoted: boolean;
     currentCount: number;
   };
-        "feedlogThemeChange": 'light' | 'dark';
         "feedlogLoadMore": void;
     }
     /**
@@ -241,7 +246,6 @@ declare global {
     };
     interface HTMLFeedlogGithubIssuesClientElementEventMap {
         "feedlogUpvote": { issueId: string; upvoted: boolean; upvoteCount: number };
-        "feedlogThemeChange": 'light' | 'dark';
         "feedlogError": { error: string; code?: number };
     }
     /**
@@ -362,6 +366,10 @@ declare namespace LocalJSX {
          */
         "hasMore"?: boolean;
         /**
+          * Custom heading for the issues section
+         */
+        "heading"?: string;
+        /**
           * Whether more issues are currently loading
           * @default false
          */
@@ -386,10 +394,6 @@ declare namespace LocalJSX {
          */
         "onFeedlogLoadMore"?: (event: FeedlogGithubIssuesCustomEvent<void>) => void;
         /**
-          * Event emitted when theme changes
-         */
-        "onFeedlogThemeChange"?: (event: FeedlogGithubIssuesCustomEvent<'light' | 'dark'>) => void;
-        /**
           * Event emitted when an issue is upvoted
          */
         "onFeedlogUpvote"?: (event: FeedlogGithubIssuesCustomEvent<{
@@ -398,10 +402,9 @@ declare namespace LocalJSX {
     currentCount: number;
   }>) => void;
         /**
-          * Whether to show the theme toggle button
-          * @default true
+          * Custom subtitle for the issues section
          */
-        "showThemeToggle"?: boolean;
+        "subtitle"?: string;
         /**
           * Theme variant: 'light' or 'dark'
           * @default 'light'
@@ -423,6 +426,10 @@ declare namespace LocalJSX {
          */
         "endpoint"?: string;
         /**
+          * Custom heading for the issues section
+         */
+        "heading"?: string;
+        /**
           * Maximum number of issues to fetch (1-100, default 10)
          */
         "limit"?: number;
@@ -436,18 +443,13 @@ declare namespace LocalJSX {
          */
         "onFeedlogError"?: (event: FeedlogGithubIssuesClientCustomEvent<{ error: string; code?: number }>) => void;
         /**
-          * Event emitted when theme changes
-         */
-        "onFeedlogThemeChange"?: (event: FeedlogGithubIssuesClientCustomEvent<'light' | 'dark'>) => void;
-        /**
           * Event emitted when an issue is upvoted
          */
         "onFeedlogUpvote"?: (event: FeedlogGithubIssuesClientCustomEvent<{ issueId: string; upvoted: boolean; upvoteCount: number }>) => void;
         /**
-          * Whether to show the theme toggle button
-          * @default true
+          * Custom subtitle for the issues section
          */
-        "showThemeToggle"?: boolean;
+        "subtitle"?: string;
         /**
           * Theme variant: 'light' or 'dark'
           * @default 'light'

@@ -30,13 +30,13 @@ export const FeedlogGithubIssues = /*@__PURE__*/ defineContainer<JSX.FeedlogGith
   'issues',
   'maxWidth',
   'theme',
+  'title',
+  'subtitle',
   'loading',
   'error',
-  'showThemeToggle',
   'hasMore',
   'isLoadingMore',
   'feedlogUpvote',
-  'feedlogThemeChange',
   'feedlogLoadMore'
 ]);
 
@@ -48,9 +48,9 @@ export const FeedlogGithubIssuesClient = /*@__PURE__*/ defineContainer<JSX.Feedl
   'endpoint',
   'maxWidth',
   'theme',
-  'showThemeToggle',
+  'title',
+  'subtitle',
   'feedlogUpvote',
-  'feedlogThemeChange',
   'feedlogError'
 ]);
 

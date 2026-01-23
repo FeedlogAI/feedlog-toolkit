@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-23T09:05:35",
+  "timestamp": "2026-01-23T10:17:58",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.40.1",
@@ -353,6 +353,32 @@
           "setter": false
         },
         {
+          "name": "heading",
+          "type": "string | undefined",
+          "complexType": {
+            "original": "string",
+            "resolved": "string | undefined",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "heading",
+          "reflectToAttr": false,
+          "docs": "Custom heading for the issues section",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "undefined"
+            }
+          ],
+          "optional": true,
+          "required": false,
+          "getter": false,
+          "setter": false
+        },
+        {
           "name": "isLoadingMore",
           "type": "boolean",
           "complexType": {
@@ -474,30 +500,27 @@
           "setter": false
         },
         {
-          "name": "showThemeToggle",
-          "type": "boolean",
+          "name": "subtitle",
+          "type": "string | undefined",
           "complexType": {
-            "original": "boolean",
-            "resolved": "boolean",
+            "original": "string",
+            "resolved": "string | undefined",
             "references": {}
           },
           "mutable": false,
-          "attr": "show-theme-toggle",
+          "attr": "subtitle",
           "reflectToAttr": false,
-          "docs": "Whether to show the theme toggle button",
-          "docsTags": [
-            {
-              "name": "default",
-              "text": "true"
-            }
-          ],
-          "default": "true",
+          "docs": "Custom subtitle for the issues section",
+          "docsTags": [],
           "values": [
             {
-              "type": "boolean"
+              "type": "string"
+            },
+            {
+              "type": "undefined"
             }
           ],
-          "optional": false,
+          "optional": true,
           "required": false,
           "getter": false,
           "setter": false
@@ -554,20 +577,6 @@
           "docsTags": []
         },
         {
-          "event": "feedlogThemeChange",
-          "detail": "\"dark\" | \"light\"",
-          "bubbles": true,
-          "complexType": {
-            "original": "'light' | 'dark'",
-            "resolved": "\"dark\" | \"light\"",
-            "references": {}
-          },
-          "cancelable": true,
-          "composed": true,
-          "docs": "Event emitted when theme changes",
-          "docsTags": []
-        },
-        {
           "event": "feedlogUpvote",
           "detail": "{ issueId: string; currentUpvoted: boolean; currentCount: number; }",
           "bubbles": true,
@@ -590,13 +599,13 @@
         "feedlog-github-issues-client"
       ],
       "dependencies": [
-        "feedlog-button",
-        "feedlog-issues-list"
+        "feedlog-issues-list",
+        "feedlog-button"
       ],
       "dependencyGraph": {
         "feedlog-github-issues": [
-          "feedlog-button",
-          "feedlog-issues-list"
+          "feedlog-issues-list",
+          "feedlog-button"
         ],
         "feedlog-issues-list": [
           "feedlog-badge"
@@ -650,6 +659,32 @@
           "attr": "endpoint",
           "reflectToAttr": false,
           "docs": "Custom API endpoint",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "undefined"
+            }
+          ],
+          "optional": true,
+          "required": false,
+          "getter": false,
+          "setter": false
+        },
+        {
+          "name": "heading",
+          "type": "string | undefined",
+          "complexType": {
+            "original": "string",
+            "resolved": "string | undefined",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "heading",
+          "reflectToAttr": false,
+          "docs": "Custom heading for the issues section",
           "docsTags": [],
           "values": [
             {
@@ -720,30 +755,27 @@
           "setter": false
         },
         {
-          "name": "showThemeToggle",
-          "type": "boolean",
+          "name": "subtitle",
+          "type": "string | undefined",
           "complexType": {
-            "original": "boolean",
-            "resolved": "boolean",
+            "original": "string",
+            "resolved": "string | undefined",
             "references": {}
           },
           "mutable": false,
-          "attr": "show-theme-toggle",
+          "attr": "subtitle",
           "reflectToAttr": false,
-          "docs": "Whether to show the theme toggle button",
-          "docsTags": [
-            {
-              "name": "default",
-              "text": "true"
-            }
-          ],
-          "default": "true",
+          "docs": "Custom subtitle for the issues section",
+          "docsTags": [],
           "values": [
             {
-              "type": "boolean"
+              "type": "string"
+            },
+            {
+              "type": "undefined"
             }
           ],
-          "optional": false,
+          "optional": true,
           "required": false,
           "getter": false,
           "setter": false
@@ -831,20 +863,6 @@
           "docsTags": []
         },
         {
-          "event": "feedlogThemeChange",
-          "detail": "\"dark\" | \"light\"",
-          "bubbles": true,
-          "complexType": {
-            "original": "'light' | 'dark'",
-            "resolved": "\"dark\" | \"light\"",
-            "references": {}
-          },
-          "cancelable": true,
-          "composed": true,
-          "docs": "Event emitted when theme changes",
-          "docsTags": []
-        },
-        {
           "event": "feedlogUpvote",
           "detail": "{ issueId: string; upvoted: boolean; upvoteCount: number; }",
           "bubbles": true,
@@ -872,8 +890,8 @@
           "feedlog-github-issues"
         ],
         "feedlog-github-issues": [
-          "feedlog-button",
-          "feedlog-issues-list"
+          "feedlog-issues-list",
+          "feedlog-button"
         ],
         "feedlog-issues-list": [
           "feedlog-badge"

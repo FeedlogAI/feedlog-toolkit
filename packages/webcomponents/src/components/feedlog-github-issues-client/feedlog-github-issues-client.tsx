@@ -43,6 +43,16 @@ export class FeedlogGithubIssuesClient {
    */
   @Prop() theme: 'light' | 'dark' = 'light';
 
+  /**
+   * Custom heading for the issues section
+   */
+  @Prop() heading?: string;
+
+  /**
+   * Custom subtitle for the issues section
+   */
+  @Prop() subtitle?: string;
+
 
   /**
    * Event emitted when an issue is upvoted
@@ -253,6 +263,8 @@ export class FeedlogGithubIssuesClient {
         issues={this.issues}
         maxWidth={this.maxWidth}
         theme={this.theme}
+        heading={this.heading}
+        subtitle={this.subtitle}
         loading={this.loading}
         error={this.error}
         hasMore={this.hasMore}
