@@ -81,7 +81,8 @@ export class FeedlogGithubIssues {
     this.currentTheme = this.theme;
   }
 
-  private handleUpvote = (event: any) => {
+  private handleUpvote = (event: CustomEvent) => {
+    event.stopPropagation();
     this.feedlogUpvote.emit(event.detail);
   };
 
