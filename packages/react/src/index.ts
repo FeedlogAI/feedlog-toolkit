@@ -9,6 +9,9 @@ import React from 'react';
 import { FeedlogIssue } from '@feedlog-ai/core';
 import { defineCustomElements } from '@feedlog-ai/webcomponents/loader';
 
+// Re-export types for convenience
+export type { FeedlogIssue } from '@feedlog-ai/core';
+
 // Simple React wrappers for web components
 export const FeedlogBadge = React.forwardRef<
   HTMLElement,
@@ -58,7 +61,24 @@ FeedlogGithubIssues.displayName = 'FeedlogGithubIssues';
 
 export const FeedlogGithubIssuesClient = React.forwardRef<
   HTMLElement,
-  React.HTMLAttributes<HTMLElement>
+  React.HTMLAttributes<HTMLElement> & {
+    apiKey: string;
+    endpoint?: string;
+    type?: 'bug' | 'enhancement';
+    limit?: number;
+    maxWidth?: string;
+    theme?: 'light' | 'dark';
+    heading?: string;
+    subtitle?: string;
+    onFeedlogUpvote?: (
+      event: CustomEvent<{
+        issueId: string;
+        upvoted: boolean;
+        upvoteCount: number;
+      }>
+    ) => void;
+    onFeedlogError?: (event: CustomEvent<{ error: string; code?: number }>) => void;
+  }
 >(({ children, ...props }, ref) =>
   React.createElement('feedlog-github-issues-client', { ...props, ref }, children)
 );

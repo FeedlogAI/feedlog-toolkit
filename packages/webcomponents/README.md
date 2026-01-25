@@ -41,6 +41,69 @@ The main component for displaying GitHub issues with built-in SDK integration.
 - `feedlogThemeChange`: Emitted when theme changes
 - `feedlogError`: Emitted on errors
 
+## Playground (Development & Testing)
+
+For fast prototyping and debugging without publishing changes, use the interactive playground:
+
+### Quick Start
+
+1. **Build the components:**
+
+   ```bash
+   npm run build
+   ```
+
+2. **Open the playground:**
+   - **Option A**: Open `playground.html` directly in your browser (file://)
+   - **Option B**: Use a local server for better development experience:
+     ```bash
+     npx serve .
+     ```
+     Then visit `http://localhost:3000/playground.html`
+
+3. **Use the playground:**
+   - Enter your Feedlog API key in the "API Key" field
+   - Adjust filter settings (type, limit, theme, etc.)
+   - Click "Update Component" to render the component
+   - Monitor component events in the "Event Log & Debug Console"
+   - Your API key is automatically saved to localStorage for convenience
+
+### Development Workflow
+
+For continuous development with live reloading:
+
+```bash
+# Terminal 1: Watch and build components
+npm run dev
+
+# Terminal 2: Serve the package directory
+npx serve .
+```
+
+Then visit `http://localhost:3000/playground.html` and refresh after each build.
+
+### Features
+
+- **Interactive Controls**: Change props in real-time without rebuilding
+- **Event Log**: See all component events (upvotes, errors) with timestamps
+- **Status Badge**: Visual feedback on component state
+- **No Publishing Required**: Test changes instantly without npm publish
+- **Persistent Settings**: API key is saved to browser localStorage
+- **Light/Dark Theme**: Toggle themes to test both variants
+- **Responsive Design**: Test on different screen sizes
+
+### Playground Props
+
+The playground lets you configure:
+
+- **API Key** (required): Feedlog authentication key
+- **Type**: Filter issues by type (all/bug/enhancement)
+- **Limit**: Number of issues to fetch (1-100)
+- **Max Width**: Container width (CSS values)
+- **Theme**: Light or dark theme
+- **Heading**: Custom section heading
+- **Subtitle**: Custom section subtitle
+
 ## Usage
 
 ### Vanilla HTML
