@@ -116,14 +116,16 @@ export class FeedlogIssuesList {
                       </div>
                     </div>
 
-                    <button
-                      class={`upvote-button ${issue.hasUpvoted ? 'upvoted' : ''}`}
-                      onClick={(e: MouseEvent) => this.handleUpvote(e, issue)}
-                      title={issue.hasUpvoted ? 'Remove upvote' : 'Upvote this issue'}
-                    >
-                      {issue.hasUpvoted ? <HeartFilledIcon /> : <HeartOutlineIcon />}
-                      <span class="upvote-count">{issue.upvoteCount}</span>
-                    </button>
+                    {issue.type !== 'bug' && (
+                      <button
+                        class={`upvote-button ${issue.hasUpvoted ? 'upvoted' : ''}`}
+                        onClick={(e: MouseEvent) => this.handleUpvote(e, issue)}
+                        title={issue.hasUpvoted ? 'Remove upvote' : 'Upvote this issue'}
+                      >
+                        {issue.hasUpvoted ? <HeartFilledIcon /> : <HeartOutlineIcon />}
+                        <span class="upvote-count">{issue.upvoteCount}</span>
+                      </button>
+                    )}
                   </div>
 
                   <div class="issue-footer">
