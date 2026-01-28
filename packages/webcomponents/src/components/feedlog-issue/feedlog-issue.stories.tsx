@@ -83,28 +83,28 @@ export const Default: Story = {
   args: {
     issue: sampleEnhancementIssue,
   },
-  render: props => <feedlog-issue {...props} />,
+  render: (props: any) => <feedlog-issue {...props} />,
 };
 
 export const Bug: Story = {
   args: {
     issue: sampleBugIssue,
   },
-  render: props => <feedlog-issue {...props} />,
+  render: (props: any) => <feedlog-issue {...props} />,
 };
 
 export const Upvoted: Story = {
   args: {
     issue: sampleUpvotedEnhancementIssue,
   },
-  render: props => <feedlog-issue {...props} />,
+  render: (props: any) => <feedlog-issue {...props} />,
 };
 
 export const Pinned: Story = {
   args: {
     issue: samplePinnedIssue,
   },
-  render: props => <feedlog-issue {...props} />,
+  render: (props: any) => <feedlog-issue {...props} />,
 };
 
 export const DarkTheme: Story = {
@@ -112,7 +112,7 @@ export const DarkTheme: Story = {
     issue: sampleEnhancementIssue,
     theme: 'dark',
   },
-  render: props => <feedlog-issue {...props} />,
+  render: (props: any) => <feedlog-issue {...props} />,
 };
 
 export const DarkThemeBug: Story = {
@@ -120,7 +120,7 @@ export const DarkThemeBug: Story = {
     issue: sampleBugIssue,
     theme: 'dark',
   },
-  render: props => <feedlog-issue {...props} />,
+  render: (props: any) => <feedlog-issue {...props} />,
 };
 
 export const DarkThemePinned: Story = {
@@ -128,7 +128,7 @@ export const DarkThemePinned: Story = {
     issue: samplePinnedIssue,
     theme: 'dark',
   },
-  render: props => <feedlog-issue {...props} />,
+  render: (props: any) => <feedlog-issue {...props} />,
 };
 
 export const HighUpvoteCount: Story = {
@@ -139,5 +139,5 @@ export const HighUpvoteCount: Story = {
       upvoteCount: 156,
     },
   },
-  render: props => <feedlog-issue {...props} />,
+  render: (props: any) => <feedlog-issue {...props} />,
 };

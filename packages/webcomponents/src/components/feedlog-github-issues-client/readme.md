@@ -2,7 +2,6 @@
 
 <!-- Auto Generated Below -->
 
-
 ## Overview
 
 Feedlog GitHub Issues Client Component
@@ -23,14 +22,12 @@ This component uses the SDK internally to fetch data and delegates to feedlog-gi
 | `theme`               | `theme`     | Theme variant: 'light' or 'dark'                                                                            | `"dark" \| "light"`                   | `'light'`   |
 | `type`                | `type`      | Filter issues by type: 'bug' or 'enhancement'                                                               | `"bug" \| "enhancement" \| undefined` | `undefined` |
 
-
 ## Events
 
 | Event           | Description                            | Type                                                                       |
 | --------------- | -------------------------------------- | -------------------------------------------------------------------------- |
 | `feedlogError`  | Event emitted on error                 | `CustomEvent<{ error: string; code?: number \| undefined; }>`              |
 | `feedlogUpvote` | Event emitted when an issue is upvoted | `CustomEvent<{ issueId: string; upvoted: boolean; upvoteCount: number; }>` |
-
 
 ## Dependencies
 
@@ -39,6 +36,7 @@ This component uses the SDK internally to fetch data and delegates to feedlog-gi
 - [feedlog-github-issues](../feedlog-github-issues)
 
 ### Graph
+
 ```mermaid
 graph TD;
   feedlog-github-issues-client --> feedlog-github-issues
@@ -48,6 +46,6 @@ graph TD;
   style feedlog-github-issues-client fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_
