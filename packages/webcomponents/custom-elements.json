@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-26T07:37:50",
+  "timestamp": "2026-01-28T07:08:39",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.40.1",
@@ -60,10 +60,14 @@
       "styles": [],
       "slots": [],
       "parts": [],
-      "dependents": ["feedlog-issues-list"],
+      "dependents": [
+        "feedlog-issue"
+      ],
       "dependencies": [],
       "dependencyGraph": {
-        "feedlog-issues-list": ["feedlog-badge"]
+        "feedlog-issue": [
+          "feedlog-badge"
+        ]
       }
     },
     {
@@ -249,10 +253,14 @@
       "styles": [],
       "slots": [],
       "parts": [],
-      "dependents": ["feedlog-github-issues"],
+      "dependents": [
+        "feedlog-github-issues"
+      ],
       "dependencies": [],
       "dependencyGraph": {
-        "feedlog-github-issues": ["feedlog-button"]
+        "feedlog-github-issues": [
+          "feedlog-button"
+        ]
       }
     },
     {
@@ -279,7 +287,7 @@
       "encapsulation": "shadow",
       "tag": "feedlog-github-issues",
       "readme": "# feedlog-github-issues\n",
-      "docs": "Feedlog GitHub Issues Component\n\nComponent for displaying GitHub issues with support for bugs and enhancements.\nThis component handles the UI rendering and delegates to feedlog-issues-list for the actual list.",
+      "docs": "Feedlog GitHub Issues Component\n\nComponent for displaying GitHub issues with support for bugs and enhancements.\nIncludes full list rendering, loading/error states, and pagination support.",
       "docsTags": [],
       "usage": {},
       "props": [
@@ -403,10 +411,10 @@
           "name": "issues",
           "type": "FeedlogIssue[]",
           "complexType": {
-            "original": "FeedlogIssue[]",
+            "original": "FeedlogIssueType[]",
             "resolved": "FeedlogIssue[]",
             "references": {
-              "FeedlogIssue": {
+              "FeedlogIssueType": {
                 "location": "import",
                 "path": "@feedlog-ai/core",
                 "id": "../core/dist/index.d.ts::FeedlogIssue"
@@ -587,12 +595,24 @@
       "styles": [],
       "slots": [],
       "parts": [],
-      "dependents": ["feedlog-github-issues-client"],
-      "dependencies": ["feedlog-issues-list", "feedlog-button"],
+      "dependents": [
+        "feedlog-github-issues-client"
+      ],
+      "dependencies": [
+        "feedlog-issue",
+        "feedlog-button"
+      ],
       "dependencyGraph": {
-        "feedlog-github-issues": ["feedlog-issues-list", "feedlog-button"],
-        "feedlog-issues-list": ["feedlog-badge"],
-        "feedlog-github-issues-client": ["feedlog-github-issues"]
+        "feedlog-github-issues": [
+          "feedlog-issue",
+          "feedlog-button"
+        ],
+        "feedlog-issue": [
+          "feedlog-badge"
+        ],
+        "feedlog-github-issues-client": [
+          "feedlog-github-issues"
+        ]
       }
     },
     {
@@ -862,30 +882,39 @@
       "slots": [],
       "parts": [],
       "dependents": [],
-      "dependencies": ["feedlog-github-issues"],
+      "dependencies": [
+        "feedlog-github-issues"
+      ],
       "dependencyGraph": {
-        "feedlog-github-issues-client": ["feedlog-github-issues"],
-        "feedlog-github-issues": ["feedlog-issues-list", "feedlog-button"],
-        "feedlog-issues-list": ["feedlog-badge"]
+        "feedlog-github-issues-client": [
+          "feedlog-github-issues"
+        ],
+        "feedlog-github-issues": [
+          "feedlog-issue",
+          "feedlog-button"
+        ],
+        "feedlog-issue": [
+          "feedlog-badge"
+        ]
       }
     },
     {
-      "filePath": "src/components/feedlog-issues-list/feedlog-issues-list.tsx",
+      "filePath": "src/components/feedlog-issue/feedlog-issue.tsx",
       "encapsulation": "shadow",
-      "tag": "feedlog-issues-list",
-      "readme": "# feedlog-issues-list\n",
-      "docs": "Feedlog Issues List Component\n\nA component for displaying a list of GitHub issues with support for bugs and enhancements.",
+      "tag": "feedlog-issue",
+      "readme": "# feedlog-issue\n\nA component for displaying a single GitHub issue with support for bugs and enhancements.\n",
+      "docs": "Feedlog Issue Component\n\nA component for displaying a single GitHub issue.",
       "docsTags": [],
       "usage": {},
       "props": [
         {
-          "name": "issues",
-          "type": "FeedlogIssue[]",
+          "name": "issue",
+          "type": "FeedlogIssue",
           "complexType": {
-            "original": "FeedlogIssue[]",
-            "resolved": "FeedlogIssue[]",
+            "original": "FeedlogIssueType",
+            "resolved": "FeedlogIssue",
             "references": {
-              "FeedlogIssue": {
+              "FeedlogIssueType": {
                 "location": "import",
                 "path": "@feedlog-ai/core",
                 "id": "../core/dist/index.d.ts::FeedlogIssue"
@@ -894,21 +923,15 @@
           },
           "mutable": false,
           "reflectToAttr": false,
-          "docs": "Array of issues to display",
-          "docsTags": [
-            {
-              "name": "default",
-              "text": "[]"
-            }
-          ],
-          "default": "[]",
+          "docs": "The issue to display",
+          "docsTags": [],
           "values": [
             {
-              "type": "FeedlogIssue[]"
+              "type": "FeedlogIssue"
             }
           ],
           "optional": false,
-          "required": false,
+          "required": true,
           "getter": false,
           "setter": false
         },
@@ -960,7 +983,7 @@
           },
           "cancelable": true,
           "composed": true,
-          "docs": "Event emitted when an issue is upvoted",
+          "docs": "Event emitted when the issue is upvoted",
           "docsTags": []
         }
       ],
@@ -968,11 +991,19 @@
       "styles": [],
       "slots": [],
       "parts": [],
-      "dependents": ["feedlog-github-issues"],
-      "dependencies": ["feedlog-badge"],
+      "dependents": [
+        "feedlog-github-issues"
+      ],
+      "dependencies": [
+        "feedlog-badge"
+      ],
       "dependencyGraph": {
-        "feedlog-issues-list": ["feedlog-badge"],
-        "feedlog-github-issues": ["feedlog-issues-list"]
+        "feedlog-issue": [
+          "feedlog-badge"
+        ],
+        "feedlog-github-issues": [
+          "feedlog-issue"
+        ]
       }
     }
   ],

@@ -39,19 +39,6 @@
   --feedlog-red-900-30: color-mix(in oklab, oklch(0.396 0.141 25.723) 30%, transparent);
 }
 
-.issues-list {
-  display: flex;
-  flex-direction: column;
-  gap: var(--feedlog-gap);
-}
-
-.empty-state {
-  text-align: center;
-  padding: 3rem 1.5rem;
-  color: var(--feedlog-muted-foreground);
-  font-size: 0.875rem;
-}
-
 .issue-card {
   background-color: var(--feedlog-card);
   border: 1px solid var(--feedlog-border);

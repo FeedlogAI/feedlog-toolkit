@@ -2,12 +2,13 @@
 
 <!-- Auto Generated Below -->
 
+
 ## Overview
 
 Feedlog GitHub Issues Component
 
 Component for displaying GitHub issues with support for bugs and enhancements.
-This component handles the UI rendering and delegates to feedlog-issues-list for the actual list.
+Includes full list rendering, loading/error states, and pagination support.
 
 ## Properties
 
@@ -23,6 +24,7 @@ This component handles the UI rendering and delegates to feedlog-issues-list for
 | `subtitle`      | `subtitle`        | Custom subtitle for the issues section            | `string \| undefined` | `undefined` |
 | `theme`         | `theme`           | Theme variant: 'light' or 'dark'                  | `"dark" \| "light"`   | `'light'`   |
 
+
 ## Events
 
 | Event             | Description                            | Type                                                                               |
@@ -30,28 +32,28 @@ This component handles the UI rendering and delegates to feedlog-issues-list for
 | `feedlogLoadMore` | Event emitted to load more issues      | `CustomEvent<void>`                                                                |
 | `feedlogUpvote`   | Event emitted when an issue is upvoted | `CustomEvent<{ issueId: string; currentUpvoted: boolean; currentCount: number; }>` |
 
+
 ## Dependencies
 
 ### Used by
 
-- [feedlog-github-issues-client](../feedlog-github-issues-client)
+ - [feedlog-github-issues-client](../feedlog-github-issues-client)
 
 ### Depends on
 
-- [feedlog-issues-list](../feedlog-issues-list)
+- [feedlog-issue](../feedlog-issue)
 - [feedlog-button](../feedlog-button)
 
 ### Graph
-
 ```mermaid
 graph TD;
-  feedlog-github-issues --> feedlog-issues-list
+  feedlog-github-issues --> feedlog-issue
   feedlog-github-issues --> feedlog-button
-  feedlog-issues-list --> feedlog-badge
+  feedlog-issue --> feedlog-badge
   feedlog-github-issues-client --> feedlog-github-issues
   style feedlog-github-issues fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
-_Built with [StencilJS](https://stenciljs.com/)_
+*Built with [StencilJS](https://stenciljs.com/)*

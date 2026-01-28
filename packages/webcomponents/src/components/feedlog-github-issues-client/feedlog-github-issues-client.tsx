@@ -1,5 +1,6 @@
 import { Component, Prop, Event, EventEmitter, h, State } from '@stencil/core';
-import { FeedlogSDK, FeedlogIssue, FetchIssuesParams } from '@feedlog-ai/core';
+import { FeedlogSDK, FetchIssuesParams } from '@feedlog-ai/core';
+import type { FeedlogIssue as FeedlogIssueType } from '@feedlog-ai/core';
 
 /**
  * Feedlog GitHub Issues Client Component
@@ -63,7 +64,7 @@ export class FeedlogGithubIssuesClient {
    */
   @Event() feedlogError!: EventEmitter<{ error: string; code?: number }>;
 
-  @State() issues: FeedlogIssue[] = [];
+  @State() issues: FeedlogIssueType[] = [];
   @State() loading: boolean = true;
   @State() error: string | null = null;
   @State() cursor: string | null = null;

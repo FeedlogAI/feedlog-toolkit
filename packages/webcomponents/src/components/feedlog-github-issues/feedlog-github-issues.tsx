@@ -1,11 +1,11 @@
 import { Component, Prop, State, Event, EventEmitter, h, Host } from '@stencil/core';
-import { FeedlogIssue } from '@feedlog-ai/core';
+import type { FeedlogIssue as FeedlogIssueType } from '@feedlog-ai/core';
 
 /**
  * Feedlog GitHub Issues Component
  *
  * Component for displaying GitHub issues with support for bugs and enhancements.
- * This component handles the UI rendering and delegates to feedlog-issues-list for the actual list.
+ * Includes full list rendering, loading/error states, and pagination support.
  */
 @Component({
   tag: 'feedlog-github-issues',
@@ -16,7 +16,7 @@ export class FeedlogGithubIssues {
   /**
    * Array of issues to display
    */
-  @Prop() issues: FeedlogIssue[] = [];
+  @Prop() issues: FeedlogIssueType[] = [];
 
   /**
    * Maximum width of the container
@@ -90,6 +90,27 @@ export class FeedlogGithubIssues {
     this.feedlogLoadMore.emit();
   };
 
+  private renderIssuesList() {
+    return (
+      <div class="issues-list">
+        {this.issues.length === 0 ? (
+          <div class="empty-state">
+            <p>No issues found</p>
+          </div>
+        ) : (
+          this.issues.map(issue => (
+            <feedlog-issue
+              key={issue.id}
+              issue={issue}
+              theme={this.currentTheme}
+              onFeedlogUpvote={(e: CustomEvent) => this.handleUpvote(e)}
+            />
+          ))
+        )}
+      </div>
+    );
+  }
+
   render() {
     const containerStyle = {
       maxWidth: this.maxWidth,
@@ -121,11 +142,7 @@ export class FeedlogGithubIssues {
 
           {!this.loading && !this.error && (
             <div>
-              <feedlog-issues-list
-                issues={this.issues}
-                theme={this.currentTheme}
-                onFeedlogUpvote={this.handleUpvote}
-              ></feedlog-issues-list>
+              {this.renderIssuesList()}
 
               {this.hasMore && (
                 <div class="load-more-container">
