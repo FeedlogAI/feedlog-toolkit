@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-28T07:16:22",
+  "timestamp": "2026-02-01T06:45:40",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.40.1",
@@ -60,10 +60,18 @@
       "styles": [],
       "slots": [],
       "parts": [],
-      "dependents": ["feedlog-issue"],
+      "dependents": [
+        "feedlog-issue",
+        "feedlog-issues-list"
+      ],
       "dependencies": [],
       "dependencyGraph": {
-        "feedlog-issue": ["feedlog-badge"]
+        "feedlog-issue": [
+          "feedlog-badge"
+        ],
+        "feedlog-issues-list": [
+          "feedlog-badge"
+        ]
       }
     },
     {
@@ -249,10 +257,14 @@
       "styles": [],
       "slots": [],
       "parts": [],
-      "dependents": ["feedlog-github-issues"],
+      "dependents": [
+        "feedlog-github-issues"
+      ],
       "dependencies": [],
       "dependencyGraph": {
-        "feedlog-github-issues": ["feedlog-button"]
+        "feedlog-github-issues": [
+          "feedlog-button"
+        ]
       }
     },
     {
@@ -587,12 +599,24 @@
       "styles": [],
       "slots": [],
       "parts": [],
-      "dependents": ["feedlog-github-issues-client"],
-      "dependencies": ["feedlog-issue", "feedlog-button"],
+      "dependents": [
+        "feedlog-github-issues-client"
+      ],
+      "dependencies": [
+        "feedlog-issue",
+        "feedlog-button"
+      ],
       "dependencyGraph": {
-        "feedlog-github-issues": ["feedlog-issue", "feedlog-button"],
-        "feedlog-issue": ["feedlog-badge"],
-        "feedlog-github-issues-client": ["feedlog-github-issues"]
+        "feedlog-github-issues": [
+          "feedlog-issue",
+          "feedlog-button"
+        ],
+        "feedlog-issue": [
+          "feedlog-badge"
+        ],
+        "feedlog-github-issues-client": [
+          "feedlog-github-issues"
+        ]
       }
     },
     {
@@ -862,11 +886,20 @@
       "slots": [],
       "parts": [],
       "dependents": [],
-      "dependencies": ["feedlog-github-issues"],
+      "dependencies": [
+        "feedlog-github-issues"
+      ],
       "dependencyGraph": {
-        "feedlog-github-issues-client": ["feedlog-github-issues"],
-        "feedlog-github-issues": ["feedlog-issue", "feedlog-button"],
-        "feedlog-issue": ["feedlog-badge"]
+        "feedlog-github-issues-client": [
+          "feedlog-github-issues"
+        ],
+        "feedlog-github-issues": [
+          "feedlog-issue",
+          "feedlog-button"
+        ],
+        "feedlog-issue": [
+          "feedlog-badge"
+        ]
       }
     },
     {
@@ -962,11 +995,127 @@
       "styles": [],
       "slots": [],
       "parts": [],
-      "dependents": ["feedlog-github-issues"],
-      "dependencies": ["feedlog-badge"],
+      "dependents": [
+        "feedlog-github-issues"
+      ],
+      "dependencies": [
+        "feedlog-badge"
+      ],
       "dependencyGraph": {
-        "feedlog-issue": ["feedlog-badge"],
-        "feedlog-github-issues": ["feedlog-issue"]
+        "feedlog-issue": [
+          "feedlog-badge"
+        ],
+        "feedlog-github-issues": [
+          "feedlog-issue"
+        ]
+      }
+    },
+    {
+      "filePath": "src/components/feedlog-issues-list/feedlog-issues-list.tsx",
+      "encapsulation": "shadow",
+      "tag": "feedlog-issues-list",
+      "docs": "Feedlog Issues List Component\n\nA component for displaying a list of GitHub issues with support for bugs and enhancements.",
+      "docsTags": [],
+      "usage": {},
+      "props": [
+        {
+          "name": "issues",
+          "type": "FeedlogIssue[]",
+          "complexType": {
+            "original": "FeedlogIssueType[]",
+            "resolved": "FeedlogIssue[]",
+            "references": {
+              "FeedlogIssueType": {
+                "location": "import",
+                "path": "@feedlog-ai/core",
+                "id": "../core/dist/index.d.ts::FeedlogIssue"
+              }
+            }
+          },
+          "mutable": false,
+          "reflectToAttr": false,
+          "docs": "Array of issues to display",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "[]"
+            }
+          ],
+          "default": "[]",
+          "values": [
+            {
+              "type": "FeedlogIssue[]"
+            }
+          ],
+          "optional": false,
+          "required": false,
+          "getter": false,
+          "setter": false
+        },
+        {
+          "name": "theme",
+          "type": "\"dark\" | \"light\"",
+          "complexType": {
+            "original": "'light' | 'dark'",
+            "resolved": "\"dark\" | \"light\"",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "theme",
+          "reflectToAttr": false,
+          "docs": "Theme variant: 'light' or 'dark'",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "'light'"
+            }
+          ],
+          "default": "'light'",
+          "values": [
+            {
+              "value": "dark",
+              "type": "string"
+            },
+            {
+              "value": "light",
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false,
+          "getter": false,
+          "setter": false
+        }
+      ],
+      "methods": [],
+      "events": [
+        {
+          "event": "feedlogUpvote",
+          "detail": "{ issueId: string; currentUpvoted: boolean; currentCount: number; }",
+          "bubbles": true,
+          "complexType": {
+            "original": "{\n    issueId: string;\n    currentUpvoted: boolean;\n    currentCount: number;\n  }",
+            "resolved": "{ issueId: string; currentUpvoted: boolean; currentCount: number; }",
+            "references": {}
+          },
+          "cancelable": true,
+          "composed": true,
+          "docs": "Emitted when an issue is upvoted",
+          "docsTags": []
+        }
+      ],
+      "listeners": [],
+      "styles": [],
+      "slots": [],
+      "parts": [],
+      "dependents": [],
+      "dependencies": [
+        "feedlog-badge"
+      ],
+      "dependencyGraph": {
+        "feedlog-issues-list": [
+          "feedlog-badge"
+        ]
       }
     }
   ],

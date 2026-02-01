@@ -1,0 +1,227 @@
+:host {
+  display: block;
+  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+
+  /* Light theme defaults */
+  --feedlog-background: #ffffff;
+  --feedlog-foreground: oklch(0.145 0 0);
+  --feedlog-card: #ffffff;
+  --feedlog-card-foreground: oklch(0.145 0 0);
+  --feedlog-muted: #ececf0;
+  --feedlog-muted-foreground: #717182;
+  --feedlog-border: rgba(0, 0, 0, 0.1);
+  --feedlog-accent-color: #2563eb;
+  --feedlog-destructive: #d4183d;
+  --feedlog-blue-400: oklch(0.707 0.165 254.624);
+  --feedlog-blue-600: oklch(0.546 0.245 262.881);
+  --feedlog-blue-100: oklch(0.932 0.032 255.585);
+  --feedlog-red-100: #fce7f3;
+  --feedlog-red-400: #f472b6;
+  --feedlog-red-600: #db2777;
+  --feedlog-radius: 0.625rem;
+  --feedlog-gap: 0.5rem;
+}
+
+:host(.dark) {
+  /* Dark theme values */
+  --feedlog-background: oklch(0.145 0 0);
+  --feedlog-foreground: oklch(0.985 0 0);
+  --feedlog-card: oklch(0.145 0 0);
+  --feedlog-card-foreground: oklch(0.985 0 0);
+  --feedlog-muted: oklch(0.269 0 0);
+  --feedlog-muted-foreground: oklch(0.708 0 0);
+  --feedlog-border: oklch(0.269 0 0);
+  --feedlog-accent-color: #3b82f6;
+  --feedlog-destructive: oklch(0.396 0.141 25.723);
+  --feedlog-blue-400: oklch(0.707 0.165 254.624);
+  --feedlog-blue-600: oklch(0.546 0.245 262.881);
+  --feedlog-blue-900-30: color-mix(in oklab, oklch(0.379 0.146 265.522) 30%, transparent);
+  --feedlog-red-900-30: color-mix(in oklab, oklch(0.396 0.141 25.723) 30%, transparent);
+}
+
+.issues-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--feedlog-gap);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  color: var(--feedlog-muted-foreground);
+  font-size: 0.875rem;
+}
+
+.issue-card {
+  background-color: var(--feedlog-card);
+  border: 1px solid var(--feedlog-border);
+  border-radius: var(--feedlog-radius);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.15s ease;
+  position: relative;
+}
+
+.issue-card:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+}
+
+.issue-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.issue-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: space-between;
+}
+
+.issue-type-badge {
+  width: fit-content;
+}
+
+.pinned-indicator {
+  font-size: 1rem;
+  opacity: 0.7;
+}
+
+.issue-main {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.issue-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.issue-title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--feedlog-card-foreground);
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+.issue-body {
+  margin: 0 0 0.75rem 0;
+  font-size: 0.875rem;
+  color: var(--feedlog-muted-foreground);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-wrap: break-word;
+}
+
+.issue-repository {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--feedlog-muted-foreground);
+}
+
+.repo-name {
+  font-weight: 500;
+}
+
+.github-number {
+  background-color: var(--feedlog-muted);
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+.upvote-button {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  background-color: var(--feedlog-muted);
+  border: 1px solid var(--feedlog-border);
+  border-radius: var(--feedlog-radius);
+  color: var(--feedlog-muted-foreground);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.upvote-button:hover {
+  background-color: var(--feedlog-accent-color);
+  color: white;
+}
+
+.upvote-button.upvoted {
+  background-color: var(--feedlog-destructive);
+  color: white;
+  border-color: var(--feedlog-destructive);
+}
+
+.upvote-button.upvoted:hover {
+  background-color: var(--feedlog-red-600);
+  border-color: var(--feedlog-red-600);
+}
+
+.upvote-icon {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+
+.upvote-icon.filled {
+  color: currentColor;
+}
+
+.upvote-icon.outline {
+  stroke: currentColor;
+}
+
+.upvote-count {
+  font-variant-numeric: tabular-nums;
+}
+
+.issue-footer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.75rem;
+  color: var(--feedlog-muted-foreground);
+}
+
+.issue-date {
+  white-space: nowrap;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 640px) {
+  .issue-content {
+    padding: 1rem;
+    gap: 0.75rem;
+  }
+
+  .issue-main {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .upvote-button {
+    align-self: flex-start;
+  }
+
+  .issue-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+}
