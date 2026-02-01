@@ -74,6 +74,13 @@ export class FeedlogGithubIssuesClient {
   private sdk: FeedlogSDK | null = null;
   private previousType?: 'bug' | 'enhancement';
   private previousLimit?: number;
+  /** Counter to track fetch operations and prevent stale updates */
+  private fetchRequestId: number = 0;
+  /** Flag to prevent state updates after component disconnect */
+  private isDisconnected: boolean = false;
+
+  /** Map to track the latest upvote request ID for each issue to handle race conditions */
+  private upvoteRequestIds: Map<string, number> = new Map();
 
   componentWillLoad() {
     this.previousType = this.type;
@@ -82,12 +89,21 @@ export class FeedlogGithubIssuesClient {
     this.fetchIssues();
   }
 
+  disconnectedCallback() {
+    // Prevent any pending async operations from updating state
+    this.isDisconnected = true;
+    this.fetchRequestId++;
+  }
+
   componentDidUpdate() {
     // Re-fetch if any props changed
     const typeChanged = this.previousType !== this.type;
     const limitChanged = this.previousLimit !== this.limit;
 
     if (typeChanged || limitChanged) {
+      // Invalidate any in-flight requests
+      this.fetchRequestId++;
+
       // Reset pagination when filters change
       this.cursor = null;
       this.hasMore = false;
@@ -122,6 +138,9 @@ export class FeedlogGithubIssuesClient {
       return;
     }
 
+    // Capture current request ID to detect stale responses
+    const currentRequestId = this.fetchRequestId;
+
     try {
       this.loading = true;
       this.error = null;
@@ -141,10 +160,21 @@ export class FeedlogGithubIssuesClient {
       }
 
       const response = await this.sdk.fetchIssues(params);
+
+      // Ignore response if component disconnected or a newer request was made
+      if (this.isDisconnected || currentRequestId !== this.fetchRequestId) {
+        return;
+      }
+
       this.issues = response.issues;
       this.cursor = response.pagination.cursor;
       this.hasMore = response.pagination.hasMore;
     } catch (err) {
+      // Ignore errors from stale requests
+      if (this.isDisconnected || currentRequestId !== this.fetchRequestId) {
+        return;
+      }
+
       const errorMsg = err instanceof Error ? err.message : 'Failed to fetch issues';
       this.error = errorMsg;
       this.issues = [];
@@ -153,8 +183,11 @@ export class FeedlogGithubIssuesClient {
         code: (err as any)?.statusCode,
       });
     } finally {
-      this.loading = false;
-      this.isLoadingMore = false;
+      // Only update loading state if this is still the current request
+      if (!this.isDisconnected && currentRequestId === this.fetchRequestId) {
+        this.loading = false;
+        this.isLoadingMore = false;
+      }
     }
   }
 
@@ -162,6 +195,9 @@ export class FeedlogGithubIssuesClient {
     if (!this.sdk || !this.hasMore || this.isLoadingMore || this.loading) {
       return;
     }
+
+    // Capture current request ID to detect stale responses
+    const currentRequestId = this.fetchRequestId;
 
     this.isLoadingMore = true;
 
@@ -181,17 +217,31 @@ export class FeedlogGithubIssuesClient {
       }
 
       const response = await this.sdk.fetchIssues(params);
+
+      // Ignore response if component disconnected or a newer request was made
+      if (this.isDisconnected || currentRequestId !== this.fetchRequestId) {
+        return;
+      }
+
       this.issues = [...this.issues, ...response.issues];
       this.cursor = response.pagination.cursor;
       this.hasMore = response.pagination.hasMore;
     } catch (err) {
+      // Ignore errors from stale requests
+      if (this.isDisconnected || currentRequestId !== this.fetchRequestId) {
+        return;
+      }
+
       const errorMsg = err instanceof Error ? err.message : 'Failed to load more issues';
       this.feedlogError.emit({
         error: errorMsg,
         code: (err as any)?.statusCode,
       });
     } finally {
-      this.isLoadingMore = false;
+      // Only update loading state if this is still the current request
+      if (!this.isDisconnected && currentRequestId === this.fetchRequestId) {
+        this.isLoadingMore = false;
+      }
     }
   }
 
@@ -202,11 +252,15 @@ export class FeedlogGithubIssuesClient {
       currentCount: number;
     }>
   ) => {
-    if (!this.sdk) {
+    if (!this.sdk || this.isDisconnected) {
       return;
     }
 
     const { issueId, currentUpvoted, currentCount } = event.detail;
+
+    // Track request to handle race conditions
+    const requestId = (this.upvoteRequestIds.get(issueId) || 0) + 1;
+    this.upvoteRequestIds.set(issueId, requestId);
 
     // Optimistic update
     this.issues = this.issues.map(issue =>
@@ -221,6 +275,11 @@ export class FeedlogGithubIssuesClient {
 
     try {
       const result = await this.sdk.toggleUpvote(issueId);
+
+      // Ignore if component disconnected or request is stale
+      if (this.isDisconnected || this.upvoteRequestIds.get(issueId) !== requestId) {
+        return;
+      }
 
       // Update with server response
       this.issues = this.issues.map(issue =>
@@ -239,6 +298,11 @@ export class FeedlogGithubIssuesClient {
         upvoteCount: result.upvoteCount,
       });
     } catch (err) {
+      // Ignore if component disconnected or request is stale
+      if (this.isDisconnected || this.upvoteRequestIds.get(issueId) !== requestId) {
+        return;
+      }
+
       // Revert optimistic update on error
       this.issues = this.issues.map(issue =>
         issue.id === issueId

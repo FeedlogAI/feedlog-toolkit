@@ -60,18 +60,11 @@
       "styles": [],
       "slots": [],
       "parts": [],
-      "dependents": [
-        "feedlog-issue",
-        "feedlog-issues-list"
-      ],
+      "dependents": ["feedlog-issue", "feedlog-issues-list"],
       "dependencies": [],
       "dependencyGraph": {
-        "feedlog-issue": [
-          "feedlog-badge"
-        ],
-        "feedlog-issues-list": [
-          "feedlog-badge"
-        ]
+        "feedlog-issue": ["feedlog-badge"],
+        "feedlog-issues-list": ["feedlog-badge"]
       }
     },
     {
@@ -257,14 +250,10 @@
       "styles": [],
       "slots": [],
       "parts": [],
-      "dependents": [
-        "feedlog-github-issues"
-      ],
+      "dependents": ["feedlog-github-issues"],
       "dependencies": [],
       "dependencyGraph": {
-        "feedlog-github-issues": [
-          "feedlog-button"
-        ]
+        "feedlog-github-issues": ["feedlog-button"]
       }
     },
     {
@@ -599,24 +588,12 @@
       "styles": [],
       "slots": [],
       "parts": [],
-      "dependents": [
-        "feedlog-github-issues-client"
-      ],
-      "dependencies": [
-        "feedlog-issue",
-        "feedlog-button"
-      ],
+      "dependents": ["feedlog-github-issues-client"],
+      "dependencies": ["feedlog-issue", "feedlog-button"],
       "dependencyGraph": {
-        "feedlog-github-issues": [
-          "feedlog-issue",
-          "feedlog-button"
-        ],
-        "feedlog-issue": [
-          "feedlog-badge"
-        ],
-        "feedlog-github-issues-client": [
-          "feedlog-github-issues"
-        ]
+        "feedlog-github-issues": ["feedlog-issue", "feedlog-button"],
+        "feedlog-issue": ["feedlog-badge"],
+        "feedlog-github-issues-client": ["feedlog-github-issues"]
       }
     },
     {
@@ -886,20 +863,11 @@
       "slots": [],
       "parts": [],
       "dependents": [],
-      "dependencies": [
-        "feedlog-github-issues"
-      ],
+      "dependencies": ["feedlog-github-issues"],
       "dependencyGraph": {
-        "feedlog-github-issues-client": [
-          "feedlog-github-issues"
-        ],
-        "feedlog-github-issues": [
-          "feedlog-issue",
-          "feedlog-button"
-        ],
-        "feedlog-issue": [
-          "feedlog-badge"
-        ]
+        "feedlog-github-issues-client": ["feedlog-github-issues"],
+        "feedlog-github-issues": ["feedlog-issue", "feedlog-button"],
+        "feedlog-issue": ["feedlog-badge"]
       }
     },
     {
@@ -995,19 +963,11 @@
       "styles": [],
       "slots": [],
       "parts": [],
-      "dependents": [
-        "feedlog-github-issues"
-      ],
-      "dependencies": [
-        "feedlog-badge"
-      ],
+      "dependents": ["feedlog-github-issues"],
+      "dependencies": ["feedlog-badge"],
       "dependencyGraph": {
-        "feedlog-issue": [
-          "feedlog-badge"
-        ],
-        "feedlog-github-issues": [
-          "feedlog-issue"
-        ]
+        "feedlog-issue": ["feedlog-badge"],
+        "feedlog-github-issues": ["feedlog-issue"]
       }
     },
     {
@@ -1109,13 +1069,9 @@
       "slots": [],
       "parts": [],
       "dependents": [],
-      "dependencies": [
-        "feedlog-badge"
-      ],
+      "dependencies": ["feedlog-badge"],
       "dependencyGraph": {
-        "feedlog-issues-list": [
-          "feedlog-badge"
-        ]
+        "feedlog-issues-list": ["feedlog-badge"]
       }
     }
   ],

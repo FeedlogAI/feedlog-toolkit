@@ -80,7 +80,7 @@ function useWebComponentProps(
     Object.entries(complexProps).forEach(([key, value]) => {
       (element as unknown as Record<string, unknown>)[key] = value;
     });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [complexProps]);
 
   useEffect(() => {
@@ -113,7 +113,7 @@ function useWebComponentProps(
       });
       currentListeners.clear();
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [eventProps]);
 }
 

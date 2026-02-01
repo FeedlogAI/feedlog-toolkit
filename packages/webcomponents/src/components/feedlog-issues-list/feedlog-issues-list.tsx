@@ -139,7 +139,7 @@ export class FeedlogIssuesList {
                     </div>
                     <button
                       class={`upvote-button ${issue.hasUpvoted ? 'upvoted' : ''}`}
-                      onClick={(e) => this.handleUpvote(e, issue)}
+                      onClick={e => this.handleUpvote(e, issue)}
                       title={issue.hasUpvoted ? 'Remove upvote' : 'Upvote this issue'}
                     >
                       {issue.hasUpvoted ? <HeartFilledIcon /> : <HeartOutlineIcon />}
