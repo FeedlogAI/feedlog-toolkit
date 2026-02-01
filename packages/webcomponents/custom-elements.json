@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-01T06:45:40",
+  "timestamp": "2026-02-01T06:52:23",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.40.1",
@@ -974,6 +974,7 @@
       "filePath": "src/components/feedlog-issues-list/feedlog-issues-list.tsx",
       "encapsulation": "shadow",
       "tag": "feedlog-issues-list",
+      "readme": "# feedlog-issues-list\n",
       "docs": "Feedlog Issues List Component\n\nA component for displaying a list of GitHub issues with support for bugs and enhancements.",
       "docsTags": [],
       "usage": {},
