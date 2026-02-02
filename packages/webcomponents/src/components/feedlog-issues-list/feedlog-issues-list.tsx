@@ -62,7 +62,7 @@ export class FeedlogIssuesList {
   /**
    * Emitted when an issue is upvoted
    */
-  @Event() feedlogUpvote: EventEmitter<{
+  @Event() feedlogUpvote!: EventEmitter<{
     issueId: string;
     currentUpvoted: boolean;
     currentCount: number;
@@ -132,9 +132,6 @@ export class FeedlogIssuesList {
                         <span class="repo-name">
                           {issue.repository.owner}/{issue.repository.name}
                         </span>
-                        {issue.githubIssueNumber > 0 && (
-                          <span class="github-number">#{issue.githubIssueNumber}</span>
-                        )}
                       </div>
                     </div>
                     <button
@@ -142,7 +139,7 @@ export class FeedlogIssuesList {
                       onClick={e => this.handleUpvote(e, issue)}
                       title={issue.hasUpvoted ? 'Remove upvote' : 'Upvote this issue'}
                     >
-                      {issue.hasUpvoted ? <HeartFilledIcon /> : <HeartOutlineIcon />}
+                      {issue.hasUpvoted ? HeartFilledIcon() : HeartOutlineIcon()}
                       <span class="upvote-count">{issue.upvoteCount}</span>
                     </button>
                   </div>

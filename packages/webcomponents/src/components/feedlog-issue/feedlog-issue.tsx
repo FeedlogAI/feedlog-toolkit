@@ -139,7 +139,7 @@ export class FeedlogIssueComponent {
                   onClick={(e: MouseEvent) => this.handleUpvote(e)}
                   title={issue.hasUpvoted ? 'Remove upvote' : 'Upvote this issue'}
                 >
-                  {issue.hasUpvoted ? <HeartFilledIcon /> : <HeartOutlineIcon />}
+                  {issue.hasUpvoted ? HeartFilledIcon() : HeartOutlineIcon()}
                   <span class="upvote-count">{issue.upvoteCount}</span>
                 </button>
               )}
