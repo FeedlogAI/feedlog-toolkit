@@ -1,38 +1,28 @@
-import { Component, Prop, Event, EventEmitter, h, Host } from '@stencil/core';
+import { Component, Prop, Event, EventEmitter, h, Host, FunctionalComponent } from '@stencil/core';
 import type { FeedlogIssue as FeedlogIssueType } from '@feedlog-ai/core';
 
 /**
- * Heart icon SVG component (filled)
+ * Heart icon props
  */
-const HeartFilledIcon = () => (
-  <svg
-    class="upvote-icon filled"
-    xmlns="http://www.w3.org/2000/svg"
-    width="16"
-    height="16"
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    stroke="none"
-  >
-    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-  </svg>
-);
+interface HeartIconProps {
+  filled: boolean;
+}
 
 /**
- * Heart icon SVG component (outline)
+ * Heart icon SVG component - renders filled or outline based on prop
  */
-const HeartOutlineIcon = () => (
+const HeartIcon: FunctionalComponent<HeartIconProps> = ({ filled }) => (
   <svg
-    class="upvote-icon outline"
+    class={`upvote-icon ${filled ? 'filled' : 'outline'}`}
     xmlns="http://www.w3.org/2000/svg"
     width="16"
     height="16"
     viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    stroke-width="2"
-    stroke-linecap="round"
-    stroke-linejoin="round"
+    fill={filled ? 'currentColor' : 'none'}
+    stroke={filled ? 'none' : 'currentColor'}
+    stroke-width={filled ? undefined : '2'}
+    stroke-linecap={filled ? undefined : 'round'}
+    stroke-linejoin={filled ? undefined : 'round'}
   >
     <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
   </svg>
@@ -139,7 +129,7 @@ export class FeedlogIssuesList {
                       onClick={e => this.handleUpvote(e, issue)}
                       title={issue.hasUpvoted ? 'Remove upvote' : 'Upvote this issue'}
                     >
-                      {issue.hasUpvoted ? HeartFilledIcon() : HeartOutlineIcon()}
+                      <HeartIcon filled={issue.hasUpvoted} />
                       <span class="upvote-count">{issue.upvoteCount}</span>
                     </button>
                   </div>
