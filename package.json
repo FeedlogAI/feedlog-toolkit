@@ -27,8 +27,7 @@
     "changeset": "changeset",
     "version-packages": "changeset version",
     "publish-packages": "changeset publish",
-    "bump-patch": "node scripts/bump-patch.js",
-    "publish": "node scripts/publish.js"
+    "publish-patch": "node scripts/publish-patch.js"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.8",

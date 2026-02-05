@@ -1,15 +1,16 @@
 #!/usr/bin/env node
 
 /**
- * Bump patch version script for Feedlog Toolkit monorepo
+ * Publish Patch script for Feedlog Toolkit monorepo
  *
- * Increments the patch version of all packages by one.
- * Example: 0.0.1 -> 0.0.2
+ * Combines bumping patch version, npm login, building, and publishing all packages
+ * Increments the patch version of all packages, logs into npm, builds, and publishes to npm with public access.
  */
 
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { execSync } from 'child_process';
 
 function getCurrentVersion() {
   const corePkg = JSON.parse(fs.readFileSync('packages/core/package.json', 'utf8'));
@@ -67,19 +68,67 @@ function updateInternalDependencies(pkg, newVersion) {
   }
 }
 
+function npmLogin() {
+  console.log('\n🔐 Logging into npm...');
+  try {
+    execSync('npm login', {
+      stdio: 'inherit',
+    });
+    console.log('✅ Successfully logged into npm');
+  } catch (error) {
+    console.error('❌ npm login failed');
+    throw error;
+  }
+}
+
+function publishPackage(packageName) {
+  const packagePath = path.join('packages', packageName);
+  console.log(`\nPublishing ${packageName}...`);
+
+  try {
+    execSync(`cd ${packagePath} && npm publish --access=public`, {
+      stdio: 'inherit',
+    });
+    console.log(`✅ Successfully published ${packageName}`);
+  } catch (error) {
+    console.error(`❌ Failed to publish ${packageName}`);
+    throw error;
+  }
+}
+
 function main() {
+  const packages = ['core', 'webcomponents', 'react', 'vue'];
+
+  // Step 1: Bump patch version
   const currentVersion = getCurrentVersion();
   const newVersion = bumpPatchVersion(currentVersion);
-
-  console.log(`Bumping patch version from ${currentVersion} to ${newVersion}`);
-
-  // Update all package versions
-  const packages = ['core', 'webcomponents', 'react', 'vue'];
+  console.log(`📦 Bumping patch version from ${currentVersion} to ${newVersion}`);
   packages.forEach(pkg => {
     updatePackageVersion(`packages/${pkg}`, newVersion);
   });
+  console.log(`✅ All packages bumped to version ${newVersion}!\n`);
 
-  console.log(`\n✅ All packages bumped to version ${newVersion}!`);
+  // Step 2: npm login
+  npmLogin();
+
+  // Step 3: Build all packages
+  console.log('\n🔨 Starting build of all packages...\n');
+  try {
+    execSync('npm run build', {
+      stdio: 'inherit',
+    });
+  } catch (error) {
+    console.error('❌ Build failed');
+    throw error;
+  }
+
+  // Step 4: Publish all packages
+  console.log('\n📤 Starting publication of all packages...\n');
+  for (const pkg of packages) {
+    publishPackage(pkg);
+  }
+
+  console.log(`\n✅ All packages published successfully!`);
 }
 
 const __filename = fileURLToPath(import.meta.url);
