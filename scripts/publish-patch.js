@@ -81,6 +81,64 @@ function npmLogin() {
   }
 }
 
+function verifyWebcomponentsPack() {
+  const packagePath = path.join('packages', 'webcomponents');
+  console.log('\n🔎 Verifying webcomponents package artifacts...');
+
+  let packFile = '';
+  try {
+    const packOutput = execSync('npm pack', {
+      cwd: packagePath,
+      encoding: 'utf8',
+      stdio: 'pipe',
+    })
+      .trim()
+      .split('\n')
+      .pop();
+    packFile = packOutput || '';
+  } catch (error) {
+    console.error('❌ npm pack failed for webcomponents');
+    throw error;
+  }
+
+  if (!packFile) {
+    throw new Error('Failed to determine npm pack output filename');
+  }
+
+  const packPath = path.join(packagePath, packFile);
+  try {
+    const fileList = execSync(`tar -tf ${packPath}`, {
+      encoding: 'utf8',
+      stdio: 'pipe',
+    })
+      .trim()
+      .split('\n');
+
+    const requiredEntries = [
+      'package/dist/components/feedlog-github-issues-client.js',
+      'package/dist/components/feedlog-github-issues.js',
+      'package/dist/components/feedlog-issue.js',
+      'package/dist/components/feedlog-issues-list.js',
+      'package/dist/components/feedlog-badge.js',
+      'package/dist/components/feedlog-button.js',
+      'package/dist/components/feedlog-card.js',
+    ];
+
+    const missing = requiredEntries.filter(entry => !fileList.includes(entry));
+    if (missing.length > 0) {
+      throw new Error(`Missing built artifacts in webcomponents pack:\n${missing.join('\n')}`);
+    }
+
+    console.log('✅ Webcomponents pack contains required dist/components entries');
+  } finally {
+    try {
+      fs.unlinkSync(packPath);
+    } catch {
+      // ignore cleanup errors
+    }
+  }
+}
+
 function publishPackage(packageName) {
   const packagePath = path.join('packages', packageName);
   console.log(`\nPublishing ${packageName}...`);
@@ -92,6 +150,28 @@ function publishPackage(packageName) {
     console.log(`✅ Successfully published ${packageName}`);
   } catch (error) {
     console.error(`❌ Failed to publish ${packageName}`);
+    throw error;
+  }
+}
+
+function commitAndPush(newVersion) {
+  console.log('\n📌 Committing and pushing changes...');
+  try {
+    const status = execSync('git status --porcelain', {
+      encoding: 'utf8',
+      stdio: 'pipe',
+    }).trim();
+    if (!status) {
+      console.log('ℹ️ No changes to commit');
+      return;
+    }
+
+    execSync('git add -A', { stdio: 'inherit' });
+    execSync(`git commit -m "chore(release): publish v${newVersion}"`, { stdio: 'inherit' });
+    execSync('git push', { stdio: 'inherit' });
+    console.log('✅ Changes committed and pushed');
+  } catch (error) {
+    console.error('❌ Failed to commit or push changes');
     throw error;
   }
 }
@@ -122,11 +202,17 @@ function main() {
     throw error;
   }
 
-  // Step 4: Publish all packages
+  // Step 4: Verify webcomponents pack contains built artifacts
+  verifyWebcomponentsPack();
+
+  // Step 5: Publish all packages
   console.log('\n📤 Starting publication of all packages...\n');
   for (const pkg of packages) {
     publishPackage(pkg);
   }
+
+  // Step 6: Commit and push changes after successful publish
+  commitAndPush(newVersion);
 
   console.log(`\n✅ All packages published successfully!`);
 }

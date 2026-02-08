@@ -4,6 +4,7 @@ A component for displaying a single GitHub issue with support for bugs and enhan
 
 <!-- Auto Generated Below -->
 
+
 ## Overview
 
 Feedlog Issue Component
@@ -17,24 +18,25 @@ A component for displaying a single GitHub issue.
 | `issue` _(required)_ | --        | The issue to display             | `FeedlogIssue`      | `undefined` |
 | `theme`              | `theme`   | Theme variant: 'light' or 'dark' | `"dark" \| "light"` | `'light'`   |
 
+
 ## Events
 
 | Event           | Description                             | Type                                                                               |
 | --------------- | --------------------------------------- | ---------------------------------------------------------------------------------- |
 | `feedlogUpvote` | Event emitted when the issue is upvoted | `CustomEvent<{ issueId: string; currentUpvoted: boolean; currentCount: number; }>` |
 
+
 ## Dependencies
 
 ### Used by
 
-- [feedlog-github-issues](../feedlog-github-issues)
+ - [feedlog-github-issues](../feedlog-github-issues)
 
 ### Depends on
 
 - [feedlog-badge](../feedlog-badge)
 
 ### Graph
-
 ```mermaid
 graph TD;
   feedlog-issue --> feedlog-badge
@@ -42,6 +44,6 @@ graph TD;
   style feedlog-issue fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
-_Built with [StencilJS](https://stenciljs.com/)_
+*Built with [StencilJS](https://stenciljs.com/)*

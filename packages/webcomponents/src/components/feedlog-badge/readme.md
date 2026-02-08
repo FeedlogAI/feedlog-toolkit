@@ -2,6 +2,7 @@
 
 <!-- Auto Generated Below -->
 
+
 ## Overview
 
 Feedlog Badge Component
@@ -14,15 +15,15 @@ A label component with variant support for different styles.
 | --------- | --------- | ------------------- | --------------------------------------------- | ----------- |
 | `variant` | `variant` | Badge variant style | `"default" \| "destructive" \| "enhancement"` | `'default'` |
 
+
 ## Dependencies
 
 ### Used by
 
-- [feedlog-issue](../feedlog-issue)
-- [feedlog-issues-list](../feedlog-issues-list)
+ - [feedlog-issue](../feedlog-issue)
+ - [feedlog-issues-list](../feedlog-issues-list)
 
 ### Graph
-
 ```mermaid
 graph TD;
   feedlog-issue --> feedlog-badge
@@ -30,6 +31,6 @@ graph TD;
   style feedlog-badge fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
-_Built with [StencilJS](https://stenciljs.com/)_
+*Built with [StencilJS](https://stenciljs.com/)*
