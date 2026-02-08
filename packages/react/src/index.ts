@@ -9,11 +9,17 @@
 import React, { useEffect, useRef } from 'react';
 import type { FeedlogIssue as FeedlogIssueType } from '@feedlog-ai/core';
 
-// Import custom elements bundle - this statically registers all web components
-// and works correctly with modern bundlers (Vite, webpack, etc.)
-// Unlike the lazy-loading defineCustomElements() approach, this ensures all
-// component code is bundled and available synchronously.
-import '@feedlog-ai/webcomponents/custom-elements';
+// Import custom element components - each import auto-registers the component
+// and its dependencies. This uses the dist-custom-elements output which works
+// correctly with modern bundlers (Vite, webpack, etc.), unlike the lazy-loading
+// defineCustomElements() approach that causes 404s in production builds.
+import '@feedlog-ai/webcomponents/dist/components/feedlog-github-issues-client.js';
+import '@feedlog-ai/webcomponents/dist/components/feedlog-github-issues.js';
+import '@feedlog-ai/webcomponents/dist/components/feedlog-issue.js';
+import '@feedlog-ai/webcomponents/dist/components/feedlog-issues-list.js';
+import '@feedlog-ai/webcomponents/dist/components/feedlog-badge.js';
+import '@feedlog-ai/webcomponents/dist/components/feedlog-button.js';
+import '@feedlog-ai/webcomponents/dist/components/feedlog-card.js';
 
 // Re-export types for convenience
 export type { FeedlogIssue } from '@feedlog-ai/core';
