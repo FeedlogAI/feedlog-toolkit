@@ -1,6 +1,6 @@
 {
   "name": "@feedlog-ai/webcomponents",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "Stencil web components for Feedlog Toolkit - Data visualization components",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.js",
@@ -50,7 +50,7 @@
     "clean": "rm -rf dist loader"
   },
   "dependencies": {
-    "@feedlog-ai/core": "^0.0.16"
+    "@feedlog-ai/core": "^0.0.17"
   },
   "devDependencies": {
     "@stencil/core": "^4.0.0",
