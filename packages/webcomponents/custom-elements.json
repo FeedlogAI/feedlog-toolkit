@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-08T06:36:59",
+  "timestamp": "2026-02-08T06:59:35",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.40.1",
@@ -736,6 +736,43 @@
           "setter": false
         },
         {
+          "name": "sortBy",
+          "type": "\"createdAt\" | \"updatedAt\" | undefined",
+          "complexType": {
+            "original": "SortBy",
+            "resolved": "\"createdAt\" | \"updatedAt\" | undefined",
+            "references": {
+              "SortBy": {
+                "location": "import",
+                "path": "@feedlog-ai/core",
+                "id": "../core/dist/index.d.ts::SortBy"
+              }
+            }
+          },
+          "mutable": false,
+          "attr": "sort-by",
+          "reflectToAttr": false,
+          "docs": "Sort issues by field: 'createdAt' or 'updatedAt'",
+          "docsTags": [],
+          "values": [
+            {
+              "value": "createdAt",
+              "type": "string"
+            },
+            {
+              "value": "updatedAt",
+              "type": "string"
+            },
+            {
+              "type": "undefined"
+            }
+          ],
+          "optional": true,
+          "required": false,
+          "getter": false,
+          "setter": false
+        },
+        {
           "name": "subtitle",
           "type": "string | undefined",
           "complexType": {
@@ -1078,6 +1115,11 @@
   ],
   "typeLibrary": {
     "../core/dist/index.d.ts::FeedlogIssue": {
+      "declaration": "any",
+      "docstring": "",
+      "path": "../core/dist/index.d.ts"
+    },
+    "../core/dist/index.d.ts::SortBy": {
       "declaration": "any",
       "docstring": "",
       "path": "../core/dist/index.d.ts"

@@ -51,6 +51,7 @@ export const FeedlogGithubIssuesClient: StencilVueComponent<JSX.FeedlogGithubIss
       'apiKey',
       'type',
       'limit',
+      'sortBy',
       'endpoint',
       'maxWidth',
       'theme',

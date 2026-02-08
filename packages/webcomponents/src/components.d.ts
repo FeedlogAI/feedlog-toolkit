@@ -5,8 +5,8 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
-import { FeedlogIssue as FeedlogIssueType } from '@feedlog-ai/core';
-export { FeedlogIssue as FeedlogIssueType } from '@feedlog-ai/core';
+import { FeedlogIssue as FeedlogIssueType, SortBy } from '@feedlog-ai/core';
+export { FeedlogIssue as FeedlogIssueType, SortBy } from '@feedlog-ai/core';
 export namespace Components {
   /**
    * Feedlog Badge Component
@@ -127,6 +127,10 @@ export namespace Components {
      * @default '42rem'
      */
     maxWidth: string;
+    /**
+     * Sort issues by field: 'createdAt' or 'updatedAt'
+     */
+    sortBy?: SortBy;
     /**
      * Custom subtitle for the issues section
      */
@@ -689,6 +693,10 @@ declare namespace LocalJSX {
         upvoteCount: number;
       }>
     ) => void;
+    /**
+     * Sort issues by field: 'createdAt' or 'updatedAt'
+     */
+    sortBy?: SortBy;
     /**
      * Custom subtitle for the issues section
      */
