@@ -30,11 +30,17 @@ export interface FeedlogIssue {
 }
 
 /**
+ * Accepted values for sorting issues
+ */
+export type SortBy = 'createdAt' | 'updatedAt';
+
+/**
  * Parameters for fetching issues
  */
 export interface FetchIssuesParams {
   repositoryIds?: string | string[]; // Single ID or array of IDs
   type?: 'bug' | 'enhancement';
+  sortBy?: SortBy; // Sort order: 'createdAt' or 'updatedAt'
   cursor?: string; // Opaque pagination cursor
   limit?: number; // 1-100, default 10
 }

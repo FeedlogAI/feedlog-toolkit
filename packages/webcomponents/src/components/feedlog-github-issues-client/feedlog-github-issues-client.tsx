@@ -1,6 +1,6 @@
 import { Component, Prop, Event, EventEmitter, h, State } from '@stencil/core';
 import { FeedlogSDK, FetchIssuesParams } from '@feedlog-ai/core';
-import type { FeedlogIssue as FeedlogIssueType } from '@feedlog-ai/core';
+import type { FeedlogIssue as FeedlogIssueType, SortBy } from '@feedlog-ai/core';
 
 /**
  * Feedlog GitHub Issues Client Component
@@ -28,6 +28,11 @@ export class FeedlogGithubIssuesClient {
    * Maximum number of issues to fetch (1-100, default 10)
    */
   @Prop() limit?: number;
+
+  /**
+   * Sort issues by field: 'createdAt' or 'updatedAt'
+   */
+  @Prop() sortBy?: SortBy;
 
   /**
    * Custom API endpoint
@@ -74,6 +79,7 @@ export class FeedlogGithubIssuesClient {
   private sdk: FeedlogSDK | null = null;
   private previousType?: 'bug' | 'enhancement';
   private previousLimit?: number;
+  private previousSortBy?: SortBy;
   /** Counter to track fetch operations and prevent stale updates */
   private fetchRequestId: number = 0;
   /** Flag to prevent state updates after component disconnect */
@@ -85,6 +91,7 @@ export class FeedlogGithubIssuesClient {
   componentWillLoad() {
     this.previousType = this.type;
     this.previousLimit = this.limit;
+    this.previousSortBy = this.sortBy;
     this.initializeSDK();
     this.fetchIssues();
   }
@@ -99,8 +106,9 @@ export class FeedlogGithubIssuesClient {
     // Re-fetch if any props changed
     const typeChanged = this.previousType !== this.type;
     const limitChanged = this.previousLimit !== this.limit;
+    const sortByChanged = this.previousSortBy !== this.sortBy;
 
-    if (typeChanged || limitChanged) {
+    if (typeChanged || limitChanged || sortByChanged) {
       // Invalidate any in-flight requests
       this.fetchRequestId++;
 
@@ -112,6 +120,7 @@ export class FeedlogGithubIssuesClient {
       this.fetchIssues();
       this.previousType = this.type;
       this.previousLimit = this.limit;
+      this.previousSortBy = this.sortBy;
     }
   }
 
@@ -149,6 +158,10 @@ export class FeedlogGithubIssuesClient {
 
       if (this.type) {
         params.type = this.type;
+      }
+
+      if (this.sortBy) {
+        params.sortBy = this.sortBy;
       }
 
       if (this.limit) {
@@ -206,6 +219,10 @@ export class FeedlogGithubIssuesClient {
 
       if (this.type) {
         params.type = this.type;
+      }
+
+      if (this.sortBy) {
+        params.sortBy = this.sortBy;
       }
 
       if (this.limit) {

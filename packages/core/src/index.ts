@@ -169,6 +169,10 @@ export class FeedlogSDK {
       url.searchParams.set('type', params.type);
     }
 
+    if (params.sortBy) {
+      url.searchParams.set('sortBy', params.sortBy);
+    }
+
     if (params.cursor) {
       url.searchParams.set('cursor', params.cursor);
     }
