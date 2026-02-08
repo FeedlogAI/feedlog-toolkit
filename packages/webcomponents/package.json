@@ -7,6 +7,32 @@
   "types": "./dist/types/index.d.ts",
   "collection": "./dist/collection/collection-manifest.json",
   "unpkg": "./dist/feedlog-toolkit/feedlog-toolkit.esm.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs.js",
+      "types": "./dist/types/index.d.ts"
+    },
+    "./loader": {
+      "import": "./loader/index.js",
+      "require": "./loader/index.cjs.js",
+      "types": "./loader/index.d.ts"
+    },
+    "./custom-elements": {
+      "import": "./dist/components/index.js",
+      "types": "./dist/types/components.d.ts"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "custom-elements": [
+        "./dist/types/components.d.ts"
+      ],
+      "loader": [
+        "./loader/index.d.ts"
+      ]
+    }
+  },
   "files": [
     "dist",
     "loader"

@@ -8,7 +8,12 @@
 
 import React, { useEffect, useRef } from 'react';
 import type { FeedlogIssue as FeedlogIssueType } from '@feedlog-ai/core';
-import { defineCustomElements } from '@feedlog-ai/webcomponents/loader';
+
+// Import custom elements bundle - this statically registers all web components
+// and works correctly with modern bundlers (Vite, webpack, etc.)
+// Unlike the lazy-loading defineCustomElements() approach, this ensures all
+// component code is bundled and available synchronously.
+import '@feedlog-ai/webcomponents/custom-elements';
 
 // Re-export types for convenience
 export type { FeedlogIssue } from '@feedlog-ai/core';
@@ -287,7 +292,6 @@ export const FeedlogIssueComponent = React.forwardRef<HTMLElement, FeedlogIssueP
 );
 FeedlogIssueComponent.displayName = 'FeedlogIssue';
 
-// Auto-define custom elements when this module is imported
-if (typeof window !== 'undefined') {
-  defineCustomElements();
-}
+// Custom elements are auto-defined via the import of '@feedlog-ai/webcomponents/custom-elements' above.
+// No need for defineCustomElements() - the dist-custom-elements bundle handles registration
+// automatically when imported, and works correctly with modern bundlers like Vite.
