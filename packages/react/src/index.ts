@@ -13,13 +13,13 @@ import type { FeedlogIssue as FeedlogIssueType } from '@feedlog-ai/core';
 // and its dependencies. This uses the dist-custom-elements output which works
 // correctly with modern bundlers (Vite, webpack, etc.), unlike the lazy-loading
 // defineCustomElements() approach that causes 404s in production builds.
-import '@feedlog-ai/webcomponents/dist/components/feedlog-github-issues-client.js';
-import '@feedlog-ai/webcomponents/dist/components/feedlog-github-issues.js';
-import '@feedlog-ai/webcomponents/dist/components/feedlog-issue.js';
-import '@feedlog-ai/webcomponents/dist/components/feedlog-issues-list.js';
-import '@feedlog-ai/webcomponents/dist/components/feedlog-badge.js';
-import '@feedlog-ai/webcomponents/dist/components/feedlog-button.js';
-import '@feedlog-ai/webcomponents/dist/components/feedlog-card.js';
+import '@feedlog-ai/webcomponents/components/feedlog-github-issues-client.js';
+import '@feedlog-ai/webcomponents/components/feedlog-github-issues.js';
+import '@feedlog-ai/webcomponents/components/feedlog-issue.js';
+import '@feedlog-ai/webcomponents/components/feedlog-issues-list.js';
+import '@feedlog-ai/webcomponents/components/feedlog-badge.js';
+import '@feedlog-ai/webcomponents/components/feedlog-button.js';
+import '@feedlog-ai/webcomponents/components/feedlog-card.js';
 
 // Re-export types for convenience
 export type { FeedlogIssue } from '@feedlog-ai/core';

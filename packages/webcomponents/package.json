@@ -21,6 +21,14 @@
     "./custom-elements": {
       "import": "./dist/components/index.js",
       "types": "./dist/types/components.d.ts"
+    },
+    "./components/*": {
+      "import": "./dist/components/*.js",
+      "types": "./dist/types/components/*.d.ts"
+    },
+    "./dist/components/*": {
+      "import": "./dist/components/*.js",
+      "types": "./dist/types/components/*.d.ts"
     }
   },
   "typesVersions": {

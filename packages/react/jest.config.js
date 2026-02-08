@@ -32,6 +32,8 @@ module.exports = {
     ],
   },
   moduleNameMapper: {
+    '^@feedlog-ai/webcomponents/components/.*$':
+      '<rootDir>/src/__tests__/mocks/custom-elements.js',
     '^@feedlog-ai/webcomponents/dist/components/.*$':
       '<rootDir>/src/__tests__/mocks/custom-elements.js',
     '^@feedlog-ai/webcomponents/loader$': '<rootDir>/src/__tests__/mocks/loader.js',
