@@ -59,7 +59,7 @@ export class FeedlogGithubIssues {
   @Prop() isLoadingMore: boolean = false;
 
   /**
-   * Optional callback to resolve GitHub issue URL when githubIssueNumber is available.
+   * Optional callback to resolve GitHub issue URL when githubIssueLink is not available.
    * Required because repository.owner was removed from the API for privacy.
    */
   @Prop() getIssueUrl?: GetIssueUrlFn;

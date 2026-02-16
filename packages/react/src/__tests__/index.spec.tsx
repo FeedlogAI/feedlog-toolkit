@@ -96,7 +96,7 @@ describe('React Wrapper - Props Passthrough', () => {
     const issues = [
       {
         id: '1',
-        githubIssueNumber: 1,
+        githubIssueLink: 'https://github.com/feedlog/feedlog-toolkit/issues/1',
         type: 'bug' as const,
         status: 'open' as const,
         pinnedAt: null,

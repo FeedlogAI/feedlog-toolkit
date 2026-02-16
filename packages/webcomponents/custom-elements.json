@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-16T13:24:35",
+  "timestamp": "2026-02-16T19:50:09",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.40.1",
@@ -335,7 +335,7 @@
           },
           "mutable": false,
           "reflectToAttr": false,
-          "docs": "Optional callback to resolve GitHub issue URL when githubIssueNumber is available.\nRequired because repository.owner was removed from the API for privacy.",
+          "docs": "Optional callback to resolve GitHub issue URL when githubIssueLink is not available.\nRequired because repository.owner was removed from the API for privacy.",
           "docsTags": [],
           "values": [
             {
@@ -710,7 +710,7 @@
           },
           "mutable": false,
           "reflectToAttr": false,
-          "docs": "Optional callback to resolve GitHub issue URL when githubIssueNumber is available.\nRequired because repository.owner was removed from the API for privacy.",
+          "docs": "Optional callback to resolve GitHub issue URL when githubIssueLink is not available.\nRequired because repository.owner was removed from the API for privacy.",
           "docsTags": [],
           "values": [
             {
@@ -1032,7 +1032,7 @@
           "mutable": false,
           "attr": "issue-url",
           "reflectToAttr": false,
-          "docs": "Optional URL for the GitHub issue. When provided along with githubIssueNumber,\nshows a \"View on GitHub\" button. Required because owner is no longer in the API response.",
+          "docs": "Optional URL for the GitHub issue. When provided along with githubIssueLink,\nshows a \"View on GitHub\" button. Required because owner is no longer in the API response.",
           "docsTags": [],
           "values": [
             {
@@ -1148,7 +1148,7 @@
           },
           "mutable": false,
           "reflectToAttr": false,
-          "docs": "Optional callback to resolve GitHub issue URL when githubIssueNumber is available.",
+          "docs": "Optional callback to resolve GitHub issue URL when githubIssueLink is not available.",
           "docsTags": [],
           "values": [
             {

@@ -68,11 +68,11 @@ A component for displaying a single GitHub issue.
 
 ## Properties
 
-| Property             | Attribute   | Description                                                                                                                                                              | Type                          | Default     |
-| -------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------- | ----------- |
-| `issue` _(required)_ | --          | The issue to display                                                                                                                                                     | `FeedlogIssue`                | `undefined` |
-| `issueUrl`           | `issue-url` | Optional URL for the GitHub issue. When provided along with githubIssueNumber, shows a "View on GitHub" button. Required because owner is no longer in the API response. | `null \| string \| undefined` | `undefined` |
-| `theme`              | `theme`     | Theme variant: 'light' or 'dark'                                                                                                                                         | `"dark" \| "light"`           | `'light'`   |
+| Property             | Attribute   | Description                                                                                                                                                            | Type                          | Default     |
+| -------------------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- | ----------- |
+| `issue` _(required)_ | --          | The issue to display                                                                                                                                                   | `FeedlogIssue`                | `undefined` |
+| `issueUrl`           | `issue-url` | Optional URL for the GitHub issue. When provided along with githubIssueLink, shows a "View on GitHub" button. Required because owner is no longer in the API response. | `null \| string \| undefined` | `undefined` |
+| `theme`              | `theme`     | Theme variant: 'light' or 'dark'                                                                                                                                       | `"dark" \| "light"`           | `'light'`   |
 
 ## Events
 

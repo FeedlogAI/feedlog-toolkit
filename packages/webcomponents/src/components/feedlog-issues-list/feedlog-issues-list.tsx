@@ -23,7 +23,7 @@ export class FeedlogIssuesList {
   @Prop() theme: 'light' | 'dark' = 'light';
 
   /**
-   * Optional callback to resolve GitHub issue URL when githubIssueNumber is available.
+   * Optional callback to resolve GitHub issue URL when githubIssueLink is not available.
    */
   @Prop() getIssueUrl?: GetIssueUrlFn;
 

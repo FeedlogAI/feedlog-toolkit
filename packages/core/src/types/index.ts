@@ -25,8 +25,8 @@ export interface Repository {
  */
 export interface FeedlogIssue {
   id: string; // Public issue ID
-  /** GitHub issue number, or null for private repositories (privacy) */
-  githubIssueNumber: number | null;
+  /** GitHub issue URL, or null for private repositories (privacy) */
+  githubIssueLink: string | null;
   type: 'bug' | 'enhancement';
   status: IssueStatus;
   pinnedAt: string | null; // ISO 8601 timestamp or null
@@ -43,7 +43,7 @@ export interface FeedlogIssue {
 }
 
 /**
- * Callback to resolve GitHub issue URL when githubIssueNumber is available.
+ * Callback to resolve GitHub issue URL when githubIssueLink is not available.
  * Required because repository.owner was removed from the API for privacy.
  */
 export type GetIssueUrlFn = (issue: FeedlogIssue) => string | null | undefined;

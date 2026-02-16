@@ -4,7 +4,7 @@ import type { FeedlogIssue } from '@feedlog-ai/core';
 
 const sampleBugIssue: FeedlogIssue = {
   id: 'issue-bug-1',
-  githubIssueNumber: 42,
+  githubIssueLink: 'https://github.com/feedlog/feedlog-toolkit/issues/42',
   title: 'Charts not rendering on mobile',
   body: 'The chart components are not properly responsive on smaller screens. They overflow the container and break the layout.',
   type: 'bug' as const,
@@ -24,7 +24,7 @@ const sampleBugIssue: FeedlogIssue = {
 
 const sampleEnhancementIssue: FeedlogIssue = {
   id: 'issue-enhancement-1',
-  githubIssueNumber: 24,
+  githubIssueLink: 'https://github.com/feedlog/feedlog-toolkit/issues/24',
   title: 'Add dark mode support',
   body: 'It would be great to have a dark mode option for the dashboard. This would reduce eye strain for users working late at night.',
   type: 'enhancement' as const,
@@ -115,17 +115,17 @@ const issueClosedEnhancement: FeedlogIssue = {
   title: 'Export data to CSV',
 };
 
-const issueWithGithubNumber: FeedlogIssue = {
+const issueWithGithubLink: FeedlogIssue = {
   ...sampleEnhancementIssue,
   id: 'issue-with-gh',
-  githubIssueNumber: 42,
+  githubIssueLink: 'https://github.com/feedlog/feedlog-toolkit/issues/42',
   title: 'Add dark mode support',
 };
 
-const issueWithGithubNumberNull: FeedlogIssue = {
+const issueWithGithubLinkNull: FeedlogIssue = {
   ...sampleEnhancementIssue,
   id: 'issue-private-repo',
-  githubIssueNumber: null,
+  githubIssueLink: null,
   title: 'Private repo issue',
   repository: {
     id: 'repo-private',
@@ -147,7 +147,7 @@ const meta: Meta = {
     },
     issueUrl: {
       control: 'text',
-      description: 'Optional GitHub issue URL (when githubIssueNumber is available)',
+      description: 'Optional GitHub issue URL (when githubIssueLink is not available)',
     },
     theme: {
       control: 'select',
@@ -297,17 +297,16 @@ export const StatusClosedEnhancement: Story = {
   render: (props: any) => <feedlog-issue {...props} />,
 };
 
-export const WithGithubIssueNumber: Story = {
+export const WithGithubIssueLink: Story = {
   args: {
-    issue: issueWithGithubNumber,
-    issueUrl: 'https://github.com/feedlog/feedlog-toolkit/issues/42',
+    issue: issueWithGithubLink,
   },
   render: (props: any) => <feedlog-issue {...props} />,
 };
 
-export const GithubIssueNumberNull: Story = {
+export const GithubIssueLinkNull: Story = {
   args: {
-    issue: issueWithGithubNumberNull,
+    issue: issueWithGithubLinkNull,
   },
   render: (props: any) => <feedlog-issue {...props} />,
 };

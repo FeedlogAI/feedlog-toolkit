@@ -287,10 +287,10 @@ export class FeedlogSDK {
       throw new FeedlogValidationError('Invalid issue: repository must have id');
     }
 
-    // githubIssueNumber: number | null (null for private repos)
-    const githubIssueNumber =
-      issue.githubIssueNumber != null && typeof issue.githubIssueNumber === 'number'
-        ? issue.githubIssueNumber
+    // githubIssueLink: string | null (null for private repos)
+    const githubIssueLink =
+      issue.githubIssueLink !== null && typeof issue.githubIssueLink === 'string'
+        ? String(issue.githubIssueLink)
         : null;
 
     // Sanitize string fields to prevent XSS (handle null)
@@ -310,7 +310,7 @@ export class FeedlogSDK {
 
     return {
       id: String(issue.id),
-      githubIssueNumber,
+      githubIssueLink,
       type: (issue.type as 'bug' | 'enhancement') || 'bug',
       status: (issue.status as 'open' | 'in_progress' | 'closed') || 'open',
       pinnedAt: issue.pinnedAt ? String(issue.pinnedAt) : null,

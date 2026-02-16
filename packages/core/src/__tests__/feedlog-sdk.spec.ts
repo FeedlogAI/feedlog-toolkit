@@ -79,7 +79,7 @@ describe('FeedlogSDK - fetchIssues() Success Cases', () => {
 
   const mockIssue = {
     id: 'issue-1',
-    githubIssueNumber: 42,
+    githubIssueLink: 'https://github.com/feedlog/feedlog-toolkit/issues/42',
     type: 'bug' as const,
     status: 'open' as const,
     pinnedAt: null,
@@ -408,7 +408,7 @@ describe('FeedlogSDK - fetchIssues() Error Cases', () => {
         issues: [
           {
             id: 'issue-1',
-            githubIssueNumber: 1,
+            githubIssueLink: 'https://github.com/feedlog/feedlog-toolkit/issues/1',
             type: 'bug',
             status: 'in_progress',
             title: 'Title',
@@ -435,7 +435,7 @@ describe('FeedlogSDK - fetchIssues() Error Cases', () => {
         issues: [
           {
             id: 'issue-nullable',
-            githubIssueNumber: null,
+            githubIssueLink: null,
             type: 'enhancement',
             status: 'closed',
             title: null,
@@ -457,7 +457,7 @@ describe('FeedlogSDK - fetchIssues() Error Cases', () => {
     expect(result.issues[0].body).toBeNull();
     expect(result.issues[0].repository.name).toBeNull();
     expect(result.issues[0].repository.description).toBeNull();
-    expect(result.issues[0].githubIssueNumber).toBeNull();
+    expect(result.issues[0].githubIssueLink).toBeNull();
   });
 
   it('should throw FeedlogValidationError when repository is missing', async () => {

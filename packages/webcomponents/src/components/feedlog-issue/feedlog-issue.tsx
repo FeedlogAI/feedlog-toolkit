@@ -19,7 +19,7 @@ export class FeedlogIssueComponent {
   @Prop() issue!: FeedlogIssueType;
 
   /**
-   * Optional URL for the GitHub issue. When provided along with githubIssueNumber,
+   * Optional URL for the GitHub issue. When provided along with githubIssueLink,
    * shows a "View on GitHub" button. Required because owner is no longer in the API response.
    */
   @Prop() issueUrl?: string | null;
@@ -188,7 +188,8 @@ export class FeedlogIssueComponent {
         ? issue.repository.description
         : undefined;
     const statusBadgeLabel = this.getStatusBadgeLabel();
-    const showGithubButton = issue.githubIssueNumber != null && issueUrl != null && issueUrl !== '';
+    const githubUrl = issue.githubIssueLink ?? issueUrl;
+    const showGithubButton = githubUrl != null && githubUrl !== '';
 
     return (
       <Host
@@ -237,7 +238,7 @@ export class FeedlogIssueComponent {
                     <a
                       part="github-link"
                       class="github-link"
-                      href={issueUrl}
+                      href={githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       title="View on GitHub"

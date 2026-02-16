@@ -62,7 +62,7 @@ export namespace Components {
      */
     error: string | null;
     /**
-     * Optional callback to resolve GitHub issue URL when githubIssueNumber is available. Required because repository.owner was removed from the API for privacy.
+     * Optional callback to resolve GitHub issue URL when githubIssueLink is not available. Required because repository.owner was removed from the API for privacy.
      */
     getIssueUrl?: GetIssueUrlFn;
     /**
@@ -119,7 +119,7 @@ export namespace Components {
      */
     endpoint?: string;
     /**
-     * Optional callback to resolve GitHub issue URL when githubIssueNumber is available. Required because repository.owner was removed from the API for privacy.
+     * Optional callback to resolve GitHub issue URL when githubIssueLink is not available. Required because repository.owner was removed from the API for privacy.
      */
     getIssueUrl?: GetIssueUrlFn;
     /**
@@ -163,7 +163,7 @@ export namespace Components {
      */
     issue: FeedlogIssueType;
     /**
-     * Optional URL for the GitHub issue. When provided along with githubIssueNumber, shows a "View on GitHub" button. Required because owner is no longer in the API response.
+     * Optional URL for the GitHub issue. When provided along with githubIssueLink, shows a "View on GitHub" button. Required because owner is no longer in the API response.
      */
     issueUrl?: string | null;
     /**
@@ -178,7 +178,7 @@ export namespace Components {
    */
   interface FeedlogIssuesList {
     /**
-     * Optional callback to resolve GitHub issue URL when githubIssueNumber is available.
+     * Optional callback to resolve GitHub issue URL when githubIssueLink is not available.
      */
     getIssueUrl?: GetIssueUrlFn;
     /**
@@ -614,7 +614,7 @@ declare namespace LocalJSX {
      */
     error?: string | null;
     /**
-     * Optional callback to resolve GitHub issue URL when githubIssueNumber is available. Required because repository.owner was removed from the API for privacy.
+     * Optional callback to resolve GitHub issue URL when githubIssueLink is not available. Required because repository.owner was removed from the API for privacy.
      */
     getIssueUrl?: GetIssueUrlFn;
     /**
@@ -685,7 +685,7 @@ declare namespace LocalJSX {
      */
     endpoint?: string;
     /**
-     * Optional callback to resolve GitHub issue URL when githubIssueNumber is available. Required because repository.owner was removed from the API for privacy.
+     * Optional callback to resolve GitHub issue URL when githubIssueLink is not available. Required because repository.owner was removed from the API for privacy.
      */
     getIssueUrl?: GetIssueUrlFn;
     /**
@@ -745,7 +745,7 @@ declare namespace LocalJSX {
      */
     issue: FeedlogIssueType;
     /**
-     * Optional URL for the GitHub issue. When provided along with githubIssueNumber, shows a "View on GitHub" button. Required because owner is no longer in the API response.
+     * Optional URL for the GitHub issue. When provided along with githubIssueLink, shows a "View on GitHub" button. Required because owner is no longer in the API response.
      */
     issueUrl?: string | null;
     /**
@@ -770,7 +770,7 @@ declare namespace LocalJSX {
    */
   interface FeedlogIssuesList {
     /**
-     * Optional callback to resolve GitHub issue URL when githubIssueNumber is available.
+     * Optional callback to resolve GitHub issue URL when githubIssueLink is not available.
      */
     getIssueUrl?: GetIssueUrlFn;
     /**
