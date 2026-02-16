@@ -1,5 +1,6 @@
 import { Component, Prop, Event, EventEmitter, h, Host } from '@stencil/core';
 import type { FeedlogIssue as FeedlogIssueType } from '@feedlog-ai/core';
+import { parseMarkdown } from '../../utils/markdown';
 
 /**
  * Feedlog Issue Component
@@ -123,7 +124,7 @@ export class FeedlogIssueComponent {
             <div class="issue-main">
               <div class="issue-details">
                 <h3 class="issue-title">{issue.title}</h3>
-                <p class="issue-body">{issue.body}</p>
+                <div class="issue-body" innerHTML={parseMarkdown(issue.body)} />
 
                 <div class="issue-repository">
                   <span class="repo-name">
