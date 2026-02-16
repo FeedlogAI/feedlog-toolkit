@@ -19,6 +19,12 @@ export class FeedlogIssueComponent {
   @Prop() issue!: FeedlogIssueType;
 
   /**
+   * Optional URL for the GitHub issue. When provided along with githubIssueNumber,
+   * shows a "View on GitHub" button. Required because owner is no longer in the API response.
+   */
+  @Prop() issueUrl?: string | null;
+
+  /**
    * Theme variant: 'light' or 'dark'
    */
   @Prop() theme: 'light' | 'dark' = 'light';
@@ -123,8 +129,43 @@ export class FeedlogIssueComponent {
     }
   }
 
-  render() {
+  /**
+   * Get the status badge label for closed issues
+   */
+  private getStatusBadgeLabel(): string | null {
     const { issue } = this;
+    if (issue.status === 'in_progress') return 'In progress';
+    if (issue.status === 'closed' && issue.type === 'bug') return 'Resolved';
+    if (issue.status === 'closed' && issue.type === 'enhancement') return 'Implemented';
+    return null;
+  }
+
+  /**
+   * Renders the external link (GitHub) icon SVG
+   */
+  private renderExternalLinkIcon() {
+    return (
+      <svg
+        class="github-link-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+        <polyline points="15 3 21 3 21 9" />
+        <line x1="10" y1="14" x2="21" y2="3" />
+      </svg>
+    );
+  }
+
+  render() {
+    const { issue, issueUrl } = this;
     if (!issue) return null;
 
     const wasUpdated = new Date(issue.updatedAt).getTime() > new Date(issue.createdAt).getTime();
@@ -133,6 +174,21 @@ export class FeedlogIssueComponent {
     const timestampTitle = wasUpdated
       ? `Updated: ${issue.updatedAt}`
       : `Created: ${issue.createdAt}`;
+
+    const displayTitle = issue.title ?? 'Untitled';
+    const rawRepoName = issue.repository.name;
+    const repoName =
+      rawRepoName != null &&
+      rawRepoName !== '' &&
+      rawRepoName.toLowerCase() !== 'unnamed repository'
+        ? rawRepoName
+        : null;
+    const repoTooltip =
+      issue.repository.description != null && issue.repository.description !== ''
+        ? issue.repository.description
+        : undefined;
+    const statusBadgeLabel = this.getStatusBadgeLabel();
+    const showGithubButton = issue.githubIssueNumber != null && issueUrl != null && issueUrl !== '';
 
     return (
       <Host
@@ -150,6 +206,9 @@ export class FeedlogIssueComponent {
                     <feedlog-badge variant="enhancement">Enhancement</feedlog-badge>
                   )}
                 </div>
+                {statusBadgeLabel && (
+                  <feedlog-badge variant="secondary">{statusBadgeLabel}</feedlog-badge>
+                )}
                 {issue.pinnedAt && (
                   <div class="pinned-indicator" title="Pinned issue">
                     {this.renderPinIcon()}
@@ -163,13 +222,30 @@ export class FeedlogIssueComponent {
 
             <div class="issue-main">
               <div class="issue-details">
-                <h3 class="issue-title">{issue.title}</h3>
-                <div class="issue-body" innerHTML={parseMarkdown(issue.body)} />
+                <h3 class="issue-title">{displayTitle}</h3>
+                {issue.body != null && issue.body !== '' && (
+                  <div class="issue-body" innerHTML={parseMarkdown(issue.body)} />
+                )}
 
                 <div class="issue-repository">
-                  <span class="repo-name">
-                    {issue.repository.owner}/{issue.repository.name}
-                  </span>
+                  {repoName != null && (
+                    <span class="repo-name" title={repoTooltip}>
+                      {repoName}
+                    </span>
+                  )}
+                  {showGithubButton && (
+                    <a
+                      part="github-link"
+                      class="github-link"
+                      href={issueUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="View on GitHub"
+                    >
+                      {this.renderExternalLinkIcon()}
+                      <span class="github-link-text">View on GitHub</span>
+                    </a>
+                  )}
                 </div>
               </div>
 

@@ -11,17 +11,18 @@ Includes full list rendering, loading/error states, and pagination support.
 
 ## Properties
 
-| Property        | Attribute         | Description                                       | Type                  | Default     |
-| --------------- | ----------------- | ------------------------------------------------- | --------------------- | ----------- |
-| `error`         | `error`           | Error message - shows error state when set        | `null \| string`      | `null`      |
-| `hasMore`       | `has-more`        | Whether there are more issues to load             | `boolean`             | `false`     |
-| `heading`       | `heading`         | Custom heading for the issues section             | `string \| undefined` | `undefined` |
-| `isLoadingMore` | `is-loading-more` | Whether more issues are currently loading         | `boolean`             | `false`     |
-| `issues`        | --                | Array of issues to display                        | `FeedlogIssue[]`      | `[]`        |
-| `loading`       | `loading`         | Loading state - shows loading indicator when true | `boolean`             | `false`     |
-| `maxWidth`      | `max-width`       | Maximum width of the container                    | `string`              | `'42rem'`   |
-| `subtitle`      | `subtitle`        | Custom subtitle for the issues section            | `string \| undefined` | `undefined` |
-| `theme`         | `theme`           | Theme variant: 'light' or 'dark'                  | `"dark" \| "light"`   | `'light'`   |
+| Property        | Attribute         | Description                                                                                                                                                | Type                                                                  | Default     |
+| --------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | ----------- |
+| `error`         | `error`           | Error message - shows error state when set                                                                                                                 | `null \| string`                                                      | `null`      |
+| `getIssueUrl`   | --                | Optional callback to resolve GitHub issue URL when githubIssueNumber is available. Required because repository.owner was removed from the API for privacy. | `((issue: FeedlogIssue) => string \| null \| undefined) \| undefined` | `undefined` |
+| `hasMore`       | `has-more`        | Whether there are more issues to load                                                                                                                      | `boolean`                                                             | `false`     |
+| `heading`       | `heading`         | Custom heading for the issues section                                                                                                                      | `string \| undefined`                                                 | `undefined` |
+| `isLoadingMore` | `is-loading-more` | Whether more issues are currently loading                                                                                                                  | `boolean`                                                             | `false`     |
+| `issues`        | --                | Array of issues to display                                                                                                                                 | `FeedlogIssue[]`                                                      | `[]`        |
+| `loading`       | `loading`         | Loading state - shows loading indicator when true                                                                                                          | `boolean`                                                             | `false`     |
+| `maxWidth`      | `max-width`       | Maximum width of the container                                                                                                                             | `string`                                                              | `'42rem'`   |
+| `subtitle`      | `subtitle`        | Custom subtitle for the issues section                                                                                                                     | `string \| undefined`                                                 | `undefined` |
+| `theme`         | `theme`           | Theme variant: 'light' or 'dark'                                                                                                                           | `"dark" \| "light"`                                                   | `'light'`   |
 
 ## Events
 

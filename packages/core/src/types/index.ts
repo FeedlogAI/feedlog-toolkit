@@ -3,12 +3,21 @@
  */
 
 /**
- * Repository information embedded in issue responses
+ * Issue status values
+ */
+export type IssueStatus = 'open' | 'in_progress' | 'closed';
+
+/**
+ * Repository information embedded in issue responses.
+ * Uses public-facing metadata (name/description) instead of internal GitHub details.
+ * Both name and description may be null.
  */
 export interface Repository {
   id: string;
-  name: string;
-  owner: string;
+  /** Public display name (user-configurable). May be null. */
+  name: string | null;
+  /** User-configurable description. May be null. */
+  description: string | null;
 }
 
 /**
@@ -16,11 +25,15 @@ export interface Repository {
  */
 export interface FeedlogIssue {
   id: string; // Public issue ID
+  /** GitHub issue number, or null for private repositories (privacy) */
+  githubIssueNumber: number | null;
   type: 'bug' | 'enhancement';
-  status: 'open' | 'closed';
+  status: IssueStatus;
   pinnedAt: string | null; // ISO 8601 timestamp or null
-  title: string;
-  body: string; // Markdown content
+  /** May be null — display fallback (e.g. "Untitled") when null */
+  title: string | null;
+  /** May be null — when present, use as tooltip for the title/name */
+  body: string | null; // Markdown content
   revision: number;
   repository: Repository;
   updatedAt: string; // ISO 8601 timestamp
@@ -28,6 +41,12 @@ export interface FeedlogIssue {
   upvoteCount: number;
   hasUpvoted: boolean; // Whether current user has upvoted
 }
+
+/**
+ * Callback to resolve GitHub issue URL when githubIssueNumber is available.
+ * Required because repository.owner was removed from the API for privacy.
+ */
+export type GetIssueUrlFn = (issue: FeedlogIssue) => string | null | undefined;
 
 /**
  * Accepted values for sorting issues

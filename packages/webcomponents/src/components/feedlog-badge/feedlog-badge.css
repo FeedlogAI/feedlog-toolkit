@@ -1,18 +1,18 @@
 :host {
   display: inline-block;
-  
+
   /* Light theme defaults */
   --feedlog-badge-font-size: 0.75rem;
   --feedlog-badge-font-weight: 500;
   --feedlog-badge-padding-x: 0.5rem;
   --feedlog-badge-padding-y: 0.125rem;
   --feedlog-badge-border-radius: calc(0.625rem - 2px);
-  
+
   /* Default/Enhancement variant colors */
   --feedlog-blue-500: oklch(0.623 0.214 259.815);
   --feedlog-blue-600: oklch(0.546 0.245 262.881);
   --feedlog-blue-700: oklch(0.488 0.243 264.376);
-  
+
   /* Destructive variant colors */
   --feedlog-destructive: #d4183d;
   --feedlog-destructive-hover: #b91c1c;
@@ -84,4 +84,15 @@
 
 .badge-destructive:hover {
   background-color: var(--feedlog-destructive-hover);
+}
+
+/* Secondary variant - muted styling for status badges */
+.badge-secondary {
+  background-color: var(--feedlog-muted, #f1f5f9);
+  color: var(--feedlog-muted-foreground, #64748b);
+}
+
+:host(.dark) .badge-secondary {
+  background-color: var(--feedlog-muted, oklch(0.32 0.01 260));
+  color: var(--feedlog-muted-foreground, oklch(0.72 0.02 260));
 }

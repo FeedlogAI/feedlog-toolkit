@@ -79,6 +79,7 @@ describe('FeedlogSDK - fetchIssues() Success Cases', () => {
 
   const mockIssue = {
     id: 'issue-1',
+    githubIssueNumber: 42,
     type: 'bug' as const,
     status: 'open' as const,
     pinnedAt: null,
@@ -88,7 +89,7 @@ describe('FeedlogSDK - fetchIssues() Success Cases', () => {
     repository: {
       id: 'repo-1',
       name: 'repo-name',
-      owner: 'owner',
+      description: 'Repo description',
     },
     updatedAt: '2024-01-15T10:30:00Z',
     createdAt: '2024-01-10T14:20:00Z',
@@ -370,7 +371,7 @@ describe('FeedlogSDK - fetchIssues() Error Cases', () => {
             type: 'invalid-type',
             status: 'open',
             title: 'Title',
-            repository: { id: 'repo-1', name: 'repo', owner: 'owner' },
+            repository: { id: 'repo-1', name: 'repo', description: 'desc' },
           },
         ],
         pagination: { cursor: null, hasMore: false },
@@ -388,9 +389,9 @@ describe('FeedlogSDK - fetchIssues() Error Cases', () => {
           {
             id: 'issue-1',
             type: 'bug',
-            status: 'in-progress',
+            status: 'invalid-status',
             title: 'Title',
-            repository: { id: 'repo-1', name: 'repo', owner: 'owner' },
+            repository: { id: 'repo-1', name: 'repo', description: 'desc' },
           },
         ],
         pagination: { cursor: null, hasMore: false },
@@ -398,6 +399,65 @@ describe('FeedlogSDK - fetchIssues() Error Cases', () => {
     });
 
     await expect(sdk.fetchIssues({})).rejects.toThrow(FeedlogValidationError);
+  });
+
+  it('should accept in_progress status', async () => {
+    (global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+      json: jest.fn().mockResolvedValue({
+        issues: [
+          {
+            id: 'issue-1',
+            githubIssueNumber: 1,
+            type: 'bug',
+            status: 'in_progress',
+            title: 'Title',
+            body: 'Body',
+            repository: { id: 'repo-1', name: 'repo', description: 'desc' },
+            updatedAt: '2024-01-15T10:30:00Z',
+            createdAt: '2024-01-10T14:20:00Z',
+            upvoteCount: 0,
+            hasUpvoted: false,
+          },
+        ],
+        pagination: { cursor: null, hasMore: false },
+      }),
+    });
+
+    const result = await sdk.fetchIssues({});
+    expect(result.issues[0].status).toBe('in_progress');
+  });
+
+  it('should accept nullable title, body, and repository name/description', async () => {
+    (global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+      json: jest.fn().mockResolvedValue({
+        issues: [
+          {
+            id: 'issue-nullable',
+            githubIssueNumber: null,
+            type: 'enhancement',
+            status: 'closed',
+            title: null,
+            body: null,
+            revision: 1,
+            repository: { id: 'repo-1', name: null, description: null },
+            updatedAt: '2024-01-15T10:30:00Z',
+            createdAt: '2024-01-10T14:20:00Z',
+            upvoteCount: 0,
+            hasUpvoted: false,
+          },
+        ],
+        pagination: { cursor: null, hasMore: false },
+      }),
+    });
+
+    const result = await sdk.fetchIssues({});
+    expect(result.issues[0].title).toBeNull();
+    expect(result.issues[0].body).toBeNull();
+    expect(result.issues[0].repository.name).toBeNull();
+    expect(result.issues[0].repository.description).toBeNull();
+    expect(result.issues[0].githubIssueNumber).toBeNull();
   });
 
   it('should throw FeedlogValidationError when repository is missing', async () => {

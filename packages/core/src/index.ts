@@ -268,16 +268,14 @@ export class FeedlogSDK {
       throw new FeedlogValidationError('Invalid issue: id is required and must be a string');
     }
 
-    if (typeof issue.title !== 'string') {
-      throw new FeedlogValidationError('Invalid issue: title is required and must be a string');
-    }
-
     if (!['bug', 'enhancement'].includes(String(issue.type))) {
       throw new FeedlogValidationError('Invalid issue: type must be "bug" or "enhancement"');
     }
 
-    if (!['open', 'closed'].includes(String(issue.status))) {
-      throw new FeedlogValidationError('Invalid issue: status must be "open" or "closed"');
+    if (!['open', 'in_progress', 'closed'].includes(String(issue.status))) {
+      throw new FeedlogValidationError(
+        'Invalid issue: status must be "open", "in_progress", or "closed"'
+      );
     }
 
     if (!issue.repository || typeof issue.repository !== 'object') {
@@ -285,30 +283,44 @@ export class FeedlogSDK {
     }
 
     const repo = issue.repository as Record<string, unknown>;
-    if (
-      typeof repo.id !== 'string' ||
-      typeof repo.name !== 'string' ||
-      typeof repo.owner !== 'string'
-    ) {
-      throw new FeedlogValidationError('Invalid issue: repository must have id, name, and owner');
+    if (typeof repo.id !== 'string') {
+      throw new FeedlogValidationError('Invalid issue: repository must have id');
     }
 
-    // Sanitize string fields to prevent XSS
-    const sanitizedTitle = sanitizeHtml(String(issue.title));
-    const sanitizedBody = sanitizeHtml(String(issue.body || ''));
+    // githubIssueNumber: number | null (null for private repos)
+    const githubIssueNumber =
+      issue.githubIssueNumber != null && typeof issue.githubIssueNumber === 'number'
+        ? issue.githubIssueNumber
+        : null;
+
+    // Sanitize string fields to prevent XSS (handle null)
+    const rawTitle = issue.title;
+    const sanitizedTitle =
+      rawTitle != null && rawTitle !== '' ? sanitizeHtml(String(rawTitle)) : null;
+
+    const rawBody = issue.body;
+    const sanitizedBody = rawBody != null && rawBody !== '' ? sanitizeHtml(String(rawBody)) : null;
+
+    const rawRepoName = repo.name;
+    const repoName = rawRepoName != null && rawRepoName !== '' ? String(rawRepoName) : null;
+
+    const rawRepoDesc = repo.description;
+    const repoDescription =
+      rawRepoDesc != null && rawRepoDesc !== '' ? sanitizeHtml(String(rawRepoDesc)) : null;
 
     return {
       id: String(issue.id),
+      githubIssueNumber,
       type: (issue.type as 'bug' | 'enhancement') || 'bug',
-      status: (issue.status as 'open' | 'closed') || 'open',
+      status: (issue.status as 'open' | 'in_progress' | 'closed') || 'open',
       pinnedAt: issue.pinnedAt ? String(issue.pinnedAt) : null,
       revision: Number(issue.revision) || 1,
       title: sanitizedTitle,
       body: sanitizedBody,
       repository: {
         id: String(repo.id),
-        name: String(repo.name),
-        owner: String(repo.owner),
+        name: repoName,
+        description: repoDescription,
       },
       updatedAt: String(issue.updatedAt) || new Date().toISOString(),
       createdAt: String(issue.createdAt) || new Date().toISOString(),

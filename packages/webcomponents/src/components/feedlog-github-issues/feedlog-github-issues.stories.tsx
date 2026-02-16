@@ -5,6 +5,7 @@ import type { FeedlogIssue } from '@feedlog-ai/core';
 const sampleIssues: FeedlogIssue[] = [
   {
     id: 'issue-1',
+    githubIssueNumber: 24,
     title: 'Add dark mode support',
     body: 'It would be great to have a dark mode option for the dashboard.',
     type: 'enhancement' as const,
@@ -14,7 +15,7 @@ const sampleIssues: FeedlogIssue[] = [
     repository: {
       id: 'repo-1',
       name: 'feedlog-toolkit',
-      owner: 'feedlog',
+      description: 'Monorepo for Feedlog Toolkit',
     },
     updatedAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(), // 2 hours ago
     createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
@@ -23,6 +24,7 @@ const sampleIssues: FeedlogIssue[] = [
   },
   {
     id: 'issue-2',
+    githubIssueNumber: 15,
     title: 'Charts not rendering on mobile',
     body: 'The chart components are not properly responsive on smaller screens.',
     type: 'bug' as const,
@@ -32,7 +34,7 @@ const sampleIssues: FeedlogIssue[] = [
     repository: {
       id: 'repo-1',
       name: 'feedlog-toolkit',
-      owner: 'feedlog',
+      description: 'Monorepo for Feedlog Toolkit',
     },
     updatedAt: new Date(Date.now() - 5 * 60 * 60 * 1000).toISOString(), // 5 hours ago
     createdAt: new Date(Date.now() - 5 * 60 * 60 * 1000).toISOString(),
@@ -41,6 +43,7 @@ const sampleIssues: FeedlogIssue[] = [
   },
   {
     id: 'issue-3',
+    githubIssueNumber: 8,
     title: 'Export data to CSV',
     body: 'Add functionality to export chart data as CSV files.',
     type: 'enhancement' as const,
@@ -50,7 +53,7 @@ const sampleIssues: FeedlogIssue[] = [
     repository: {
       id: 'repo-1',
       name: 'feedlog-toolkit',
-      owner: 'feedlog',
+      description: 'Monorepo for Feedlog Toolkit',
     },
     updatedAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(), // 1 day ago
     createdAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
@@ -59,6 +62,7 @@ const sampleIssues: FeedlogIssue[] = [
   },
   {
     id: 'issue-4',
+    githubIssueNumber: 12,
     title: 'Memory leak in real-time updates',
     body: 'When leaving the dashboard open for extended periods, memory usage increases significantly.',
     type: 'bug' as const,
@@ -68,7 +72,7 @@ const sampleIssues: FeedlogIssue[] = [
     repository: {
       id: 'repo-1',
       name: 'feedlog-toolkit',
-      owner: 'feedlog',
+      description: 'Monorepo for Feedlog Toolkit',
     },
     updatedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(), // 2 days ago
     createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
@@ -77,6 +81,7 @@ const sampleIssues: FeedlogIssue[] = [
   },
   {
     id: 'issue-5',
+    githubIssueNumber: null,
     title: 'Custom color themes',
     body: 'Allow users to customize the color palette for charts and UI elements.',
     type: 'enhancement' as const,
@@ -86,7 +91,7 @@ const sampleIssues: FeedlogIssue[] = [
     repository: {
       id: 'repo-1',
       name: 'feedlog-toolkit',
-      owner: 'feedlog',
+      description: 'Monorepo for Feedlog Toolkit',
     },
     updatedAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(), // 1 week ago
     createdAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),

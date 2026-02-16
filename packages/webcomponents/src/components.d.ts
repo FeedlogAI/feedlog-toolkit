@@ -5,8 +5,8 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
-import { FeedlogIssue as FeedlogIssueType, SortBy } from '@feedlog-ai/core';
-export { FeedlogIssue as FeedlogIssueType, SortBy } from '@feedlog-ai/core';
+import { FeedlogIssue as FeedlogIssueType, GetIssueUrlFn, SortBy } from '@feedlog-ai/core';
+export { FeedlogIssue as FeedlogIssueType, GetIssueUrlFn, SortBy } from '@feedlog-ai/core';
 export namespace Components {
   /**
    * Feedlog Badge Component
@@ -17,7 +17,7 @@ export namespace Components {
      * Badge variant style
      * @default 'default'
      */
-    variant: 'default' | 'destructive' | 'enhancement';
+    variant: 'default' | 'destructive' | 'enhancement' | 'secondary';
   }
   /**
    * Feedlog Button Component
@@ -61,6 +61,10 @@ export namespace Components {
      * @default null
      */
     error: string | null;
+    /**
+     * Optional callback to resolve GitHub issue URL when githubIssueNumber is available. Required because repository.owner was removed from the API for privacy.
+     */
+    getIssueUrl?: GetIssueUrlFn;
     /**
      * Whether there are more issues to load
      * @default false
@@ -115,6 +119,10 @@ export namespace Components {
      */
     endpoint?: string;
     /**
+     * Optional callback to resolve GitHub issue URL when githubIssueNumber is available. Required because repository.owner was removed from the API for privacy.
+     */
+    getIssueUrl?: GetIssueUrlFn;
+    /**
      * Custom heading for the issues section
      */
     heading?: string;
@@ -155,6 +163,10 @@ export namespace Components {
      */
     issue: FeedlogIssueType;
     /**
+     * Optional URL for the GitHub issue. When provided along with githubIssueNumber, shows a "View on GitHub" button. Required because owner is no longer in the API response.
+     */
+    issueUrl?: string | null;
+    /**
      * Theme variant: 'light' or 'dark'
      * @default 'light'
      */
@@ -165,6 +177,10 @@ export namespace Components {
    * A component for displaying a list of GitHub issues with support for bugs and enhancements.
    */
   interface FeedlogIssuesList {
+    /**
+     * Optional callback to resolve GitHub issue URL when githubIssueNumber is available.
+     */
+    getIssueUrl?: GetIssueUrlFn;
     /**
      * Array of issues to display
      * @default []
@@ -549,7 +565,7 @@ declare namespace LocalJSX {
      * Badge variant style
      * @default 'default'
      */
-    variant?: 'default' | 'destructive' | 'enhancement';
+    variant?: 'default' | 'destructive' | 'enhancement' | 'secondary';
   }
   /**
    * Feedlog Button Component
@@ -597,6 +613,10 @@ declare namespace LocalJSX {
      * @default null
      */
     error?: string | null;
+    /**
+     * Optional callback to resolve GitHub issue URL when githubIssueNumber is available. Required because repository.owner was removed from the API for privacy.
+     */
+    getIssueUrl?: GetIssueUrlFn;
     /**
      * Whether there are more issues to load
      * @default false
@@ -665,6 +685,10 @@ declare namespace LocalJSX {
      */
     endpoint?: string;
     /**
+     * Optional callback to resolve GitHub issue URL when githubIssueNumber is available. Required because repository.owner was removed from the API for privacy.
+     */
+    getIssueUrl?: GetIssueUrlFn;
+    /**
      * Custom heading for the issues section
      */
     heading?: string;
@@ -721,6 +745,10 @@ declare namespace LocalJSX {
      */
     issue: FeedlogIssueType;
     /**
+     * Optional URL for the GitHub issue. When provided along with githubIssueNumber, shows a "View on GitHub" button. Required because owner is no longer in the API response.
+     */
+    issueUrl?: string | null;
+    /**
      * Event emitted when the issue is upvoted
      */
     onFeedlogUpvote?: (
@@ -741,6 +769,10 @@ declare namespace LocalJSX {
    * A component for displaying a list of GitHub issues with support for bugs and enhancements.
    */
   interface FeedlogIssuesList {
+    /**
+     * Optional callback to resolve GitHub issue URL when githubIssueNumber is available.
+     */
+    getIssueUrl?: GetIssueUrlFn;
     /**
      * Array of issues to display
      * @default []

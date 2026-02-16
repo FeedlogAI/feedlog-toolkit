@@ -10,9 +10,9 @@ A label component with variant support for different styles.
 
 ## Properties
 
-| Property  | Attribute | Description         | Type                                          | Default     |
-| --------- | --------- | ------------------- | --------------------------------------------- | ----------- |
-| `variant` | `variant` | Badge variant style | `"default" \| "destructive" \| "enhancement"` | `'default'` |
+| Property  | Attribute | Description         | Type                                                         | Default     |
+| --------- | --------- | ------------------- | ------------------------------------------------------------ | ----------- |
+| `variant` | `variant` | Badge variant style | `"default" \| "destructive" \| "enhancement" \| "secondary"` | `'default'` |
 
 ## Dependencies
 

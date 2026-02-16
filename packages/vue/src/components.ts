@@ -37,6 +37,7 @@ export const FeedlogGithubIssues: StencilVueComponent<JSX.FeedlogGithubIssues> =
       'error',
       'hasMore',
       'isLoadingMore',
+      'getIssueUrl',
       'feedlogUpvote',
       'feedlogLoadMore',
     ],
@@ -57,6 +58,7 @@ export const FeedlogGithubIssuesClient: StencilVueComponent<JSX.FeedlogGithubIss
       'theme',
       'heading',
       'subtitle',
+      'getIssueUrl',
       'feedlogUpvote',
       'feedlogError',
     ],
@@ -67,7 +69,7 @@ export const FeedlogIssue: StencilVueComponent<JSX.FeedlogIssue> =
   /*@__PURE__*/ defineContainer<JSX.FeedlogIssue>(
     'feedlog-issue',
     undefined,
-    ['issue', 'theme', 'feedlogUpvote'],
+    ['issue', 'issueUrl', 'theme', 'feedlogUpvote'],
     ['feedlogUpvote']
   );
 
@@ -75,6 +77,6 @@ export const FeedlogIssuesList: StencilVueComponent<JSX.FeedlogIssuesList> =
   /*@__PURE__*/ defineContainer<JSX.FeedlogIssuesList>(
     'feedlog-issues-list',
     undefined,
-    ['issues', 'theme', 'feedlogUpvote'],
+    ['issues', 'theme', 'getIssueUrl', 'feedlogUpvote'],
     ['feedlogUpvote']
   );

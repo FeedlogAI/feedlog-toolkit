@@ -1,5 +1,5 @@
 import { Component, Prop, State, Event, EventEmitter, h, Host } from '@stencil/core';
-import type { FeedlogIssue as FeedlogIssueType } from '@feedlog-ai/core';
+import type { FeedlogIssue as FeedlogIssueType, GetIssueUrlFn } from '@feedlog-ai/core';
 
 /**
  * Feedlog GitHub Issues Component
@@ -59,6 +59,12 @@ export class FeedlogGithubIssues {
   @Prop() isLoadingMore: boolean = false;
 
   /**
+   * Optional callback to resolve GitHub issue URL when githubIssueNumber is available.
+   * Required because repository.owner was removed from the API for privacy.
+   */
+  @Prop() getIssueUrl?: GetIssueUrlFn;
+
+  /**
    * Internal state for theme
    */
   @State() currentTheme: 'light' | 'dark' = 'light';
@@ -102,6 +108,7 @@ export class FeedlogGithubIssues {
             <feedlog-issue
               key={issue.id}
               issue={issue}
+              issueUrl={this.getIssueUrl?.(issue) ?? undefined}
               theme={this.currentTheme}
               onFeedlogUpvote={(e: CustomEvent) => this.handleUpvote(e)}
             />

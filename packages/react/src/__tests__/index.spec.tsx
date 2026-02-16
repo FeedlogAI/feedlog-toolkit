@@ -96,13 +96,14 @@ describe('React Wrapper - Props Passthrough', () => {
     const issues = [
       {
         id: '1',
+        githubIssueNumber: 1,
         type: 'bug' as const,
         status: 'open' as const,
         pinnedAt: null,
         title: 'Test Issue',
         body: 'Test body',
         revision: 1,
-        repository: { id: 'repo-1', name: 'test-repo', owner: 'test-owner' },
+        repository: { id: 'repo-1', name: 'test-repo', description: 'Test repo' },
         updatedAt: '2024-01-01T00:00:00Z',
         createdAt: '2024-01-01T00:00:00Z',
         upvoteCount: 0,
