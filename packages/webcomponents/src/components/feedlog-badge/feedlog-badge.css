@@ -30,6 +30,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 0.25rem;
   font-size: var(--feedlog-badge-font-size);
   font-weight: var(--feedlog-badge-font-weight);
   padding: var(--feedlog-badge-padding-y) var(--feedlog-badge-padding-x);

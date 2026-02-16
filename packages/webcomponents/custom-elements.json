@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-16T06:07:20",
+  "timestamp": "2026-02-16T06:32:18",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.40.1",
@@ -60,18 +60,10 @@
       "styles": [],
       "slots": [],
       "parts": [],
-      "dependents": [
-        "feedlog-issue",
-        "feedlog-issues-list"
-      ],
+      "dependents": ["feedlog-issue"],
       "dependencies": [],
       "dependencyGraph": {
-        "feedlog-issue": [
-          "feedlog-badge"
-        ],
-        "feedlog-issues-list": [
-          "feedlog-badge"
-        ]
+        "feedlog-issue": ["feedlog-badge"]
       }
     },
     {
@@ -257,14 +249,10 @@
       "styles": [],
       "slots": [],
       "parts": [],
-      "dependents": [
-        "feedlog-github-issues"
-      ],
+      "dependents": ["feedlog-github-issues"],
       "dependencies": [],
       "dependencyGraph": {
-        "feedlog-github-issues": [
-          "feedlog-button"
-        ]
+        "feedlog-github-issues": ["feedlog-button"]
       }
     },
     {
@@ -599,24 +587,12 @@
       "styles": [],
       "slots": [],
       "parts": [],
-      "dependents": [
-        "feedlog-github-issues-client"
-      ],
-      "dependencies": [
-        "feedlog-issue",
-        "feedlog-button"
-      ],
+      "dependents": ["feedlog-github-issues-client"],
+      "dependencies": ["feedlog-issue", "feedlog-button"],
       "dependencyGraph": {
-        "feedlog-github-issues": [
-          "feedlog-issue",
-          "feedlog-button"
-        ],
-        "feedlog-issue": [
-          "feedlog-badge"
-        ],
-        "feedlog-github-issues-client": [
-          "feedlog-github-issues"
-        ]
+        "feedlog-github-issues": ["feedlog-issue", "feedlog-button"],
+        "feedlog-issue": ["feedlog-badge"],
+        "feedlog-github-issues-client": ["feedlog-github-issues"]
       }
     },
     {
@@ -923,27 +899,18 @@
       "slots": [],
       "parts": [],
       "dependents": [],
-      "dependencies": [
-        "feedlog-github-issues"
-      ],
+      "dependencies": ["feedlog-github-issues"],
       "dependencyGraph": {
-        "feedlog-github-issues-client": [
-          "feedlog-github-issues"
-        ],
-        "feedlog-github-issues": [
-          "feedlog-issue",
-          "feedlog-button"
-        ],
-        "feedlog-issue": [
-          "feedlog-badge"
-        ]
+        "feedlog-github-issues-client": ["feedlog-github-issues"],
+        "feedlog-github-issues": ["feedlog-issue", "feedlog-button"],
+        "feedlog-issue": ["feedlog-badge"]
       }
     },
     {
       "filePath": "src/components/feedlog-issue/feedlog-issue.tsx",
       "encapsulation": "shadow",
       "tag": "feedlog-issue",
-      "readme": "# feedlog-issue\n\nA component for displaying a single GitHub issue with support for bugs and enhancements.\n",
+      "readme": "# feedlog-issue\n\nA component for displaying a single GitHub issue with support for bugs and enhancements.\n\n## CSS Customization\n\nYou can customize the appearance by setting CSS variables on the `feedlog-issue` element:\n\n```css\nfeedlog-issue {\n  /* Card */\n  --feedlog-card-padding: 1.25rem;\n  --feedlog-card-accent-width: 3px;\n  --feedlog-radius: 0.625rem;\n  --feedlog-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);\n  --feedlog-shadow-hover: 0 4px 12px -2px rgba(0, 0, 0, 0.1);\n\n  /* Typography */\n  --feedlog-title-font-size: 0.9375rem;\n  --feedlog-title-font-weight: 600;\n  --feedlog-body-font-size: 0.8125rem;\n  --feedlog-body-line-height: 1.5;\n  --feedlog-timestamp-font-size: 0.6875rem;\n  --feedlog-timestamp-color: var(--feedlog-muted-foreground);\n\n  /* Colors (inherited from theme) */\n  --feedlog-card: #ffffff;\n  --feedlog-card-foreground: oklch(0.145 0 0);\n  --feedlog-muted: #f1f5f9;\n  --feedlog-muted-foreground: #64748b;\n  --feedlog-border: rgba(0, 0, 0, 0.08);\n  --feedlog-accent-color: #2563eb;\n  --feedlog-destructive: #d4183d;\n  --feedlog-icon-color: var(--feedlog-muted-foreground);\n  --feedlog-pin-color: var(--feedlog-accent-color);\n  --feedlog-upvote-icon-color: var(--feedlog-blue-600);\n  --feedlog-upvote-icon-filled-color: var(--feedlog-red-600);\n}\n```\n\n### Custom upvote icon\n\nReplace the default thumbs-up icon with a custom icon using the `upvote-icon` slot:\n\n```html\n<feedlog-issue issue={myIssue}>\n  <svg slot=\"upvote-icon\" viewBox=\"0 0 24 24\" width=\"16\" height=\"16\">\n    <!-- your custom icon -->\n  </svg>\n</feedlog-issue>\n```\n\nStyle the icon based on upvote state using the `data-upvoted` attribute on the host:\n\n```css\nfeedlog-issue[data-upvoted=\"true\"] [slot=\"upvote-icon\"] {\n  fill: var(--your-upvoted-color);\n}\n```\n",
       "docs": "Feedlog Issue Component\n\nA component for displaying a single GitHub issue.",
       "docsTags": [],
       "usage": {},
@@ -1031,20 +998,18 @@
       "listeners": [],
       "styles": [],
       "slots": [],
-      "parts": [],
-      "dependents": [
-        "feedlog-github-issues"
+      "parts": [
+        {
+          "name": "upvote-button",
+          "docs": ""
+        }
       ],
-      "dependencies": [
-        "feedlog-badge"
-      ],
+      "dependents": ["feedlog-github-issues", "feedlog-issues-list"],
+      "dependencies": ["feedlog-badge"],
       "dependencyGraph": {
-        "feedlog-issue": [
-          "feedlog-badge"
-        ],
-        "feedlog-github-issues": [
-          "feedlog-issue"
-        ]
+        "feedlog-issue": ["feedlog-badge"],
+        "feedlog-github-issues": ["feedlog-issue"],
+        "feedlog-issues-list": ["feedlog-issue"]
       }
     },
     {
@@ -1147,13 +1112,10 @@
       "slots": [],
       "parts": [],
       "dependents": [],
-      "dependencies": [
-        "feedlog-badge"
-      ],
+      "dependencies": ["feedlog-issue"],
       "dependencyGraph": {
-        "feedlog-issues-list": [
-          "feedlog-badge"
-        ]
+        "feedlog-issues-list": ["feedlog-issue"],
+        "feedlog-issue": ["feedlog-badge"]
       }
     }
   ],

@@ -42,9 +42,32 @@ export class FeedlogIssueComponent {
   };
 
   /**
-   * Renders the heart icon SVG - filled or outline based on upvote state
+   * Renders the pin icon SVG (Lucide/Feather style)
    */
-  private renderHeartIcon(filled: boolean) {
+  private renderPinIcon() {
+    return (
+      <svg
+        class="pin-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M12 17v5" />
+        <path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16h1v2a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-2h1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z" />
+      </svg>
+    );
+  }
+
+  /**
+   * Renders the upvote (thumbs-up) icon SVG
+   */
+  private renderUpvoteIcon(filled: boolean) {
     if (filled) {
       return (
         <svg
@@ -55,7 +78,8 @@ export class FeedlogIssueComponent {
           viewBox="0 0 24 24"
           fill="currentColor"
         >
-          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          <path d="M7 10v12" />
+          <path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a3.13 3.13 0 0 1 3 3.88Z" />
         </svg>
       );
     }
@@ -72,7 +96,8 @@ export class FeedlogIssueComponent {
         stroke-linecap="round"
         stroke-linejoin="round"
       >
-        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+        <path d="M7 10v12" />
+        <path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a3.13 3.13 0 0 1 3 3.88Z" />
       </svg>
     );
   }
@@ -102,23 +127,38 @@ export class FeedlogIssueComponent {
     const { issue } = this;
     if (!issue) return null;
 
+    const wasUpdated = new Date(issue.updatedAt).getTime() > new Date(issue.createdAt).getTime();
+    const timestampLabel = wasUpdated ? 'Updated' : 'Created';
+    const timestampDate = wasUpdated ? issue.updatedAt : issue.createdAt;
+    const timestampTitle = wasUpdated
+      ? `Updated: ${issue.updatedAt}`
+      : `Created: ${issue.createdAt}`;
+
     return (
-      <Host class={this.theme === 'dark' ? 'dark' : ''}>
-        <div class="issue-card">
+      <Host
+        class={this.theme === 'dark' ? 'dark' : ''}
+        data-upvoted={issue.hasUpvoted ? 'true' : 'false'}
+      >
+        <div class={`issue-card issue-type-${issue.type}`}>
           <div class="issue-content">
             <div class="issue-header">
-              <div class="issue-type-badge">
-                {issue.type === 'bug' ? (
-                  <feedlog-badge variant="destructive">Bug</feedlog-badge>
-                ) : (
-                  <feedlog-badge variant="enhancement">Enhancement</feedlog-badge>
+              <div class="issue-header-left">
+                <div class="issue-type-badge">
+                  {issue.type === 'bug' ? (
+                    <feedlog-badge variant="destructive">Bug</feedlog-badge>
+                  ) : (
+                    <feedlog-badge variant="enhancement">Enhancement</feedlog-badge>
+                  )}
+                </div>
+                {issue.pinnedAt && (
+                  <div class="pinned-indicator" title="Pinned issue">
+                    {this.renderPinIcon()}
+                  </div>
                 )}
               </div>
-              {issue.pinnedAt && (
-                <div class="pinned-indicator" title="Pinned issue">
-                  📌
-                </div>
-              )}
+              <span class="issue-timestamp" title={timestampTitle}>
+                {timestampLabel} {this.formatDate(timestampDate)}
+              </span>
             </div>
 
             <div class="issue-main">
@@ -135,23 +175,15 @@ export class FeedlogIssueComponent {
 
               {issue.type !== 'bug' && (
                 <button
+                  part="upvote-button"
                   class={`upvote-button ${issue.hasUpvoted ? 'upvoted' : ''}`}
                   onClick={(e: MouseEvent) => this.handleUpvote(e)}
                   title={issue.hasUpvoted ? 'Remove upvote' : 'Upvote this issue'}
                 >
-                  {this.renderHeartIcon(issue.hasUpvoted)}
+                  <slot name="upvote-icon">{this.renderUpvoteIcon(issue.hasUpvoted)}</slot>
                   <span class="upvote-count">{issue.upvoteCount}</span>
                 </button>
               )}
-            </div>
-
-            <div class="issue-footer">
-              <span class="issue-date" title={`Updated: ${issue.updatedAt}`}>
-                Updated {this.formatDate(issue.updatedAt)}
-              </span>
-              <span class="issue-date" title={`Created: ${issue.createdAt}`}>
-                Created {this.formatDate(issue.createdAt)}
-              </span>
             </div>
           </div>
         </div>

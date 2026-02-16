@@ -52,6 +52,14 @@ const samplePinnedIssue: FeedlogIssue = {
   pinnedAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(), // 3 days ago
 };
 
+const sampleJustCreatedIssue: FeedlogIssue = {
+  ...sampleEnhancementIssue,
+  id: 'issue-just-created',
+  updatedAt: new Date(Date.now() - 2 * 60 * 1000).toISOString(), // 2 min ago
+  createdAt: new Date(Date.now() - 2 * 60 * 1000).toISOString(), // same as updated
+  upvoteCount: 0,
+};
+
 const meta: Meta = {
   title: 'Components/Issue',
   component: 'feedlog-issue',
@@ -140,4 +148,29 @@ export const HighUpvoteCount: Story = {
     },
   },
   render: (props: any) => <feedlog-issue {...props} />,
+};
+
+export const RecentlyCreated: Story = {
+  args: {
+    issue: sampleJustCreatedIssue,
+  },
+  render: (props: any) => <feedlog-issue {...props} />,
+};
+
+export const CustomCSSVars: Story = {
+  args: {
+    issue: sampleEnhancementIssue,
+  },
+  render: (props: any) => (
+    <feedlog-issue
+      {...props}
+      style={
+        {
+          '--feedlog-card-accent-width': '4px',
+          '--feedlog-title-font-size': '1rem',
+          '--feedlog-radius': '0.75rem',
+        } as any
+      }
+    />
+  ),
 };
