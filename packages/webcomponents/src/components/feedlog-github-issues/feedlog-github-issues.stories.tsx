@@ -226,3 +226,43 @@ export const NarrowWidth: Story = {
     }
   },
 };
+
+export const CustomCSSVars: Story = {
+  args: {
+    issues: sampleIssues,
+  },
+  render: (props: any) => (
+    <feedlog-github-issues
+      {...props}
+      style={
+        {
+          fontFamily: "'Georgia', 'Times New Roman', serif",
+          /* Card */
+          '--feedlog-card-padding': '1.5rem',
+          '--feedlog-card-accent-width': '5px',
+          '--feedlog-radius': '0.875rem',
+          '--feedlog-shadow': '0 2px 8px 0 rgba(0, 0, 0, 0.12), 0 1px 3px -1px rgba(0, 0, 0, 0.1)',
+          '--feedlog-shadow-hover':
+            '0 8px 24px -4px rgba(0, 0, 0, 0.15), 0 4px 8px -2px rgba(0, 0, 0, 0.1)',
+          /* Typography */
+          '--feedlog-title-font-size': '1.0625rem',
+          '--feedlog-title-font-weight': '700',
+          '--feedlog-body-font-size': '0.875rem',
+          '--feedlog-body-line-height': '1.6',
+          '--feedlog-timestamp-font-size': '0.75rem',
+          /* Colors */
+          '--feedlog-accent-color': '#059669',
+          '--feedlog-muted': '#ecfdf5',
+          '--feedlog-muted-foreground': '#047857',
+          '--feedlog-border': 'rgba(5, 150, 105, 0.2)',
+        } as any
+      }
+    />
+  ),
+  play: async ({ canvasElement, args }) => {
+    const element = canvasElement.querySelector('feedlog-github-issues');
+    if (element && args.issues) {
+      (element as any).issues = args.issues;
+    }
+  },
+};
