@@ -17,6 +17,7 @@ permissions:
 
 jobs:
   changesets:
+    if: false  # Disabled for now
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code

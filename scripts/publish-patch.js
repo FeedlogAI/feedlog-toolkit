@@ -211,7 +211,11 @@ function main() {
     publishPackage(pkg);
   }
 
-  // Step 6: Commit and push changes after successful publish
+  // Step 6: Format code before committing
+  console.log('\n📝 Formatting code...');
+  execSync('npm run format', { stdio: 'inherit' });
+
+  // Step 7: Commit and push changes after successful publish
   commitAndPush(newVersion);
 
   console.log(`\n✅ All packages published successfully!`);
