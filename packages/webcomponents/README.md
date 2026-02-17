@@ -281,13 +281,28 @@ interface ErrorEventDetail {
 
 ## Styling
 
-Components use Shadow DOM for encapsulation. You can style them using CSS custom properties:
+Components use Shadow DOM for encapsulation. You can style them using CSS custom properties. See the [main README](../../README.md#-style-customization) for full copy-paste examples.
 
 ```css
-feedlog-github-issues-client {
-  --feedlog-primary-color: #007acc;
-  --feedlog-border-radius: 8px;
-  --feedlog-font-family: 'Inter', sans-serif;
+feedlog-github-issues-client,
+feedlog-github-issues {
+  /* Card */
+  --feedlog-card-padding: 1.25rem;
+  --feedlog-card-accent-width: 3px;
+  --feedlog-radius: 0.625rem;
+  --feedlog-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
+  --feedlog-shadow-hover: 0 4px 12px -2px rgba(0, 0, 0, 0.1);
+  /* Typography */
+  --feedlog-title-font-size: 0.9375rem;
+  --feedlog-title-font-weight: 600;
+  --feedlog-body-font-size: 0.8125rem;
+  --feedlog-body-line-height: 1.5;
+  --feedlog-timestamp-font-size: 0.6875rem;
+  /* Colors */
+  --feedlog-accent-color: #2563eb;
+  --feedlog-muted: #f1f5f9;
+  --feedlog-muted-foreground: #64748b;
+  --feedlog-border: rgba(0, 0, 0, 0.08);
 }
 ```
 

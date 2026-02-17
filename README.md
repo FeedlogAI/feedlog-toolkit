@@ -2,6 +2,8 @@
 
 A monorepo containing the Feedlog Toolkit - a comprehensive set of packages for building GitHub issue management components and SDKs.
 
+> **From issue chaos to changelogs users love.** FeedLog turns rough GitHub issues into clear, publish-ready changelog updates, without leaving your repo. [Get started at feedlog.dev](https://feedlog.dev/)
+
 ## 📦 Packages
 
 This monorepo contains the following packages:
@@ -189,6 +191,104 @@ const handleError = (event: CustomEvent) => {
 </script>
 ```
 
+## 🎨 Style Customization
+
+Customize the changelog widget to match your product. Set CSS custom properties on the component—works with vanilla HTML, React, Vue, or any framework.
+
+### Quick copy-paste examples
+
+**1. Emerald theme** (serif typography, green accent):
+
+```css
+feedlog-github-issues-client,
+feedlog-github-issues {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  /* Card */
+  --feedlog-card-padding: 1.5rem;
+  --feedlog-card-accent-width: 5px;
+  --feedlog-radius: 0.875rem;
+  --feedlog-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.12), 0 1px 3px -1px rgba(0, 0, 0, 0.1);
+  --feedlog-shadow-hover: 0 8px 24px -4px rgba(0, 0, 0, 0.15), 0 4px 8px -2px rgba(0, 0, 0, 0.1);
+  /* Typography */
+  --feedlog-title-font-size: 1.0625rem;
+  --feedlog-title-font-weight: 700;
+  --feedlog-body-font-size: 0.875rem;
+  --feedlog-body-line-height: 1.6;
+  --feedlog-timestamp-font-size: 0.75rem;
+  /* Colors */
+  --feedlog-accent-color: #059669;
+  --feedlog-muted: #ecfdf5;
+  --feedlog-muted-foreground: #047857;
+  --feedlog-border: rgba(5, 150, 105, 0.2);
+}
+```
+
+**2. Minimal (compact, subtle shadows):**
+
+```css
+feedlog-github-issues-client,
+feedlog-github-issues {
+  --feedlog-card-padding: 1rem;
+  --feedlog-card-accent-width: 3px;
+  --feedlog-radius: 0.5rem;
+  --feedlog-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --feedlog-shadow-hover: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --feedlog-title-font-size: 0.9375rem;
+  --feedlog-body-font-size: 0.8125rem;
+}
+```
+
+**3. Brand accent (swap accent color only):**
+
+```css
+feedlog-github-issues-client,
+feedlog-github-issues {
+  --feedlog-accent-color: #7c3aed; /* purple */
+  /* Or: #dc2626 (red), #0891b2 (cyan), #ea580c (orange) */
+}
+```
+
+### All customizable CSS variables
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `--feedlog-card-padding` | Card inner padding | `1.25rem` |
+| `--feedlog-card-accent-width` | Left accent bar width | `3px` |
+| `--feedlog-radius` | Border radius | `0.625rem` |
+| `--feedlog-shadow` | Card box shadow | (see theme) |
+| `--feedlog-shadow-hover` | Hover box shadow | (see theme) |
+| `--feedlog-title-font-size` | Issue title size | `0.9375rem` |
+| `--feedlog-title-font-weight` | Issue title weight | `600` |
+| `--feedlog-body-font-size` | Body text size | `0.8125rem` |
+| `--feedlog-body-line-height` | Body line height | `1.5` |
+| `--feedlog-timestamp-font-size` | Timestamp size | `0.6875rem` |
+| `--feedlog-accent-color` | Links, badges, accent bar | `#2563eb` |
+| `--feedlog-muted` | Muted background | `#f1f5f9` |
+| `--feedlog-muted-foreground` | Muted text | `#64748b` |
+| `--feedlog-border` | Border color | `rgba(0,0,0,0.08)` |
+| `--feedlog-destructive` | Bug/destructive color | `#d4183d` |
+
+See the [CustomCSSVars story](packages/webcomponents/src/components/feedlog-github-issues/feedlog-github-issues.stories.tsx) in Storybook for a live example. Run `npm run storybook` to explore all variants.
+
+## Integrate in 3 steps
+
+1. **Connect your repo** — Install FeedLog and pick repositories at [feedlog.dev](https://feedlog.dev/)
+2. **Create your widget key** — Generate an API key in dashboard installation settings
+3. **Embed and ship** — Paste one component or script on your site to show changelog updates
+
+### Command Reference (GitHub comments)
+
+Control your changelog from GitHub issue comments:
+
+| Command | Description |
+|---------|-------------|
+| `@publish` | Publish the issue to the public changelog |
+| `@unpublish` | Remove from public changelog |
+| `@retry` | Regenerate AI content (uses 1 retry) |
+| `@switch <number>` | Switch to a specific revision |
+| `@show <number>` | Display full revision content |
+| `@revert` | Revert to the previous revision |
+
 ## 🛠️ Development Workflow
 
 ### Adding a New Component
@@ -342,6 +442,7 @@ MIT
 
 ## 🔗 Resources
 
+- [FeedLog](https://feedlog.dev/) — Turn GitHub issues into changelogs users love
 - [Stencil Documentation](https://stenciljs.com/docs/introduction)
 - [Web Components](https://developer.mozilla.org/en-US/docs/Web/Web_Components)
 - [React Documentation](https://react.dev/)
