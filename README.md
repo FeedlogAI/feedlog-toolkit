@@ -250,23 +250,23 @@ feedlog-github-issues {
 
 ### All customizable CSS variables
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `--feedlog-card-padding` | Card inner padding | `1.25rem` |
-| `--feedlog-card-accent-width` | Left accent bar width | `3px` |
-| `--feedlog-radius` | Border radius | `0.625rem` |
-| `--feedlog-shadow` | Card box shadow | (see theme) |
-| `--feedlog-shadow-hover` | Hover box shadow | (see theme) |
-| `--feedlog-title-font-size` | Issue title size | `0.9375rem` |
-| `--feedlog-title-font-weight` | Issue title weight | `600` |
-| `--feedlog-body-font-size` | Body text size | `0.8125rem` |
-| `--feedlog-body-line-height` | Body line height | `1.5` |
-| `--feedlog-timestamp-font-size` | Timestamp size | `0.6875rem` |
-| `--feedlog-accent-color` | Links, badges, accent bar | `#2563eb` |
-| `--feedlog-muted` | Muted background | `#f1f5f9` |
-| `--feedlog-muted-foreground` | Muted text | `#64748b` |
-| `--feedlog-border` | Border color | `rgba(0,0,0,0.08)` |
-| `--feedlog-destructive` | Bug/destructive color | `#d4183d` |
+| Variable                        | Description               | Default            |
+| ------------------------------- | ------------------------- | ------------------ |
+| `--feedlog-card-padding`        | Card inner padding        | `1.25rem`          |
+| `--feedlog-card-accent-width`   | Left accent bar width     | `3px`              |
+| `--feedlog-radius`              | Border radius             | `0.625rem`         |
+| `--feedlog-shadow`              | Card box shadow           | (see theme)        |
+| `--feedlog-shadow-hover`        | Hover box shadow          | (see theme)        |
+| `--feedlog-title-font-size`     | Issue title size          | `0.9375rem`        |
+| `--feedlog-title-font-weight`   | Issue title weight        | `600`              |
+| `--feedlog-body-font-size`      | Body text size            | `0.8125rem`        |
+| `--feedlog-body-line-height`    | Body line height          | `1.5`              |
+| `--feedlog-timestamp-font-size` | Timestamp size            | `0.6875rem`        |
+| `--feedlog-accent-color`        | Links, badges, accent bar | `#2563eb`          |
+| `--feedlog-muted`               | Muted background          | `#f1f5f9`          |
+| `--feedlog-muted-foreground`    | Muted text                | `#64748b`          |
+| `--feedlog-border`              | Border color              | `rgba(0,0,0,0.08)` |
+| `--feedlog-destructive`         | Bug/destructive color     | `#d4183d`          |
 
 See the [CustomCSSVars story](packages/webcomponents/src/components/feedlog-github-issues/feedlog-github-issues.stories.tsx) in Storybook for a live example. Run `npm run storybook` to explore all variants.
 
@@ -280,14 +280,14 @@ See the [CustomCSSVars story](packages/webcomponents/src/components/feedlog-gith
 
 Control your changelog from GitHub issue comments:
 
-| Command | Description |
-|---------|-------------|
-| `@publish` | Publish the issue to the public changelog |
-| `@unpublish` | Remove from public changelog |
-| `@retry` | Regenerate AI content (uses 1 retry) |
-| `@switch <number>` | Switch to a specific revision |
-| `@show <number>` | Display full revision content |
-| `@revert` | Revert to the previous revision |
+| Command            | Description                               |
+| ------------------ | ----------------------------------------- |
+| `@publish`         | Publish the issue to the public changelog |
+| `@unpublish`       | Remove from public changelog              |
+| `@retry`           | Regenerate AI content (uses 1 retry)      |
+| `@switch <number>` | Switch to a specific revision             |
+| `@show <number>`   | Display full revision content             |
+| `@revert`          | Revert to the previous revision           |
 
 ## 🛠️ Development Workflow
 

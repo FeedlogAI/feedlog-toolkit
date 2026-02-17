@@ -2,6 +2,7 @@
 
 <!-- Auto Generated Below -->
 
+
 ## Overview
 
 Feedlog GitHub Issues Component
@@ -24,6 +25,7 @@ Includes full list rendering, loading/error states, and pagination support.
 | `subtitle`      | `subtitle`        | Custom subtitle for the issues section                                                                                                                       | `string \| undefined`                                                 | `undefined` |
 | `theme`         | `theme`           | Theme variant: 'light' or 'dark'                                                                                                                             | `"dark" \| "light"`                                                   | `'light'`   |
 
+
 ## Events
 
 | Event             | Description                            | Type                                                                               |
@@ -31,11 +33,12 @@ Includes full list rendering, loading/error states, and pagination support.
 | `feedlogLoadMore` | Event emitted to load more issues      | `CustomEvent<void>`                                                                |
 | `feedlogUpvote`   | Event emitted when an issue is upvoted | `CustomEvent<{ issueId: string; currentUpvoted: boolean; currentCount: number; }>` |
 
+
 ## Dependencies
 
 ### Used by
 
-- [feedlog-github-issues-client](../feedlog-github-issues-client)
+ - [feedlog-github-issues-client](../feedlog-github-issues-client)
 
 ### Depends on
 
@@ -43,7 +46,6 @@ Includes full list rendering, loading/error states, and pagination support.
 - [feedlog-button](../feedlog-button)
 
 ### Graph
-
 ```mermaid
 graph TD;
   feedlog-github-issues --> feedlog-issue
@@ -53,6 +55,6 @@ graph TD;
   style feedlog-github-issues fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
-_Built with [StencilJS](https://stenciljs.com/)_
+*Built with [StencilJS](https://stenciljs.com/)*
