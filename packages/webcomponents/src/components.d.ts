@@ -57,6 +57,14 @@ export namespace Components {
    */
   interface FeedlogGithubIssues {
     /**
+     * Empty state message. Defaults to "Check back later for new updates.".
+     */
+    emptyStateMessage?: string;
+    /**
+     * Empty state title. Defaults to "No updates yet".
+     */
+    emptyStateTitle?: string;
+    /**
      * Error message - shows error state when set
      * @default null
      */
@@ -114,6 +122,14 @@ export namespace Components {
      * API key for Feedlog authentication (required) The API key determines which repositories' issues are fetched
      */
     apiKey: string;
+    /**
+     * Empty state message (e.g. "Check back later for new updates.")
+     */
+    emptyStateMessage?: string;
+    /**
+     * Empty state title (e.g. "No updates yet")
+     */
+    emptyStateTitle?: string;
     /**
      * Custom API endpoint
      */
@@ -610,6 +626,14 @@ declare namespace LocalJSX {
    */
   interface FeedlogGithubIssues {
     /**
+     * Empty state message. Defaults to "Check back later for new updates.".
+     */
+    emptyStateMessage?: string;
+    /**
+     * Empty state title. Defaults to "No updates yet".
+     */
+    emptyStateTitle?: string;
+    /**
      * Error message - shows error state when set
      * @default null
      */
@@ -685,6 +709,14 @@ declare namespace LocalJSX {
      * API key for Feedlog authentication (required) The API key determines which repositories' issues are fetched
      */
     apiKey: string;
+    /**
+     * Empty state message (e.g. "Check back later for new updates.")
+     */
+    emptyStateMessage?: string;
+    /**
+     * Empty state title (e.g. "No updates yet")
+     */
+    emptyStateTitle?: string;
     /**
      * Custom API endpoint
      */

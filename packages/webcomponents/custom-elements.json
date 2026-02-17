@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-17T16:35:59",
+  "timestamp": "2026-02-17T16:46:34",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.40.1",
@@ -287,6 +287,58 @@
       "docsTags": [],
       "usage": {},
       "props": [
+        {
+          "name": "emptyStateMessage",
+          "type": "string | undefined",
+          "complexType": {
+            "original": "string",
+            "resolved": "string | undefined",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "empty-state-message",
+          "reflectToAttr": false,
+          "docs": "Empty state message. Defaults to \"Check back later for new updates.\".",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "undefined"
+            }
+          ],
+          "optional": true,
+          "required": false,
+          "getter": false,
+          "setter": false
+        },
+        {
+          "name": "emptyStateTitle",
+          "type": "string | undefined",
+          "complexType": {
+            "original": "string",
+            "resolved": "string | undefined",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "empty-state-title",
+          "reflectToAttr": false,
+          "docs": "Empty state title. Defaults to \"No updates yet\".",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "undefined"
+            }
+          ],
+          "optional": true,
+          "required": false,
+          "getter": false,
+          "setter": false
+        },
         {
           "name": "error",
           "type": "null | string",
@@ -679,6 +731,58 @@
           ],
           "optional": false,
           "required": true,
+          "getter": false,
+          "setter": false
+        },
+        {
+          "name": "emptyStateMessage",
+          "type": "string | undefined",
+          "complexType": {
+            "original": "string",
+            "resolved": "string | undefined",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "empty-state-message",
+          "reflectToAttr": false,
+          "docs": "Empty state message (e.g. \"Check back later for new updates.\")",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "undefined"
+            }
+          ],
+          "optional": true,
+          "required": false,
+          "getter": false,
+          "setter": false
+        },
+        {
+          "name": "emptyStateTitle",
+          "type": "string | undefined",
+          "complexType": {
+            "original": "string",
+            "resolved": "string | undefined",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "empty-state-title",
+          "reflectToAttr": false,
+          "docs": "Empty state title (e.g. \"No updates yet\")",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "undefined"
+            }
+          ],
+          "optional": true,
+          "required": false,
           "getter": false,
           "setter": false
         },

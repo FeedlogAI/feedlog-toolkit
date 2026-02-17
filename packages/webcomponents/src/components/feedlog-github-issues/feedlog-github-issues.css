@@ -1,7 +1,8 @@
 :host {
   display: block;
-  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
-  
+  font-family:
+    ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+
   /* Light theme defaults */
   --feedlog-background: #ffffff;
   --feedlog-foreground: oklch(0.145 0 0);
@@ -22,6 +23,9 @@
   --feedlog-gap: 0.5rem;
   --feedlog-padding: 2rem;
   --feedlog-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px -1px rgba(0, 0, 0, 0.08);
+  --feedlog-empty-illustration-bg: oklch(0.96 0.01 260);
+  --feedlog-empty-illustration-stroke: oklch(0.75 0.02 260);
+  --feedlog-empty-illustration-muted: oklch(0.82 0.01 260);
 }
 
 :host(.dark) {
@@ -40,6 +44,9 @@
   --feedlog-blue-900-30: color-mix(in oklab, oklch(0.379 0.146 265.522) 30%, transparent);
   --feedlog-red-900-30: color-mix(in oklab, oklch(0.396 0.141 25.723) 30%, transparent);
   --feedlog-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+  --feedlog-empty-illustration-bg: oklch(0.28 0.02 260);
+  --feedlog-empty-illustration-stroke: oklch(0.45 0.02 260);
+  --feedlog-empty-illustration-muted: oklch(0.38 0.02 260);
 }
 
 :host(.dark) .error-state-content {
@@ -255,10 +262,39 @@
 }
 
 .empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  min-height: 16rem;
+}
+
+.empty-state-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  padding: 3rem 1.5rem;
-  color: var(--feedlog-muted-foreground);
+  max-width: 20rem;
+}
+
+.empty-state-illustration {
+  margin-bottom: 1.5rem;
+  opacity: 0.9;
+}
+
+.empty-state-title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--feedlog-foreground);
+  line-height: 1.4;
+}
+
+.empty-state-message {
+  margin: 0;
   font-size: 0.875rem;
+  color: var(--feedlog-muted-foreground);
+  line-height: 1.5;
 }
 
 .load-more-container {

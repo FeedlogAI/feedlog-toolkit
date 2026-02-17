@@ -60,6 +60,16 @@ export class FeedlogGithubIssuesClient {
   @Prop() subtitle?: string;
 
   /**
+   * Empty state title (e.g. "No updates yet")
+   */
+  @Prop() emptyStateTitle?: string;
+
+  /**
+   * Empty state message (e.g. "Check back later for new updates.")
+   */
+  @Prop() emptyStateMessage?: string;
+
+  /**
    * Optional callback to resolve GitHub issue URL when githubIssueLink is not available.
    * Required because repository.owner was removed from the API for privacy.
    */
@@ -350,6 +360,8 @@ export class FeedlogGithubIssuesClient {
         theme={this.theme}
         heading={this.heading}
         subtitle={this.subtitle}
+        emptyStateTitle={this.emptyStateTitle}
+        emptyStateMessage={this.emptyStateMessage}
         getIssueUrl={this.getIssueUrl}
         loading={this.loading}
         error={this.error}

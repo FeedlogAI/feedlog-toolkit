@@ -128,6 +128,14 @@ const meta: Meta = {
       control: 'text',
       description: 'Error message',
     },
+    emptyStateTitle: {
+      control: 'text',
+      description: 'Empty state title',
+    },
+    emptyStateMessage: {
+      control: 'text',
+      description: 'Empty state message',
+    },
   },
   args: {
     issues: sampleIssues,
@@ -193,6 +201,8 @@ export const Empty: Story = {
     issues: [],
     loading: false,
     error: null,
+    heading: 'Community feedback',
+    subtitle: 'Upvote issues you care about',
   },
   render: props => <feedlog-github-issues {...props} />,
   play: async ({ canvasElement, args }) => {
