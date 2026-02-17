@@ -2,6 +2,7 @@
 
 <!-- Auto Generated Below -->
 
+
 ## Overview
 
 Feedlog Issues List Component
@@ -16,11 +17,13 @@ A component for displaying a list of GitHub issues with support for bugs and enh
 | `issues`      | --        | Array of issues to display                                                           | `FeedlogIssue[]`                                                      | `[]`        |
 | `theme`       | `theme`   | Theme variant: 'light' or 'dark'                                                     | `"dark" \| "light"`                                                   | `'light'`   |
 
+
 ## Events
 
 | Event           | Description                      | Type                                                                               |
 | --------------- | -------------------------------- | ---------------------------------------------------------------------------------- |
 | `feedlogUpvote` | Emitted when an issue is upvoted | `CustomEvent<{ issueId: string; currentUpvoted: boolean; currentCount: number; }>` |
+
 
 ## Dependencies
 
@@ -29,7 +32,6 @@ A component for displaying a list of GitHub issues with support for bugs and enh
 - [feedlog-issue](../feedlog-issue)
 
 ### Graph
-
 ```mermaid
 graph TD;
   feedlog-issues-list --> feedlog-issue
@@ -37,6 +39,6 @@ graph TD;
   style feedlog-issues-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
----
+----------------------------------------------
 
-_Built with [StencilJS](https://stenciljs.com/)_
+*Built with [StencilJS](https://stenciljs.com/)*

@@ -159,6 +159,8 @@ export const Loading: Story = {
   args: {
     issues: [],
     loading: true,
+    heading: 'Community feedback',
+    subtitle: 'Upvote issues you care about',
   },
   render: props => <feedlog-github-issues {...props} />,
   play: async ({ canvasElement, args }) => {

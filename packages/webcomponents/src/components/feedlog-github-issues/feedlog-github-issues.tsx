@@ -136,8 +136,30 @@ export class FeedlogGithubIssues {
           )}
 
           {this.loading && (
-            <div class="loading-state">
-              <p>Loading issues...</p>
+            <div class="loading-state" role="status" aria-label="Loading issues">
+              <div class="loading-skeletons">
+                {[1, 2, 3].map(i => (
+                  <div key={i} class="skeleton-card">
+                    <div class="skeleton-content">
+                      <div class="skeleton-header">
+                        <div class="skeleton-badge" />
+                        <div class="skeleton-timestamp" />
+                      </div>
+                      <div class="skeleton-main">
+                        <div class="skeleton-title" />
+                        <div class="skeleton-body">
+                          <div class="skeleton-line" />
+                          <div class="skeleton-line short" />
+                        </div>
+                        <div class="skeleton-repo" />
+                      </div>
+                      <div class="skeleton-footer">
+                        <div class="skeleton-upvote" />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
 
