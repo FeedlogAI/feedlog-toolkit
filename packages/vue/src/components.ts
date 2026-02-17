@@ -40,8 +40,9 @@ export const FeedlogGithubIssues: StencilVueComponent<JSX.FeedlogGithubIssues> =
       'getIssueUrl',
       'feedlogUpvote',
       'feedlogLoadMore',
+      'feedlogRetry',
     ],
-    ['feedlogUpvote', 'feedlogLoadMore']
+    ['feedlogUpvote', 'feedlogLoadMore', 'feedlogRetry']
   );
 
 export const FeedlogGithubIssuesClient: StencilVueComponent<JSX.FeedlogGithubIssuesClient> =

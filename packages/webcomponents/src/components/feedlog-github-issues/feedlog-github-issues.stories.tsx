@@ -176,6 +176,8 @@ export const Error: Story = {
     issues: [],
     loading: false,
     error: 'Failed to fetch issues from GitHub API',
+    heading: 'Community feedback',
+    subtitle: 'Upvote issues you care about',
   },
   render: props => <feedlog-github-issues {...props} />,
   play: async ({ canvasElement, args }) => {

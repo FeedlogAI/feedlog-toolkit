@@ -83,6 +83,11 @@ export class FeedlogGithubIssues {
    */
   @Event() feedlogLoadMore!: EventEmitter<void>;
 
+  /**
+   * Event emitted when user clicks retry in error state
+   */
+  @Event() feedlogRetry!: EventEmitter<void>;
+
   componentWillLoad() {
     this.currentTheme = this.theme;
   }
@@ -95,6 +100,32 @@ export class FeedlogGithubIssues {
   private handleLoadMore = () => {
     this.feedlogLoadMore.emit();
   };
+
+  private handleRetry = () => {
+    this.feedlogRetry.emit();
+  };
+
+  private renderErrorIcon() {
+    return (
+      <svg
+        class="error-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        width="48"
+        height="48"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <circle cx="12" cy="12" r="10" />
+        <line x1="12" y1="8" x2="12" y2="12" />
+        <line x1="12" y1="16" x2="12.01" y2="16" />
+      </svg>
+    );
+  }
 
   private renderIssuesList() {
     return (
@@ -164,8 +195,15 @@ export class FeedlogGithubIssues {
           )}
 
           {this.error && (
-            <div class="error-state">
-              <p>Error: {this.error}</p>
+            <div class="error-state" role="alert">
+              <div class="error-state-content">
+                {this.renderErrorIcon()}
+                <h2 class="error-state-title">Something went wrong</h2>
+                <p class="error-state-message">{this.error}</p>
+                <feedlog-button variant="outline" onFeedlogClick={this.handleRetry}>
+                  Try again
+                </feedlog-button>
+              </div>
             </div>
           )}
 

@@ -42,6 +42,11 @@
   --feedlog-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
 }
 
+:host(.dark) .error-state-content {
+  background: color-mix(in oklab, var(--feedlog-destructive) 12%, var(--feedlog-card));
+  border-color: color-mix(in oklab, var(--feedlog-destructive) 35%, var(--feedlog-border));
+}
+
 .github-issues-container {
   min-height: 100vh;
   background-color: var(--feedlog-background);
@@ -198,9 +203,49 @@
 }
 
 .error-state {
-  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  min-height: 12rem;
+}
+
+.error-state-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
+  max-width: 22rem;
+  padding: 2rem;
+  background: color-mix(in oklab, var(--feedlog-destructive) 8%, var(--feedlog-card));
+  border: 1px solid color-mix(in oklab, var(--feedlog-destructive) 25%, var(--feedlog-border));
+  border-radius: var(--feedlog-radius);
+  box-shadow: var(--feedlog-shadow);
+}
+
+.error-icon {
   color: var(--feedlog-destructive);
+  opacity: 0.9;
+  margin-bottom: 1rem;
+}
+
+.error-state-title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--feedlog-foreground);
+  line-height: 1.4;
+}
+
+.error-state-message {
+  margin: 0 0 1.25rem 0;
+  font-size: 0.875rem;
+  color: var(--feedlog-muted-foreground);
+  line-height: 1.5;
+}
+
+.error-state feedlog-button {
+  margin-top: 0.25rem;
 }
 
 .issues-list {

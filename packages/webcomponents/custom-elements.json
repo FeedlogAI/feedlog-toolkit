@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-17T16:31:52",
+  "timestamp": "2026-02-17T16:35:59",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.40.1",
@@ -607,6 +607,20 @@
           "cancelable": true,
           "composed": true,
           "docs": "Event emitted to load more issues",
+          "docsTags": []
+        },
+        {
+          "event": "feedlogRetry",
+          "detail": "void",
+          "bubbles": true,
+          "complexType": {
+            "original": "void",
+            "resolved": "void",
+            "references": {}
+          },
+          "cancelable": true,
+          "composed": true,
+          "docs": "Event emitted when user clicks retry in error state",
           "docsTags": []
         },
         {
