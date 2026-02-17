@@ -28,11 +28,10 @@ Includes full list rendering, loading/error states, and pagination support.
 
 ## Events
 
-| Event             | Description                                         | Type                                                                               |
-| ----------------- | --------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| `feedlogLoadMore` | Event emitted to load more issues                   | `CustomEvent<void>`                                                                |
-| `feedlogRetry`    | Event emitted when user clicks retry in error state | `CustomEvent<void>`                                                                |
-| `feedlogUpvote`   | Event emitted when an issue is upvoted              | `CustomEvent<{ issueId: string; currentUpvoted: boolean; currentCount: number; }>` |
+| Event             | Description                            | Type                                                                               |
+| ----------------- | -------------------------------------- | ---------------------------------------------------------------------------------- |
+| `feedlogLoadMore` | Event emitted to load more issues      | `CustomEvent<void>`                                                                |
+| `feedlogUpvote`   | Event emitted when an issue is upvoted | `CustomEvent<{ issueId: string; currentUpvoted: boolean; currentCount: number; }>` |
 
 ## Dependencies
 

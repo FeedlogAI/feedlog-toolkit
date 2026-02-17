@@ -183,7 +183,7 @@ export const Error: Story = {
   args: {
     issues: [],
     loading: false,
-    error: 'Failed to fetch issues from GitHub API',
+    error: "Couldn't load updates",
     heading: 'Community feedback',
     subtitle: 'Upvote issues you care about',
   },

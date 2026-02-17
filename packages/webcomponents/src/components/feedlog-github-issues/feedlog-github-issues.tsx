@@ -93,11 +93,6 @@ export class FeedlogGithubIssues {
    */
   @Event() feedlogLoadMore!: EventEmitter<void>;
 
-  /**
-   * Event emitted when user clicks retry in error state
-   */
-  @Event() feedlogRetry!: EventEmitter<void>;
-
   componentWillLoad() {
     this.currentTheme = this.theme;
   }
@@ -109,10 +104,6 @@ export class FeedlogGithubIssues {
 
   private handleLoadMore = () => {
     this.feedlogLoadMore.emit();
-  };
-
-  private handleRetry = () => {
-    this.feedlogRetry.emit();
   };
 
   private renderEmptyStateIllustration() {
@@ -255,9 +246,6 @@ export class FeedlogGithubIssues {
                 {this.renderErrorIcon()}
                 <h2 class="error-state-title">Something went wrong</h2>
                 <p class="error-state-message">{this.error}</p>
-                <feedlog-button variant="outline" onFeedlogClick={this.handleRetry}>
-                  Try again
-                </feedlog-button>
               </div>
             </div>
           )}

@@ -204,7 +204,7 @@ export class FeedlogGithubIssuesClient {
         return;
       }
 
-      const errorMsg = err instanceof Error ? err.message : 'Failed to fetch issues';
+      const errorMsg = err instanceof Error ? err.message : "Couldn't load updates";
       this.error = errorMsg;
       this.issues = [];
       this.feedlogError.emit({

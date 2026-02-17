@@ -314,7 +314,6 @@ declare global {
       currentCount: number;
     };
     feedlogLoadMore: void;
-    feedlogRetry: void;
   }
   /**
    * Feedlog GitHub Issues Component
@@ -675,10 +674,6 @@ declare namespace LocalJSX {
      * Event emitted to load more issues
      */
     onFeedlogLoadMore?: (event: FeedlogGithubIssuesCustomEvent<void>) => void;
-    /**
-     * Event emitted when user clicks retry in error state
-     */
-    onFeedlogRetry?: (event: FeedlogGithubIssuesCustomEvent<void>) => void;
     /**
      * Event emitted when an issue is upvoted
      */
