@@ -118,18 +118,18 @@ The playground lets you configure:
     ></script>
   </head>
   <body>
-    <feedlog-github-issues-client
+    <feedlog-issues-client
       api-key="your-api-key"
       type="bug"
       limit="10"
       theme="light"
       max-width="42rem"
     >
-    </feedlog-github-issues-client>
+    </feedlog-issues-client>
 
     <script>
       // Listen for events
-      const client = document.querySelector('feedlog-github-issues-client');
+      const client = document.querySelector('feedlog-issues-client');
 
       client.addEventListener('feedlogUpvote', event => {
         console.log('Issue upvoted:', event.detail);
@@ -147,12 +147,12 @@ The playground lets you configure:
 
 ```tsx
 import React from 'react';
-import { FeedlogGithubIssuesClient } from '@feedlog-ai/webcomponents/dist/components';
+import { FeedlogIssuesClient } from '@feedlog-ai/webcomponents/dist/components';
 
 function App() {
   return (
     <div>
-      <feedlog-github-issues-client
+      <feedlog-issues-client
         api-key="your-api-key"
         type="bug"
         limit={10}
@@ -174,7 +174,7 @@ function App() {
 
 ```vue
 <template>
-  <feedlog-github-issues-client
+  <feedlog-issues-client
     api-key="your-api-key"
     type="bug"
     :limit="10"
@@ -183,7 +183,7 @@ function App() {
     @feedlog-upvote="handleUpvote"
     @feedlog-error="handleError"
   >
-  </feedlog-github-issues-client>
+  </feedlog-issues-client>
 </template>
 
 <script setup lang="ts">
@@ -205,7 +205,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   template: `
-    <feedlog-github-issues-client
+    <feedlog-issues-client
       api-key="your-api-key"
       type="bug"
       limit="10"
@@ -214,7 +214,7 @@ import { Component } from '@angular/core';
       (feedlogUpvote)="onUpvote($event)"
       (feedlogError)="onError($event)"
     >
-    </feedlog-github-issues-client>
+    </feedlog-issues-client>
   `,
 })
 export class AppComponent {
@@ -235,7 +235,7 @@ The package also includes additional UI components:
 - `feedlog-badge`: Label component with variant support
 - `feedlog-button`: Button component with variants and sizes
 - `feedlog-card`: Reusable card container component
-- `feedlog-github-issues`: Issues display component (used internally by client)
+- `feedlog-issues`: Issues display component (used internally by client)
 - `feedlog-issues-list`: Issues list component (used internally)
 
 ## Build Outputs
@@ -284,8 +284,8 @@ interface ErrorEventDetail {
 Components use Shadow DOM for encapsulation. You can style them using CSS custom properties. See the [main README](../../README.md#-style-customization) for full copy-paste examples.
 
 ```css
-feedlog-github-issues-client,
-feedlog-github-issues {
+feedlog-issues-client,
+feedlog-issues {
   /* Card */
   --feedlog-card-padding: 1.25rem;
   --feedlog-card-accent-width: 3px;

@@ -44,7 +44,7 @@
 }
 
 
-.github-issues-container {
+.issues-container {
   min-height: 100vh;
   background-color: var(--feedlog-background);
   padding: var(--feedlog-padding);

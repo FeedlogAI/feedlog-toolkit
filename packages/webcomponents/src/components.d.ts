@@ -51,11 +51,30 @@ export namespace Components {
    */
   interface FeedlogCard {}
   /**
-   * Feedlog GitHub Issues Component
-   * Component for displaying GitHub issues with support for bugs and enhancements.
+   * Feedlog Issue Component
+   * A component for displaying a single GitHub issue.
+   */
+  interface FeedlogIssue {
+    /**
+     * The issue to display
+     */
+    issue: FeedlogIssueType;
+    /**
+     * Optional URL for the GitHub issue. When provided along with githubIssueLink, shows a "View on GitHub" button. Required because owner is no longer in the API response.
+     */
+    issueUrl?: string | null;
+    /**
+     * Theme variant: 'light' or 'dark'
+     * @default 'light'
+     */
+    theme: 'light' | 'dark';
+  }
+  /**
+   * Feedlog Issues Component
+   * Component for displaying issues with support for bugs and enhancements.
    * Includes full list rendering, loading/error states, and pagination support.
    */
-  interface FeedlogGithubIssues {
+  interface FeedlogIssues {
     /**
      * Empty state message. Defaults to "Check back later for new updates.".
      */
@@ -70,7 +89,7 @@ export namespace Components {
      */
     error: string | null;
     /**
-     * Optional callback to resolve GitHub issue URL when githubIssueLink is not available. Required because repository.owner was removed from the API for privacy.
+     * Optional callback to resolve issue URL when githubIssueLink is not available. Required because repository.owner was removed from the API for privacy.
      */
     getIssueUrl?: GetIssueUrlFn;
     /**
@@ -113,11 +132,11 @@ export namespace Components {
     theme: 'light' | 'dark';
   }
   /**
-   * Feedlog GitHub Issues Client Component
-   * A component for displaying GitHub issues fetched using the Feedlog SDK.
-   * This component uses the SDK internally to fetch data and delegates to feedlog-github-issues for rendering.
+   * Feedlog Issues Client Component
+   * A component for displaying issues fetched using the Feedlog SDK.
+   * This component uses the SDK internally to fetch data and delegates to feedlog-issues for rendering.
    */
-  interface FeedlogGithubIssuesClient {
+  interface FeedlogIssuesClient {
     /**
      * API key for Feedlog authentication (required) The API key determines which repositories' issues are fetched
      */
@@ -135,7 +154,7 @@ export namespace Components {
      */
     endpoint?: string;
     /**
-     * Optional callback to resolve GitHub issue URL when githubIssueLink is not available. Required because repository.owner was removed from the API for privacy.
+     * Optional callback to resolve issue URL when githubIssueLink is not available. Required because repository.owner was removed from the API for privacy.
      */
     getIssueUrl?: GetIssueUrlFn;
     /**
@@ -170,25 +189,6 @@ export namespace Components {
     type?: 'bug' | 'enhancement';
   }
   /**
-   * Feedlog Issue Component
-   * A component for displaying a single GitHub issue.
-   */
-  interface FeedlogIssue {
-    /**
-     * The issue to display
-     */
-    issue: FeedlogIssueType;
-    /**
-     * Optional URL for the GitHub issue. When provided along with githubIssueLink, shows a "View on GitHub" button. Required because owner is no longer in the API response.
-     */
-    issueUrl?: string | null;
-    /**
-     * Theme variant: 'light' or 'dark'
-     * @default 'light'
-     */
-    theme: 'light' | 'dark';
-  }
-  /**
    * Feedlog Issues List Component
    * A component for displaying a list of GitHub issues with support for bugs and enhancements.
    */
@@ -221,17 +221,17 @@ export interface FeedlogButtonCustomEvent<T> extends CustomEvent<T> {
   detail: T;
   target: HTMLFeedlogButtonElement;
 }
-export interface FeedlogGithubIssuesCustomEvent<T> extends CustomEvent<T> {
-  detail: T;
-  target: HTMLFeedlogGithubIssuesElement;
-}
-export interface FeedlogGithubIssuesClientCustomEvent<T> extends CustomEvent<T> {
-  detail: T;
-  target: HTMLFeedlogGithubIssuesClientElement;
-}
 export interface FeedlogIssueCustomEvent<T> extends CustomEvent<T> {
   detail: T;
   target: HTMLFeedlogIssueElement;
+}
+export interface FeedlogIssuesCustomEvent<T> extends CustomEvent<T> {
+  detail: T;
+  target: HTMLFeedlogIssuesElement;
+}
+export interface FeedlogIssuesClientCustomEvent<T> extends CustomEvent<T> {
+  detail: T;
+  target: HTMLFeedlogIssuesClientElement;
 }
 export interface FeedlogIssuesListCustomEvent<T> extends CustomEvent<T> {
   detail: T;
@@ -315,134 +315,6 @@ declare global {
     prototype: HTMLFeedlogCardElement;
     new (): HTMLFeedlogCardElement;
   };
-  interface HTMLFeedlogGithubIssuesElementEventMap {
-    feedlogUpvote: {
-      issueId: string;
-      currentUpvoted: boolean;
-      currentCount: number;
-    };
-    feedlogLoadMore: void;
-  }
-  /**
-   * Feedlog GitHub Issues Component
-   * Component for displaying GitHub issues with support for bugs and enhancements.
-   * Includes full list rendering, loading/error states, and pagination support.
-   */
-  interface HTMLFeedlogGithubIssuesElement
-    extends Components.FeedlogGithubIssues, HTMLStencilElement {
-    addEventListener<K extends keyof HTMLFeedlogGithubIssuesElementEventMap>(
-      type: K,
-      listener: (
-        this: HTMLFeedlogGithubIssuesElement,
-        ev: FeedlogGithubIssuesCustomEvent<HTMLFeedlogGithubIssuesElementEventMap[K]>
-      ) => any,
-      options?: boolean | AddEventListenerOptions
-    ): void;
-    addEventListener<K extends keyof DocumentEventMap>(
-      type: K,
-      listener: (this: Document, ev: DocumentEventMap[K]) => any,
-      options?: boolean | AddEventListenerOptions
-    ): void;
-    addEventListener<K extends keyof HTMLElementEventMap>(
-      type: K,
-      listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
-      options?: boolean | AddEventListenerOptions
-    ): void;
-    addEventListener(
-      type: string,
-      listener: EventListenerOrEventListenerObject,
-      options?: boolean | AddEventListenerOptions
-    ): void;
-    removeEventListener<K extends keyof HTMLFeedlogGithubIssuesElementEventMap>(
-      type: K,
-      listener: (
-        this: HTMLFeedlogGithubIssuesElement,
-        ev: FeedlogGithubIssuesCustomEvent<HTMLFeedlogGithubIssuesElementEventMap[K]>
-      ) => any,
-      options?: boolean | EventListenerOptions
-    ): void;
-    removeEventListener<K extends keyof DocumentEventMap>(
-      type: K,
-      listener: (this: Document, ev: DocumentEventMap[K]) => any,
-      options?: boolean | EventListenerOptions
-    ): void;
-    removeEventListener<K extends keyof HTMLElementEventMap>(
-      type: K,
-      listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
-      options?: boolean | EventListenerOptions
-    ): void;
-    removeEventListener(
-      type: string,
-      listener: EventListenerOrEventListenerObject,
-      options?: boolean | EventListenerOptions
-    ): void;
-  }
-  var HTMLFeedlogGithubIssuesElement: {
-    prototype: HTMLFeedlogGithubIssuesElement;
-    new (): HTMLFeedlogGithubIssuesElement;
-  };
-  interface HTMLFeedlogGithubIssuesClientElementEventMap {
-    feedlogUpvote: { issueId: string; upvoted: boolean; upvoteCount: number };
-    feedlogError: { error: string; code?: number };
-  }
-  /**
-   * Feedlog GitHub Issues Client Component
-   * A component for displaying GitHub issues fetched using the Feedlog SDK.
-   * This component uses the SDK internally to fetch data and delegates to feedlog-github-issues for rendering.
-   */
-  interface HTMLFeedlogGithubIssuesClientElement
-    extends Components.FeedlogGithubIssuesClient, HTMLStencilElement {
-    addEventListener<K extends keyof HTMLFeedlogGithubIssuesClientElementEventMap>(
-      type: K,
-      listener: (
-        this: HTMLFeedlogGithubIssuesClientElement,
-        ev: FeedlogGithubIssuesClientCustomEvent<HTMLFeedlogGithubIssuesClientElementEventMap[K]>
-      ) => any,
-      options?: boolean | AddEventListenerOptions
-    ): void;
-    addEventListener<K extends keyof DocumentEventMap>(
-      type: K,
-      listener: (this: Document, ev: DocumentEventMap[K]) => any,
-      options?: boolean | AddEventListenerOptions
-    ): void;
-    addEventListener<K extends keyof HTMLElementEventMap>(
-      type: K,
-      listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
-      options?: boolean | AddEventListenerOptions
-    ): void;
-    addEventListener(
-      type: string,
-      listener: EventListenerOrEventListenerObject,
-      options?: boolean | AddEventListenerOptions
-    ): void;
-    removeEventListener<K extends keyof HTMLFeedlogGithubIssuesClientElementEventMap>(
-      type: K,
-      listener: (
-        this: HTMLFeedlogGithubIssuesClientElement,
-        ev: FeedlogGithubIssuesClientCustomEvent<HTMLFeedlogGithubIssuesClientElementEventMap[K]>
-      ) => any,
-      options?: boolean | EventListenerOptions
-    ): void;
-    removeEventListener<K extends keyof DocumentEventMap>(
-      type: K,
-      listener: (this: Document, ev: DocumentEventMap[K]) => any,
-      options?: boolean | EventListenerOptions
-    ): void;
-    removeEventListener<K extends keyof HTMLElementEventMap>(
-      type: K,
-      listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
-      options?: boolean | EventListenerOptions
-    ): void;
-    removeEventListener(
-      type: string,
-      listener: EventListenerOrEventListenerObject,
-      options?: boolean | EventListenerOptions
-    ): void;
-  }
-  var HTMLFeedlogGithubIssuesClientElement: {
-    prototype: HTMLFeedlogGithubIssuesClientElement;
-    new (): HTMLFeedlogGithubIssuesClientElement;
-  };
   interface HTMLFeedlogIssueElementEventMap {
     feedlogUpvote: {
       issueId: string;
@@ -505,6 +377,133 @@ declare global {
   var HTMLFeedlogIssueElement: {
     prototype: HTMLFeedlogIssueElement;
     new (): HTMLFeedlogIssueElement;
+  };
+  interface HTMLFeedlogIssuesElementEventMap {
+    feedlogUpvote: {
+      issueId: string;
+      currentUpvoted: boolean;
+      currentCount: number;
+    };
+    feedlogLoadMore: void;
+  }
+  /**
+   * Feedlog Issues Component
+   * Component for displaying issues with support for bugs and enhancements.
+   * Includes full list rendering, loading/error states, and pagination support.
+   */
+  interface HTMLFeedlogIssuesElement extends Components.FeedlogIssues, HTMLStencilElement {
+    addEventListener<K extends keyof HTMLFeedlogIssuesElementEventMap>(
+      type: K,
+      listener: (
+        this: HTMLFeedlogIssuesElement,
+        ev: FeedlogIssuesCustomEvent<HTMLFeedlogIssuesElementEventMap[K]>
+      ) => any,
+      options?: boolean | AddEventListenerOptions
+    ): void;
+    addEventListener<K extends keyof DocumentEventMap>(
+      type: K,
+      listener: (this: Document, ev: DocumentEventMap[K]) => any,
+      options?: boolean | AddEventListenerOptions
+    ): void;
+    addEventListener<K extends keyof HTMLElementEventMap>(
+      type: K,
+      listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
+      options?: boolean | AddEventListenerOptions
+    ): void;
+    addEventListener(
+      type: string,
+      listener: EventListenerOrEventListenerObject,
+      options?: boolean | AddEventListenerOptions
+    ): void;
+    removeEventListener<K extends keyof HTMLFeedlogIssuesElementEventMap>(
+      type: K,
+      listener: (
+        this: HTMLFeedlogIssuesElement,
+        ev: FeedlogIssuesCustomEvent<HTMLFeedlogIssuesElementEventMap[K]>
+      ) => any,
+      options?: boolean | EventListenerOptions
+    ): void;
+    removeEventListener<K extends keyof DocumentEventMap>(
+      type: K,
+      listener: (this: Document, ev: DocumentEventMap[K]) => any,
+      options?: boolean | EventListenerOptions
+    ): void;
+    removeEventListener<K extends keyof HTMLElementEventMap>(
+      type: K,
+      listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
+      options?: boolean | EventListenerOptions
+    ): void;
+    removeEventListener(
+      type: string,
+      listener: EventListenerOrEventListenerObject,
+      options?: boolean | EventListenerOptions
+    ): void;
+  }
+  var HTMLFeedlogIssuesElement: {
+    prototype: HTMLFeedlogIssuesElement;
+    new (): HTMLFeedlogIssuesElement;
+  };
+  interface HTMLFeedlogIssuesClientElementEventMap {
+    feedlogUpvote: { issueId: string; upvoted: boolean; upvoteCount: number };
+    feedlogError: { error: string; code?: number };
+  }
+  /**
+   * Feedlog Issues Client Component
+   * A component for displaying issues fetched using the Feedlog SDK.
+   * This component uses the SDK internally to fetch data and delegates to feedlog-issues for rendering.
+   */
+  interface HTMLFeedlogIssuesClientElement
+    extends Components.FeedlogIssuesClient, HTMLStencilElement {
+    addEventListener<K extends keyof HTMLFeedlogIssuesClientElementEventMap>(
+      type: K,
+      listener: (
+        this: HTMLFeedlogIssuesClientElement,
+        ev: FeedlogIssuesClientCustomEvent<HTMLFeedlogIssuesClientElementEventMap[K]>
+      ) => any,
+      options?: boolean | AddEventListenerOptions
+    ): void;
+    addEventListener<K extends keyof DocumentEventMap>(
+      type: K,
+      listener: (this: Document, ev: DocumentEventMap[K]) => any,
+      options?: boolean | AddEventListenerOptions
+    ): void;
+    addEventListener<K extends keyof HTMLElementEventMap>(
+      type: K,
+      listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
+      options?: boolean | AddEventListenerOptions
+    ): void;
+    addEventListener(
+      type: string,
+      listener: EventListenerOrEventListenerObject,
+      options?: boolean | AddEventListenerOptions
+    ): void;
+    removeEventListener<K extends keyof HTMLFeedlogIssuesClientElementEventMap>(
+      type: K,
+      listener: (
+        this: HTMLFeedlogIssuesClientElement,
+        ev: FeedlogIssuesClientCustomEvent<HTMLFeedlogIssuesClientElementEventMap[K]>
+      ) => any,
+      options?: boolean | EventListenerOptions
+    ): void;
+    removeEventListener<K extends keyof DocumentEventMap>(
+      type: K,
+      listener: (this: Document, ev: DocumentEventMap[K]) => any,
+      options?: boolean | EventListenerOptions
+    ): void;
+    removeEventListener<K extends keyof HTMLElementEventMap>(
+      type: K,
+      listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
+      options?: boolean | EventListenerOptions
+    ): void;
+    removeEventListener(
+      type: string,
+      listener: EventListenerOrEventListenerObject,
+      options?: boolean | EventListenerOptions
+    ): void;
+  }
+  var HTMLFeedlogIssuesClientElement: {
+    prototype: HTMLFeedlogIssuesClientElement;
+    new (): HTMLFeedlogIssuesClientElement;
   };
   interface HTMLFeedlogIssuesListElementEventMap {
     feedlogUpvote: {
@@ -573,9 +572,9 @@ declare global {
     'feedlog-badge': HTMLFeedlogBadgeElement;
     'feedlog-button': HTMLFeedlogButtonElement;
     'feedlog-card': HTMLFeedlogCardElement;
-    'feedlog-github-issues': HTMLFeedlogGithubIssuesElement;
-    'feedlog-github-issues-client': HTMLFeedlogGithubIssuesClientElement;
     'feedlog-issue': HTMLFeedlogIssueElement;
+    'feedlog-issues': HTMLFeedlogIssuesElement;
+    'feedlog-issues-client': HTMLFeedlogIssuesClientElement;
     'feedlog-issues-list': HTMLFeedlogIssuesListElement;
   }
 }
@@ -627,11 +626,40 @@ declare namespace LocalJSX {
    */
   interface FeedlogCard {}
   /**
-   * Feedlog GitHub Issues Component
-   * Component for displaying GitHub issues with support for bugs and enhancements.
+   * Feedlog Issue Component
+   * A component for displaying a single GitHub issue.
+   */
+  interface FeedlogIssue {
+    /**
+     * The issue to display
+     */
+    issue: FeedlogIssueType;
+    /**
+     * Optional URL for the GitHub issue. When provided along with githubIssueLink, shows a "View on GitHub" button. Required because owner is no longer in the API response.
+     */
+    issueUrl?: string | null;
+    /**
+     * Event emitted when the issue is upvoted
+     */
+    onFeedlogUpvote?: (
+      event: FeedlogIssueCustomEvent<{
+        issueId: string;
+        currentUpvoted: boolean;
+        currentCount: number;
+      }>
+    ) => void;
+    /**
+     * Theme variant: 'light' or 'dark'
+     * @default 'light'
+     */
+    theme?: 'light' | 'dark';
+  }
+  /**
+   * Feedlog Issues Component
+   * Component for displaying issues with support for bugs and enhancements.
    * Includes full list rendering, loading/error states, and pagination support.
    */
-  interface FeedlogGithubIssues {
+  interface FeedlogIssues {
     /**
      * Empty state message. Defaults to "Check back later for new updates.".
      */
@@ -646,7 +674,7 @@ declare namespace LocalJSX {
      */
     error?: string | null;
     /**
-     * Optional callback to resolve GitHub issue URL when githubIssueLink is not available. Required because repository.owner was removed from the API for privacy.
+     * Optional callback to resolve issue URL when githubIssueLink is not available. Required because repository.owner was removed from the API for privacy.
      */
     getIssueUrl?: GetIssueUrlFn;
     /**
@@ -681,12 +709,12 @@ declare namespace LocalJSX {
     /**
      * Event emitted to load more issues
      */
-    onFeedlogLoadMore?: (event: FeedlogGithubIssuesCustomEvent<void>) => void;
+    onFeedlogLoadMore?: (event: FeedlogIssuesCustomEvent<void>) => void;
     /**
      * Event emitted when an issue is upvoted
      */
     onFeedlogUpvote?: (
-      event: FeedlogGithubIssuesCustomEvent<{
+      event: FeedlogIssuesCustomEvent<{
         issueId: string;
         currentUpvoted: boolean;
         currentCount: number;
@@ -703,11 +731,11 @@ declare namespace LocalJSX {
     theme?: 'light' | 'dark';
   }
   /**
-   * Feedlog GitHub Issues Client Component
-   * A component for displaying GitHub issues fetched using the Feedlog SDK.
-   * This component uses the SDK internally to fetch data and delegates to feedlog-github-issues for rendering.
+   * Feedlog Issues Client Component
+   * A component for displaying issues fetched using the Feedlog SDK.
+   * This component uses the SDK internally to fetch data and delegates to feedlog-issues for rendering.
    */
-  interface FeedlogGithubIssuesClient {
+  interface FeedlogIssuesClient {
     /**
      * API key for Feedlog authentication (required) The API key determines which repositories' issues are fetched
      */
@@ -725,7 +753,7 @@ declare namespace LocalJSX {
      */
     endpoint?: string;
     /**
-     * Optional callback to resolve GitHub issue URL when githubIssueLink is not available. Required because repository.owner was removed from the API for privacy.
+     * Optional callback to resolve issue URL when githubIssueLink is not available. Required because repository.owner was removed from the API for privacy.
      */
     getIssueUrl?: GetIssueUrlFn;
     /**
@@ -745,13 +773,13 @@ declare namespace LocalJSX {
      * Event emitted on error
      */
     onFeedlogError?: (
-      event: FeedlogGithubIssuesClientCustomEvent<{ error: string; code?: number }>
+      event: FeedlogIssuesClientCustomEvent<{ error: string; code?: number }>
     ) => void;
     /**
      * Event emitted when an issue is upvoted
      */
     onFeedlogUpvote?: (
-      event: FeedlogGithubIssuesClientCustomEvent<{
+      event: FeedlogIssuesClientCustomEvent<{
         issueId: string;
         upvoted: boolean;
         upvoteCount: number;
@@ -774,35 +802,6 @@ declare namespace LocalJSX {
      * Filter issues by type: 'bug' or 'enhancement'
      */
     type?: 'bug' | 'enhancement';
-  }
-  /**
-   * Feedlog Issue Component
-   * A component for displaying a single GitHub issue.
-   */
-  interface FeedlogIssue {
-    /**
-     * The issue to display
-     */
-    issue: FeedlogIssueType;
-    /**
-     * Optional URL for the GitHub issue. When provided along with githubIssueLink, shows a "View on GitHub" button. Required because owner is no longer in the API response.
-     */
-    issueUrl?: string | null;
-    /**
-     * Event emitted when the issue is upvoted
-     */
-    onFeedlogUpvote?: (
-      event: FeedlogIssueCustomEvent<{
-        issueId: string;
-        currentUpvoted: boolean;
-        currentCount: number;
-      }>
-    ) => void;
-    /**
-     * Theme variant: 'light' or 'dark'
-     * @default 'light'
-     */
-    theme?: 'light' | 'dark';
   }
   /**
    * Feedlog Issues List Component
@@ -846,9 +845,9 @@ declare namespace LocalJSX {
     'feedlog-badge': FeedlogBadge;
     'feedlog-button': FeedlogButton;
     'feedlog-card': FeedlogCard;
-    'feedlog-github-issues': FeedlogGithubIssues;
-    'feedlog-github-issues-client': FeedlogGithubIssuesClient;
     'feedlog-issue': FeedlogIssue;
+    'feedlog-issues': FeedlogIssues;
+    'feedlog-issues-client': FeedlogIssuesClient;
     'feedlog-issues-list': FeedlogIssuesList;
   }
 }
@@ -872,24 +871,23 @@ declare module '@stencil/core' {
        */
       'feedlog-card': LocalJSX.FeedlogCard & JSXBase.HTMLAttributes<HTMLFeedlogCardElement>;
       /**
-       * Feedlog GitHub Issues Component
-       * Component for displaying GitHub issues with support for bugs and enhancements.
-       * Includes full list rendering, loading/error states, and pagination support.
-       */
-      'feedlog-github-issues': LocalJSX.FeedlogGithubIssues &
-        JSXBase.HTMLAttributes<HTMLFeedlogGithubIssuesElement>;
-      /**
-       * Feedlog GitHub Issues Client Component
-       * A component for displaying GitHub issues fetched using the Feedlog SDK.
-       * This component uses the SDK internally to fetch data and delegates to feedlog-github-issues for rendering.
-       */
-      'feedlog-github-issues-client': LocalJSX.FeedlogGithubIssuesClient &
-        JSXBase.HTMLAttributes<HTMLFeedlogGithubIssuesClientElement>;
-      /**
        * Feedlog Issue Component
        * A component for displaying a single GitHub issue.
        */
       'feedlog-issue': LocalJSX.FeedlogIssue & JSXBase.HTMLAttributes<HTMLFeedlogIssueElement>;
+      /**
+       * Feedlog Issues Component
+       * Component for displaying issues with support for bugs and enhancements.
+       * Includes full list rendering, loading/error states, and pagination support.
+       */
+      'feedlog-issues': LocalJSX.FeedlogIssues & JSXBase.HTMLAttributes<HTMLFeedlogIssuesElement>;
+      /**
+       * Feedlog Issues Client Component
+       * A component for displaying issues fetched using the Feedlog SDK.
+       * This component uses the SDK internally to fetch data and delegates to feedlog-issues for rendering.
+       */
+      'feedlog-issues-client': LocalJSX.FeedlogIssuesClient &
+        JSXBase.HTMLAttributes<HTMLFeedlogIssuesClientElement>;
       /**
        * Feedlog Issues List Component
        * A component for displaying a list of GitHub issues with support for bugs and enhancements.

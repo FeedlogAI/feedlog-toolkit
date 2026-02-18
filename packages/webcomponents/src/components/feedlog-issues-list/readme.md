@@ -28,7 +28,7 @@ A component for displaying a list of GitHub issues with support for bugs and enh
 
 ### Used by
 
-- [feedlog-github-issues](../feedlog-github-issues)
+- [feedlog-issues](../feedlog-issues)
 
 ### Depends on
 
@@ -40,7 +40,7 @@ A component for displaying a list of GitHub issues with support for bugs and enh
 graph TD;
   feedlog-issues-list --> feedlog-issue
   feedlog-issue --> feedlog-badge
-  feedlog-github-issues --> feedlog-issues-list
+  feedlog-issues --> feedlog-issues-list
   style feedlog-issues-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

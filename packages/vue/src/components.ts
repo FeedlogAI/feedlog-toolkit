@@ -23,9 +23,17 @@ export const FeedlogButton: StencilVueComponent<JSX.FeedlogButton> =
 export const FeedlogCard: StencilVueComponent<JSX.FeedlogCard> =
   /*@__PURE__*/ defineContainer<JSX.FeedlogCard>('feedlog-card', undefined);
 
-export const FeedlogGithubIssues: StencilVueComponent<JSX.FeedlogGithubIssues> =
-  /*@__PURE__*/ defineContainer<JSX.FeedlogGithubIssues>(
-    'feedlog-github-issues',
+export const FeedlogIssue: StencilVueComponent<JSX.FeedlogIssue> =
+  /*@__PURE__*/ defineContainer<JSX.FeedlogIssue>(
+    'feedlog-issue',
+    undefined,
+    ['issue', 'issueUrl', 'theme', 'feedlogUpvote'],
+    ['feedlogUpvote']
+  );
+
+export const FeedlogIssues: StencilVueComponent<JSX.FeedlogIssues> =
+  /*@__PURE__*/ defineContainer<JSX.FeedlogIssues>(
+    'feedlog-issues',
     undefined,
     [
       'issues',
@@ -46,9 +54,9 @@ export const FeedlogGithubIssues: StencilVueComponent<JSX.FeedlogGithubIssues> =
     ['feedlogUpvote', 'feedlogLoadMore']
   );
 
-export const FeedlogGithubIssuesClient: StencilVueComponent<JSX.FeedlogGithubIssuesClient> =
-  /*@__PURE__*/ defineContainer<JSX.FeedlogGithubIssuesClient>(
-    'feedlog-github-issues-client',
+export const FeedlogIssuesClient: StencilVueComponent<JSX.FeedlogIssuesClient> =
+  /*@__PURE__*/ defineContainer<JSX.FeedlogIssuesClient>(
+    'feedlog-issues-client',
     undefined,
     [
       'apiKey',
@@ -67,14 +75,6 @@ export const FeedlogGithubIssuesClient: StencilVueComponent<JSX.FeedlogGithubIss
       'feedlogError',
     ],
     ['feedlogUpvote', 'feedlogError']
-  );
-
-export const FeedlogIssue: StencilVueComponent<JSX.FeedlogIssue> =
-  /*@__PURE__*/ defineContainer<JSX.FeedlogIssue>(
-    'feedlog-issue',
-    undefined,
-    ['issue', 'issueUrl', 'theme', 'feedlogUpvote'],
-    ['feedlogUpvote']
   );
 
 export const FeedlogIssuesList: StencilVueComponent<JSX.FeedlogIssuesList> =

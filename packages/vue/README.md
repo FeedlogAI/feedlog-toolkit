@@ -19,9 +19,9 @@ npm install @feedlog-ai/vue
 
 ## Components
 
-### FeedlogGithubIssuesClient
+### FeedlogIssuesClient
 
-The main component for displaying GitHub issues with built-in SDK integration.
+The main component for displaying issues with built-in SDK integration.
 
 **Props:**
 
@@ -46,7 +46,7 @@ The main component for displaying GitHub issues with built-in SDK integration.
 ```vue
 <template>
   <div>
-    <FeedlogGithubIssuesClient
+    <FeedlogIssuesClient
       api-key="your-api-key"
       type="bug"
       :limit="10"
@@ -60,7 +60,7 @@ The main component for displaying GitHub issues with built-in SDK integration.
 </template>
 
 <script setup lang="ts">
-import { FeedlogGithubIssuesClient } from '@feedlog-ai/vue';
+import { FeedlogIssuesClient } from '@feedlog-ai/vue';
 
 const handleUpvote = (event: CustomEvent) => {
   console.log('Issue upvoted:', event.detail);
@@ -82,19 +82,15 @@ const handleError = (event: CustomEvent) => {
 
 ```vue
 <template>
-  <FeedlogGithubIssuesClient
-    api-key="your-api-key"
-    @feedlog-upvote="onUpvote"
-    @feedlog-error="onError"
-  />
+  <FeedlogIssuesClient api-key="your-api-key" @feedlog-upvote="onUpvote" @feedlog-error="onError" />
 </template>
 
 <script lang="ts">
-import { FeedlogGithubIssuesClient } from '@feedlog-ai/vue';
+import { FeedlogIssuesClient } from '@feedlog-ai/vue';
 
 export default {
   components: {
-    FeedlogGithubIssuesClient,
+    FeedlogIssuesClient,
   },
   methods: {
     onUpvote(event: CustomEvent) {
@@ -112,15 +108,15 @@ export default {
 
 ```vue
 <template>
-  <feedlog-github-issues-client api-key="your-api-key" @feedlog-upvote="handleUpvote" />
+  <feedlog-issues-client api-key="your-api-key" @feedlog-upvote="handleUpvote" />
 </template>
 
 <script>
-import { FeedlogGithubIssuesClient } from '@feedlog-ai/vue';
+import { FeedlogIssuesClient } from '@feedlog-ai/vue';
 
 export default {
   components: {
-    FeedlogGithubIssuesClient,
+    FeedlogIssuesClient,
   },
   methods: {
     handleUpvote(event) {
@@ -147,7 +143,7 @@ export default {
       </button>
     </div>
 
-    <FeedlogGithubIssuesClient
+    <FeedlogIssuesClient
       api-key="your-api-key"
       :type="issueType"
       :theme="theme"
@@ -158,7 +154,7 @@ export default {
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { FeedlogGithubIssuesClient } from '@feedlog-ai/vue';
+import { FeedlogIssuesClient } from '@feedlog-ai/vue';
 
 const issueType = ref<'bug' | 'enhancement'>('bug');
 const theme = ref<'light' | 'dark'>('light');
@@ -177,11 +173,7 @@ const updateTheme = (event: CustomEvent<'light' | 'dark'>) => {
 
 ```vue
 <template>
-  <FeedlogGithubIssuesClient
-    api-key="your-api-key"
-    @feedlog-upvote="onUpvote"
-    @feedlog-error="onError"
-  />
+  <FeedlogIssuesClient api-key="your-api-key" @feedlog-upvote="onUpvote" @feedlog-error="onError" />
 </template>
 
 <script setup lang="ts">
@@ -257,12 +249,12 @@ You can register components globally in your Vue app:
 ```ts
 // main.ts
 import { createApp } from 'vue';
-import { FeedlogGithubIssuesClient, FeedlogBadge } from '@feedlog-ai/vue';
+import { FeedlogIssuesClient, FeedlogBadge } from '@feedlog-ai/vue';
 
 const app = createApp(App);
 
 // Register specific components
-app.component('FeedlogGithubIssuesClient', FeedlogGithubIssuesClient);
+app.component('FeedlogIssuesClient', FeedlogIssuesClient);
 app.component('FeedlogBadge', FeedlogBadge);
 
 // Or use the install function (currently minimal but extensible)
@@ -313,10 +305,10 @@ If you're migrating from using web components directly:
 
 ```vue
 <!-- Before (direct web component) -->
-<feedlog-github-issues-client api-key="key" @feedlog-upvote="handleUpvote" />
+<feedlog-issues-client api-key="key" @feedlog-upvote="handleUpvote" />
 
 <!-- After (Vue component) -->
-<FeedlogGithubIssuesClient api-key="key" @feedlog-upvote="handleUpvote" />
+<FeedlogIssuesClient api-key="key" @feedlog-upvote="handleUpvote" />
 ```
 
 **Key differences:**

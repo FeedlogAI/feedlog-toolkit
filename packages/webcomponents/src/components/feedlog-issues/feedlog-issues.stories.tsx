@@ -101,15 +101,15 @@ const sampleIssues: FeedlogIssue[] = [
 ];
 
 const meta: Meta = {
-  title: 'Components/GitHub Issues',
-  component: 'feedlog-github-issues',
+  title: 'Components/Issues',
+  component: 'feedlog-issues',
   parameters: {
     layout: 'padded',
   },
   argTypes: {
     issues: {
       control: 'object',
-      description: 'Array of GitHub issues to display',
+      description: 'Array of issues to display',
     },
     maxWidth: {
       control: 'text',
@@ -154,9 +154,9 @@ export const Default: Story = {
   args: {
     issues: sampleIssues,
   },
-  render: props => <feedlog-github-issues {...props} />,
+  render: props => <feedlog-issues {...props} />,
   play: async ({ canvasElement, args }) => {
-    const element = canvasElement.querySelector('feedlog-github-issues');
+    const element = canvasElement.querySelector('feedlog-issues');
     if (element && args.issues) {
       (element as any).issues = args.issues;
     }
@@ -170,9 +170,9 @@ export const Loading: Story = {
     heading: 'Community feedback',
     subtitle: 'Upvote issues you care about',
   },
-  render: props => <feedlog-github-issues {...props} />,
+  render: props => <feedlog-issues {...props} />,
   play: async ({ canvasElement, args }) => {
-    const element = canvasElement.querySelector('feedlog-github-issues');
+    const element = canvasElement.querySelector('feedlog-issues');
     if (element && args.issues) {
       (element as any).issues = args.issues;
     }
@@ -187,9 +187,9 @@ export const Error: Story = {
     heading: 'Community feedback',
     subtitle: 'Upvote issues you care about',
   },
-  render: props => <feedlog-github-issues {...props} />,
+  render: props => <feedlog-issues {...props} />,
   play: async ({ canvasElement, args }) => {
-    const element = canvasElement.querySelector('feedlog-github-issues');
+    const element = canvasElement.querySelector('feedlog-issues');
     if (element && args.issues) {
       (element as any).issues = args.issues;
     }
@@ -204,9 +204,9 @@ export const Empty: Story = {
     heading: 'Community feedback',
     subtitle: 'Upvote issues you care about',
   },
-  render: props => <feedlog-github-issues {...props} />,
+  render: props => <feedlog-issues {...props} />,
   play: async ({ canvasElement, args }) => {
-    const element = canvasElement.querySelector('feedlog-github-issues');
+    const element = canvasElement.querySelector('feedlog-issues');
     if (element && args.issues) {
       (element as any).issues = args.issues;
     }
@@ -218,9 +218,9 @@ export const DarkTheme: Story = {
     issues: sampleIssues,
     theme: 'dark',
   },
-  render: props => <feedlog-github-issues {...props} />,
+  render: props => <feedlog-issues {...props} />,
   play: async ({ canvasElement, args }) => {
-    const element = canvasElement.querySelector('feedlog-github-issues');
+    const element = canvasElement.querySelector('feedlog-issues');
     if (element && args.issues) {
       (element as any).issues = args.issues;
     }
@@ -232,9 +232,9 @@ export const NarrowWidth: Story = {
     issues: sampleIssues.slice(0, 3),
     maxWidth: '32rem',
   },
-  render: props => <feedlog-github-issues {...props} />,
+  render: props => <feedlog-issues {...props} />,
   play: async ({ canvasElement, args }) => {
-    const element = canvasElement.querySelector('feedlog-github-issues');
+    const element = canvasElement.querySelector('feedlog-issues');
     if (element && args.issues) {
       (element as any).issues = args.issues;
     }
@@ -246,7 +246,7 @@ export const CustomCSSVars: Story = {
     issues: sampleIssues,
   },
   render: (props: any) => (
-    <feedlog-github-issues
+    <feedlog-issues
       {...props}
       style={
         {
@@ -274,7 +274,7 @@ export const CustomCSSVars: Story = {
     />
   ),
   play: async ({ canvasElement, args }) => {
-    const element = canvasElement.querySelector('feedlog-github-issues');
+    const element = canvasElement.querySelector('feedlog-issues');
     if (element && args.issues) {
       (element as any).issues = args.issues;
     }

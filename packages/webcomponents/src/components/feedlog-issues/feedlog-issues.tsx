@@ -2,17 +2,17 @@ import { Component, Prop, State, Event, EventEmitter, h, Host } from '@stencil/c
 import type { FeedlogIssue as FeedlogIssueType, GetIssueUrlFn } from '@feedlog-ai/core';
 
 /**
- * Feedlog GitHub Issues Component
+ * Feedlog Issues Component
  *
- * Component for displaying GitHub issues with support for bugs and enhancements.
+ * Component for displaying issues with support for bugs and enhancements.
  * Includes full list rendering, loading/error states, and pagination support.
  */
 @Component({
-  tag: 'feedlog-github-issues',
-  styleUrl: 'feedlog-github-issues.css',
+  tag: 'feedlog-issues',
+  styleUrl: 'feedlog-issues.css',
   shadow: true,
 })
-export class FeedlogGithubIssues {
+export class FeedlogIssues {
   /**
    * Array of issues to display
    */
@@ -69,7 +69,7 @@ export class FeedlogGithubIssues {
   @Prop() isLoadingMore: boolean = false;
 
   /**
-   * Optional callback to resolve GitHub issue URL when githubIssueLink is not available.
+   * Optional callback to resolve issue URL when githubIssueLink is not available.
    * Required because repository.owner was removed from the API for privacy.
    */
   @Prop() getIssueUrl?: GetIssueUrlFn;
@@ -148,7 +148,7 @@ export class FeedlogGithubIssues {
 
     return (
       <Host class={this.currentTheme === 'dark' ? 'dark' : ''}>
-        <div class="github-issues-container" style={containerStyle}>
+        <div class="issues-container" style={containerStyle}>
           {(this.heading || this.subtitle) && (
             <header class="issues-header">
               <div class="header-content">

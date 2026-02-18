@@ -11,8 +11,8 @@ import { type FeedlogButtonCustomEvent } from "@feedlog-ai/webcomponents";
 import { FeedlogBadge as FeedlogBadgeElement, defineCustomElement as defineFeedlogBadge } from "@feedlog-ai/webcomponents/dist/components/feedlog-badge.js";
 import { FeedlogButton as FeedlogButtonElement, defineCustomElement as defineFeedlogButton } from "@feedlog-ai/webcomponents/dist/components/feedlog-button.js";
 import { FeedlogCard as FeedlogCardElement, defineCustomElement as defineFeedlogCard } from "@feedlog-ai/webcomponents/dist/components/feedlog-card.js";
-import { FeedlogGithubIssuesClient as FeedlogGithubIssuesClientElement, defineCustomElement as defineFeedlogGithubIssuesClient } from "@feedlog-ai/webcomponents/dist/components/feedlog-github-issues-client.js";
-import { FeedlogGithubIssues as FeedlogGithubIssuesElement, defineCustomElement as defineFeedlogGithubIssues } from "@feedlog-ai/webcomponents/dist/components/feedlog-github-issues.js";
+import { FeedlogIssuesClient as FeedlogIssuesClientElement, defineCustomElement as defineFeedlogIssuesClient } from "@feedlog-ai/webcomponents/dist/components/feedlog-issues-client.js";
+import { FeedlogIssues as FeedlogIssuesElement, defineCustomElement as defineFeedlogIssues } from "@feedlog-ai/webcomponents/dist/components/feedlog-issues.js";
 import { FeedlogIssue as FeedlogIssueElement, defineCustomElement as defineFeedlogIssue } from "@feedlog-ai/webcomponents/dist/components/feedlog-issue.js";
 import type { EventName, StencilReactComponent } from '@stencil/react-output-target/runtime';
 import { createComponent } from '@stencil/react-output-target/runtime';
@@ -51,7 +51,7 @@ export const FeedlogCard: StencilReactComponent<FeedlogCardElement, FeedlogCardE
     defineCustomElement: defineFeedlogCard
 });
 
-type FeedlogGithubIssuesEvents = {
+type FeedlogIssuesEvents = {
     onFeedlogUpvote: EventName<CustomEvent<{
         issueId: string;
         currentUpvoted: boolean;
@@ -61,36 +61,36 @@ type FeedlogGithubIssuesEvents = {
     onFeedlogLoadMore: EventName<CustomEvent<void>>
 };
 
-export const FeedlogGithubIssues: StencilReactComponent<FeedlogGithubIssuesElement, FeedlogGithubIssuesEvents> = /*@__PURE__*/ createComponent<FeedlogGithubIssuesElement, FeedlogGithubIssuesEvents>({
-    tagName: 'feedlog-github-issues',
-    elementClass: FeedlogGithubIssuesElement,
+export const FeedlogIssues: StencilReactComponent<FeedlogIssuesElement, FeedlogIssuesEvents> = /*@__PURE__*/ createComponent<FeedlogIssuesElement, FeedlogIssuesEvents>({
+    tagName: 'feedlog-issues',
+    elementClass: FeedlogIssuesElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
     events: {
         onFeedlogUpvote: 'feedlogUpvote',
         onFeedlogThemeChange: 'feedlogThemeChange',
         onFeedlogLoadMore: 'feedlogLoadMore'
-    } as FeedlogGithubIssuesEvents,
-    defineCustomElement: defineFeedlogGithubIssues
+    } as FeedlogIssuesEvents,
+    defineCustomElement: defineFeedlogIssues
 });
 
-type FeedlogGithubIssuesClientEvents = {
+type FeedlogIssuesClientEvents = {
     onFeedlogUpvote: EventName<CustomEvent<{ issueId: string; upvoted: boolean; upvoteCount: number }>>,
     onFeedlogThemeChange: EventName<CustomEvent<'light' | 'dark'>>,
     onFeedlogError: EventName<CustomEvent<{ error: string; code?: number }>>
 };
 
-export const FeedlogGithubIssuesClient: StencilReactComponent<FeedlogGithubIssuesClientElement, FeedlogGithubIssuesClientEvents> = /*@__PURE__*/ createComponent<FeedlogGithubIssuesClientElement, FeedlogGithubIssuesClientEvents>({
-    tagName: 'feedlog-github-issues-client',
-    elementClass: FeedlogGithubIssuesClientElement,
+export const FeedlogIssuesClient: StencilReactComponent<FeedlogIssuesClientElement, FeedlogIssuesClientEvents> = /*@__PURE__*/ createComponent<FeedlogIssuesClientElement, FeedlogIssuesClientEvents>({
+    tagName: 'feedlog-issues-client',
+    elementClass: FeedlogIssuesClientElement,
     // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
     react: React,
     events: {
         onFeedlogUpvote: 'feedlogUpvote',
         onFeedlogThemeChange: 'feedlogThemeChange',
         onFeedlogError: 'feedlogError'
-    } as FeedlogGithubIssuesClientEvents,
-    defineCustomElement: defineFeedlogGithubIssuesClient
+    } as FeedlogIssuesClientEvents,
+    defineCustomElement: defineFeedlogIssuesClient
 });
 
 type FeedlogIssueEvents = NonNullable<unknown>;

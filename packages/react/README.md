@@ -215,13 +215,13 @@ If you're migrating from using web components directly:
 
 ```tsx
 // Before (direct web component)
-<feedlog-github-issues-client
+<feedlog-issues-client
   api-key="key"
   onFeedlogUpvote={(e) => console.log(e.detail)}
 />
 
 // After (React component)
-<FeedlogGithubIssuesClient
+<FeedlogIssuesClient
   apiKey="key"
   onFeedlogUpvote={(e) => console.log(e.detail)}
 />

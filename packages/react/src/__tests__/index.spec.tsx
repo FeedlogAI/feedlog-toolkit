@@ -4,8 +4,8 @@ import {
   FeedlogBadge,
   FeedlogButton,
   FeedlogCard,
-  FeedlogGithubIssues,
-  FeedlogGithubIssuesClient,
+  FeedlogIssues,
+  FeedlogIssuesClient,
   FeedlogIssuesList,
 } from '../index';
 
@@ -27,16 +27,16 @@ describe('React Wrapper - Module Exports', () => {
     expect(FeedlogCard).toBeDefined();
   });
 
-  it('should export FeedlogGithubIssues', () => {
-    expect(FeedlogGithubIssues).toBeDefined();
+  it('should export FeedlogIssues', () => {
+    expect(FeedlogIssues).toBeDefined();
   });
 
   it('should export FeedlogIssuesList', () => {
     expect(FeedlogIssuesList).toBeDefined();
   });
 
-  it('should export FeedlogGithubIssuesClient', () => {
-    expect(FeedlogGithubIssuesClient).toBeDefined();
+  it('should export FeedlogIssuesClient', () => {
+    expect(FeedlogIssuesClient).toBeDefined();
   });
 });
 
@@ -56,9 +56,9 @@ describe('React Wrapper - Basic Rendering', () => {
     expect(container.querySelector('feedlog-card')).toBeDefined();
   });
 
-  it('FeedlogGithubIssues renders without error', () => {
-    const { container } = render(<FeedlogGithubIssues issues={[]} />);
-    expect(container.querySelector('feedlog-github-issues')).toBeDefined();
+  it('FeedlogIssues renders without error', () => {
+    const { container } = render(<FeedlogIssues issues={[]} />);
+    expect(container.querySelector('feedlog-issues')).toBeDefined();
   });
 
   it('FeedlogIssuesList renders without error', () => {
@@ -92,7 +92,7 @@ describe('React Wrapper - Props Passthrough', () => {
     expect(button?.getAttribute('type')).toBe('submit');
   });
 
-  it('FeedlogGithubIssues passes issues prop', () => {
+  it('FeedlogIssues passes issues prop', () => {
     const issues = [
       {
         id: '1',
@@ -110,20 +110,20 @@ describe('React Wrapper - Props Passthrough', () => {
         hasUpvoted: false,
       },
     ];
-    const { container } = render(<FeedlogGithubIssues issues={issues} />);
-    const component = container.querySelector('feedlog-github-issues');
+    const { container } = render(<FeedlogIssues issues={issues} />);
+    const component = container.querySelector('feedlog-issues');
     expect(component?.getAttribute('issues')).toBeDefined();
   });
 
-  it('FeedlogGithubIssues passes theme prop', () => {
-    const { container } = render(<FeedlogGithubIssues issues={[]} theme="dark" />);
-    const component = container.querySelector('feedlog-github-issues');
+  it('FeedlogIssues passes theme prop', () => {
+    const { container } = render(<FeedlogIssues issues={[]} theme="dark" />);
+    const component = container.querySelector('feedlog-issues');
     expect(component?.getAttribute('theme')).toBe('dark');
   });
 
-  it('FeedlogGithubIssues passes loading prop', () => {
-    const { container } = render(<FeedlogGithubIssues issues={[]} loading={true} />);
-    const component = container.querySelector('feedlog-github-issues');
+  it('FeedlogIssues passes loading prop', () => {
+    const { container } = render(<FeedlogIssues issues={[]} loading={true} />);
+    const component = container.querySelector('feedlog-issues');
     expect(component?.getAttribute('loading')).not.toBeNull();
   });
 });
@@ -142,10 +142,10 @@ describe('React Wrapper - Event Handling', () => {
     expect(button).toBeDefined();
   });
 
-  it('FeedlogGithubIssues supports upvote event handler', () => {
+  it('FeedlogIssues supports upvote event handler', () => {
     const handler = jest.fn();
-    const { container } = render(<FeedlogGithubIssues issues={[]} onFeedlogUpvote={handler} />);
-    const component = container.querySelector('feedlog-github-issues');
+    const { container } = render(<FeedlogIssues issues={[]} onFeedlogUpvote={handler} />);
+    const component = container.querySelector('feedlog-issues');
     expect(component).toBeDefined();
   });
 });

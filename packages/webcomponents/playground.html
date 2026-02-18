@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>feedlog-github-issues-client Playground</title>
+    <title>feedlog-issues-client Playground</title>
     <script type="module" src="./dist/feedlog-toolkit/feedlog-toolkit.esm.js"></script>
     <style>
       * {
@@ -429,7 +429,7 @@
   <body>
     <div class="container">
       <header>
-        <h1>feedlog-github-issues-client</h1>
+        <h1>feedlog-issues-client</h1>
         <p class="subtitle">Interactive Playground for Fast Prototyping & Debugging</p>
       </header>
 
@@ -649,7 +649,7 @@
         }
 
         // Create and configure component
-        componentElement = document.createElement('feedlog-github-issues-client');
+        componentElement = document.createElement('feedlog-issues-client');
         componentElement.apiKey = state.apiKey;
         componentElement.endpoint = state.endpoint;
         if (state.type) componentElement.type = state.type;

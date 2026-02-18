@@ -26,8 +26,8 @@ export const FeedlogCard = createComponent({
   events: {},
 }) as any;
 
-export const FeedlogGithubIssues = createComponent({
-  tagName: 'feedlog-github-issues',
+export const FeedlogIssues = createComponent({
+  tagName: 'feedlog-issues',
   elementClass: HTMLElement,
   react: React,
   events: {
@@ -35,8 +35,8 @@ export const FeedlogGithubIssues = createComponent({
   },
 }) as any;
 
-export const FeedlogGithubIssuesClient = createComponent({
-  tagName: 'feedlog-github-issues-client',
+export const FeedlogIssuesClient = createComponent({
+  tagName: 'feedlog-issues-client',
   elementClass: HTMLElement,
   react: React,
   events: {},

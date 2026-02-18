@@ -123,14 +123,14 @@ npm run build:vue
     ></script>
   </head>
   <body>
-    <feedlog-github-issues-client
+    <feedlog-issues-client
       api-key="your-api-key"
       type="bug"
       limit="10"
       theme="light"
       max-width="42rem"
     >
-    </feedlog-github-issues-client>
+    </feedlog-issues-client>
   </body>
 </html>
 ```
@@ -139,12 +139,12 @@ npm run build:vue
 
 ```tsx
 import React from 'react';
-import { FeedlogGithubIssuesClient } from '@feedlog-ai/react';
+import { FeedlogIssuesClient } from '@feedlog-ai/react';
 
 function App() {
   return (
     <div>
-      <FeedlogGithubIssuesClient
+      <FeedlogIssuesClient
         apiKey="your-api-key"
         type="bug"
         limit={10}
@@ -166,7 +166,7 @@ function App() {
 
 ```vue
 <template>
-  <feedlog-github-issues-client
+  <feedlog-issues-client
     api-key="your-api-key"
     type="bug"
     :limit="10"
@@ -175,11 +175,11 @@ function App() {
     @feedlog-upvote="handleUpvote"
     @feedlog-error="handleError"
   >
-  </feedlog-github-issues-client>
+  </feedlog-issues-client>
 </template>
 
 <script setup lang="ts">
-import { FeedlogGithubIssuesClient } from '@feedlog-ai/vue';
+import { FeedlogIssuesClient } from '@feedlog-ai/vue';
 
 const handleUpvote = (event: CustomEvent) => {
   console.log('Issue upvoted:', event.detail);
@@ -200,8 +200,8 @@ Customize the changelog widget to match your product. Set CSS custom properties 
 **1. Emerald theme** (serif typography, green accent):
 
 ```css
-feedlog-github-issues-client,
-feedlog-github-issues {
+feedlog-issues-client,
+feedlog-issues {
   font-family: 'Georgia', 'Times New Roman', serif;
   /* Card */
   --feedlog-card-padding: 1.5rem;
@@ -226,8 +226,8 @@ feedlog-github-issues {
 **2. Minimal (compact, subtle shadows):**
 
 ```css
-feedlog-github-issues-client,
-feedlog-github-issues {
+feedlog-issues-client,
+feedlog-issues {
   --feedlog-card-padding: 1rem;
   --feedlog-card-accent-width: 3px;
   --feedlog-radius: 0.5rem;
@@ -241,8 +241,8 @@ feedlog-github-issues {
 **3. Brand accent (swap accent color only):**
 
 ```css
-feedlog-github-issues-client,
-feedlog-github-issues {
+feedlog-issues-client,
+feedlog-issues {
   --feedlog-accent-color: #7c3aed; /* purple */
   /* Or: #dc2626 (red), #0891b2 (cyan), #ea580c (orange) */
 }
@@ -268,7 +268,7 @@ feedlog-github-issues {
 | `--feedlog-border`              | Border color              | `rgba(0,0,0,0.08)` |
 | `--feedlog-destructive`         | Bug/destructive color     | `#d4183d`          |
 
-See the [CustomCSSVars story](packages/webcomponents/src/components/feedlog-github-issues/feedlog-github-issues.stories.tsx) in Storybook for a live example. Run `npm run storybook` to explore all variants.
+See the [CustomCSSVars story](packages/webcomponents/src/components/feedlog-issues/feedlog-issues.stories.tsx) in Storybook for a live example. Run `npm run storybook` to explore all variants.
 
 ## Integrate in 3 steps
 

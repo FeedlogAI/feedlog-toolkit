@@ -115,8 +115,8 @@ function verifyWebcomponentsPack() {
       .split('\n');
 
     const requiredEntries = [
-      'package/dist/components/feedlog-github-issues-client.js',
-      'package/dist/components/feedlog-github-issues.js',
+      'package/dist/components/feedlog-issues-client.js',
+      'package/dist/components/feedlog-issues.js',
       'package/dist/components/feedlog-issue.js',
       'package/dist/components/feedlog-issues-list.js',
       'package/dist/components/feedlog-badge.js',

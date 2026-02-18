@@ -2,8 +2,8 @@ import {
   FeedlogBadge,
   FeedlogButton,
   FeedlogCard,
-  FeedlogGithubIssues,
-  FeedlogGithubIssuesClient,
+  FeedlogIssues,
+  FeedlogIssuesClient,
   FeedlogIssuesList,
   install,
 } from '../index';
@@ -26,16 +26,16 @@ describe('Vue Wrapper - Module Exports', () => {
     expect(FeedlogCard).toBeDefined();
   });
 
-  it('should export FeedlogGithubIssues', () => {
-    expect(FeedlogGithubIssues).toBeDefined();
+  it('should export FeedlogIssues', () => {
+    expect(FeedlogIssues).toBeDefined();
   });
 
   it('should export FeedlogIssuesList', () => {
     expect(FeedlogIssuesList).toBeDefined();
   });
 
-  it('should export FeedlogGithubIssuesClient', () => {
-    expect(FeedlogGithubIssuesClient).toBeDefined();
+  it('should export FeedlogIssuesClient', () => {
+    expect(FeedlogIssuesClient).toBeDefined();
   });
 
   it('should export install plugin function', () => {
@@ -57,8 +57,8 @@ describe('Vue Wrapper - Basic Rendering', () => {
     expect(FeedlogCard).toBeDefined();
   });
 
-  it('FeedlogGithubIssues is available', () => {
-    expect(FeedlogGithubIssues).toBeDefined();
+  it('FeedlogIssues is available', () => {
+    expect(FeedlogIssues).toBeDefined();
   });
 
   it('FeedlogIssuesList is available', () => {
@@ -75,8 +75,8 @@ describe('Vue Wrapper - v-bind Props', () => {
     expect(typeof FeedlogButton).toBe('object');
   });
 
-  it('FeedlogGithubIssues is a valid component', () => {
-    expect(typeof FeedlogGithubIssues).toBe('object');
+  it('FeedlogIssues is a valid component', () => {
+    expect(typeof FeedlogIssues).toBe('object');
   });
 });
 
@@ -91,8 +91,8 @@ describe('Vue Wrapper - Event Handling', () => {
     expect(FeedlogButton).toBeDefined();
   });
 
-  it('FeedlogGithubIssues available for event binding', () => {
-    expect(FeedlogGithubIssues).toBeDefined();
+  it('FeedlogIssues available for event binding', () => {
+    expect(FeedlogIssues).toBeDefined();
   });
 });
 

@@ -3,16 +3,16 @@ import { FeedlogSDK, FetchIssuesParams } from '@feedlog-ai/core';
 import type { FeedlogIssue as FeedlogIssueType, GetIssueUrlFn, SortBy } from '@feedlog-ai/core';
 
 /**
- * Feedlog GitHub Issues Client Component
+ * Feedlog Issues Client Component
  *
- * A component for displaying GitHub issues fetched using the Feedlog SDK.
- * This component uses the SDK internally to fetch data and delegates to feedlog-github-issues for rendering.
+ * A component for displaying issues fetched using the Feedlog SDK.
+ * This component uses the SDK internally to fetch data and delegates to feedlog-issues for rendering.
  */
 @Component({
-  tag: 'feedlog-github-issues-client',
+  tag: 'feedlog-issues-client',
   shadow: true,
 })
-export class FeedlogGithubIssuesClient {
+export class FeedlogIssuesClient {
   /**
    * API key for Feedlog authentication (required)
    * The API key determines which repositories' issues are fetched
@@ -70,7 +70,7 @@ export class FeedlogGithubIssuesClient {
   @Prop() emptyStateMessage?: string;
 
   /**
-   * Optional callback to resolve GitHub issue URL when githubIssueLink is not available.
+   * Optional callback to resolve issue URL when githubIssueLink is not available.
    * Required because repository.owner was removed from the API for privacy.
    */
   @Prop() getIssueUrl?: GetIssueUrlFn;
@@ -354,7 +354,7 @@ export class FeedlogGithubIssuesClient {
 
   render() {
     return (
-      <feedlog-github-issues
+      <feedlog-issues
         issues={this.issues}
         maxWidth={this.maxWidth}
         theme={this.theme}
@@ -369,7 +369,7 @@ export class FeedlogGithubIssuesClient {
         isLoadingMore={this.isLoadingMore}
         onFeedlogUpvote={this.handleUpvote}
         onFeedlogLoadMore={async () => this.loadMore()}
-      ></feedlog-github-issues>
+      ></feedlog-issues>
     );
   }
 }

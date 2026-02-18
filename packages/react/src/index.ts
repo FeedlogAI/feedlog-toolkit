@@ -13,8 +13,8 @@ import type { FeedlogIssue as FeedlogIssueType } from '@feedlog-ai/core';
 // and its dependencies. This uses the dist-custom-elements output which works
 // correctly with modern bundlers (Vite, webpack, etc.), unlike the lazy-loading
 // defineCustomElements() approach that causes 404s in production builds.
-import '@feedlog-ai/webcomponents/components/feedlog-github-issues-client';
-import '@feedlog-ai/webcomponents/components/feedlog-github-issues';
+import '@feedlog-ai/webcomponents/components/feedlog-issues-client';
+import '@feedlog-ai/webcomponents/components/feedlog-issues';
 import '@feedlog-ai/webcomponents/components/feedlog-issue';
 import '@feedlog-ai/webcomponents/components/feedlog-issues-list';
 import '@feedlog-ai/webcomponents/components/feedlog-badge';
@@ -171,7 +171,7 @@ export const FeedlogCard = React.forwardRef<HTMLElement, React.HTMLAttributes<HT
 );
 FeedlogCard.displayName = 'FeedlogCard';
 
-export interface FeedlogGithubIssuesProps extends React.HTMLAttributes<HTMLElement> {
+export interface FeedlogIssuesProps extends React.HTMLAttributes<HTMLElement> {
   issues?: FeedlogIssueType[];
   maxWidth?: string;
   theme?: 'light' | 'dark';
@@ -191,7 +191,7 @@ export interface FeedlogGithubIssuesProps extends React.HTMLAttributes<HTMLEleme
   onFeedlogLoadMore?: (event: CustomEvent<void>) => void;
 }
 
-export const FeedlogGithubIssues = React.forwardRef<HTMLElement, FeedlogGithubIssuesProps>(
+export const FeedlogIssues = React.forwardRef<HTMLElement, FeedlogIssuesProps>(
   ({ children, ...props }, ref) => {
     const internalRef = useRef<HTMLElement>(null);
     const { primitiveProps, complexProps, eventProps } = separateProps(props);
@@ -199,15 +199,15 @@ export const FeedlogGithubIssues = React.forwardRef<HTMLElement, FeedlogGithubIs
     useWebComponentProps(internalRef, complexProps, eventProps);
 
     return React.createElement(
-      'feedlog-github-issues',
+      'feedlog-issues',
       { ...primitiveProps, ref: mergeRefs(ref, internalRef) },
       children
     );
   }
 );
-FeedlogGithubIssues.displayName = 'FeedlogGithubIssues';
+FeedlogIssues.displayName = 'FeedlogIssues';
 
-export interface FeedlogGithubIssuesClientProps extends React.HTMLAttributes<HTMLElement> {
+export interface FeedlogIssuesClientProps extends React.HTMLAttributes<HTMLElement> {
   apiKey: string;
   endpoint?: string;
   type?: 'bug' | 'enhancement';
@@ -226,22 +226,21 @@ export interface FeedlogGithubIssuesClientProps extends React.HTMLAttributes<HTM
   onFeedlogError?: (event: CustomEvent<{ error: string; code?: number }>) => void;
 }
 
-export const FeedlogGithubIssuesClient = React.forwardRef<
-  HTMLElement,
-  FeedlogGithubIssuesClientProps
->(({ children, ...props }, ref) => {
-  const internalRef = useRef<HTMLElement>(null);
-  const { primitiveProps, complexProps, eventProps } = separateProps(props);
+export const FeedlogIssuesClient = React.forwardRef<HTMLElement, FeedlogIssuesClientProps>(
+  ({ children, ...props }, ref) => {
+    const internalRef = useRef<HTMLElement>(null);
+    const { primitiveProps, complexProps, eventProps } = separateProps(props);
 
-  useWebComponentProps(internalRef, complexProps, eventProps);
+    useWebComponentProps(internalRef, complexProps, eventProps);
 
-  return React.createElement(
-    'feedlog-github-issues-client',
-    { ...primitiveProps, ref: mergeRefs(ref, internalRef) },
-    children
-  );
-});
-FeedlogGithubIssuesClient.displayName = 'FeedlogGithubIssuesClient';
+    return React.createElement(
+      'feedlog-issues-client',
+      { ...primitiveProps, ref: mergeRefs(ref, internalRef) },
+      children
+    );
+  }
+);
+FeedlogIssuesClient.displayName = 'FeedlogIssuesClient';
 
 export interface FeedlogIssuesListProps extends React.HTMLAttributes<HTMLElement> {
   issues?: FeedlogIssueType[];
