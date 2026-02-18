@@ -3,8 +3,8 @@
   font-family:
     ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
 
-  /* Light theme defaults */
-  --feedlog-background: #ffffff;
+  /* Light theme defaults - use --feedlog-theme-bg so parent can override via --feedlog-background */
+  --feedlog-theme-bg: #ffffff;
   --feedlog-foreground: oklch(0.145 0 0);
   --feedlog-card: #ffffff;
   --feedlog-card-foreground: oklch(0.145 0 0);
@@ -27,7 +27,7 @@
 
 :host(.dark) {
   /* Dark theme values */
-  --feedlog-background: oklch(0.18 0.01 260);
+  --feedlog-theme-bg: oklch(0.18 0.01 260);
   --feedlog-foreground: oklch(0.985 0 0);
   --feedlog-card: oklch(0.24 0.01 260);
   --feedlog-card-foreground: oklch(0.985 0 0);
@@ -46,7 +46,8 @@
 
 .issues-container {
   min-height: 100vh;
-  background-color: var(--feedlog-background);
+  /* Parent can override via --feedlog-background (e.g. transparent); fallback to theme default */
+  background-color: var(--feedlog-background, var(--feedlog-theme-bg, #ffffff));
   padding: var(--feedlog-padding);
   margin: 0 auto;
 }
