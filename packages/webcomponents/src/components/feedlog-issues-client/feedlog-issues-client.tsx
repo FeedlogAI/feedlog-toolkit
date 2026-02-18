@@ -1,4 +1,4 @@
-import { Component, Prop, Event, EventEmitter, h, State } from '@stencil/core';
+import { Component, Element, Prop, Event, EventEmitter, h, State } from '@stencil/core';
 import { FeedlogSDK, FetchIssuesParams } from '@feedlog-ai/core';
 import type { FeedlogIssue as FeedlogIssueType, GetIssueUrlFn, SortBy } from '@feedlog-ai/core';
 
@@ -84,6 +84,8 @@ export class FeedlogIssuesClient {
    * Event emitted on error
    */
   @Event() feedlogError!: EventEmitter<{ error: string; code?: number }>;
+
+  @Element() el!: HTMLElement;
 
   @State() issues: FeedlogIssueType[] = [];
   @State() loading: boolean = true;
@@ -353,8 +355,15 @@ export class FeedlogIssuesClient {
   };
 
   render() {
+    // Explicitly forward --feedlog-background from host to child (inheritance can fail across nested shadow DOM)
+    const hostBg = this.el?.style?.getPropertyValue('--feedlog-background');
+    const style = hostBg
+      ? ({ '--feedlog-background': hostBg } as Record<string, string>)
+      : undefined;
+
     return (
       <feedlog-issues
+        style={style}
         issues={this.issues}
         maxWidth={this.maxWidth}
         theme={this.theme}

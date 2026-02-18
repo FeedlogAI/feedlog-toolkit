@@ -241,6 +241,37 @@ export const NarrowWidth: Story = {
   },
 };
 
+export const TransparentBackground: Story = {
+  args: {
+    issues: sampleIssues,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use `--feedlog-background: transparent` to let the parent background show through. Useful when embedding in dashboards or custom layouts.',
+      },
+    },
+  },
+  render: (props: any) => (
+    <div
+      style={{
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        padding: '2rem',
+        borderRadius: '8px',
+      }}
+    >
+      <feedlog-issues {...props} style={{ '--feedlog-background': 'transparent' } as any} />
+    </div>
+  ),
+  play: async ({ canvasElement, args }) => {
+    const element = canvasElement.querySelector('feedlog-issues');
+    if (element && args.issues) {
+      (element as any).issues = args.issues;
+    }
+  },
+};
+
 export const CustomCSSVars: Story = {
   args: {
     issues: sampleIssues,
