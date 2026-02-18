@@ -10,6 +10,12 @@ This monorepo contains the following packages:
 
 ### `@feedlog-ai/core`
 
+```bash
+npm install @feedlog-ai/core
+```
+
+[npm](https://www.npmjs.com/package/@feedlog-ai/core) · [packages/core](packages/core)
+
 Core SDK package providing shared utilities, types, and functionality used across all Feedlog Toolkit packages.
 
 **Features:**
@@ -20,6 +26,12 @@ Core SDK package providing shared utilities, types, and functionality used acros
 - Core Feedlog SDK class
 
 ### `@feedlog-ai/webcomponents`
+
+```bash
+npm install @feedlog-ai/webcomponents
+```
+
+[npm](https://www.npmjs.com/package/@feedlog-ai/webcomponents) · [packages/webcomponents](packages/webcomponents)
 
 Stencil-based web components for GitHub issue management. These are framework-agnostic web components that can be used in any JavaScript framework or vanilla HTML.
 
@@ -33,6 +45,12 @@ Stencil-based web components for GitHub issue management. These are framework-ag
 
 ### `@feedlog-ai/react`
 
+```bash
+npm install @feedlog-ai/react
+```
+
+[npm](https://www.npmjs.com/package/@feedlog-ai/react) · [packages/react](packages/react)
+
 React bindings for Feedlog Toolkit web components. Auto-generated from Stencil components.
 
 **Features:**
@@ -44,6 +62,12 @@ React bindings for Feedlog Toolkit web components. Auto-generated from Stencil c
 
 ### `@feedlog-ai/vue`
 
+```bash
+npm install @feedlog-ai/vue
+```
+
+[npm](https://www.npmjs.com/package/@feedlog-ai/vue) · [packages/vue](packages/vue)
+
 Vue bindings for Feedlog Toolkit web components. Auto-generated from Stencil components.
 
 **Features:**
@@ -52,62 +76,6 @@ Vue bindings for Feedlog Toolkit web components. Auto-generated from Stencil com
 - Auto-generated from Stencil components
 - Full type safety
 - Peer dependency on Vue >=3.0.0 or >=2.6.0
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Node.js >= 22.0.0
-- npm >= 9.0.0
-
-### Installation
-
-```bash
-# Install all dependencies
-npm install
-
-# Build all packages
-npm run build
-```
-
-### Development
-
-```bash
-# Start development server for web components
-npm run dev
-
-# Lint all packages
-npm run lint
-
-# Format all code
-npm run format
-```
-
-## 📝 Building Packages
-
-### Build Order
-
-Packages should be built in this order due to dependencies:
-
-1. **Core SDK** - No dependencies
-2. **Web Components** - Depends on core
-3. **React & Vue** - Generated from web components build
-
-### Individual Package Builds
-
-```bash
-# Build core SDK
-npm run build:core
-
-# Build web components (this also generates React/Vue wrappers)
-npm run build:webcomponents
-
-# Build React package
-npm run build:react
-
-# Build Vue package
-npm run build:vue
-```
 
 ## 📚 Usage Examples
 
@@ -250,23 +218,42 @@ feedlog-issues {
 
 ### All customizable CSS variables
 
-| Variable                        | Description               | Default            |
-| ------------------------------- | ------------------------- | ------------------ |
-| `--feedlog-card-padding`        | Card inner padding        | `1.25rem`          |
-| `--feedlog-card-accent-width`   | Left accent bar width     | `3px`              |
-| `--feedlog-radius`              | Border radius             | `0.625rem`         |
-| `--feedlog-shadow`              | Card box shadow           | (see theme)        |
-| `--feedlog-shadow-hover`        | Hover box shadow          | (see theme)        |
-| `--feedlog-title-font-size`     | Issue title size          | `0.9375rem`        |
-| `--feedlog-title-font-weight`   | Issue title weight        | `600`              |
-| `--feedlog-body-font-size`      | Body text size            | `0.8125rem`        |
-| `--feedlog-body-line-height`    | Body line height          | `1.5`              |
-| `--feedlog-timestamp-font-size` | Timestamp size            | `0.6875rem`        |
-| `--feedlog-accent-color`        | Links, badges, accent bar | `#2563eb`          |
-| `--feedlog-muted`               | Muted background          | `#f1f5f9`          |
-| `--feedlog-muted-foreground`    | Muted text                | `#64748b`          |
-| `--feedlog-border`              | Border color              | `rgba(0,0,0,0.08)` |
-| `--feedlog-destructive`         | Bug/destructive color     | `#d4183d`          |
+| Variable                              | Description                     | Default                           |
+| ------------------------------------- | ------------------------------- | --------------------------------- |
+| `--feedlog-background`                | Main container background       | `#ffffff` (light)                 |
+| `--feedlog-foreground`                | Main text color                 | `oklch(0.145 0 0)`                |
+| `--feedlog-card`                      | Card background                 | `#ffffff` (light)                 |
+| `--feedlog-card-foreground`           | Card text color                 | `oklch(0.145 0 0)`                |
+| `--feedlog-padding`                   | Container padding               | `2rem`                            |
+| `--feedlog-gap`                       | Gap between issue cards         | `0.5rem`                          |
+| `--feedlog-card-padding`              | Card inner padding              | `1.25rem`                         |
+| `--feedlog-card-accent-width`         | Left accent bar width           | `3px`                             |
+| `--feedlog-radius`                    | Border radius                   | `0.625rem`                        |
+| `--feedlog-shadow`                    | Card box shadow                 | (see theme)                       |
+| `--feedlog-shadow-hover`              | Hover box shadow                | (see theme)                       |
+| `--feedlog-title-font-size`           | Issue title size                | `0.9375rem`                       |
+| `--feedlog-title-font-weight`         | Issue title weight              | `600`                             |
+| `--feedlog-body-font-size`            | Body text size                  | `0.8125rem`                       |
+| `--feedlog-body-line-height`          | Body line height                | `1.5`                             |
+| `--feedlog-timestamp-font-size`       | Timestamp size                  | `0.6875rem`                       |
+| `--feedlog-timestamp-color`           | Timestamp color                 | `var(--feedlog-muted-foreground)` |
+| `--feedlog-accent-color`              | Links, badges, accent bar       | `#2563eb`                         |
+| `--feedlog-muted`                     | Muted background                | `#f1f5f9`                         |
+| `--feedlog-muted-foreground`          | Muted text                      | `#64748b`                         |
+| `--feedlog-border`                    | Border color                    | `rgba(0,0,0,0.08)`                |
+| `--feedlog-destructive`               | Bug/destructive color           | `#d4183d`                         |
+| `--feedlog-icon-color`                | Icon color                      | `var(--feedlog-muted-foreground)` |
+| `--feedlog-pin-color`                 | Pin icon color                  | `var(--feedlog-accent-color)`     |
+| `--feedlog-upvote-icon-color`         | Upvote icon (unfilled)          | `var(--feedlog-blue-600)`         |
+| `--feedlog-upvote-icon-filled-color`  | Upvote icon (filled/liked)      | `var(--feedlog-red-600)`          |
+| `--feedlog-empty-illustration-bg`     | Empty state illustration bg     | `oklch(0.96 0.01 260)` (light)    |
+| `--feedlog-empty-illustration-stroke` | Empty state illustration stroke | `oklch(0.75 0.02 260)` (light)    |
+| `--feedlog-empty-illustration-muted`  | Empty state illustration muted  | `oklch(0.82 0.01 260)` (light)    |
+| `--feedlog-badge-font-size`           | Badge font size                 | `0.75rem`                         |
+| `--feedlog-badge-font-weight`         | Badge font weight               | `500`                             |
+| `--feedlog-badge-padding-x`           | Badge horizontal padding        | `0.5rem`                          |
+| `--feedlog-badge-padding-y`           | Badge vertical padding          | `0.125rem`                        |
+| `--feedlog-badge-border-radius`       | Badge border radius             | `calc(0.625rem - 2px)`            |
 
 See the [CustomCSSVars story](packages/webcomponents/src/components/feedlog-issues/feedlog-issues.stories.tsx) in Storybook for a live example. Run `npm run storybook` to explore all variants.
 
@@ -288,153 +275,6 @@ Control your changelog from GitHub issue comments:
 | `@switch <number>` | Switch to a specific revision             |
 | `@show <number>`   | Display full revision content             |
 | `@revert`          | Revert to the previous revision           |
-
-## 🛠️ Development Workflow
-
-### Adding a New Component
-
-1. Create a new component in `packages/webcomponents/src/components/`
-2. Run `npm run build:webcomponents` to generate React/Vue wrappers
-3. The wrappers will be automatically updated in `packages/react` and `packages/vue`
-
-### Creating a New Component with Stencil
-
-```bash
-# Navigate to the webcomponents package
-cd packages/webcomponents
-
-# Generate a new component
-npm run generate
-# Follow the prompts to create a new component
-
-# Build the webcomponents package (this also generates React/Vue wrappers)
-npm run build
-```
-
-## 🚀 Publishing & CI/CD
-
-### Automated Releases
-
-This project uses GitHub Actions for automated CI/CD:
-
-- **CI Workflow**: Runs on every push/PR to `main`/`master` branches
-  - Uses Node.js 22.x
-  - Installs dependencies
-  - Runs linting and formatting checks
-  - Executes test suites with coverage
-  - Builds all packages
-
-- **Release Workflow**: Triggers on version tags (`v*.*.*`)
-  - Uses Node.js 22.x
-  - Runs full CI checks
-  - Publishes all packages to npm
-  - Creates a GitHub release
-
-### Publishing a Release
-
-1. **Update versions and create release**:
-
-   ```bash
-   # Increment patch version (default)
-   npm run release
-
-   # Or specify version type
-   npm run release minor  # 0.0.1 → 0.1.0
-   npm run release major  # 0.0.1 → 1.0.0
-   ```
-
-2. **Push to GitHub**:
-
-   ```bash
-   git push && git push --tags
-   ```
-
-3. **GitHub Actions will automatically**:
-   - Build all packages
-   - Publish to npm (requires `NPM_TOKEN` secret)
-   - Create a GitHub release
-
-### Required GitHub Secrets
-
-For automated publishing, set these secrets in your GitHub repository:
-
-- `NPM_TOKEN`: npm authentication token with publish permissions
-- `CODECOV_TOKEN`: Optional, for code coverage reporting
-
-### Manual Publishing
-
-If you need to publish manually:
-
-```bash
-# Build all packages
-npm run build
-
-# Publish each package
-cd packages/core && npm publish
-cd ../webcomponents && npm publish
-cd ../react && npm publish
-cd ../vue && npm publish
-```
-
-## 📋 Scripts Reference
-
-### Root Scripts
-
-**Build Commands:**
-
-- `npm run build` - Build all packages in dependency order
-- `npm run build:core` - Build only the core package
-- `npm run build:webcomponents` - Build web components (generates React/Vue wrappers)
-- `npm run build:react` - Build React package
-- `npm run build:vue` - Build Vue package
-
-**Development:**
-
-- `npm run dev` - Start development server for web components
-- `npm run storybook` - Start Storybook for component development
-
-**Testing:**
-
-- `npm run test` - Run tests for all packages
-- `npm run test:core` - Run tests for core package
-- `npm run test:webcomponents` - Run tests for web components
-- `npm run test:react` - Run tests for React package
-- `npm run test:vue` - Run tests for Vue package
-- `npm run test:coverage` - Run tests with coverage for all packages
-
-**Code Quality:**
-
-- `npm run lint` - Lint all packages
-- `npm run lint:fix` - Lint and auto-fix issues
-- `npm run format` - Format all code with Prettier
-- `npm run format:check` - Check code formatting
-
-**Maintenance:**
-
-- `npm run clean` - Clean all build artifacts and node_modules
-- `npm run release` - Update versions and prepare release (patch by default)
-- `npm run release minor` - Prepare minor version release
-- `npm run release major` - Prepare major version release
-
-### Package-Specific Scripts
-
-Each package has additional scripts defined in its `package.json`:
-
-**Web Components Package:**
-
-- `npm run generate` - Generate new Stencil components
-- `npm run storybook` - Start Storybook for web components
-- `npm run build-storybook` - Build Storybook static site
-
-Use `npm run <script> --workspace=<package-name>` to run package-specific scripts.
-
-## 🤝 Contributing
-
-1. Create a feature branch
-2. Make your changes
-3. Run linter: `npm run lint`
-4. Format code: `npm run format`
-5. Submit a pull request
 
 ## 📄 License
 
