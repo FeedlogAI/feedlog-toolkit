@@ -257,25 +257,6 @@ feedlog-issues {
 
 See the [CustomCSSVars story](packages/webcomponents/src/components/feedlog-issues/feedlog-issues.stories.tsx) in Storybook for a live example. Run `npm run storybook` to explore all variants.
 
-## Integrate in 3 steps
-
-1. **Connect your repo** — Install FeedLog and pick repositories at [feedlog.dev](https://feedlog.dev/)
-2. **Create your widget key** — Generate an API key in dashboard installation settings
-3. **Embed and ship** — Paste one component or script on your site to show changelog updates
-
-### Command Reference (GitHub comments)
-
-Control your changelog from GitHub issue comments:
-
-| Command            | Description                               |
-| ------------------ | ----------------------------------------- |
-| `@publish`         | Publish the issue to the public changelog |
-| `@unpublish`       | Remove from public changelog              |
-| `@retry`           | Regenerate AI content (uses 1 retry)      |
-| `@switch <number>` | Switch to a specific revision             |
-| `@show <number>`   | Display full revision content             |
-| `@revert`          | Revert to the previous revision           |
-
 ## 📄 License
 
 MIT
