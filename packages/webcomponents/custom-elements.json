@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-17T17:39:02",
+  "timestamp": "2026-02-17T18:51:09",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.40.1",
@@ -681,9 +681,10 @@
       "slots": [],
       "parts": [],
       "dependents": ["feedlog-github-issues-client"],
-      "dependencies": ["feedlog-issue", "feedlog-button"],
+      "dependencies": ["feedlog-issues-list", "feedlog-button"],
       "dependencyGraph": {
-        "feedlog-github-issues": ["feedlog-issue", "feedlog-button"],
+        "feedlog-github-issues": ["feedlog-issues-list", "feedlog-button"],
+        "feedlog-issues-list": ["feedlog-issue"],
         "feedlog-issue": ["feedlog-badge"],
         "feedlog-github-issues-client": ["feedlog-github-issues"]
       }
@@ -1084,7 +1085,8 @@
       "dependencies": ["feedlog-github-issues"],
       "dependencyGraph": {
         "feedlog-github-issues-client": ["feedlog-github-issues"],
-        "feedlog-github-issues": ["feedlog-issue", "feedlog-button"],
+        "feedlog-github-issues": ["feedlog-issues-list", "feedlog-button"],
+        "feedlog-issues-list": ["feedlog-issue"],
         "feedlog-issue": ["feedlog-badge"]
       }
     },
@@ -1219,11 +1221,10 @@
           "docs": ""
         }
       ],
-      "dependents": ["feedlog-github-issues", "feedlog-issues-list"],
+      "dependents": ["feedlog-issues-list"],
       "dependencies": ["feedlog-badge"],
       "dependencyGraph": {
         "feedlog-issue": ["feedlog-badge"],
-        "feedlog-github-issues": ["feedlog-issue"],
         "feedlog-issues-list": ["feedlog-issue"]
       }
     },
@@ -1236,6 +1237,58 @@
       "docsTags": [],
       "usage": {},
       "props": [
+        {
+          "name": "emptyStateMessage",
+          "type": "string | undefined",
+          "complexType": {
+            "original": "string",
+            "resolved": "string | undefined",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "empty-state-message",
+          "reflectToAttr": false,
+          "docs": "Empty state message. When provided with emptyStateTitle, shows a richer empty state with illustration.",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "undefined"
+            }
+          ],
+          "optional": true,
+          "required": false,
+          "getter": false,
+          "setter": false
+        },
+        {
+          "name": "emptyStateTitle",
+          "type": "string | undefined",
+          "complexType": {
+            "original": "string",
+            "resolved": "string | undefined",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "empty-state-title",
+          "reflectToAttr": false,
+          "docs": "Empty state title. When provided with emptyStateMessage, shows a richer empty state with illustration.",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "undefined"
+            }
+          ],
+          "optional": true,
+          "required": false,
+          "getter": false,
+          "setter": false
+        },
         {
           "name": "getIssueUrl",
           "type": "((issue: FeedlogIssue) => string | null | undefined) | undefined",
@@ -1363,11 +1416,12 @@
       "styles": [],
       "slots": [],
       "parts": [],
-      "dependents": [],
+      "dependents": ["feedlog-github-issues"],
       "dependencies": ["feedlog-issue"],
       "dependencyGraph": {
         "feedlog-issues-list": ["feedlog-issue"],
-        "feedlog-issue": ["feedlog-badge"]
+        "feedlog-issue": ["feedlog-badge"],
+        "feedlog-github-issues": ["feedlog-issues-list"]
       }
     }
   ],

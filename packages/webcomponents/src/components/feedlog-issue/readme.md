@@ -91,7 +91,6 @@ A component for displaying a single GitHub issue.
 
 ### Used by
 
-- [feedlog-github-issues](../feedlog-github-issues)
 - [feedlog-issues-list](../feedlog-issues-list)
 
 ### Depends on
@@ -103,7 +102,6 @@ A component for displaying a single GitHub issue.
 ```mermaid
 graph TD;
   feedlog-issue --> feedlog-badge
-  feedlog-github-issues --> feedlog-issue
   feedlog-issues-list --> feedlog-issue
   style feedlog-issue fill:#f9f,stroke:#333,stroke-width:4px
 ```

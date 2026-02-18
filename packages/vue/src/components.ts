@@ -81,6 +81,6 @@ export const FeedlogIssuesList: StencilVueComponent<JSX.FeedlogIssuesList> =
   /*@__PURE__*/ defineContainer<JSX.FeedlogIssuesList>(
     'feedlog-issues-list',
     undefined,
-    ['issues', 'theme', 'getIssueUrl', 'feedlogUpvote'],
+    ['issues', 'theme', 'getIssueUrl', 'emptyStateTitle', 'emptyStateMessage', 'feedlogUpvote'],
     ['feedlogUpvote']
   );

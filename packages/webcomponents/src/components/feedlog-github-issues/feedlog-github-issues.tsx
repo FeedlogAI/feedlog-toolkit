@@ -106,45 +106,6 @@ export class FeedlogGithubIssues {
     this.feedlogLoadMore.emit();
   };
 
-  private renderEmptyStateIllustration() {
-    return (
-      <svg
-        class="empty-state-illustration"
-        xmlns="http://www.w3.org/2000/svg"
-        width="120"
-        height="96"
-        viewBox="0 0 120 96"
-        fill="none"
-        aria-hidden="true"
-      >
-        {/* Inbox tray base */}
-        <path
-          d="M20 36h80v44c0 4.4-3.6 8-8 8H28c-4.4 0-8-3.6-8-8V36z"
-          fill="var(--feedlog-empty-illustration-bg)"
-          stroke="var(--feedlog-empty-illustration-stroke)"
-          stroke-width="1.5"
-          stroke-linejoin="round"
-        />
-        {/* Inbox opening */}
-        <path
-          d="M20 36l20-24h40l20 24"
-          fill="none"
-          stroke="var(--feedlog-empty-illustration-stroke)"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-        {/* Document/list icon inside */}
-        <path
-          d="M44 52h32M44 60h24M44 68h28"
-          stroke="var(--feedlog-empty-illustration-muted)"
-          stroke-width="1.25"
-          stroke-linecap="round"
-        />
-      </svg>
-    );
-  }
-
   private renderErrorIcon() {
     return (
       <svg
@@ -169,29 +130,14 @@ export class FeedlogGithubIssues {
 
   private renderIssuesList() {
     return (
-      <div class="issues-list">
-        {this.issues.length === 0 ? (
-          <div class="empty-state">
-            <div class="empty-state-content">
-              {this.renderEmptyStateIllustration()}
-              <h2 class="empty-state-title">{this.emptyStateTitle ?? 'No updates yet'}</h2>
-              <p class="empty-state-message">
-                {this.emptyStateMessage ?? 'Check back later for new updates.'}
-              </p>
-            </div>
-          </div>
-        ) : (
-          this.issues.map(issue => (
-            <feedlog-issue
-              key={issue.id}
-              issue={issue}
-              issueUrl={this.getIssueUrl?.(issue) ?? undefined}
-              theme={this.currentTheme}
-              onFeedlogUpvote={(e: CustomEvent) => this.handleUpvote(e)}
-            />
-          ))
-        )}
-      </div>
+      <feedlog-issues-list
+        issues={this.issues}
+        theme={this.currentTheme}
+        getIssueUrl={this.getIssueUrl}
+        emptyStateTitle={this.emptyStateTitle ?? 'No updates yet'}
+        emptyStateMessage={this.emptyStateMessage ?? 'Check back later for new updates.'}
+        onFeedlogUpvote={(e: CustomEvent) => this.handleUpvote(e)}
+      />
     );
   }
 

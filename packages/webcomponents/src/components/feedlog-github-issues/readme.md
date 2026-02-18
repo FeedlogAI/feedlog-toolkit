@@ -41,15 +41,16 @@ Includes full list rendering, loading/error states, and pagination support.
 
 ### Depends on
 
-- [feedlog-issue](../feedlog-issue)
+- [feedlog-issues-list](../feedlog-issues-list)
 - [feedlog-button](../feedlog-button)
 
 ### Graph
 
 ```mermaid
 graph TD;
-  feedlog-github-issues --> feedlog-issue
+  feedlog-github-issues --> feedlog-issues-list
   feedlog-github-issues --> feedlog-button
+  feedlog-issues-list --> feedlog-issue
   feedlog-issue --> feedlog-badge
   feedlog-github-issues-client --> feedlog-github-issues
   style feedlog-github-issues fill:#f9f,stroke:#333,stroke-width:4px

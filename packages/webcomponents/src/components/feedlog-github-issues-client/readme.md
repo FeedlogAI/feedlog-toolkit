@@ -44,8 +44,9 @@ This component uses the SDK internally to fetch data and delegates to feedlog-gi
 ```mermaid
 graph TD;
   feedlog-github-issues-client --> feedlog-github-issues
-  feedlog-github-issues --> feedlog-issue
+  feedlog-github-issues --> feedlog-issues-list
   feedlog-github-issues --> feedlog-button
+  feedlog-issues-list --> feedlog-issue
   feedlog-issue --> feedlog-badge
   style feedlog-github-issues-client fill:#f9f,stroke:#333,stroke-width:4px
 ```

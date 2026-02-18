@@ -194,6 +194,14 @@ export namespace Components {
    */
   interface FeedlogIssuesList {
     /**
+     * Empty state message. When provided with emptyStateTitle, shows a richer empty state with illustration.
+     */
+    emptyStateMessage?: string;
+    /**
+     * Empty state title. When provided with emptyStateMessage, shows a richer empty state with illustration.
+     */
+    emptyStateTitle?: string;
+    /**
      * Optional callback to resolve GitHub issue URL when githubIssueLink is not available.
      */
     getIssueUrl?: GetIssueUrlFn;
@@ -801,6 +809,14 @@ declare namespace LocalJSX {
    * A component for displaying a list of GitHub issues with support for bugs and enhancements.
    */
   interface FeedlogIssuesList {
+    /**
+     * Empty state message. When provided with emptyStateTitle, shows a richer empty state with illustration.
+     */
+    emptyStateMessage?: string;
+    /**
+     * Empty state title. When provided with emptyStateMessage, shows a richer empty state with illustration.
+     */
+    emptyStateTitle?: string;
     /**
      * Optional callback to resolve GitHub issue URL when githubIssueLink is not available.
      */
