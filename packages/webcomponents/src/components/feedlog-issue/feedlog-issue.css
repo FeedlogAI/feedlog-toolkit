@@ -149,14 +149,15 @@
 
 .issue-main {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 0;
 }
 
-.issue-details {
-  flex: 1;
-  min-width: 0;
+.issue-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 0.75rem;
 }
 
 .issue-title {

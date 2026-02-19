@@ -222,44 +222,44 @@ export class FeedlogIssueComponent {
             </div>
 
             <div class="issue-main">
-              <div class="issue-details">
-                <h3 class="issue-title">{displayTitle}</h3>
-                {issue.body != null && issue.body !== '' && (
-                  <div class="issue-body" innerHTML={parseMarkdown(issue.body)} />
-                )}
+              <h3 class="issue-title">{displayTitle}</h3>
+              {issue.body != null && issue.body !== '' && (
+                <div class="issue-body" innerHTML={parseMarkdown(issue.body)} />
+              )}
 
-                <div class="issue-repository">
-                  {repoName != null && (
-                    <span class="repo-name" title={repoTooltip}>
-                      {repoName}
-                    </span>
-                  )}
-                  {showGithubButton && (
-                    <a
-                      part="github-link"
-                      class="github-link"
-                      href={githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      title="View on GitHub"
-                    >
-                      {this.renderExternalLinkIcon()}
-                      <span class="github-link-text">View on GitHub</span>
-                    </a>
-                  )}
-                </div>
+              <div class="issue-repository">
+                {repoName != null && (
+                  <span class="repo-name" title={repoTooltip}>
+                    {repoName}
+                  </span>
+                )}
+                {showGithubButton && (
+                  <a
+                    part="github-link"
+                    class="github-link"
+                    href={githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="View on GitHub"
+                  >
+                    {this.renderExternalLinkIcon()}
+                    <span class="github-link-text">View on GitHub</span>
+                  </a>
+                )}
               </div>
 
               {issue.type !== 'bug' && (
-                <button
-                  part="upvote-button"
-                  class={`upvote-button ${issue.hasUpvoted ? 'upvoted' : ''}`}
-                  onClick={(e: MouseEvent) => this.handleUpvote(e)}
-                  title={issue.hasUpvoted ? 'Remove upvote' : 'Upvote this issue'}
-                >
-                  <slot name="upvote-icon">{this.renderUpvoteIcon(issue.hasUpvoted)}</slot>
-                  <span class="upvote-count">{issue.upvoteCount}</span>
-                </button>
+                <div class="issue-footer">
+                  <button
+                    part="upvote-button"
+                    class={`upvote-button ${issue.hasUpvoted ? 'upvoted' : ''}`}
+                    onClick={(e: MouseEvent) => this.handleUpvote(e)}
+                    title={issue.hasUpvoted ? 'Remove upvote' : 'Upvote this issue'}
+                  >
+                    <slot name="upvote-icon">{this.renderUpvoteIcon(issue.hasUpvoted)}</slot>
+                    <span class="upvote-count">{issue.upvoteCount}</span>
+                  </button>
+                </div>
               )}
             </div>
           </div>
