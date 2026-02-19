@@ -1,4 +1,4 @@
-import { Component, Prop, Event, EventEmitter, h, Host } from '@stencil/core';
+import { Component, Prop, State, Event, EventEmitter, h, Host, Watch } from '@stencil/core';
 import type { FeedlogIssue as FeedlogIssueType, GetIssueUrlFn } from '@feedlog-ai/core';
 
 /**
@@ -18,9 +18,22 @@ export class FeedlogIssuesList {
   @Prop() issues: FeedlogIssueType[] = [];
 
   /**
+   * Page size (items per page). When set, enables pagination when issues exceed this limit.
+   */
+  @Prop() limit?: number;
+
+  /**
    * Theme variant: 'light' or 'dark'
    */
   @Prop() theme: 'light' | 'dark' = 'light';
+
+  @State() currentPage: number = 1;
+
+  @Watch('issues')
+  @Watch('limit')
+  resetPage() {
+    this.currentPage = 1;
+  }
 
   /**
    * Optional callback to resolve GitHub issue URL when githubIssueLink is not available.
@@ -93,11 +106,93 @@ export class FeedlogIssuesList {
     this.feedlogUpvote.emit(event.detail);
   };
 
+  private getVisibleIssues(): FeedlogIssueType[] {
+    if (this.issues.length === 0) return [];
+    if (this.limit == null || this.issues.length <= this.limit) {
+      return this.issues;
+    }
+    const offset = (this.currentPage - 1) * this.limit;
+    return this.issues.slice(offset, offset + this.limit);
+  }
+
+  private getPageNumbers(): (number | 'ellipsis')[] {
+    if (this.limit == null) return [];
+    const totalPages = Math.ceil(this.issues.length / this.limit);
+    if (totalPages <= 1) return [];
+
+    const toShow = new Set<number>([1, totalPages]);
+    const start = Math.max(1, this.currentPage - 1);
+    const end = Math.min(totalPages, this.currentPage + 1);
+    for (let i = start; i <= end; i++) toShow.add(i);
+
+    const sorted = Array.from(toShow).sort((a, b) => a - b);
+    const result: (number | 'ellipsis')[] = [];
+    for (let i = 0; i < sorted.length; i++) {
+      if (i > 0 && sorted[i]! - sorted[i - 1]! > 1) result.push('ellipsis');
+      result.push(sorted[i]!);
+    }
+    return result;
+  }
+
+  private goToPage(page: number) {
+    const totalPages = this.limit != null ? Math.ceil(this.issues.length / this.limit) : 1;
+    this.currentPage = Math.max(1, Math.min(page, totalPages));
+  }
+
+  private renderPagination() {
+    if (this.limit == null || this.issues.length <= this.limit) return null;
+
+    const totalPages = Math.ceil(this.issues.length / this.limit);
+    const pageNumbers = this.getPageNumbers();
+
+    return (
+      <nav class="pagination" aria-label="Issues pagination">
+        <button
+          type="button"
+          class="pagination-btn pagination-arrow"
+          aria-label="Previous page"
+          disabled={this.currentPage <= 1}
+          onClick={() => this.goToPage(this.currentPage - 1)}
+        >
+          ‹
+        </button>
+        {pageNumbers.map((p, i) =>
+          p === 'ellipsis' ? (
+            <span key={i} class="pagination-ellipsis" aria-hidden="true">
+              …
+            </span>
+          ) : (
+            <button
+              key={i}
+              type="button"
+              class="pagination-btn"
+              aria-current={p === this.currentPage ? 'page' : undefined}
+              onClick={() => this.goToPage(p)}
+            >
+              {p}
+            </button>
+          )
+        )}
+        <button
+          type="button"
+          class="pagination-btn pagination-arrow"
+          aria-label="Next page"
+          disabled={this.currentPage >= totalPages}
+          onClick={() => this.goToPage(this.currentPage + 1)}
+        >
+          ›
+        </button>
+      </nav>
+    );
+  }
+
   render() {
+    const visibleIssues = this.getVisibleIssues();
+
     return (
       <Host class={this.theme === 'dark' ? 'dark' : ''}>
         <div class="issues-list">
-          {this.issues.length === 0 ? (
+          {visibleIssues.length === 0 ? (
             <div class="empty-state">
               {this.emptyStateTitle && this.emptyStateMessage ? (
                 <div class="empty-state-content">
@@ -110,7 +205,7 @@ export class FeedlogIssuesList {
               )}
             </div>
           ) : (
-            this.issues.map(issue => (
+            visibleIssues.map(issue => (
               <feedlog-issue
                 key={issue.id}
                 issue={issue}
@@ -121,6 +216,7 @@ export class FeedlogIssuesList {
             ))
           )}
         </div>
+        {this.renderPagination()}
       </Host>
     );
   }

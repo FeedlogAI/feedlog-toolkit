@@ -38,6 +38,7 @@ export const FeedlogIssues: StencilVueComponent<JSX.FeedlogIssues> =
     [
       'issues',
       'maxWidth',
+      'limit',
       'theme',
       'heading',
       'subtitle',
@@ -81,6 +82,14 @@ export const FeedlogIssuesList: StencilVueComponent<JSX.FeedlogIssuesList> =
   /*@__PURE__*/ defineContainer<JSX.FeedlogIssuesList>(
     'feedlog-issues-list',
     undefined,
-    ['issues', 'theme', 'getIssueUrl', 'emptyStateTitle', 'emptyStateMessage', 'feedlogUpvote'],
+    [
+      'issues',
+      'limit',
+      'theme',
+      'getIssueUrl',
+      'emptyStateTitle',
+      'emptyStateMessage',
+      'feedlogUpvote',
+    ],
     ['feedlogUpvote']
   );

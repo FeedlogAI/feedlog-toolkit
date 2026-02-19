@@ -365,6 +365,7 @@ export class FeedlogIssuesClient {
       <feedlog-issues
         style={style}
         issues={this.issues}
+        limit={this.limit}
         maxWidth={this.maxWidth}
         theme={this.theme}
         heading={this.heading}

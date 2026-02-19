@@ -112,6 +112,10 @@ export namespace Components {
      */
     issues: FeedlogIssueType[];
     /**
+     * Page size for issues list pagination. When set, enables pagination when issues exceed this limit.
+     */
+    limit?: number;
+    /**
      * Loading state - shows loading indicator when true
      * @default false
      */
@@ -210,6 +214,10 @@ export namespace Components {
      * @default []
      */
     issues: FeedlogIssueType[];
+    /**
+     * Page size (items per page). When set, enables pagination when issues exceed this limit.
+     */
+    limit?: number;
     /**
      * Theme variant: 'light' or 'dark'
      * @default 'light'
@@ -697,6 +705,10 @@ declare namespace LocalJSX {
      */
     issues?: FeedlogIssueType[];
     /**
+     * Page size for issues list pagination. When set, enables pagination when issues exceed this limit.
+     */
+    limit?: number;
+    /**
      * Loading state - shows loading indicator when true
      * @default false
      */
@@ -825,6 +837,10 @@ declare namespace LocalJSX {
      * @default []
      */
     issues?: FeedlogIssueType[];
+    /**
+     * Page size (items per page). When set, enables pagination when issues exceed this limit.
+     */
+    limit?: number;
     /**
      * Emitted when an issue is upvoted
      */

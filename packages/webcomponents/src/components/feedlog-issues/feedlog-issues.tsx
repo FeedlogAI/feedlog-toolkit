@@ -24,6 +24,11 @@ export class FeedlogIssues {
   @Prop() maxWidth: string = '42rem';
 
   /**
+   * Page size for issues list pagination. When set, enables pagination when issues exceed this limit.
+   */
+  @Prop() limit?: number;
+
+  /**
    * Theme variant: 'light' or 'dark'
    */
   @Prop({ mutable: true }) theme: 'light' | 'dark' = 'light';
@@ -132,6 +137,7 @@ export class FeedlogIssues {
     return (
       <feedlog-issues-list
         issues={this.issues}
+        limit={this.limit}
         theme={this.currentTheme}
         getIssueUrl={this.getIssueUrl}
         emptyStateTitle={this.emptyStateTitle ?? 'No updates yet'}

@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-19T06:32:52",
+  "timestamp": "2026-02-19T06:50:41",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.40.1",
@@ -660,6 +660,32 @@
             }
           ],
           "optional": false,
+          "required": false,
+          "getter": false,
+          "setter": false
+        },
+        {
+          "name": "limit",
+          "type": "number | undefined",
+          "complexType": {
+            "original": "number",
+            "resolved": "number | undefined",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "limit",
+          "reflectToAttr": false,
+          "docs": "Page size for issues list pagination. When set, enables pagination when issues exceed this limit.",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "undefined"
+            }
+          ],
+          "optional": true,
           "required": false,
           "getter": false,
           "setter": false
@@ -1356,6 +1382,32 @@
             }
           ],
           "optional": false,
+          "required": false,
+          "getter": false,
+          "setter": false
+        },
+        {
+          "name": "limit",
+          "type": "number | undefined",
+          "complexType": {
+            "original": "number",
+            "resolved": "number | undefined",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "limit",
+          "reflectToAttr": false,
+          "docs": "Page size (items per page). When set, enables pagination when issues exceed this limit.",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "undefined"
+            }
+          ],
+          "optional": true,
           "required": false,
           "getter": false,
           "setter": false

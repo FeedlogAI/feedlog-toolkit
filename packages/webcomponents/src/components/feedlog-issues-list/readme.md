@@ -16,6 +16,7 @@ A component for displaying a list of GitHub issues with support for bugs and enh
 | `emptyStateTitle`   | `empty-state-title`   | Empty state title. When provided with emptyStateMessage, shows a richer empty state with illustration. | `string \| undefined`                                                 | `undefined` |
 | `getIssueUrl`       | --                    | Optional callback to resolve GitHub issue URL when githubIssueLink is not available.                   | `((issue: FeedlogIssue) => string \| null \| undefined) \| undefined` | `undefined` |
 | `issues`            | --                    | Array of issues to display                                                                             | `FeedlogIssue[]`                                                      | `[]`        |
+| `limit`             | `limit`               | Page size (items per page). When set, enables pagination when issues exceed this limit.                | `number \| undefined`                                                 | `undefined` |
 | `theme`             | `theme`               | Theme variant: 'light' or 'dark'                                                                       | `"dark" \| "light"`                                                   | `'light'`   |
 
 ## Events

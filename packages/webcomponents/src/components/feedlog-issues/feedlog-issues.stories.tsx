@@ -100,6 +100,12 @@ const sampleIssues: FeedlogIssue[] = [
   },
 ];
 
+const manyIssues: FeedlogIssue[] = Array.from({ length: 200 }, (_, i) => ({
+  ...sampleIssues[0]!,
+  id: `issue-${i + 1}`,
+  title: `Issue ${i + 1}`,
+}));
+
 const meta: Meta = {
   title: 'Components/Issues',
   component: 'feedlog-issues',
@@ -135,6 +141,10 @@ const meta: Meta = {
     emptyStateMessage: {
       control: 'text',
       description: 'Empty state message',
+    },
+    limit: {
+      control: 'number',
+      description: 'Page size for pagination',
     },
   },
   args: {
@@ -268,6 +278,31 @@ export const TransparentBackground: Story = {
     const element = canvasElement.querySelector('feedlog-issues');
     if (element && args.issues) {
       (element as any).issues = args.issues;
+    }
+  },
+};
+
+export const Paginated: Story = {
+  args: {
+    issues: manyIssues,
+    limit: 10,
+    heading: 'Community feedback',
+    subtitle: 'Upvote issues you care about',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Pagination with 200 issues, 10 per page. Shows first/last pages, 3 pages around current, and prev/next arrows.',
+      },
+    },
+  },
+  render: props => <feedlog-issues {...props} />,
+  play: async ({ canvasElement, args }) => {
+    const element = canvasElement.querySelector('feedlog-issues');
+    if (element && args.issues) {
+      (element as any).issues = args.issues;
+      (element as any).limit = args.limit;
     }
   },
 };
