@@ -22,6 +22,7 @@
   --feedlog-radius: 0.625rem;
   --feedlog-gap: 0.5rem;
   --feedlog-padding: 2rem;
+  --feedlog-min-height: 100%;
   --feedlog-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px -1px rgba(0, 0, 0, 0.08);
 }
 
@@ -45,11 +46,12 @@
 
 
 .issues-container {
-  min-height: 100vh;
+  min-height: var(--feedlog-min-height);
   /* Parent can override via --feedlog-background (e.g. transparent); fallback to theme default */
   background-color: var(--feedlog-background, var(--feedlog-theme-bg, #ffffff));
   padding: var(--feedlog-padding);
   margin: 0 auto;
+  border-radius: var(--feedlog-radius);
 }
 
 .issues-header {

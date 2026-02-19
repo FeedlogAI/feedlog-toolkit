@@ -225,6 +225,7 @@ feedlog-issues {
 | `--feedlog-card`                      | Card background                 | `#ffffff` (light)                 |
 | `--feedlog-card-foreground`           | Card text color                 | `oklch(0.145 0 0)`                |
 | `--feedlog-padding`                   | Container padding               | `2rem`                            |
+| `--feedlog-min-height`                | Issues container min height     | `100%`                            |
 | `--feedlog-gap`                       | Gap between issue cards         | `0.5rem`                          |
 | `--feedlog-card-padding`              | Card inner padding              | `1.25rem`                         |
 | `--feedlog-card-accent-width`         | Left accent bar width           | `3px`                             |
