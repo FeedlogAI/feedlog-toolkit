@@ -41,6 +41,9 @@ export const config: Config = {
   ],
   testing: {
     browserHeadless: 'shell',
+    moduleNameMapper: {
+      '^@feedlog-ai/core$': '<rootDir>/src/__mocks__/feedlog-core.ts',
+    },
   },
   globalStyle: 'src/global/global.css',
 };

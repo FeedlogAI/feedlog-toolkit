@@ -1,14 +1,4 @@
 import { newSpecPage } from '@stencil/core/testing';
-
-jest.mock('@feedlog-ai/core', () => ({
-  FeedlogSDK: jest.fn().mockImplementation(() => ({
-    fetchIssues: jest
-      .fn()
-      .mockResolvedValue({ issues: [], pagination: { cursor: null, hasMore: false } }),
-    toggleUpvote: jest.fn(),
-  })),
-}));
-
 import { FeedlogIssuesClient } from './feedlog-issues-client';
 
 describe('feedlog-issues-client - --feedlog-background forwarding', () => {
