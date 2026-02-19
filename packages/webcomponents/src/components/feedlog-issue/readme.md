@@ -40,7 +40,7 @@ feedlog-issue {
 
 ### Custom upvote icon
 
-Replace the default thumbs-up icon with a custom icon using the `upvote-icon` slot:
+Replace the default up-arrow icon with a custom icon using the `upvote-icon` slot:
 
 ```html
 <feedlog-issue issue="{myIssue}">

@@ -295,62 +295,208 @@
 }
 
 .upvote-button {
-  display: flex;
-  flex-direction: column;
+  display: inline-flex;
+  flex-direction: row;
   align-items: center;
-  gap: 0.125rem;
-  padding: 0.5rem 0.75rem;
-  border-radius: 0.5rem;
-  background-color: var(--feedlog-muted);
-  border: 1px solid transparent;
+  border-radius: 0.375rem; /* 6px */
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   flex-shrink: 0;
-  font-size: 0.75rem;
-  font-weight: 600;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  padding: 0.375rem 0.75rem;
+  gap: 0.5rem;
+  font-family: inherit;
+  line-height: 1;
 }
 
 .upvote-button:hover {
-  background-color: var(--feedlog-blue-100);
-  border-color: var(--feedlog-blue-400);
+  background-color: #f8fafc;
+  border-color: #cbd5e1;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+}
+
+.upvote-button:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
 .upvote-button.upvoted {
-  background-color: var(--feedlog-red-100);
-  border-color: var(--feedlog-red-400);
+  background-color: #eff6ff;
+  border-color: #bfdbfe;
 }
 
 .upvote-button.upvoted:hover {
-  background-color: var(--feedlog-red-100);
-  border-color: var(--feedlog-red-600);
+  background-color: #dbeafe;
+  border-color: #93c5fd;
 }
 
-:host(.dark) .upvote-button:hover {
-  background-color: var(--feedlog-blue-900-30);
-  border-color: var(--feedlog-blue-600);
+.upvote-action {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.375rem;
+  color: #475569;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: color 0.2s ease;
 }
 
-:host(.dark) .upvote-button.upvoted {
-  background-color: var(--feedlog-red-900-30);
-  border-color: var(--feedlog-red-600);
+.upvote-button:hover .upvote-action {
+  color: #0f172a;
+}
+
+.upvote-button.upvoted .upvote-action {
+  color: #2563eb;
+}
+
+.upvote-button.upvoted:hover .upvote-action {
+  color: #1d4ed8;
 }
 
 .upvote-icon {
-  width: 1rem;
-  height: 1rem;
+  width: 1.125rem;
+  height: 1.125rem;
+  min-width: 1.125rem;
+  min-height: 1.125rem;
   color: inherit;
+  flex-shrink: 0;
+  display: block;
+  vertical-align: middle;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.upvote-button:hover .upvote-icon {
+  transform: translateY(-2px);
+}
+
+.upvote-button:active .upvote-icon {
+  transform: translateY(0) scale(0.9);
 }
 
 .upvote-icon.filled {
-  color: var(--feedlog-upvote-icon-filled-color);
+  color: inherit;
 }
 
 .upvote-icon.outline {
-  color: var(--feedlog-upvote-icon-color);
+  color: inherit;
+}
+
+.reel-container {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: 1.25rem;
+  overflow: hidden;
+  border-left: 1px solid #e2e8f0;
+  padding-left: 0.5rem;
+  transition: border-color 0.2s ease;
+}
+
+.upvote-button:hover .reel-container {
+  border-color: #cbd5e1;
+}
+
+.upvote-button.upvoted .reel-container {
+  border-color: #bfdbfe;
+}
+
+.upvote-button.upvoted:hover .reel-container {
+  border-color: #93c5fd;
 }
 
 .upvote-count {
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   font-weight: 600;
+  color: #475569;
+  transition: color 0.2s ease;
+  line-height: 1.25rem;
+}
+
+.upvote-button:hover .upvote-count {
+  color: #0f172a;
+}
+
+.upvote-button.upvoted .upvote-count {
+  color: #2563eb;
+}
+
+.upvote-button.upvoted:hover .upvote-count {
+  color: #1d4ed8;
+}
+
+.reel-number {
+  display: inline-block;
+  animation: reelIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes reelIn {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Dark theme overrides */
+:host(.dark) .upvote-button {
+  background-color: var(--feedlog-card);
+  border-color: var(--feedlog-border);
+}
+
+:host(.dark) .upvote-button:hover {
+  background-color: var(--feedlog-muted);
+  border-color: var(--feedlog-muted-foreground);
+}
+
+:host(.dark) .upvote-button.upvoted {
+  background-color: rgba(37, 99, 235, 0.15);
+  border-color: rgba(37, 99, 235, 0.3);
+}
+
+:host(.dark) .upvote-button.upvoted:hover {
+  background-color: rgba(37, 99, 235, 0.25);
+  border-color: rgba(37, 99, 235, 0.4);
+}
+
+:host(.dark) .upvote-action,
+:host(.dark) .upvote-count {
+  color: var(--feedlog-muted-foreground);
+}
+
+:host(.dark) .upvote-button:hover .upvote-action,
+:host(.dark) .upvote-button:hover .upvote-count {
   color: var(--feedlog-card-foreground);
+}
+
+:host(.dark) .upvote-button.upvoted .upvote-action,
+:host(.dark) .upvote-button.upvoted .upvote-count {
+  color: var(--feedlog-blue-400);
+}
+
+:host(.dark) .upvote-button.upvoted:hover .upvote-action,
+:host(.dark) .upvote-button.upvoted:hover .upvote-count {
+  color: var(--feedlog-blue-300);
+}
+
+:host(.dark) .reel-container {
+  border-color: var(--feedlog-border);
+}
+
+:host(.dark) .upvote-button:hover .reel-container {
+  border-color: var(--feedlog-muted-foreground);
+}
+
+:host(.dark) .upvote-button.upvoted .reel-container {
+  border-color: rgba(37, 99, 235, 0.3);
+}
+
+:host(.dark) .upvote-button.upvoted:hover .reel-container {
+  border-color: rgba(37, 99, 235, 0.4);
 }
