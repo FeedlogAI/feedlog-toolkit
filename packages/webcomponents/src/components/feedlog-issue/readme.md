@@ -10,13 +10,15 @@ You can customize the appearance by setting CSS variables on the `feedlog-issue`
 feedlog-issue {
   /* Card */
   --feedlog-card-padding: 1.25rem;
-  --feedlog-card-accent-width: 3px;
+  --feedlog-card-accent-width: 4px;
+  --feedlog-card-radius: 0.75rem;
+  --feedlog-card-hover-lift: 1px;
   --feedlog-radius: 0.625rem;
-  --feedlog-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
-  --feedlog-shadow-hover: 0 4px 12px -2px rgba(0, 0, 0, 0.1);
+  --feedlog-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.06);
+  --feedlog-shadow-hover: 0 4px 6px rgba(0, 0, 0, 0.05), 0 12px 24px rgba(0, 0, 0, 0.08);
 
   /* Typography */
-  --feedlog-title-font-size: 0.9375rem;
+  --feedlog-title-font-size: 1rem;
   --feedlog-title-font-weight: 600;
   --feedlog-body-font-size: 0.8125rem;
   --feedlog-body-line-height: 1.5;
@@ -37,6 +39,18 @@ feedlog-issue {
   --feedlog-upvote-icon-filled-color: var(--feedlog-red-600);
 }
 ```
+
+### Media slot (images/videos)
+
+Add images or videos to the card using the `media` slot. The media appears at the top of the card with a 16:9 aspect ratio:
+
+```html
+<feedlog-issue issue="{myIssue}">
+  <img slot="media" src="https://example.com/screenshot.png" alt="Feature preview" />
+</feedlog-issue>
+```
+
+The media area is hidden when the slot is empty. Use the `part="media"` to style the media container.
 
 ### Custom upvote icon
 
@@ -85,6 +99,7 @@ A component for displaying a single GitHub issue.
 | Part              | Description |
 | ----------------- | ----------- |
 | `"github-link"`   |             |
+| `"media"`         |             |
 | `"upvote-button"` |             |
 
 ## Dependencies

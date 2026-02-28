@@ -1,4 +1,4 @@
-import { Component, Prop, Event, EventEmitter, h, Host } from '@stencil/core';
+import { Component, Prop, Event, EventEmitter, h, Host, Element } from '@stencil/core';
 import type { FeedlogIssue as FeedlogIssueType } from '@feedlog-ai/core';
 import { parseMarkdown } from '../../utils/markdown';
 
@@ -13,6 +13,7 @@ import { parseMarkdown } from '../../utils/markdown';
   shadow: true,
 })
 export class FeedlogIssueComponent {
+  @Element() host!: HTMLElement;
   /**
    * The issue to display
    */
@@ -37,6 +38,32 @@ export class FeedlogIssueComponent {
     currentUpvoted: boolean;
     currentCount: number;
   }>;
+
+  componentDidLoad() {
+    const mediaSlot = this.host.shadowRoot?.querySelector('slot[name="media"]');
+    if (mediaSlot) {
+      mediaSlot.addEventListener('slotchange', this.handleMediaSlotChange);
+      this.updateMediaVisibility();
+    }
+  }
+
+  disconnectedCallback() {
+    const mediaSlot = this.host.shadowRoot?.querySelector('slot[name="media"]');
+    if (mediaSlot) {
+      mediaSlot.removeEventListener('slotchange', this.handleMediaSlotChange);
+    }
+  }
+
+  private handleMediaSlotChange = () => {
+    this.updateMediaVisibility();
+  };
+
+  private updateMediaVisibility() {
+    const mediaEl = this.host.shadowRoot?.querySelector('.issue-media');
+    if (!mediaEl) return;
+    const slot = this.host.querySelector('[slot="media"]');
+    mediaEl.classList.toggle('has-media', !!slot);
+  }
 
   private handleUpvote = (event: MouseEvent) => {
     event.stopPropagation();
@@ -197,6 +224,9 @@ export class FeedlogIssueComponent {
         data-upvoted={issue.hasUpvoted ? 'true' : 'false'}
       >
         <div class={`issue-card issue-type-${issue.type}`}>
+          <div class="issue-media" part="media">
+            <slot name="media" />
+          </div>
           <div class="issue-content">
             <div class="issue-header">
               <div class="issue-header-left">

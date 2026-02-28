@@ -32,20 +32,23 @@
 
   /* Customization variables */
   --feedlog-card-padding: 1.25rem;
-  --feedlog-title-font-size: 0.9375rem;
+  --feedlog-title-font-size: 1rem;
   --feedlog-title-font-weight: 600;
   --feedlog-body-font-size: 0.8125rem;
   --feedlog-body-line-height: 1.5;
   --feedlog-timestamp-font-size: 0.6875rem;
   --feedlog-timestamp-color: var(--feedlog-muted-foreground);
-  --feedlog-card-accent-width: 3px;
+  --feedlog-card-accent-width: 4px;
+  --feedlog-card-radius: 0.75rem;
+  --feedlog-card-hover-lift: 1px;
   --feedlog-icon-color: var(--feedlog-muted-foreground);
   --feedlog-icon-color-muted: var(--feedlog-muted-foreground);
   --feedlog-pin-color: var(--feedlog-accent-color);
   --feedlog-upvote-icon-color: var(--feedlog-blue-600);
   --feedlog-upvote-icon-filled-color: var(--feedlog-red-600);
-  --feedlog-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px -1px rgba(0, 0, 0, 0.08);
-  --feedlog-shadow-hover: 0 4px 12px -2px rgba(0, 0, 0, 0.1), 0 2px 6px -2px rgba(0, 0, 0, 0.08);
+  /* Layered shadows for depth */
+  --feedlog-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.06);
+  --feedlog-shadow-hover: 0 4px 6px rgba(0, 0, 0, 0.05), 0 12px 24px rgba(0, 0, 0, 0.08);
 }
 
 :host(.dark) {
@@ -65,14 +68,14 @@
   --feedlog-red-900-30: color-mix(in oklab, oklch(0.396 0.141 25.723) 30%, transparent);
   --feedlog-upvote-icon-color: var(--feedlog-blue-400);
   --feedlog-upvote-icon-filled-color: var(--feedlog-red-600);
-  --feedlog-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
-  --feedlog-shadow-hover: 0 4px 12px -2px rgba(0, 0, 0, 0.4);
+  --feedlog-shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 4px 12px rgba(0, 0, 0, 0.25);
+  --feedlog-shadow-hover: 0 4px 6px rgba(0, 0, 0, 0.2), 0 12px 24px rgba(0, 0, 0, 0.35);
 }
 
 .issue-card {
   background-color: var(--feedlog-card);
   border: 1px solid var(--feedlog-border);
-  border-radius: var(--feedlog-radius);
+  border-radius: var(--feedlog-card-radius, var(--feedlog-radius));
   box-shadow: var(--feedlog-shadow);
   transition:
     box-shadow 0.2s ease,
@@ -97,6 +100,28 @@
 
 .issue-card:hover {
   box-shadow: var(--feedlog-shadow-hover);
+  transform: translateY(calc(-1 * var(--feedlog-card-hover-lift, 2px)));
+}
+
+/* Media area - ready for future images/videos. Hidden until media support is added. */
+.issue-media {
+  display: none;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--feedlog-card-radius, var(--feedlog-radius)) var(--feedlog-card-radius, var(--feedlog-radius)) 0 0;
+  background-color: var(--feedlog-muted);
+}
+
+.issue-media.has-media {
+  display: block;
+}
+
+.issue-media ::slotted(img),
+.issue-media ::slotted(video) {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .issue-content {
@@ -111,7 +136,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 0.75rem;
+  gap: 1rem;
   min-height: 1.5rem;
 }
 
@@ -277,6 +302,7 @@
 
 .github-link:hover {
   text-decoration: underline;
+  background-color: color-mix(in oklab, var(--feedlog-accent-color) 8%, transparent);
 }
 
 .github-link-icon {
