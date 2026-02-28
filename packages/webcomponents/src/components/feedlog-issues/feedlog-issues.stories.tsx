@@ -319,11 +319,13 @@ export const CustomCSSVars: Story = {
           fontFamily: "'Georgia', 'Times New Roman', serif",
           /* Card */
           '--feedlog-card-padding': '1.5rem',
-          '--feedlog-card-accent-width': '5px',
+          '--feedlog-card-radius': '0.875rem',
           '--feedlog-radius': '0.875rem',
           '--feedlog-shadow': '0 2px 8px 0 rgba(0, 0, 0, 0.12), 0 1px 3px -1px rgba(0, 0, 0, 0.1)',
-          '--feedlog-shadow-hover':
-            '0 8px 24px -4px rgba(0, 0, 0, 0.15), 0 4px 8px -2px rgba(0, 0, 0, 0.1)',
+          '--feedlog-shadow-hover-enhancement':
+            '0 8px 24px -4px rgba(5, 150, 105, 0.15), 0 4px 8px -2px rgba(5, 150, 105, 0.1)',
+          '--feedlog-shadow-hover-bug':
+            '0 8px 24px -4px rgba(220, 38, 38, 0.15), 0 4px 8px -2px rgba(220, 38, 38, 0.1)',
           /* Typography */
           '--feedlog-title-font-size': '1.0625rem',
           '--feedlog-title-font-weight': '700',

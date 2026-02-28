@@ -10,18 +10,23 @@ You can customize the appearance by setting CSS variables on the `feedlog-issue`
 feedlog-issue {
   /* Card */
   --feedlog-card-padding: 1.25rem;
-  --feedlog-card-accent-width: 4px;
   --feedlog-card-radius: 0.75rem;
-  --feedlog-card-hover-lift: 1px;
   --feedlog-radius: 0.625rem;
-  --feedlog-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.06);
-  --feedlog-shadow-hover: 0 4px 6px rgba(0, 0, 0, 0.05), 0 12px 24px rgba(0, 0, 0, 0.08);
+  --feedlog-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  --feedlog-shadow-hover-enhancement:
+    0 8px 16px rgba(37, 99, 235, 0.08), 0 12px 24px rgba(37, 99, 235, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  --feedlog-shadow-hover-bug:
+    0 8px 16px rgba(212, 24, 61, 0.08), 0 12px 24px rgba(212, 24, 61, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
 
   /* Typography */
-  --feedlog-title-font-size: 1rem;
+  --feedlog-title-font-size: 1.125rem;
   --feedlog-title-font-weight: 600;
-  --feedlog-body-font-size: 0.8125rem;
-  --feedlog-body-line-height: 1.5;
+  --feedlog-body-font-size: 0.875rem;
+  --feedlog-body-line-height: 1.6;
   --feedlog-timestamp-font-size: 0.6875rem;
   --feedlog-timestamp-color: var(--feedlog-muted-foreground);
 

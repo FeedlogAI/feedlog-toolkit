@@ -173,10 +173,13 @@ feedlog-issues {
   font-family: 'Georgia', 'Times New Roman', serif;
   /* Card */
   --feedlog-card-padding: 1.5rem;
-  --feedlog-card-accent-width: 5px;
+  --feedlog-card-radius: 0.875rem;
   --feedlog-radius: 0.875rem;
   --feedlog-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.12), 0 1px 3px -1px rgba(0, 0, 0, 0.1);
-  --feedlog-shadow-hover: 0 8px 24px -4px rgba(0, 0, 0, 0.15), 0 4px 8px -2px rgba(0, 0, 0, 0.1);
+  --feedlog-shadow-hover-enhancement:
+    0 8px 24px -4px rgba(5, 150, 105, 0.15), 0 4px 8px -2px rgba(5, 150, 105, 0.1);
+  --feedlog-shadow-hover-bug:
+    0 8px 24px -4px rgba(220, 38, 38, 0.15), 0 4px 8px -2px rgba(220, 38, 38, 0.1);
   /* Typography */
   --feedlog-title-font-size: 1.0625rem;
   --feedlog-title-font-weight: 700;
@@ -197,10 +200,11 @@ feedlog-issues {
 feedlog-issues-client,
 feedlog-issues {
   --feedlog-card-padding: 1rem;
-  --feedlog-card-accent-width: 3px;
+  --feedlog-card-radius: 0.5rem;
   --feedlog-radius: 0.5rem;
   --feedlog-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
-  --feedlog-shadow-hover: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --feedlog-shadow-hover-enhancement: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --feedlog-shadow-hover-bug: 0 2px 8px rgba(0, 0, 0, 0.08);
   --feedlog-title-font-size: 0.9375rem;
   --feedlog-body-font-size: 0.8125rem;
 }
@@ -218,43 +222,44 @@ feedlog-issues {
 
 ### All customizable CSS variables
 
-| Variable                              | Description                     | Default                           |
-| ------------------------------------- | ------------------------------- | --------------------------------- |
-| `--feedlog-background`                | Main container background       | `#ffffff` (light)                 |
-| `--feedlog-foreground`                | Main text color                 | `oklch(0.145 0 0)`                |
-| `--feedlog-card`                      | Card background                 | `#ffffff` (light)                 |
-| `--feedlog-card-foreground`           | Card text color                 | `oklch(0.145 0 0)`                |
-| `--feedlog-padding`                   | Container padding               | `2rem`                            |
-| `--feedlog-min-height`                | Issues container min height     | `100%`                            |
-| `--feedlog-gap`                       | Gap between issue cards         | `0.5rem`                          |
-| `--feedlog-card-padding`              | Card inner padding              | `1.25rem`                         |
-| `--feedlog-card-accent-width`         | Left accent bar width           | `3px`                             |
-| `--feedlog-radius`                    | Border radius                   | `0.625rem`                        |
-| `--feedlog-shadow`                    | Card box shadow                 | (see theme)                       |
-| `--feedlog-shadow-hover`              | Hover box shadow                | (see theme)                       |
-| `--feedlog-title-font-size`           | Issue title size                | `0.9375rem`                       |
-| `--feedlog-title-font-weight`         | Issue title weight              | `600`                             |
-| `--feedlog-body-font-size`            | Body text size                  | `0.8125rem`                       |
-| `--feedlog-body-line-height`          | Body line height                | `1.5`                             |
-| `--feedlog-timestamp-font-size`       | Timestamp size                  | `0.6875rem`                       |
-| `--feedlog-timestamp-color`           | Timestamp color                 | `var(--feedlog-muted-foreground)` |
-| `--feedlog-accent-color`              | Links, badges, accent bar       | `#2563eb`                         |
-| `--feedlog-muted`                     | Muted background                | `#f1f5f9`                         |
-| `--feedlog-muted-foreground`          | Muted text                      | `#64748b`                         |
-| `--feedlog-border`                    | Border color                    | `rgba(0,0,0,0.08)`                |
-| `--feedlog-destructive`               | Bug/destructive color           | `#d4183d`                         |
-| `--feedlog-icon-color`                | Icon color                      | `var(--feedlog-muted-foreground)` |
-| `--feedlog-pin-color`                 | Pin icon color                  | `var(--feedlog-accent-color)`     |
-| `--feedlog-upvote-icon-color`         | Upvote icon (unfilled)          | `var(--feedlog-blue-600)`         |
-| `--feedlog-upvote-icon-filled-color`  | Upvote icon (filled/liked)      | `var(--feedlog-red-600)`          |
-| `--feedlog-empty-illustration-bg`     | Empty state illustration bg     | `oklch(0.96 0.01 260)` (light)    |
-| `--feedlog-empty-illustration-stroke` | Empty state illustration stroke | `oklch(0.75 0.02 260)` (light)    |
-| `--feedlog-empty-illustration-muted`  | Empty state illustration muted  | `oklch(0.82 0.01 260)` (light)    |
-| `--feedlog-badge-font-size`           | Badge font size                 | `0.75rem`                         |
-| `--feedlog-badge-font-weight`         | Badge font weight               | `500`                             |
-| `--feedlog-badge-padding-x`           | Badge horizontal padding        | `0.5rem`                          |
-| `--feedlog-badge-padding-y`           | Badge vertical padding          | `0.125rem`                        |
-| `--feedlog-badge-border-radius`       | Badge border radius             | `calc(0.625rem - 2px)`            |
+| Variable                              | Description                      | Default                           |
+| ------------------------------------- | -------------------------------- | --------------------------------- |
+| `--feedlog-background`                | Main container background        | `#ffffff` (light)                 |
+| `--feedlog-foreground`                | Main text color                  | `oklch(0.145 0 0)`                |
+| `--feedlog-card`                      | Card background                  | `#ffffff` (light)                 |
+| `--feedlog-card-foreground`           | Card text color                  | `oklch(0.145 0 0)`                |
+| `--feedlog-padding`                   | Container padding                | `2rem`                            |
+| `--feedlog-min-height`                | Issues container min height      | `100%`                            |
+| `--feedlog-gap`                       | Gap between issue cards          | `0.5rem`                          |
+| `--feedlog-card-padding`              | Card inner padding               | `1.25rem`                         |
+| `--feedlog-card-radius`               | Card border radius               | `0.75rem`                         |
+| `--feedlog-radius`                    | Container border radius          | `0.625rem`                        |
+| `--feedlog-shadow`                    | Card box shadow                  | (see theme)                       |
+| `--feedlog-shadow-hover-enhancement`  | Hover shadow (enhancement cards) | (see theme)                       |
+| `--feedlog-shadow-hover-bug`          | Hover shadow (bug cards)         | (see theme)                       |
+| `--feedlog-title-font-size`           | Issue title size                 | `1.125rem`                        |
+| `--feedlog-title-font-weight`         | Issue title weight               | `600`                             |
+| `--feedlog-body-font-size`            | Body text size                   | `0.875rem`                        |
+| `--feedlog-body-line-height`          | Body line height                 | `1.6`                             |
+| `--feedlog-timestamp-font-size`       | Timestamp size                   | `0.6875rem`                       |
+| `--feedlog-timestamp-color`           | Timestamp color                  | `var(--feedlog-muted-foreground)` |
+| `--feedlog-accent-color`              | Links, badges                    | `#2563eb`                         |
+| `--feedlog-muted`                     | Muted background                 | `#f1f5f9`                         |
+| `--feedlog-muted-foreground`          | Muted text                       | `#64748b`                         |
+| `--feedlog-border`                    | Border color                     | `rgba(0,0,0,0.08)`                |
+| `--feedlog-destructive`               | Bug/destructive color            | `#d4183d`                         |
+| `--feedlog-icon-color`                | Icon color                       | `var(--feedlog-muted-foreground)` |
+| `--feedlog-pin-color`                 | Pin icon color                   | `var(--feedlog-accent-color)`     |
+| `--feedlog-upvote-icon-color`         | Upvote icon (unfilled)           | `var(--feedlog-blue-600)`         |
+| `--feedlog-upvote-icon-filled-color`  | Upvote icon (filled/liked)       | `var(--feedlog-red-600)`          |
+| `--feedlog-empty-illustration-bg`     | Empty state illustration bg      | `oklch(0.96 0.01 260)` (light)    |
+| `--feedlog-empty-illustration-stroke` | Empty state illustration stroke  | `oklch(0.75 0.02 260)` (light)    |
+| `--feedlog-empty-illustration-muted`  | Empty state illustration muted   | `oklch(0.82 0.01 260)` (light)    |
+| `--feedlog-badge-font-size`           | Badge font size                  | `0.75rem`                         |
+| `--feedlog-badge-font-weight`         | Badge font weight                | `500`                             |
+| `--feedlog-badge-padding-x`           | Badge horizontal padding         | `0.625rem`                        |
+| `--feedlog-badge-padding-y`           | Badge vertical padding           | `0.125rem`                        |
+| `--feedlog-badge-border-radius`       | Badge border radius (pill)       | `9999px`                          |
 
 See the [CustomCSSVars story](packages/webcomponents/src/components/feedlog-issues/feedlog-issues.stories.tsx) in Storybook for a live example. Run `npm run storybook` to explore all variants.
 
