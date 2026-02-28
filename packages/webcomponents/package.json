@@ -29,6 +29,12 @@
     "./dist/components/*": {
       "import": "./dist/components/*.js",
       "types": "./dist/types/components/*.d.ts"
+    },
+    "./hydrate": {
+      "types": "./hydrate/index.d.ts",
+      "import": "./hydrate/index.mjs",
+      "require": "./hydrate/index.js",
+      "default": "./hydrate/index.js"
     }
   },
   "typesVersions": {
@@ -43,7 +49,8 @@
   },
   "files": [
     "dist",
-    "loader"
+    "loader",
+    "hydrate"
   ],
   "scripts": {
     "build": "stencil build",

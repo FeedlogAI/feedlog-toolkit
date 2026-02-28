@@ -73,6 +73,42 @@ function App() {
 export default App;
 ```
 
+## Server-Side Rendering (SSR)
+
+The components support Server-Side Rendering out of the box.
+
+### Next.js (App Router or Pages Router)
+
+Wrap your `next.config.js` or `next.config.ts` with our Next.js SSR helper:
+
+```ts
+// next.config.ts
+import { withFeedlogSSR } from '@feedlog-ai/react/next';
+
+const nextConfig = {
+  // your existing config
+};
+
+export default withFeedlogSSR(nextConfig);
+```
+
+Then you can use the component in any Next.js app seamlessly.
+
+### Vite / Remix
+
+For Vite-based apps (like Remix or standard Vite React), add our Vite SSR plugin:
+
+```ts
+// vite.config.ts
+import { defineConfig } from 'vite';
+import { feedlogSSR } from '@feedlog-ai/react/vite';
+import react from '@vitejs/plugin-react';
+
+export default defineConfig({
+  plugins: [react(), feedlogSSR()],
+});
+```
+
 ### Event Handling
 
 ```tsx

@@ -81,5 +81,11 @@ module.exports = {
       },
     },
   ],
-  ignorePatterns: ['dist', 'node_modules', '*.config.js', '*.config.ts'],
+  ignorePatterns: [
+    'dist',
+    'node_modules',
+    '*.config.js',
+    '*.config.ts',
+    'packages/webcomponents/hydrate',
+  ],
 };

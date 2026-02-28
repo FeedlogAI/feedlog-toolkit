@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * React bindings for Feedlog Toolkit Web Components
  *

@@ -7,99 +7,103 @@
 
 /* eslint-disable */
 
-import { type FeedlogButtonCustomEvent } from "@feedlog-ai/webcomponents";
+import { type FeedlogButtonCustomEvent, type FeedlogIssueCustomEvent, type FeedlogIssuesClientCustomEvent, type FeedlogIssuesCustomEvent, type FeedlogIssuesListCustomEvent } from "@feedlog-ai/webcomponents";
 import { FeedlogBadge as FeedlogBadgeElement, defineCustomElement as defineFeedlogBadge } from "@feedlog-ai/webcomponents/dist/components/feedlog-badge.js";
 import { FeedlogButton as FeedlogButtonElement, defineCustomElement as defineFeedlogButton } from "@feedlog-ai/webcomponents/dist/components/feedlog-button.js";
 import { FeedlogCard as FeedlogCardElement, defineCustomElement as defineFeedlogCard } from "@feedlog-ai/webcomponents/dist/components/feedlog-card.js";
-import { FeedlogIssuesClient as FeedlogIssuesClientElement, defineCustomElement as defineFeedlogIssuesClient } from "@feedlog-ai/webcomponents/dist/components/feedlog-issues-client.js";
-import { FeedlogIssues as FeedlogIssuesElement, defineCustomElement as defineFeedlogIssues } from "@feedlog-ai/webcomponents/dist/components/feedlog-issues.js";
 import { FeedlogIssue as FeedlogIssueElement, defineCustomElement as defineFeedlogIssue } from "@feedlog-ai/webcomponents/dist/components/feedlog-issue.js";
+import { FeedlogIssuesClient as FeedlogIssuesClientElement, defineCustomElement as defineFeedlogIssuesClient } from "@feedlog-ai/webcomponents/dist/components/feedlog-issues-client.js";
+import { FeedlogIssuesList as FeedlogIssuesListElement, defineCustomElement as defineFeedlogIssuesList } from "@feedlog-ai/webcomponents/dist/components/feedlog-issues-list.js";
+import { FeedlogIssues as FeedlogIssuesElement, defineCustomElement as defineFeedlogIssues } from "@feedlog-ai/webcomponents/dist/components/feedlog-issues.js";
 import type { EventName, StencilReactComponent } from '@stencil/react-output-target/runtime';
 import { createComponent } from '@stencil/react-output-target/runtime';
 import React from 'react';
 
-type FeedlogBadgeEvents = NonNullable<unknown>;
+export type FeedlogBadgeEvents = NonNullable<unknown>;
 
 export const FeedlogBadge: StencilReactComponent<FeedlogBadgeElement, FeedlogBadgeEvents> = /*@__PURE__*/ createComponent<FeedlogBadgeElement, FeedlogBadgeEvents>({
     tagName: 'feedlog-badge',
     elementClass: FeedlogBadgeElement,
-    // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
+    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
     react: React,
     events: {} as FeedlogBadgeEvents,
     defineCustomElement: defineFeedlogBadge
 });
 
-type FeedlogButtonEvents = { onFeedlogClick: EventName<FeedlogButtonCustomEvent<MouseEvent>> };
+export type FeedlogButtonEvents = { onFeedlogClick: EventName<FeedlogButtonCustomEvent<MouseEvent>> };
 
 export const FeedlogButton: StencilReactComponent<FeedlogButtonElement, FeedlogButtonEvents> = /*@__PURE__*/ createComponent<FeedlogButtonElement, FeedlogButtonEvents>({
     tagName: 'feedlog-button',
     elementClass: FeedlogButtonElement,
-    // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
+    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
     react: React,
     events: { onFeedlogClick: 'feedlogClick' } as FeedlogButtonEvents,
     defineCustomElement: defineFeedlogButton
 });
 
-type FeedlogCardEvents = NonNullable<unknown>;
+export type FeedlogCardEvents = NonNullable<unknown>;
 
 export const FeedlogCard: StencilReactComponent<FeedlogCardElement, FeedlogCardEvents> = /*@__PURE__*/ createComponent<FeedlogCardElement, FeedlogCardEvents>({
     tagName: 'feedlog-card',
     elementClass: FeedlogCardElement,
-    // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
+    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
     react: React,
     events: {} as FeedlogCardEvents,
     defineCustomElement: defineFeedlogCard
 });
 
-type FeedlogIssuesEvents = {
-    onFeedlogUpvote: EventName<CustomEvent<{
-        issueId: string;
-        currentUpvoted: boolean;
-        currentCount: number;
-    }>>,
-    onFeedlogThemeChange: EventName<CustomEvent<'light' | 'dark'>>,
-    onFeedlogLoadMore: EventName<CustomEvent<void>>
+export type FeedlogIssueEvents = { onFeedlogUpvote: EventName<FeedlogIssueCustomEvent<{ issueId: string; currentUpvoted: boolean; currentCount: number; }>> };
+
+export const FeedlogIssue: StencilReactComponent<FeedlogIssueElement, FeedlogIssueEvents> = /*@__PURE__*/ createComponent<FeedlogIssueElement, FeedlogIssueEvents>({
+    tagName: 'feedlog-issue',
+    elementClass: FeedlogIssueElement,
+    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
+    react: React,
+    events: { onFeedlogUpvote: 'feedlogUpvote' } as FeedlogIssueEvents,
+    defineCustomElement: defineFeedlogIssue
+});
+
+export type FeedlogIssuesEvents = {
+    onFeedlogUpvote: EventName<FeedlogIssuesCustomEvent<{ issueId: string; currentUpvoted: boolean; currentCount: number; }>>,
+    onFeedlogLoadMore: EventName<FeedlogIssuesCustomEvent<void>>
 };
 
 export const FeedlogIssues: StencilReactComponent<FeedlogIssuesElement, FeedlogIssuesEvents> = /*@__PURE__*/ createComponent<FeedlogIssuesElement, FeedlogIssuesEvents>({
     tagName: 'feedlog-issues',
     elementClass: FeedlogIssuesElement,
-    // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
+    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
     react: React,
     events: {
         onFeedlogUpvote: 'feedlogUpvote',
-        onFeedlogThemeChange: 'feedlogThemeChange',
         onFeedlogLoadMore: 'feedlogLoadMore'
     } as FeedlogIssuesEvents,
     defineCustomElement: defineFeedlogIssues
 });
 
-type FeedlogIssuesClientEvents = {
-    onFeedlogUpvote: EventName<CustomEvent<{ issueId: string; upvoted: boolean; upvoteCount: number }>>,
-    onFeedlogThemeChange: EventName<CustomEvent<'light' | 'dark'>>,
-    onFeedlogError: EventName<CustomEvent<{ error: string; code?: number }>>
+export type FeedlogIssuesClientEvents = {
+    onFeedlogUpvote: EventName<FeedlogIssuesClientCustomEvent<{ issueId: string; upvoted: boolean; upvoteCount: number }>>,
+    onFeedlogError: EventName<FeedlogIssuesClientCustomEvent<{ error: string; code?: number }>>
 };
 
 export const FeedlogIssuesClient: StencilReactComponent<FeedlogIssuesClientElement, FeedlogIssuesClientEvents> = /*@__PURE__*/ createComponent<FeedlogIssuesClientElement, FeedlogIssuesClientEvents>({
     tagName: 'feedlog-issues-client',
     elementClass: FeedlogIssuesClientElement,
-    // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
+    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
     react: React,
     events: {
         onFeedlogUpvote: 'feedlogUpvote',
-        onFeedlogThemeChange: 'feedlogThemeChange',
         onFeedlogError: 'feedlogError'
     } as FeedlogIssuesClientEvents,
     defineCustomElement: defineFeedlogIssuesClient
 });
 
-type FeedlogIssueEvents = NonNullable<unknown>;
+export type FeedlogIssuesListEvents = { onFeedlogUpvote: EventName<FeedlogIssuesListCustomEvent<{ issueId: string; currentUpvoted: boolean; currentCount: number; }>> };
 
-export const FeedlogIssue: StencilReactComponent<FeedlogIssueElement, FeedlogIssueEvents> = /*@__PURE__*/ createComponent<FeedlogIssueElement, FeedlogIssueEvents>({
-    tagName: 'feedlog-issue',
-    elementClass: FeedlogIssueElement,
-    // @ts-ignore - React type of Stencil Output Target may differ from the React version used in the Nuxt.js project, this can be ignored.
+export const FeedlogIssuesList: StencilReactComponent<FeedlogIssuesListElement, FeedlogIssuesListEvents> = /*@__PURE__*/ createComponent<FeedlogIssuesListElement, FeedlogIssuesListEvents>({
+    tagName: 'feedlog-issues-list',
+    elementClass: FeedlogIssuesListElement,
+    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
     react: React,
-    events: {} as FeedlogIssueEvents,
-    defineCustomElement: defineFeedlogIssue
+    events: { onFeedlogUpvote: 'feedlogUpvote' } as FeedlogIssuesListEvents,
+    defineCustomElement: defineFeedlogIssuesList
 });

@@ -10,6 +10,16 @@
       "import": "./dist/index.js",
       "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
+    },
+    "./next": {
+      "import": "./dist/next.js",
+      "require": "./dist/next.js",
+      "types": "./dist/next.d.ts"
+    },
+    "./vite": {
+      "import": "./dist/vite.js",
+      "require": "./dist/vite.js",
+      "types": "./dist/vite.d.ts"
     }
   },
   "files": [
@@ -32,6 +42,7 @@
   },
   "devDependencies": {
     "@jest/test-sequencer": "^29.7.0",
+    "@stencil/ssr": "^0.3.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@types/jest": "^29.5.11",

@@ -17,6 +17,12 @@ Vue bindings for Feedlog Toolkit web components. Auto-generated from Stencil com
 npm install @feedlog-ai/vue
 ```
 
+## Server-Side Rendering (SSR)
+
+The Vue components fully support Server-Side Rendering (SSR).
+
+If you are using **Nuxt**, no additional configuration is required! Nuxt will automatically detect and server-side render the Stencil web components as Declarative Shadow DOM and hydrate them on the client. Just install and use them normally.
+
 ## Components
 
 ### FeedlogIssuesClient

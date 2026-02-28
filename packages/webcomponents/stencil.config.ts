@@ -6,6 +6,11 @@ export const config: Config = {
   namespace: 'feedlog-toolkit',
   validatePrimaryPackageOutputTarget: false,
   outputTargets: [
+    // Hydrate module for SSR
+    {
+      type: 'dist-hydrate-script',
+      dir: './hydrate',
+    },
     // Standard web components distribution
     {
       type: 'dist',
@@ -22,12 +27,15 @@ export const config: Config = {
     //   proxiesFile: '../react/src/components/stencil-generated/index.ts',
     //   includeDefineCustomElements: false,
     //   outDir: '../react/src/components/stencil-generated',
+    //   hydrateModule: '@feedlog-ai/webcomponents/hydrate',
+    //   clientModule: '@feedlog-ai/react',
     // }),
     // Vue output target
     vueOutputTarget({
       componentCorePackage: '@feedlog-ai/webcomponents',
       proxiesFile: '../vue/src/components.ts',
       includeDefineCustomElements: true,
+      hydrateModule: '@feedlog-ai/webcomponents/hydrate',
     }),
     // Documentation
     {
