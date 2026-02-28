@@ -227,45 +227,48 @@ export class FeedlogIssueComponent {
                 <div class="issue-body" innerHTML={parseMarkdown(issue.body)} />
               )}
 
-              <div class="issue-repository">
-                {repoName != null && (
-                  <span class="repo-name" title={repoTooltip}>
-                    {repoName}
-                  </span>
-                )}
-                {showGithubButton && (
-                  <a
-                    part="github-link"
-                    class="github-link"
-                    href={githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title="View on GitHub"
-                  >
-                    {this.renderExternalLinkIcon()}
-                    <span class="github-link-text">View on GitHub</span>
-                  </a>
-                )}
-              </div>
-
-              {issue.type !== 'bug' && (
+              {(repoName != null || showGithubButton || issue.type !== 'bug') && (
                 <div class="issue-footer">
-                  <button
-                    part="upvote-button"
-                    class={`upvote-button ${issue.hasUpvoted ? 'upvoted' : ''}`}
-                    onClick={(e: MouseEvent) => this.handleUpvote(e)}
-                    title={issue.hasUpvoted ? 'Remove upvote' : 'Upvote this issue'}
-                  >
-                    <div class="upvote-action">
-                      <slot name="upvote-icon">{this.renderUpvoteIcon(issue.hasUpvoted)}</slot>
-                      <span class="upvote-label">Upvote</span>
+                  {(repoName != null || showGithubButton) && (
+                    <div class="issue-footer-meta">
+                      {repoName != null && (
+                        <span class="repo-name" title={repoTooltip}>
+                          {repoName}
+                        </span>
+                      )}
+                      {showGithubButton && (
+                        <a
+                          part="github-link"
+                          class="github-link"
+                          href={githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          title="View on GitHub"
+                        >
+                          {this.renderExternalLinkIcon()}
+                          <span class="github-link-text">View on GitHub</span>
+                        </a>
+                      )}
                     </div>
-                    <div class="reel-container">
-                      <span class="upvote-count reel-number" key={issue.upvoteCount}>
-                        {issue.upvoteCount}
-                      </span>
-                    </div>
-                  </button>
+                  )}
+                  {issue.type !== 'bug' && (
+                    <button
+                      part="upvote-button"
+                      class={`upvote-button ${issue.hasUpvoted ? 'upvoted' : ''}`}
+                      onClick={(e: MouseEvent) => this.handleUpvote(e)}
+                      title={issue.hasUpvoted ? 'Remove upvote' : 'Upvote this issue'}
+                    >
+                      <div class="upvote-action">
+                        <slot name="upvote-icon">{this.renderUpvoteIcon(issue.hasUpvoted)}</slot>
+                        <span class="upvote-label">Upvote</span>
+                      </div>
+                      <div class="reel-container">
+                        <span class="upvote-count reel-number" key={issue.upvoteCount}>
+                          {issue.upvoteCount}
+                        </span>
+                      </div>
+                    </button>
+                  )}
                 </div>
               )}
             </div>
