@@ -39,8 +39,6 @@
   --feedlog-destructive: oklch(0.396 0.141 25.723);
   --feedlog-blue-400: oklch(0.707 0.165 254.624);
   --feedlog-blue-600: oklch(0.546 0.245 262.881);
-  --feedlog-blue-900-30: color-mix(in oklab, oklch(0.379 0.146 265.522) 30%, transparent);
-  --feedlog-red-900-30: color-mix(in oklab, oklch(0.396 0.141 25.723) 30%, transparent);
   --feedlog-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
 }
 

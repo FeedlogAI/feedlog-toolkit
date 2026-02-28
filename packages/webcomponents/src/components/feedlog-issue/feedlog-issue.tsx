@@ -228,30 +228,30 @@ export class FeedlogIssueComponent {
             <slot name="media" />
           </div>
           <div class="issue-content">
-            <div class="issue-header">
-              <div class="issue-header-left">
-                <div class="issue-type-badge">
+            <div class="issue-main">
+              <div class="issue-header-top">
+                <div class="issue-badges">
                   {issue.type === 'bug' ? (
                     <feedlog-badge variant="destructive">Bug</feedlog-badge>
                   ) : (
                     <feedlog-badge variant="enhancement">Enhancement</feedlog-badge>
                   )}
+                  {statusBadgeLabel && (
+                    <feedlog-badge variant="secondary">{statusBadgeLabel}</feedlog-badge>
+                  )}
                 </div>
-                {statusBadgeLabel && (
-                  <feedlog-badge variant="secondary">{statusBadgeLabel}</feedlog-badge>
-                )}
-                {issue.pinnedAt && (
-                  <div class="pinned-indicator" title="Pinned issue">
-                    {this.renderPinIcon()}
-                  </div>
-                )}
+                <div class="issue-meta-right">
+                  {issue.pinnedAt && (
+                    <div class="pinned-indicator" title="Pinned issue">
+                      {this.renderPinIcon()}
+                    </div>
+                  )}
+                  <span class="issue-timestamp" title={timestampTitle}>
+                    {timestampLabel} {this.formatDate(timestampDate)}
+                  </span>
+                </div>
               </div>
-              <span class="issue-timestamp" title={timestampTitle}>
-                {timestampLabel} {this.formatDate(timestampDate)}
-              </span>
-            </div>
 
-            <div class="issue-main">
               <h3 class="issue-title">{displayTitle}</h3>
               {issue.body != null && issue.body !== '' && (
                 <div class="issue-body" innerHTML={parseMarkdown(issue.body)} />

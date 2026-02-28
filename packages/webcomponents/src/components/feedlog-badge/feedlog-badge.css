@@ -4,26 +4,42 @@
   /* Light theme defaults */
   --feedlog-badge-font-size: 0.75rem;
   --feedlog-badge-font-weight: 500;
-  --feedlog-badge-padding-x: 0.5rem;
+  --feedlog-badge-padding-x: 0.625rem;
   --feedlog-badge-padding-y: 0.125rem;
-  --feedlog-badge-border-radius: calc(0.625rem - 2px);
+  --feedlog-badge-border-radius: 9999px; /* Pill shape */
 
-  /* Default/Enhancement variant colors */
-  --feedlog-blue-500: oklch(0.623 0.214 259.815);
-  --feedlog-blue-600: oklch(0.546 0.245 262.881);
-  --feedlog-blue-700: oklch(0.488 0.243 264.376);
+  /* Default/Enhancement variant colors - Soft Blue */
+  --feedlog-blue-bg: #eff6ff;
+  --feedlog-blue-text: #1e40af;
+  --feedlog-blue-bg-hover: #dbeafe;
 
-  /* Destructive variant colors */
-  --feedlog-destructive: #d4183d;
-  --feedlog-destructive-hover: #b91c1c;
+  /* Destructive variant colors - Soft Red */
+  --feedlog-red-bg: #fef2f2;
+  --feedlog-red-text: #991b1b;
+  --feedlog-red-bg-hover: #fee2e2;
+
+  /* Secondary variant - Muted */
+  --feedlog-muted-bg: #f1f5f9;
+  --feedlog-muted-text: #475569;
+  --feedlog-muted-bg-hover: #e2e8f0;
 }
 
 :host(.dark) {
   /* Dark theme values */
-  --feedlog-blue-500: oklch(0.623 0.214 259.815);
-  --feedlog-blue-600: oklch(0.546 0.245 262.881);
-  --feedlog-destructive: oklch(0.396 0.141 25.723);
-  --feedlog-destructive-hover: oklch(0.45 0.16 25.723);
+  /* Default/Enhancement variant colors - Dark Blue */
+  --feedlog-blue-bg: rgba(37, 99, 235, 0.15);
+  --feedlog-blue-text: #93c5fd;
+  --feedlog-blue-bg-hover: rgba(37, 99, 235, 0.25);
+
+  /* Destructive variant colors - Dark Red */
+  --feedlog-red-bg: rgba(220, 38, 38, 0.15);
+  --feedlog-red-text: #fca5a5;
+  --feedlog-red-bg-hover: rgba(220, 38, 38, 0.25);
+
+  /* Secondary variant - Dark Muted */
+  --feedlog-muted-bg: oklch(0.32 0.01 260);
+  --feedlog-muted-text: oklch(0.8 0.02 260);
+  --feedlog-muted-bg-hover: oklch(0.38 0.01 260);
 }
 
 .badge {
@@ -36,63 +52,47 @@
   padding: var(--feedlog-badge-padding-y) var(--feedlog-badge-padding-x);
   border-radius: var(--feedlog-badge-border-radius);
   white-space: nowrap;
-  transition: background-color 0.15s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
   font-family: inherit;
+  border: 1px solid transparent;
 }
 
-/* Default variant - uses blue like enhancement */
+/* Default variant - Soft Blue */
 .badge-default {
-  background-color: var(--feedlog-blue-600);
-  color: #ffffff;
+  background-color: var(--feedlog-blue-bg);
+  color: var(--feedlog-blue-text);
 }
 
 .badge-default:hover {
-  background-color: var(--feedlog-blue-700);
+  background-color: var(--feedlog-blue-bg-hover);
 }
 
-:host(.dark) .badge-default {
-  background-color: var(--feedlog-blue-500);
-}
-
-:host(.dark) .badge-default:hover {
-  background-color: var(--feedlog-blue-600);
-}
-
-/* Enhancement variant - blue styling */
+/* Enhancement variant - Soft Blue */
 .badge-enhancement {
-  background-color: var(--feedlog-blue-600);
-  color: #ffffff;
+  background-color: var(--feedlog-blue-bg);
+  color: var(--feedlog-blue-text);
 }
 
 .badge-enhancement:hover {
-  background-color: var(--feedlog-blue-700);
+  background-color: var(--feedlog-blue-bg-hover);
 }
 
-:host(.dark) .badge-enhancement {
-  background-color: var(--feedlog-blue-500);
-}
-
-:host(.dark) .badge-enhancement:hover {
-  background-color: var(--feedlog-blue-600);
-}
-
-/* Destructive variant - red/danger styling */
+/* Destructive variant - Soft Red */
 .badge-destructive {
-  background-color: var(--feedlog-destructive);
-  color: #ffffff;
+  background-color: var(--feedlog-red-bg);
+  color: var(--feedlog-red-text);
 }
 
 .badge-destructive:hover {
-  background-color: var(--feedlog-destructive-hover);
+  background-color: var(--feedlog-red-bg-hover);
 }
 
-/* Secondary variant - muted styling for status badges */
+/* Secondary variant - Muted styling */
 .badge-secondary {
-  background-color: var(--feedlog-muted, #f1f5f9);
-  color: var(--feedlog-muted-foreground, #64748b);
+  background-color: var(--feedlog-muted-bg);
+  color: var(--feedlog-muted-text);
 }
 
-:host(.dark) .badge-secondary {
-  background-color: var(--feedlog-muted, oklch(0.32 0.01 260));
-  color: var(--feedlog-muted-foreground, oklch(0.72 0.02 260));
+.badge-secondary:hover {
+  background-color: var(--feedlog-muted-bg-hover);
 }
