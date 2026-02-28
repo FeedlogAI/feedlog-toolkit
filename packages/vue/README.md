@@ -37,12 +37,10 @@ The main component for displaying issues with built-in SDK integration.
 - `endpoint?`: Custom API endpoint
 - `maxWidth?`: Container max width (default: `'42rem'`)
 - `theme?`: Theme variant - `'light'` or `'dark'` (default: `'light'`)
-- `showThemeToggle?`: Show theme toggle button (default: `true`)
 
 **Events:**
 
 - `@feedlog-upvote`: Emitted when an issue is upvoted
-- `@feedlog-theme-change`: Emitted when theme changes
 - `@feedlog-error`: Emitted on errors
 
 ## Usage
@@ -59,7 +57,6 @@ The main component for displaying issues with built-in SDK integration.
       theme="light"
       max-width="42rem"
       @feedlog-upvote="handleUpvote"
-      @feedlog-theme-change="handleThemeChange"
       @feedlog-error="handleError"
     />
   </div>
@@ -71,10 +68,6 @@ import { FeedlogIssuesClient } from '@feedlog-ai/vue';
 const handleUpvote = (event: CustomEvent) => {
   console.log('Issue upvoted:', event.detail);
   // event.detail: { issueId, upvoted, upvoteCount }
-};
-
-const handleThemeChange = (event: CustomEvent<'light' | 'dark'>) => {
-  console.log('Theme changed to:', event.detail);
 };
 
 const handleError = (event: CustomEvent) => {
@@ -149,12 +142,7 @@ export default {
       </button>
     </div>
 
-    <FeedlogIssuesClient
-      api-key="your-api-key"
-      :type="issueType"
-      :theme="theme"
-      @feedlog-theme-change="updateTheme"
-    />
+    <FeedlogIssuesClient api-key="your-api-key" :type="issueType" :theme="theme" />
   </div>
 </template>
 
@@ -167,10 +155,6 @@ const theme = ref<'light' | 'dark'>('light');
 
 const toggleTheme = () => {
   theme.value = theme.value === 'light' ? 'dark' : 'light';
-};
-
-const updateTheme = (event: CustomEvent<'light' | 'dark'>) => {
-  theme.value = event.detail;
 };
 </script>
 ```
