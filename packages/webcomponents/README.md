@@ -11,7 +11,7 @@ Stencil-based web components for GitHub issue management. These are framework-ag
 - **Tree-shakeable**: Multiple output formats for optimal bundle sizes
 - **TypeScript Support**: Full type safety with generated TypeScript definitions
 - **Theme Support**: Built-in light/dark theme switching
-- **Event System**: Custom events for upvoting and errors
+- **Event System**: Custom events for upvoting, theme changes, and errors
 
 ## Installation
 
@@ -21,7 +21,7 @@ npm install @feedlog-ai/webcomponents
 
 ## Components
 
-### feedlog-issues-client
+### FeedlogGithubIssuesClient
 
 The main component for displaying GitHub issues with built-in SDK integration.
 
@@ -33,10 +33,12 @@ The main component for displaying GitHub issues with built-in SDK integration.
 - `endpoint` (optional): Custom API endpoint
 - `maxWidth` (optional): Container max width (default: `'42rem'`)
 - `theme` (optional): Theme variant - `'light'` or `'dark'` (default: `'light'`)
+- `showThemeToggle` (optional): Show theme toggle button (default: `true`)
 
 **Events:**
 
 - `feedlogUpvote`: Emitted when an issue is upvoted
+- `feedlogThemeChange`: Emitted when theme changes
 - `feedlogError`: Emitted on errors
 
 ## Playground (Development & Testing)
@@ -256,6 +258,14 @@ interface UpvoteEventDetail {
   upvoted: boolean; // true if added, false if removed
   upvoteCount: number; // Updated total count
 }
+```
+
+### feedlogThemeChange
+
+Emitted when the theme is changed via the theme toggle.
+
+```typescript
+type ThemeEventDetail = 'light' | 'dark';
 ```
 
 ### feedlogError

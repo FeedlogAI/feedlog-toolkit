@@ -19,7 +19,7 @@ npm install @feedlog-ai/react
 
 ## Components
 
-### FeedlogIssuesClient
+### FeedlogGithubIssuesClient
 
 The main component for displaying GitHub issues with built-in SDK integration.
 
@@ -31,22 +31,24 @@ The main component for displaying GitHub issues with built-in SDK integration.
 - `endpoint?`: Custom API endpoint
 - `maxWidth?`: Container max width (default: `'42rem'`)
 - `theme?`: Theme variant - `'light'` or `'dark'` (default: `'light'`)
+- `showThemeToggle?`: Show theme toggle button (default: `true`)
 
 **Events:**
 
 - `onFeedlogUpvote`: Called when an issue is upvoted
+- `onFeedlogThemeChange`: Called when theme changes
 - `onFeedlogError`: Called on errors
 
 ## Usage
 
 ```tsx
 import React from 'react';
-import { FeedlogIssuesClient } from '@feedlog-ai/react';
+import { FeedlogGithubIssuesClient } from '@feedlog-ai/react';
 
 function App() {
   return (
     <div>
-      <FeedlogIssuesClient
+      <FeedlogGithubIssuesClient
         apiKey="your-api-key"
         type="bug"
         limit={10}
@@ -55,6 +57,9 @@ function App() {
         onFeedlogUpvote={event => {
           console.log('Issue upvoted:', event.detail);
           // event.detail contains: { issueId, upvoted, upvoteCount }
+        }}
+        onFeedlogThemeChange={event => {
+          console.log('Theme changed to:', event.detail); // 'light' or 'dark'
         }}
         onFeedlogError={event => {
           console.error('Error occurred:', event.detail);
@@ -70,7 +75,7 @@ export default App;
 
 ## Server-Side Rendering (SSR)
 
-The components support Server-Side Rendering (SSR) via Stencil's SSR plugins.
+The components support Server-Side Rendering out of the box.
 
 ### Next.js (App Router or Pages Router)
 
@@ -87,7 +92,7 @@ const nextConfig = {
 export default withFeedlogSSR(nextConfig);
 ```
 
-Then you can use the components in your Next.js app.
+Then you can use the component in any Next.js app seamlessly.
 
 ### Vite / Remix
 
@@ -106,8 +111,6 @@ export default defineConfig({
 
 **Note:** The SSR plugin requires `@stencil/ssr`. With Vite 7, install it using `npm install @stencil/ssr --legacy-peer-deps` (Stencil SSR currently declares `vite@^6.x` as a peer dependency).
 
-**Limitations:** This package uses the compiler/plugin SSR approach. Statically analyzable props work best; heavily runtime-computed values and non-primitive data passed through function calls can be harder to pre-render reliably.
-
 **Troubleshooting:** If you see `Expected ">" but found "{"` during the SSR build, the Stencil transform may be failing on complex TypeScript generics in files that import from `@feedlog-ai/react`. Refactor inline generics to type aliases, e.g.:
 
 ```ts
@@ -124,13 +127,18 @@ event: CustomEvent<EventDetail>
 
 ```tsx
 import React, { useCallback } from 'react';
-import { FeedlogIssuesClient } from '@feedlog-ai/react';
+import { FeedlogGithubIssuesClient } from '@feedlog-ai/react';
 
 function IssuesComponent() {
   const handleUpvote = useCallback((event: CustomEvent) => {
     const { issueId, upvoted, upvoteCount } = event.detail;
     console.log(`Issue ${issueId} ${upvoted ? 'upvoted' : 'unvoted'}`);
     console.log(`New upvote count: ${upvoteCount}`);
+  }, []);
+
+  const handleThemeChange = useCallback((event: CustomEvent<'light' | 'dark'>) => {
+    console.log(`Theme changed to: ${event.detail}`);
+    // Update your app's theme state here
   }, []);
 
   const handleError = useCallback((event: CustomEvent) => {
@@ -140,9 +148,10 @@ function IssuesComponent() {
   }, []);
 
   return (
-    <FeedlogIssuesClient
+    <FeedlogGithubIssuesClient
       apiKey="your-api-key"
       onFeedlogUpvote={handleUpvote}
+      onFeedlogThemeChange={handleThemeChange}
       onFeedlogError={handleError}
     />
   );
@@ -153,10 +162,15 @@ function IssuesComponent() {
 
 ```tsx
 import React, { useState, useCallback } from 'react';
-import { FeedlogIssuesClient } from '@feedlog-ai/react';
+import { FeedlogGithubIssuesClient } from '@feedlog-ai/react';
 
 function IssuesWithState() {
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [error, setError] = useState<string | null>(null);
+
+  const handleThemeChange = useCallback((event: CustomEvent<'light' | 'dark'>) => {
+    setTheme(event.detail);
+  }, []);
 
   const handleError = useCallback((event: CustomEvent) => {
     setError(event.detail.error);
@@ -168,7 +182,12 @@ function IssuesWithState() {
     <div>
       {error && <div className="error-banner">Error: {error}</div>}
 
-      <FeedlogIssuesClient apiKey="your-api-key" theme="light" onFeedlogError={handleError} />
+      <FeedlogGithubIssuesClient
+        apiKey="your-api-key"
+        theme={theme}
+        onFeedlogThemeChange={handleThemeChange}
+        onFeedlogError={handleError}
+      />
     </div>
   );
 }
@@ -208,7 +227,7 @@ All components are fully typed. Import types from the core package if needed:
 
 ```tsx
 import { FeedlogIssue } from '@feedlog-ai/core';
-import { FeedlogIssuesClient } from '@feedlog-ai/react';
+import { FeedlogGithubIssuesClient } from '@feedlog-ai/react';
 
 // Type-safe event handling
 const handleUpvote = (

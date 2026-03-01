@@ -3121,7 +3121,7 @@ function hydrateFactory(
               !slottedNode['s-sn'] &&
               (!slottedNode['getAttribute'] || !slottedNode.getAttribute('slot')) &&
               (slottedNode.nodeType === 8 /* CommentNode */ ||
-                slottedNode.nodeType === 3)) /* TextNode */)
+                slottedNode.nodeType === 3))) /* TextNode */
         ) {
           slottedNode['s-sn'] = slotName;
           slottedNodes[slotNodeId].push({ slot: slotNode, node: slottedNode, hostId });
