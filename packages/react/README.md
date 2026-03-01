@@ -109,6 +109,29 @@ export default defineConfig({
 });
 ```
 
+### TanStack Start
+
+TanStack Start is Vite-based, so use the same compiler approach. Add `feedlogSSR()` to your Vite config **after** the React plugin:
+
+```ts
+// vite.config.ts
+import { defineConfig } from 'vite';
+import tsConfigPaths from 'vite-tsconfig-paths';
+import { tanstackStart } from '@tanstack/react-start/plugin/vite';
+import viteReact from '@vitejs/plugin-react';
+import { feedlogSSR } from '@feedlog-ai/react/start';
+
+export default defineConfig({
+  server: { port: 3000 },
+  plugins: [
+    tsConfigPaths(),
+    tanstackStart(),
+    viteReact(), // must come after tanstackStart
+    feedlogSSR(), // Stencil SSR for Feedlog components
+  ],
+});
+```
+
 **Note:** The SSR plugin requires `@stencil/ssr`. With Vite 7, install it using `npm install @stencil/ssr --legacy-peer-deps` (Stencil SSR currently declares `vite@^6.x` as a peer dependency).
 
 **Troubleshooting:** If you see `Expected ">" but found "{"` during the SSR build, the Stencil transform may be failing on complex TypeScript generics in files that import from `@feedlog-ai/react`. Refactor inline generics to type aliases, e.g.:

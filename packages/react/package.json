@@ -20,6 +20,11 @@
       "import": "./dist/vite.js",
       "require": "./dist/vite.js",
       "types": "./dist/vite.d.ts"
+    },
+    "./start": {
+      "import": "./dist/start.js",
+      "require": "./dist/start.js",
+      "types": "./dist/start.d.ts"
     }
   },
   "files": [
