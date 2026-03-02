@@ -42,6 +42,38 @@ function mergeRefs<T>(...refs: (React.Ref<T> | undefined)[]): React.RefCallback<
 }
 
 /**
+ * Converts camelCase prop names to kebab-case for custom element HTML attributes.
+ * Stencil SSR outputs kebab-case attributes; React uses camelCase. This ensures
+ * server and client output match for hydration.
+ */
+function toKebabCase(str: string): string {
+  return str.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
+}
+
+/**
+ * Converts primitive props to kebab-case attribute names for custom elements.
+ * Preserves ref, style, className, children, and suppressHydrationWarning as-is.
+ */
+function primitivePropsToAttributes(props: Record<string, unknown>): Record<string, unknown> {
+  const passthrough = new Set([
+    'ref',
+    'style',
+    'className',
+    'children',
+    'suppressHydrationWarning',
+  ]);
+  const result: Record<string, unknown> = {};
+
+  for (const [key, value] of Object.entries(props)) {
+    if (value === undefined) continue;
+    const attrName = passthrough.has(key) ? key : toKebabCase(key);
+    result[attrName] = value;
+  }
+
+  return result;
+}
+
+/**
  * Helper to separate primitive props (strings, booleans, numbers) from complex props.
  * Primitive props can be passed as HTML attributes, complex props must be set as DOM properties.
  */
@@ -55,7 +87,13 @@ function separateProps(props: Record<string, unknown>): {
   const eventProps: Record<string, unknown> = {};
 
   Object.entries(props).forEach(([key, value]) => {
-    if (key === 'children' || key === 'ref' || key === 'style' || key === 'className') {
+    if (
+      key === 'children' ||
+      key === 'ref' ||
+      key === 'style' ||
+      key === 'className' ||
+      key === 'suppressHydrationWarning'
+    ) {
       primitiveProps[key] = value;
     } else if (key.startsWith('on') && key[2] === key[2].toUpperCase()) {
       // Event handlers
@@ -202,7 +240,11 @@ export const FeedlogIssues = React.forwardRef<HTMLElement, FeedlogIssuesProps>(
 
     return React.createElement(
       'feedlog-issues',
-      { ...primitiveProps, ref: mergeRefs(ref, internalRef) },
+      {
+        ...primitivePropsToAttributes(primitiveProps),
+        ref: mergeRefs(ref, internalRef),
+        suppressHydrationWarning: true,
+      } as React.HTMLAttributes<HTMLElement>,
       children
     );
   }
@@ -237,7 +279,11 @@ export const FeedlogIssuesClient = React.forwardRef<HTMLElement, FeedlogIssuesCl
 
     return React.createElement(
       'feedlog-issues-client',
-      { ...primitiveProps, ref: mergeRefs(ref, internalRef) },
+      {
+        ...primitivePropsToAttributes(primitiveProps),
+        ref: mergeRefs(ref, internalRef),
+        suppressHydrationWarning: true,
+      } as React.HTMLAttributes<HTMLElement>,
       children
     );
   }
@@ -264,7 +310,11 @@ export const FeedlogIssuesList = React.forwardRef<HTMLElement, FeedlogIssuesList
 
     return React.createElement(
       'feedlog-issues-list',
-      { ...primitiveProps, ref: mergeRefs(ref, internalRef) },
+      {
+        ...primitivePropsToAttributes(primitiveProps),
+        ref: mergeRefs(ref, internalRef),
+        suppressHydrationWarning: true,
+      } as React.HTMLAttributes<HTMLElement>,
       children
     );
   }
@@ -292,7 +342,11 @@ export const FeedlogIssueComponent = React.forwardRef<HTMLElement, FeedlogIssueP
 
     return React.createElement(
       'feedlog-issue',
-      { ...primitiveProps, ref: mergeRefs(ref, internalRef) },
+      {
+        ...primitivePropsToAttributes(primitiveProps),
+        ref: mergeRefs(ref, internalRef),
+        suppressHydrationWarning: true,
+      } as React.HTMLAttributes<HTMLElement>,
       children
     );
   }
