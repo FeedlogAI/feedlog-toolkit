@@ -87,5 +87,6 @@ module.exports = {
     '*.config.js',
     '*.config.ts',
     'packages/webcomponents/hydrate',
+    '**/next-env.d.ts',
   ],
 };

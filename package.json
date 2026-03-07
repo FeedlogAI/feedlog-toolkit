@@ -12,7 +12,7 @@
     "build:webcomponents": "npm run build --workspace=@feedlog-ai/webcomponents",
     "build:react": "npm run build --workspace=@feedlog-ai/react",
     "build:vue": "npm run build --workspace=@feedlog-ai/vue",
-    "test": "npm run test --workspaces",
+    "test": "npm run test --workspaces --if-present",
     "test:core": "npm run test --workspace=@feedlog-ai/core",
     "test:webcomponents": "npm run test --workspace=@feedlog-ai/webcomponents",
     "test:react": "npm run test --workspace=@feedlog-ai/react",
