@@ -10,6 +10,9 @@ coverage/
 # Production builds
 dist/
 build/
+.next/
+.nuxt/
+.output/
 *.tsbuildinfo
 
 # Environment variables

@@ -3,7 +3,8 @@
   "description": "Monorepo for Feedlog Toolkit - Core SDK, Web Components, and Framework Wrappers",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "examples/*"
   ],
   "scripts": {
     "build": "npm run build:core && npm run build:webcomponents && npm run build:react && npm run build:vue && npm run format",
@@ -27,11 +28,14 @@
     "changeset": "changeset",
     "version-packages": "changeset version",
     "publish-packages": "changeset publish",
-    "publish-patch": "node scripts/publish-patch.js"
+    "publish-patch": "node scripts/publish-patch.js",
+    "e2e": "npm run build && npm run build:examples && npx playwright install chromium && playwright test",
+    "build:examples": "npm run build --workspace=react-ssr-example && npm run build --workspace=vue-ssr-example"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.8",
     "@jest/test-sequencer": "^29.7.0",
+    "@playwright/test": "^1.58.2",
     "@stencil/eslint-plugin": "^1.1.0",
     "@types/jest": "^29.5.11",
     "@types/node": "^20.11.24",

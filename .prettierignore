@@ -15,3 +15,8 @@ collection/
 www/
 storybook-static/
 stencil-generated/
+
+# Example app build outputs
+examples/*/.next/
+examples/*/.nuxt/
+examples/*/.output/
