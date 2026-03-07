@@ -8,6 +8,7 @@
  *   - s-id / c-id attributes  (Stencil component identifiers)
  *   - class="sc-feedlog-*-h hydrated"  (Stencil host element classes)
  *   - <!--r.N--> / <!--/--> comment nodes  (slot anchors)
+ *   - <!--[--> / <!--]--> comment nodes    (Vue fragment markers in server output)
  *
  * When Vue hydrates, it compares the server DOM with what defineContainer renders
  * (<feedlog-badge variant="..."> with no extra attrs) and reports mismatches.
@@ -17,8 +18,8 @@
  */
 export default defineNitroPlugin(nitroApp => {
   nitroApp.hooks.hook('render:html', html => {
-    const strip = (s: string) =>
-      s
+    const strip = (s: string) => {
+      const withoutStencilAttrs = s
         .replace(/\s+s-id="[^"]*"/g, '')
         .replace(/\s+c-id="[^"]*"/g, '')
         .replace(/\s+s-cr="[^"]*"/g, '')
@@ -35,6 +36,14 @@ export default defineNitroPlugin(nitroApp => {
             return filtered ? `${before} class="${filtered}"${after}` : `${before}${after}`;
           }
         );
+
+      // Vue's server renderer wraps slot/light-dom children in fragment comment markers.
+      // The client-side Stencil Vue container does not emit those markers, so Vue logs a
+      // hydration mismatch unless we strip them from feedlog custom-element subtrees.
+      return withoutStencilAttrs.replace(/<(feedlog-[a-z0-9-]+)([^>]*)>[\s\S]*?<\/\1>/g, block =>
+        block.replace(/<!--\[-->/g, '').replace(/<!--\]-->/g, '')
+      );
+    };
 
     html.head = html.head.map(strip);
     html.body = html.body.map(strip);
