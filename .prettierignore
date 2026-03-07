@@ -15,6 +15,7 @@ collection/
 www/
 storybook-static/
 stencil-generated/
+packages/webcomponents/hydrate/
 
 # Example app build outputs
 examples/*/.next/
