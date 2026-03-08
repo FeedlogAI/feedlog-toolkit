@@ -111,7 +111,12 @@ export class FeedlogIssuesClient {
     this.previousLimit = this.limit;
     this.previousSortBy = this.sortBy;
     this.initializeSDK();
-    this.fetchIssues();
+    // Return the promise so SSR waits for the fetch before serializing HTML.
+    // During client hydration, skip fetch if we already have server-rendered data.
+    if (this.issues.length > 0 && !this.loading) {
+      return;
+    }
+    return this.fetchIssues();
   }
 
   disconnectedCallback() {
