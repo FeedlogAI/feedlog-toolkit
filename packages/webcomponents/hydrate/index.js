@@ -7240,7 +7240,12 @@ class FeedlogIssuesClient {
         this.previousLimit = this.limit;
         this.previousSortBy = this.sortBy;
         this.initializeSDK();
-        this.fetchIssues();
+        // Return the promise so SSR waits for the fetch before serializing HTML.
+        // During client hydration, skip fetch if we already have server-rendered data.
+        if (this.issues.length > 0 && !this.loading) {
+            return;
+        }
+        return this.fetchIssues();
     }
     disconnectedCallback() {
         // Prevent any pending async operations from updating state
@@ -7386,7 +7391,7 @@ class FeedlogIssuesClient {
         const style = hostBg
             ? { '--feedlog-background': hostBg }
             : undefined;
-        return (hAsync("feedlog-issues", { key: '15ae96d7d7b51964026f873f8b97e10530ed02b4', style: style, issues: this.issues, limit: this.limit, maxWidth: this.maxWidth, theme: this.theme, heading: this.heading, subtitle: this.subtitle, emptyStateTitle: this.emptyStateTitle, emptyStateMessage: this.emptyStateMessage, getIssueUrl: this.getIssueUrl, loading: this.loading, error: this.error, hasMore: this.hasMore, isLoadingMore: this.isLoadingMore, onFeedlogUpvote: this.handleUpvote, onFeedlogLoadMore: async () => this.loadMore() }));
+        return (hAsync("feedlog-issues", { key: '0528f8bbb5f1e735c3b50a4325221ee8bfdfadda', style: style, issues: this.issues, limit: this.limit, maxWidth: this.maxWidth, theme: this.theme, heading: this.heading, subtitle: this.subtitle, emptyStateTitle: this.emptyStateTitle, emptyStateMessage: this.emptyStateMessage, getIssueUrl: this.getIssueUrl, loading: this.loading, error: this.error, hasMore: this.hasMore, isLoadingMore: this.isLoadingMore, onFeedlogUpvote: this.handleUpvote, onFeedlogLoadMore: async () => this.loadMore() }));
     }
     get el() { return getElement(this); }
     static get cmpMeta() { return {
