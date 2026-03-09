@@ -132,7 +132,15 @@ export default defineConfig({
 });
 ```
 
-**Note:** The SSR plugin requires `@stencil/ssr`. With Vite 7, install it using `npm install @stencil/ssr --legacy-peer-deps` (Stencil SSR currently declares `vite@^6.x` as a peer dependency).
+**Note:** The SSR plugin requires `@stencil/ssr`, which declares `vite@^6.x` as a peer dependency. For Vite 7 projects, add this override to your `package.json` to avoid peer dependency conflicts:
+
+```json
+"overrides": {
+  "@stencil/ssr": {
+    "vite": "$vite"
+  }
+}
+```
 
 **Troubleshooting:** If you see `Expected ">" but found "{"` during the SSR build, the Stencil transform may be failing on complex TypeScript generics in files that import from `@feedlog-ai/react`. Refactor inline generics to type aliases, e.g.:
 
