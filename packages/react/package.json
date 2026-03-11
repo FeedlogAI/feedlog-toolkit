@@ -16,6 +16,11 @@
       "require": "./dist/next.js",
       "types": "./dist/next.d.ts"
     },
+    "./ssr-components": {
+      "import": "./dist/ssr-components.js",
+      "require": "./dist/ssr-components.js",
+      "types": "./dist/ssr-components.d.ts"
+    },
     "./vite": {
       "import": "./dist/vite.js",
       "require": "./dist/vite.js",
