@@ -4,4 +4,4 @@
  * (e.g. apiKey) as their identifier names. Components with complex/runtime
  * props (FeedlogIssuesClient, FeedlogIssueComponent, etc.) are excluded.
  */
-export { FeedlogBadge, FeedlogButton, FeedlogCard } from './index';
+export { FeedlogBadge, FeedlogButton, FeedlogCard } from './index.js';
