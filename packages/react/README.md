@@ -154,6 +154,54 @@ interface EventDetail { a: string; b: number }
 event: CustomEvent<EventDetail>
 ```
 
+### SSR Limitations
+
+The compiler-based SSR (used by Vite, Remix, and Next.js with `feedlogSSR` / `withFeedlogSSR`) performs **static AST analysis at build time** and cannot resolve runtime values. Dynamic props such as `apiKey={apiKey}` or `theme={theme}` are serialized as their identifier names instead of actual values, which causes broken API calls and incorrect display.
+
+- **SSR-safe components** (pre-rendered with Declarative Shadow DOM): `FeedlogBadge`, `FeedlogButton`, `FeedlogCard`
+- **Excluded from SSR** (rendered at request time by React; no pre-rendered DSD): `FeedlogIssuesClient`, `FeedlogIssueComponent`, `FeedlogIssues`, `FeedlogIssuesList` — these receive props correctly at runtime but may show a brief empty state before client hydration
+
+This is a [documented limitation](https://stenciljs.com/docs/server-side-rendering) of Stencil's compiler approach ("Static props only").
+
+### Copy Instructions: Full SSR for Issues
+
+If you need the issues list fully server-rendered (no flash of empty content), create a custom wrapper that fetches issues on the server and passes the data to `FeedlogIssues`.
+
+<details>
+<summary>LLM instructions: Build an SSR-compatible issues component</summary>
+
+Copy the following into your LLM to generate a custom SSR-compatible issues component:
+
+---
+
+**Context:** The `@stencil/ssr` compiler cannot resolve dynamic props at build time. For full SSR of the issues list, fetch data on the server and pass it to `FeedlogIssues`. Use `FeedlogSDK` from `@feedlog-ai/core` or direct `fetch()` to the Feedlog API.
+
+**Implementation patterns:**
+
+- **Next.js App Router:** Create an async Server Component that calls `new FeedlogSDK({ apiKey }).fetchIssues()`, then renders `<FeedlogIssues issues={issues} ... />`. Import `FeedlogIssues` from `@feedlog-ai/react`.
+- **Next.js Pages Router:** Use `getServerSideProps` or `getStaticProps` to fetch issues, pass to the page, and render `<FeedlogIssues issues={issues} />`.
+- **Vite / Remix:** Fetch in the route loader, pass data to the page component, and render `FeedlogIssues` with the fetched `issues` array.
+
+**Important:** The wrapper must run on the server so props are resolved at request time. Import from `@feedlog-ai/react` (not `@feedlog-ai/react/ssr-components` or `@feedlog-ai/react/next` for the issues components).
+
+**Example (Next.js App Router):**
+
+```tsx
+// app/issues/page.tsx
+import { FeedlogIssues } from '@feedlog-ai/react';
+import { FeedlogSDK } from '@feedlog-ai/core';
+
+export default async function IssuesPage() {
+  const sdk = new FeedlogSDK({ apiKey: process.env.FEEDLOG_API_KEY! });
+  const { issues } = await sdk.fetchIssues({ limit: 10 });
+  return <FeedlogIssues issues={issues} theme="light" />;
+}
+```
+
+---
+
+</details>
+
 ### Event Handling
 
 ```tsx
