@@ -159,6 +159,10 @@ const handleError = (event: CustomEvent) => {
 </script>
 ```
 
+## Build Your Own Feedlog
+
+Need custom data flow, or a framework-specific setup? See [Build Your Own Feedlog](docs/BUILD_YOUR_OWN_FEEDLOG.md) for instructions you can copy into an AI assistant or code generator to create a custom implementation without `FeedlogIssuesClient`.
+
 ## 🎨 Style Customization
 
 Customize the changelog widget to match your product. Set CSS custom properties on the component—works with vanilla HTML, React, Vue, or any framework.
