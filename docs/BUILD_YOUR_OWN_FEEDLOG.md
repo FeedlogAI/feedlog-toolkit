@@ -30,16 +30,19 @@ You are helping build a custom feedlog implementation without using FeedlogIssue
 **Context:** FeedlogIssuesClient fetches internally and cannot resolve dynamic props at build time for SSR. For full server-rendered issues (no flash of empty content), build a custom wrapper that fetches on the server and passes data to FeedlogIssues.
 
 **Approach:**
+
 - Use FeedlogSDK from @feedlog-ai/core for fetching and upvoting
 - Use FeedlogIssues (or FeedlogIssuesList, FeedlogIssueComponent) from @feedlog-ai/react for display
 - Do NOT use FeedlogIssuesClient
 
 **Data flow:**
+
 1. Fetch issues on the server (or in route loader) with FeedlogSDK.fetchIssues({ type?, limit?, sortBy?, cursor? })
 2. Pass the issues array to FeedlogIssues: <FeedlogIssues issues={issues} theme="light" maxWidth="42rem" ... />
 3. Handle feedlogUpvote events client-side: call sdk.toggleUpvote(issueId), then optimistically update the issues array or re-fetch
 
 **Framework patterns:**
+
 - Next.js App Router: Create an async Server Component that calls new FeedlogSDK({ apiKey }).fetchIssues(), then renders FeedlogIssues with the result
 - Next.js Pages Router: Use getServerSideProps or getStaticProps to fetch issues, pass to page, render FeedlogIssues
 - Vite / Remix: Fetch in the route loader, pass data to the page component, render FeedlogIssues with the fetched issues array
