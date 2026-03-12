@@ -92,7 +92,7 @@ const nextConfig = {
 export default withFeedlogSSR(nextConfig);
 ```
 
-Then you can use the component in any Next.js app seamlessly.
+Then import components from `@feedlog-ai/react` as usual.
 
 ### Vite / Remix
 

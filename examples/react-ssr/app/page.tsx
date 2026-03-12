@@ -1,4 +1,4 @@
-import { FeedlogBadge, FeedlogButton, FeedlogCard } from '@feedlog-ai/react/next';
+import { FeedlogBadge, FeedlogButton, FeedlogCard } from '@feedlog-ai/react';
 
 export default function Home() {
   return (
