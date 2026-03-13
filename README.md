@@ -267,6 +267,27 @@ feedlog-issues {
 
 See the [CustomCSSVars story](packages/webcomponents/src/components/feedlog-issues/feedlog-issues.stories.tsx) in Storybook for a live example. Run `npm run storybook` to explore all variants.
 
+## 🛠 Development
+
+From the monorepo root:
+
+```bash
+# Install dependencies
+npm install
+
+# Build all packages
+npm run build
+
+# Run tests
+npm run test
+
+# Run Storybook (webcomponents)
+npm run storybook
+
+# Run E2E tests (builds packages and examples first)
+npm run e2e
+```
+
 ## 📄 License
 
 MIT

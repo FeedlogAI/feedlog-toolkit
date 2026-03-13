@@ -19,7 +19,7 @@ npm install @feedlog-ai/react
 
 ## Components
 
-### FeedlogGithubIssuesClient
+### FeedlogIssuesClient
 
 The main component for displaying GitHub issues with built-in SDK integration.
 
@@ -31,24 +31,22 @@ The main component for displaying GitHub issues with built-in SDK integration.
 - `endpoint?`: Custom API endpoint
 - `maxWidth?`: Container max width (default: `'42rem'`)
 - `theme?`: Theme variant - `'light'` or `'dark'` (default: `'light'`)
-- `showThemeToggle?`: Show theme toggle button (default: `true`)
 
 **Events:**
 
 - `onFeedlogUpvote`: Called when an issue is upvoted
-- `onFeedlogThemeChange`: Called when theme changes
 - `onFeedlogError`: Called on errors
 
 ## Usage
 
 ```tsx
 import React from 'react';
-import { FeedlogGithubIssuesClient } from '@feedlog-ai/react';
+import { FeedlogIssuesClient } from '@feedlog-ai/react';
 
 function App() {
   return (
     <div>
-      <FeedlogGithubIssuesClient
+      <FeedlogIssuesClient
         apiKey="your-api-key"
         type="bug"
         limit={10}
@@ -57,9 +55,6 @@ function App() {
         onFeedlogUpvote={event => {
           console.log('Issue upvoted:', event.detail);
           // event.detail contains: { issueId, upvoted, upvoteCount }
-        }}
-        onFeedlogThemeChange={event => {
-          console.log('Theme changed to:', event.detail); // 'light' or 'dark'
         }}
         onFeedlogError={event => {
           console.error('Error occurred:', event.detail);
@@ -171,18 +166,13 @@ For full SSR of the issues list (no flash of empty content), build a custom wrap
 
 ```tsx
 import React, { useCallback } from 'react';
-import { FeedlogGithubIssuesClient } from '@feedlog-ai/react';
+import { FeedlogIssuesClient } from '@feedlog-ai/react';
 
 function IssuesComponent() {
   const handleUpvote = useCallback((event: CustomEvent) => {
     const { issueId, upvoted, upvoteCount } = event.detail;
     console.log(`Issue ${issueId} ${upvoted ? 'upvoted' : 'unvoted'}`);
     console.log(`New upvote count: ${upvoteCount}`);
-  }, []);
-
-  const handleThemeChange = useCallback((event: CustomEvent<'light' | 'dark'>) => {
-    console.log(`Theme changed to: ${event.detail}`);
-    // Update your app's theme state here
   }, []);
 
   const handleError = useCallback((event: CustomEvent) => {
@@ -192,10 +182,9 @@ function IssuesComponent() {
   }, []);
 
   return (
-    <FeedlogGithubIssuesClient
+    <FeedlogIssuesClient
       apiKey="your-api-key"
       onFeedlogUpvote={handleUpvote}
-      onFeedlogThemeChange={handleThemeChange}
       onFeedlogError={handleError}
     />
   );
@@ -206,15 +195,11 @@ function IssuesComponent() {
 
 ```tsx
 import React, { useState, useCallback } from 'react';
-import { FeedlogGithubIssuesClient } from '@feedlog-ai/react';
+import { FeedlogIssuesClient } from '@feedlog-ai/react';
 
 function IssuesWithState() {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [error, setError] = useState<string | null>(null);
-
-  const handleThemeChange = useCallback((event: CustomEvent<'light' | 'dark'>) => {
-    setTheme(event.detail);
-  }, []);
 
   const handleError = useCallback((event: CustomEvent) => {
     setError(event.detail.error);
@@ -226,12 +211,7 @@ function IssuesWithState() {
     <div>
       {error && <div className="error-banner">Error: {error}</div>}
 
-      <FeedlogGithubIssuesClient
-        apiKey="your-api-key"
-        theme={theme}
-        onFeedlogThemeChange={handleThemeChange}
-        onFeedlogError={handleError}
-      />
+      <FeedlogIssuesClient apiKey="your-api-key" theme={theme} onFeedlogError={handleError} />
     </div>
   );
 }
@@ -246,12 +226,12 @@ import {
   FeedlogBadge,
   FeedlogButton,
   FeedlogCard,
-  FeedlogGithubIssues,
+  FeedlogIssues,
   FeedlogIssuesList
 } from '@feedlog-ai/react';
 
 // Badge component
-<FeedlogBadge variant="primary" text="New" />
+<FeedlogBadge variant="enhancement">New</FeedlogBadge>
 
 // Button component
 <FeedlogButton variant="primary" size="lg" onFeedlogClick={handleClick}>
@@ -271,7 +251,7 @@ All components are fully typed. Import types from the core package if needed:
 
 ```tsx
 import { FeedlogIssue } from '@feedlog-ai/core';
-import { FeedlogGithubIssuesClient } from '@feedlog-ai/react';
+import { FeedlogIssuesClient } from '@feedlog-ai/react';
 
 // Type-safe event handling
 const handleUpvote = (

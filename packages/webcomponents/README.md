@@ -11,7 +11,7 @@ Stencil-based web components for GitHub issue management. These are framework-ag
 - **Tree-shakeable**: Multiple output formats for optimal bundle sizes
 - **TypeScript Support**: Full type safety with generated TypeScript definitions
 - **Theme Support**: Built-in light/dark theme switching
-- **Event System**: Custom events for upvoting, theme changes, and errors
+- **Event System**: Custom events for upvoting and errors
 
 ## Installation
 
@@ -21,7 +21,7 @@ npm install @feedlog-ai/webcomponents
 
 ## Components
 
-### FeedlogGithubIssuesClient
+### FeedlogIssuesClient
 
 The main component for displaying GitHub issues with built-in SDK integration.
 
@@ -33,12 +33,10 @@ The main component for displaying GitHub issues with built-in SDK integration.
 - `endpoint` (optional): Custom API endpoint
 - `maxWidth` (optional): Container max width (default: `'42rem'`)
 - `theme` (optional): Theme variant - `'light'` or `'dark'` (default: `'light'`)
-- `showThemeToggle` (optional): Show theme toggle button (default: `true`)
 
 **Events:**
 
 - `feedlogUpvote`: Emitted when an issue is upvoted
-- `feedlogThemeChange`: Emitted when theme changes
 - `feedlogError`: Emitted on errors
 
 ## Playground (Development & Testing)
@@ -143,21 +141,23 @@ The playground lets you configure:
 </html>
 ```
 
-### React (with generated bindings)
+### React
+
+For React apps, use the dedicated `@feedlog-ai/react` package for better integration:
 
 ```tsx
 import React from 'react';
-import { FeedlogIssuesClient } from '@feedlog-ai/webcomponents/dist/components';
+import { FeedlogIssuesClient } from '@feedlog-ai/react';
 
 function App() {
   return (
     <div>
-      <feedlog-issues-client
-        api-key="your-api-key"
+      <FeedlogIssuesClient
+        apiKey="your-api-key"
         type="bug"
         limit={10}
         theme="light"
-        max-width="42rem"
+        maxWidth="42rem"
         onFeedlogUpvote={event => {
           console.log('Issue upvoted:', event.detail);
         }}
@@ -258,14 +258,6 @@ interface UpvoteEventDetail {
   upvoted: boolean; // true if added, false if removed
   upvoteCount: number; // Updated total count
 }
-```
-
-### feedlogThemeChange
-
-Emitted when the theme is changed via the theme toggle.
-
-```typescript
-type ThemeEventDetail = 'light' | 'dark';
 ```
 
 ### feedlogError
