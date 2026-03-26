@@ -71,11 +71,11 @@ export const IssueCard: Story = {
           <div
             style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}
           >
-            <h3 style={{ margin: '0' }}>Add dark mode support</h3>
+            <h3 style={{ margin: '0' }}>Enable media support for card components</h3>
             <feedlog-badge>Enhancement</feedlog-badge>
           </div>
           <p style={{ margin: '0', color: '#666', fontSize: '0.875rem' }}>
-            It would be great to have a dark mode option for the dashboard.
+            Support for embedded media in card components using standard Markdown syntax.
           </p>
         </div>
       </div>

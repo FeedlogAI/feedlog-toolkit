@@ -3,8 +3,8 @@ import { h } from '@stencil/core';
 import type { FeedlogIssue } from '@feedlog-ai/core';
 
 const sampleBugIssue: FeedlogIssue = {
-  id: 'issue-bug-1',
-  githubIssueLink: 'https://github.com/feedlog/feedlog-toolkit/issues/42',
+  id: 'iss_bug_charts_mobile',
+  githubIssueLink: null,
   title: 'Charts not rendering on mobile',
   body: 'The chart components are not properly responsive on smaller screens. They overflow the container and break the layout.',
   type: 'bug' as const,
@@ -12,32 +12,32 @@ const sampleBugIssue: FeedlogIssue = {
   pinnedAt: null,
   revision: 1,
   repository: {
-    id: 'repo-1',
-    name: 'My App',
-    description: 'Main application repository',
+    id: 'rep_755dtvwg9d6r',
+    name: 'Infrastructure',
+    description: null,
   },
-  updatedAt: new Date(Date.now() - 5 * 60 * 60 * 1000).toISOString(), // 5 hours ago
-  createdAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(), // 1 week ago
+  updatedAt: '2026-03-19T12:00:00.000Z',
+  createdAt: '2026-03-19T10:00:00.000Z',
   upvoteCount: 3,
   hasUpvoted: false,
 };
 
 const sampleEnhancementIssue: FeedlogIssue = {
-  id: 'issue-enhancement-1',
-  githubIssueLink: 'https://github.com/feedlog/feedlog-toolkit/issues/24',
-  title: 'Add dark mode support',
-  body: 'It would be great to have a dark mode option for the dashboard. This would reduce eye strain for users working late at night.',
+  id: 'iss_365sfvyqb434',
+  githubIssueLink: null,
   type: 'enhancement' as const,
   status: 'open' as const,
   pinnedAt: null,
-  revision: 1,
+  title: 'Add support for native GitHub Issue Types',
+  body: "## Motivation\nGitHub has introduced a native 'Issue Type' field at the organization level to provide a structured way to categorize work, replacing the inconsistent use of labels or project-specific custom fields.\n\n## What’s Changing\nThe system will now support the native GitHub 'Issue Type' property as the primary source of truth for categorizing issues. Integration will be updated to read the 'issue.type' field from webhooks and API responses.\n\n## Expected Behavior\n1. The system will prioritize the 'issue.type.name' field to determine the issue category.\n2. Existing label-based categorization will be maintained as a fallback mechanism for issues where the native type is not defined.\n3. The application will correctly ignore project-level 'Type' fields to avoid data conflicts.",
+  revision: 2,
   repository: {
-    id: 'repo-1',
-    name: 'feedlog-toolkit',
-    description: 'Monorepo for Feedlog Toolkit',
+    id: 'rep_755dtvwg9d6r',
+    name: 'Infrastructure',
+    description: null,
   },
-  updatedAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(), // 2 hours ago
-  createdAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(), // 10 days ago
+  updatedAt: '2026-03-23T16:42:40.555Z',
+  createdAt: '2026-03-23T16:41:06.302Z',
   upvoteCount: 24,
   hasUpvoted: false,
 };
@@ -98,7 +98,7 @@ const issueInProgress: FeedlogIssue = {
   ...sampleEnhancementIssue,
   id: 'issue-in-progress',
   status: 'in_progress' as const,
-  title: 'Add dark mode support',
+  title: 'Add support for native GitHub Issue Types',
 };
 
 const issueClosedBug: FeedlogIssue = {
@@ -119,7 +119,7 @@ const issueWithGithubLink: FeedlogIssue = {
   ...sampleEnhancementIssue,
   id: 'issue-with-gh',
   githubIssueLink: 'https://github.com/feedlog/feedlog-toolkit/issues/42',
-  title: 'Add dark mode support',
+  title: 'Add support for native GitHub Issue Types',
 };
 
 const issueWithGithubLinkNull: FeedlogIssue = {
