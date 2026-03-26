@@ -76,19 +76,7 @@ export class FeedlogSDK {
       const data = await response.json();
       return this.validateIssuesResponse(data);
     } catch (error) {
-      if (error instanceof FeedlogError) {
-        throw error;
-      }
-
-      if (error instanceof TypeError && error.message.includes('fetch')) {
-        throw new FeedlogNetworkError('Network error: Unable to reach API', undefined, error);
-      }
-
-      throw new FeedlogError(
-        `Failed to fetch issues: ${error instanceof Error ? error.message : 'Unknown error'}`,
-        undefined,
-        error
-      );
+      this.wrapFetchError(error, 'Failed to fetch issues');
     }
   }
 
@@ -132,19 +120,7 @@ export class FeedlogSDK {
       const data = await response.json();
       return this.validateUpvoteResponse(data);
     } catch (error) {
-      if (error instanceof FeedlogError) {
-        throw error;
-      }
-
-      if (error instanceof TypeError && error.message.includes('fetch')) {
-        throw new FeedlogNetworkError('Network error: Unable to reach API', undefined, error);
-      }
-
-      throw new FeedlogError(
-        `Failed to toggle upvote: ${error instanceof Error ? error.message : 'Unknown error'}`,
-        undefined,
-        error
-      );
+      this.wrapFetchError(error, 'Failed to toggle upvote');
     }
   }
 
@@ -178,7 +154,9 @@ export class FeedlogSDK {
     }
 
     if (params.limit !== undefined) {
-      url.searchParams.set('limit', params.limit.toString());
+      const n = Number(params.limit);
+      const clamped = Number.isFinite(n) ? Math.max(1, Math.min(100, Math.floor(n))) : 10;
+      url.searchParams.set('limit', String(clamped));
     }
 
     return url.toString();
@@ -188,15 +166,26 @@ export class FeedlogSDK {
    * Get request headers
    */
   private getAuthHeaders(): Record<string, string> {
-    const headers: Record<string, string> = {
+    return {
       'Content-Type': 'application/json',
+      'x-api-key': this.apiKey,
     };
+  }
 
-    if (this.apiKey) {
-      headers['x-api-key'] = this.apiKey;
+  private wrapFetchError(error: unknown, context: string): never {
+    if (error instanceof FeedlogError) {
+      throw error;
     }
 
-    return headers;
+    if (error instanceof TypeError && error.message.includes('fetch')) {
+      throw new FeedlogNetworkError('Network error: Unable to reach API', undefined, error);
+    }
+
+    throw new FeedlogError(
+      `${context}: ${error instanceof Error ? error.message : 'Unknown error'}`,
+      undefined,
+      error
+    );
   }
 
   /**
@@ -308,13 +297,31 @@ export class FeedlogSDK {
     const repoDescription =
       rawRepoDesc != null && rawRepoDesc !== '' ? sanitizeHtml(String(rawRepoDesc)) : null;
 
+    const revision =
+      typeof issue.revision === 'number' && Number.isFinite(issue.revision) ? issue.revision : 1;
+
+    const upvoteCount =
+      typeof issue.upvoteCount === 'number' && Number.isFinite(issue.upvoteCount)
+        ? issue.upvoteCount
+        : 0;
+
+    const updatedAt =
+      typeof issue.updatedAt === 'string' && issue.updatedAt.length > 0
+        ? issue.updatedAt
+        : new Date().toISOString();
+
+    const createdAt =
+      typeof issue.createdAt === 'string' && issue.createdAt.length > 0
+        ? issue.createdAt
+        : new Date().toISOString();
+
     return {
       id: String(issue.id),
       githubIssueLink,
       type: (issue.type as 'bug' | 'enhancement') || 'bug',
       status: (issue.status as 'open' | 'in_progress' | 'closed') || 'open',
       pinnedAt: issue.pinnedAt ? String(issue.pinnedAt) : null,
-      revision: Number(issue.revision) || 1,
+      revision,
       title: sanitizedTitle,
       body: sanitizedBody,
       repository: {
@@ -322,9 +329,9 @@ export class FeedlogSDK {
         name: repoName,
         description: repoDescription,
       },
-      updatedAt: String(issue.updatedAt) || new Date().toISOString(),
-      createdAt: String(issue.createdAt) || new Date().toISOString(),
-      upvoteCount: Number(issue.upvoteCount) || 0,
+      updatedAt,
+      createdAt,
+      upvoteCount,
       hasUpvoted: Boolean(issue.hasUpvoted),
     };
   }

@@ -10,10 +10,15 @@ export function parseMarkdown(markdown: string | null | undefined): string {
     return '';
   }
 
-  const html = marked.parse(markdown, {
+  const parsed = marked.parse(markdown, {
     gfm: true,
     breaks: true,
-  }) as string;
+    async: false,
+  });
+  if (typeof parsed !== 'string') {
+    throw new Error('marked.parse returned a Promise; async markdown is not supported');
+  }
+  const html = parsed;
 
   return DOMPurify.sanitize(html, {
     ALLOWED_TAGS: [

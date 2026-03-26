@@ -52,7 +52,9 @@ app.get('/', async (_req, res) => {
     res.send(result.html || html);
   } catch (err) {
     console.error('SSR error:', err);
-    res.status(500).send(`<pre>SSR Error: ${err.message}</pre>`);
+    const message = err instanceof Error ? err.message : String(err);
+    const safe = message.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    res.status(500).send(`<pre>SSR Error: ${safe}</pre>`);
   }
 });
 

@@ -140,7 +140,9 @@ export class FeedlogIssuesClient {
       this.hasMore = false;
       this.issues = [];
 
-      this.fetchIssues();
+      void this.fetchIssues().catch(() => {
+        /* errors handled inside fetchIssues */
+      });
       this.previousType = this.type;
       this.previousLimit = this.limit;
       this.previousSortBy = this.sortBy;
@@ -165,6 +167,28 @@ export class FeedlogIssuesClient {
     }
   }
 
+  private buildFetchParams(): FetchIssuesParams {
+    const params: FetchIssuesParams = {};
+
+    if (this.type) {
+      params.type = this.type;
+    }
+
+    if (this.sortBy) {
+      params.sortBy = this.sortBy;
+    }
+
+    if (this.limit) {
+      params.limit = this.limit;
+    }
+
+    if (this.cursor) {
+      params.cursor = this.cursor;
+    }
+
+    return params;
+  }
+
   private async fetchIssues() {
     if (!this.sdk) {
       return;
@@ -177,23 +201,7 @@ export class FeedlogIssuesClient {
       this.loading = true;
       this.error = null;
 
-      const params: FetchIssuesParams = {};
-
-      if (this.type) {
-        params.type = this.type;
-      }
-
-      if (this.sortBy) {
-        params.sortBy = this.sortBy;
-      }
-
-      if (this.limit) {
-        params.limit = this.limit;
-      }
-
-      if (this.cursor) {
-        params.cursor = this.cursor;
-      }
+      const params = this.buildFetchParams();
 
       const response = await this.sdk.fetchIssues(params);
 
@@ -238,23 +246,7 @@ export class FeedlogIssuesClient {
     this.isLoadingMore = true;
 
     try {
-      const params: FetchIssuesParams = {};
-
-      if (this.type) {
-        params.type = this.type;
-      }
-
-      if (this.sortBy) {
-        params.sortBy = this.sortBy;
-      }
-
-      if (this.limit) {
-        params.limit = this.limit;
-      }
-
-      if (this.cursor) {
-        params.cursor = this.cursor;
-      }
+      const params = this.buildFetchParams();
 
       const response = await this.sdk.fetchIssues(params);
 

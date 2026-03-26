@@ -1,4 +1,4 @@
-import { Component, Prop, State, Event, EventEmitter, h, Host } from '@stencil/core';
+import { Component, Prop, Event, EventEmitter, h, Host } from '@stencil/core';
 import type { FeedlogIssue as FeedlogIssueType, GetIssueUrlFn } from '@feedlog-ai/core';
 
 /**
@@ -80,11 +80,6 @@ export class FeedlogIssues {
   @Prop() getIssueUrl?: GetIssueUrlFn;
 
   /**
-   * Internal state for theme
-   */
-  @State() currentTheme: 'light' | 'dark' = 'light';
-
-  /**
    * Event emitted when an issue is upvoted
    */
   @Event() feedlogUpvote!: EventEmitter<{
@@ -97,10 +92,6 @@ export class FeedlogIssues {
    * Event emitted to load more issues
    */
   @Event() feedlogLoadMore!: EventEmitter<void>;
-
-  componentWillLoad() {
-    this.currentTheme = this.theme;
-  }
 
   private handleUpvote = (event: CustomEvent) => {
     event.stopPropagation();
@@ -138,7 +129,7 @@ export class FeedlogIssues {
       <feedlog-issues-list
         issues={this.issues}
         limit={this.limit}
-        theme={this.currentTheme}
+        theme={this.theme}
         getIssueUrl={this.getIssueUrl}
         emptyStateTitle={this.emptyStateTitle ?? 'No updates yet'}
         emptyStateMessage={this.emptyStateMessage ?? 'Check back later for new updates.'}
@@ -153,7 +144,7 @@ export class FeedlogIssues {
     };
 
     return (
-      <Host class={this.currentTheme === 'dark' ? 'dark' : ''}>
+      <Host class={this.theme === 'dark' ? 'dark' : ''}>
         <div class="issues-container" style={containerStyle}>
           {(this.heading || this.subtitle) && (
             <header class="issues-header">

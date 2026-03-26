@@ -2,9 +2,11 @@
  * HTML and XSS sanitization utilities
  */
 
+import DOMPurify from 'isomorphic-dompurify';
+
 /**
  * Basic HTML entity escaping to prevent XSS
- * This is a lightweight alternative to DOMPurify
+ * This is a lightweight alternative when you need plain text only
  */
 export function escapeHtml(unsafe: string): string {
   if (typeof unsafe !== 'string') {
@@ -20,37 +22,17 @@ export function escapeHtml(unsafe: string): string {
 }
 
 /**
- * Sanitize HTML by removing dangerous tags and attributes
- * Removes script tags, event handlers, and other potentially malicious content
+ * Sanitize HTML using DOMPurify (safe for untrusted content).
+ * Removes scripts, dangerous URLs, and unsafe attributes.
  */
 export function sanitizeHtml(html: string): string {
   if (typeof html !== 'string') {
     return '';
   }
 
-  // Remove script tags and content
-  let sanitized = html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
-
-  // Remove on* event handlers
-  sanitized = sanitized.replace(/\s*on\w+\s*=\s*["'][^"']*["']/gi, '');
-  sanitized = sanitized.replace(/\s*on\w+\s*=\s*[^\s>]*/gi, '');
-
-  // Remove iframe tags
-  sanitized = sanitized.replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, '');
-
-  // Remove style tags
-  sanitized = sanitized.replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '');
-
-  // Remove embed and object tags
-  sanitized = sanitized.replace(/<(embed|object)\b[^<]*>/gi, '');
-
-  // Remove javascript: protocol
-  sanitized = sanitized.replace(/javascript:/gi, '');
-
-  // Remove data: protocol for potentially dangerous mime types
-  sanitized = sanitized.replace(/data:(?!image\/(?:png|jpg|jpeg|gif|webp);)/gi, '');
-
-  return sanitized;
+  return DOMPurify.sanitize(html, {
+    USE_PROFILES: { html: true },
+  });
 }
 
 /**

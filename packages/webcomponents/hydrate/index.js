@@ -6529,6 +6529,11 @@ function createDOMPurify() {
 }
 var purify = createDOMPurify();
 
+var purify_es = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  default: purify
+});
+
 /**
  * Parse markdown to sanitized HTML for safe rendering.
  * Uses marked for parsing and DOMPurify for XSS protection.
@@ -6537,10 +6542,15 @@ function parseMarkdown(markdown) {
     if (markdown == null || markdown === '') {
         return '';
     }
-    const html = g.parse(markdown, {
+    const parsed = g.parse(markdown, {
         gfm: true,
         breaks: true,
+        async: false,
     });
+    if (typeof parsed !== 'string') {
+        throw new Error('marked.parse returned a Promise; async markdown is not supported');
+    }
+    const html = parsed;
     return purify.sanitize(html, {
         ALLOWED_TAGS: [
             'p',
@@ -6769,10 +6779,6 @@ class FeedlogIssues {
          * Whether more issues are currently loading
          */
         this.isLoadingMore = false;
-        /**
-         * Internal state for theme
-         */
-        this.currentTheme = 'light';
         this.handleUpvote = (event) => {
             event.stopPropagation();
             this.feedlogUpvote.emit(event.detail);
@@ -6781,21 +6787,18 @@ class FeedlogIssues {
             this.feedlogLoadMore.emit();
         };
     }
-    componentWillLoad() {
-        this.currentTheme = this.theme;
-    }
     renderErrorIcon() {
         return (hAsync("svg", { class: "error-icon", xmlns: "http://www.w3.org/2000/svg", width: "48", height: "48", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "1.5", "stroke-linecap": "round", "stroke-linejoin": "round", "aria-hidden": "true" }, hAsync("circle", { cx: "12", cy: "12", r: "10" }), hAsync("line", { x1: "12", y1: "8", x2: "12", y2: "12" }), hAsync("line", { x1: "12", y1: "16", x2: "12.01", y2: "16" })));
     }
     renderIssuesList() {
         var _a, _b;
-        return (hAsync("feedlog-issues-list", { issues: this.issues, limit: this.limit, theme: this.currentTheme, getIssueUrl: this.getIssueUrl, emptyStateTitle: (_a = this.emptyStateTitle) !== null && _a !== void 0 ? _a : 'No updates yet', emptyStateMessage: (_b = this.emptyStateMessage) !== null && _b !== void 0 ? _b : 'Check back later for new updates.', onFeedlogUpvote: (e) => this.handleUpvote(e) }));
+        return (hAsync("feedlog-issues-list", { issues: this.issues, limit: this.limit, theme: this.theme, getIssueUrl: this.getIssueUrl, emptyStateTitle: (_a = this.emptyStateTitle) !== null && _a !== void 0 ? _a : 'No updates yet', emptyStateMessage: (_b = this.emptyStateMessage) !== null && _b !== void 0 ? _b : 'Check back later for new updates.', onFeedlogUpvote: (e) => this.handleUpvote(e) }));
     }
     render() {
         const containerStyle = {
             maxWidth: this.maxWidth,
         };
-        return (hAsync(Host, { key: '96686863c5eb831e64993c681c7780e035c0e2b2', class: this.currentTheme === 'dark' ? 'dark' : '' }, hAsync("div", { key: '54d01678053f4fe58eb547f9954f497402495a83', class: "issues-container", style: containerStyle }, (this.heading || this.subtitle) && (hAsync("header", { key: '889aa47cb4ceea60ca4a5615f512793d726059d9', class: "issues-header" }, hAsync("div", { key: '8b4ac6a9ed0c6120ec838a1329416f3471cd2751', class: "header-content" }, this.heading && hAsync("h1", { key: 'cfc52f28bc5131715a5c7a0b9231e440b4c0b67c', class: "issues-title" }, this.heading), this.subtitle && hAsync("p", { key: '8b4488546ceb6e807d689b8fca2b2fd85722f824', class: "issues-subtitle" }, this.subtitle)))), this.loading && (hAsync("div", { key: '35c382f4417893c17951b73dedb12452e805668c', class: "loading-state", role: "status", "aria-label": "Loading issues" }, hAsync("div", { key: '2d83dd9d40bf7b2a14744ee4a715108a9cdebd60', class: "loading-skeletons" }, [1, 2, 3].map(i => (hAsync("div", { key: i, class: "skeleton-card" }, hAsync("div", { class: "skeleton-content" }, hAsync("div", { class: "skeleton-header" }, hAsync("div", { class: "skeleton-badge" }), hAsync("div", { class: "skeleton-timestamp" })), hAsync("div", { class: "skeleton-main" }, hAsync("div", { class: "skeleton-title" }), hAsync("div", { class: "skeleton-body" }, hAsync("div", { class: "skeleton-line" }), hAsync("div", { class: "skeleton-line short" })), hAsync("div", { class: "skeleton-repo" })), hAsync("div", { class: "skeleton-footer" }, hAsync("div", { class: "skeleton-upvote" }))))))))), this.error && (hAsync("div", { key: '43efd42ce0d213131ba97d42d1f98c52515ea9fd', class: "error-state", role: "alert" }, hAsync("div", { key: 'ad22b0378e290556c896c628dadabf6091bbf972', class: "error-state-content" }, this.renderErrorIcon(), hAsync("h2", { key: '9a9779f52de12aa2241ba9ddda6cf8297a4af84d', class: "error-state-title" }, "Something went wrong"), hAsync("p", { key: 'c697040d37909d882730e5d9ab3a3b147061fc51', class: "error-state-message" }, this.error)))), !this.loading && !this.error && (hAsync("div", { key: 'afc12552ff7ccc808c7191c1dd1e26d3b95bf2fd' }, this.renderIssuesList(), this.hasMore && (hAsync("div", { key: '0f6c84bdeda386e4eec439fb80f4ee1606b9b559', class: "load-more-container" }, hAsync("feedlog-button", { key: 'e6983bd889a6cdfd4a4b8a06f3a6a97c2d276243', onFeedlogClick: this.handleLoadMore, disabled: this.isLoadingMore, variant: "outline" }, this.isLoadingMore ? 'Loading...' : 'Load More Issues'))))))));
+        return (hAsync(Host, { key: '15ca787d3e5b45331a6582ea908b35b94b3a528c', class: this.theme === 'dark' ? 'dark' : '' }, hAsync("div", { key: '79d655ca18778660f0156fbdec54764491eaac49', class: "issues-container", style: containerStyle }, (this.heading || this.subtitle) && (hAsync("header", { key: 'e9e1b05451f55db894a1b6248dde4d9d90a96068', class: "issues-header" }, hAsync("div", { key: 'b2921e777986f9c6afc3ba1cbf8023311c868b34', class: "header-content" }, this.heading && hAsync("h1", { key: 'e484da412ff1a92b876f3075489e60be273076b3', class: "issues-title" }, this.heading), this.subtitle && hAsync("p", { key: '5030cbb2fdf2deab3681c1177a14e2b540d2ea33', class: "issues-subtitle" }, this.subtitle)))), this.loading && (hAsync("div", { key: 'f3fb2c02af4637832c518714f670ca2ae2624d49', class: "loading-state", role: "status", "aria-label": "Loading issues" }, hAsync("div", { key: '14e60e4174d22dd2474677a7ec6365d053fe40e7', class: "loading-skeletons" }, [1, 2, 3].map(i => (hAsync("div", { key: i, class: "skeleton-card" }, hAsync("div", { class: "skeleton-content" }, hAsync("div", { class: "skeleton-header" }, hAsync("div", { class: "skeleton-badge" }), hAsync("div", { class: "skeleton-timestamp" })), hAsync("div", { class: "skeleton-main" }, hAsync("div", { class: "skeleton-title" }), hAsync("div", { class: "skeleton-body" }, hAsync("div", { class: "skeleton-line" }), hAsync("div", { class: "skeleton-line short" })), hAsync("div", { class: "skeleton-repo" })), hAsync("div", { class: "skeleton-footer" }, hAsync("div", { class: "skeleton-upvote" }))))))))), this.error && (hAsync("div", { key: '0c301ece57faeee2c6bbf2a4e346a88b6bc535cc', class: "error-state", role: "alert" }, hAsync("div", { key: 'bab84dcbca74730ba44162c57baf65454ffb78c0', class: "error-state-content" }, this.renderErrorIcon(), hAsync("h2", { key: '247b25d17323d08ec9c527ebec1352600614f3be', class: "error-state-title" }, "Something went wrong"), hAsync("p", { key: '45501981e34a2a163e20724881945a0b75ef57d1', class: "error-state-message" }, this.error)))), !this.loading && !this.error && (hAsync("div", { key: 'ca5a2697c898b61121c16a9d1f4320ad35a0bf84' }, this.renderIssuesList(), this.hasMore && (hAsync("div", { key: '1896d074714f083c3e171d0516d1d71155cbcd6a', class: "load-more-container" }, hAsync("feedlog-button", { key: 'b34a2081a91b14e13aa4ace4d67b4d812f4a1d77', onFeedlogClick: this.handleLoadMore, disabled: this.isLoadingMore, variant: "outline" }, this.isLoadingMore ? 'Loading...' : 'Load More Issues'))))))));
     }
     static get style() { return feedlogIssuesCss(); }
     static get cmpMeta() { return {
@@ -6814,8 +6817,7 @@ class FeedlogIssues {
             "error": [1],
             "hasMore": [4, "has-more"],
             "isLoadingMore": [4, "is-loading-more"],
-            "getIssueUrl": [16],
-            "currentTheme": [32]
+            "getIssueUrl": [16]
         },
         "$listeners$": undefined,
         "$lazyBundleId$": "-",
@@ -6823,37 +6825,64 @@ class FeedlogIssues {
     }; }
 }
 
+function getDefaultExportFromCjs (x) {
+	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
+}
+
+function getAugmentedNamespace(n) {
+  if (n.__esModule) return n;
+  var f = n.default;
+	if (typeof f == "function") {
+		var a = function a () {
+			if (this instanceof a) {
+        return Reflect.construct(f, arguments, this.constructor);
+			}
+			return f.apply(this, arguments);
+		};
+		a.prototype = f.prototype;
+  } else a = {};
+  Object.defineProperty(a, '__esModule', {value: true});
+	Object.keys(n).forEach(function (k) {
+		var d = Object.getOwnPropertyDescriptor(n, k);
+		Object.defineProperty(a, k, d.get ? d : {
+			enumerable: true,
+			get: function () {
+				return n[k];
+			}
+		});
+	});
+	return a;
+}
+
+var require$$0 = /*@__PURE__*/getAugmentedNamespace(purify_es);
+
+var browser;
+var hasRequiredBrowser;
+
+function requireBrowser () {
+	if (hasRequiredBrowser) return browser;
+	hasRequiredBrowser = 1;
+	browser = self.DOMPurify || (self.DOMPurify = require$$0.default || require$$0);
+	return browser;
+}
+
+var browserExports = requireBrowser();
+var DOMPurify = /*@__PURE__*/getDefaultExportFromCjs(browserExports);
+
 /**
  * HTML and XSS sanitization utilities
  */
 /**
- * Basic HTML entity escaping to prevent XSS
- * This is a lightweight alternative to DOMPurify
- */
-/**
- * Sanitize HTML by removing dangerous tags and attributes
- * Removes script tags, event handlers, and other potentially malicious content
+ * Sanitize HTML using DOMPurify (safe for untrusted content).
+ * Removes scripts, dangerous URLs, and unsafe attributes.
  */
 function sanitizeHtml(html) {
     if (typeof html !== 'string') {
         return '';
     }
-    // Remove script tags and content
-    let sanitized = html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
-    // Remove on* event handlers
-    sanitized = sanitized.replace(/\s*on\w+\s*=\s*["'][^"']*["']/gi, '');
-    sanitized = sanitized.replace(/\s*on\w+\s*=\s*[^\s>]*/gi, '');
-    // Remove iframe tags
-    sanitized = sanitized.replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, '');
-    // Remove style tags
-    sanitized = sanitized.replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '');
-    // Remove embed and object tags
-    sanitized = sanitized.replace(/<(embed|object)\b[^<]*>/gi, '');
-    // Remove javascript: protocol
-    sanitized = sanitized.replace(/javascript:/gi, '');
-    // Remove data: protocol for potentially dangerous mime types
-    sanitized = sanitized.replace(/data:(?!image\/(?:png|jpg|jpeg|gif|webp);)/gi, '');
-    return sanitized;
+    return DOMPurify.sanitize(html, {
+        USE_PROFILES: { html: true },
+    });
 }
 
 /**
@@ -6934,13 +6963,7 @@ class FeedlogSDK {
             return this.validateIssuesResponse(data);
         }
         catch (error) {
-            if (error instanceof FeedlogError) {
-                throw error;
-            }
-            if (error instanceof TypeError && error.message.includes('fetch')) {
-                throw new FeedlogNetworkError('Network error: Unable to reach API', undefined, error);
-            }
-            throw new FeedlogError(`Failed to fetch issues: ${error instanceof Error ? error.message : 'Unknown error'}`, undefined, error);
+            this.wrapFetchError(error, 'Failed to fetch issues');
         }
     }
     /**
@@ -6975,13 +6998,7 @@ class FeedlogSDK {
             return this.validateUpvoteResponse(data);
         }
         catch (error) {
-            if (error instanceof FeedlogError) {
-                throw error;
-            }
-            if (error instanceof TypeError && error.message.includes('fetch')) {
-                throw new FeedlogNetworkError('Network error: Unable to reach API', undefined, error);
-            }
-            throw new FeedlogError(`Failed to toggle upvote: ${error instanceof Error ? error.message : 'Unknown error'}`, undefined, error);
+            this.wrapFetchError(error, 'Failed to toggle upvote');
         }
     }
     /**
@@ -7008,7 +7025,9 @@ class FeedlogSDK {
             url.searchParams.set('cursor', params.cursor);
         }
         if (params.limit !== undefined) {
-            url.searchParams.set('limit', params.limit.toString());
+            const n = Number(params.limit);
+            const clamped = Number.isFinite(n) ? Math.max(1, Math.min(100, Math.floor(n))) : 10;
+            url.searchParams.set('limit', String(clamped));
         }
         return url.toString();
     }
@@ -7016,13 +7035,19 @@ class FeedlogSDK {
      * Get request headers
      */
     getAuthHeaders() {
-        const headers = {
+        return {
             'Content-Type': 'application/json',
+            'x-api-key': this.apiKey,
         };
-        if (this.apiKey) {
-            headers['x-api-key'] = this.apiKey;
+    }
+    wrapFetchError(error, context) {
+        if (error instanceof FeedlogError) {
+            throw error;
         }
-        return headers;
+        if (error instanceof TypeError && error.message.includes('fetch')) {
+            throw new FeedlogNetworkError('Network error: Unable to reach API', undefined, error);
+        }
+        throw new FeedlogError(`${context}: ${error instanceof Error ? error.message : 'Unknown error'}`, undefined, error);
     }
     /**
      * Fetch with timeout support using AbortController
@@ -7107,13 +7132,23 @@ class FeedlogSDK {
         const repoName = rawRepoName != null && rawRepoName !== '' ? String(rawRepoName) : null;
         const rawRepoDesc = repo.description;
         const repoDescription = rawRepoDesc != null && rawRepoDesc !== '' ? sanitizeHtml(String(rawRepoDesc)) : null;
+        const revision = typeof issue.revision === 'number' && Number.isFinite(issue.revision) ? issue.revision : 1;
+        const upvoteCount = typeof issue.upvoteCount === 'number' && Number.isFinite(issue.upvoteCount)
+            ? issue.upvoteCount
+            : 0;
+        const updatedAt = typeof issue.updatedAt === 'string' && issue.updatedAt.length > 0
+            ? issue.updatedAt
+            : new Date().toISOString();
+        const createdAt = typeof issue.createdAt === 'string' && issue.createdAt.length > 0
+            ? issue.createdAt
+            : new Date().toISOString();
         return {
             id: String(issue.id),
             githubIssueLink,
             type: issue.type || 'bug',
             status: issue.status || 'open',
             pinnedAt: issue.pinnedAt ? String(issue.pinnedAt) : null,
-            revision: Number(issue.revision) || 1,
+            revision,
             title: sanitizedTitle,
             body: sanitizedBody,
             repository: {
@@ -7121,9 +7156,9 @@ class FeedlogSDK {
                 name: repoName,
                 description: repoDescription,
             },
-            updatedAt: String(issue.updatedAt) || new Date().toISOString(),
-            createdAt: String(issue.createdAt) || new Date().toISOString(),
-            upvoteCount: Number(issue.upvoteCount) || 0,
+            updatedAt,
+            createdAt,
+            upvoteCount,
             hasUpvoted: Boolean(issue.hasUpvoted),
         };
     }
@@ -7264,7 +7299,9 @@ class FeedlogIssuesClient {
             this.cursor = null;
             this.hasMore = false;
             this.issues = [];
-            this.fetchIssues();
+            void this.fetchIssues().catch(() => {
+                /* errors handled inside fetchIssues */
+            });
             this.previousType = this.type;
             this.previousLimit = this.limit;
             this.previousSortBy = this.sortBy;
@@ -7284,6 +7321,22 @@ class FeedlogIssuesClient {
             this.feedlogError.emit({ error: errorMsg });
         }
     }
+    buildFetchParams() {
+        const params = {};
+        if (this.type) {
+            params.type = this.type;
+        }
+        if (this.sortBy) {
+            params.sortBy = this.sortBy;
+        }
+        if (this.limit) {
+            params.limit = this.limit;
+        }
+        if (this.cursor) {
+            params.cursor = this.cursor;
+        }
+        return params;
+    }
     async fetchIssues() {
         if (!this.sdk) {
             return;
@@ -7293,19 +7346,7 @@ class FeedlogIssuesClient {
         try {
             this.loading = true;
             this.error = null;
-            const params = {};
-            if (this.type) {
-                params.type = this.type;
-            }
-            if (this.sortBy) {
-                params.sortBy = this.sortBy;
-            }
-            if (this.limit) {
-                params.limit = this.limit;
-            }
-            if (this.cursor) {
-                params.cursor = this.cursor;
-            }
+            const params = this.buildFetchParams();
             const response = await this.sdk.fetchIssues(params);
             // Ignore response if component disconnected or a newer request was made
             if (this.isDisconnected || currentRequestId !== this.fetchRequestId) {
@@ -7344,19 +7385,7 @@ class FeedlogIssuesClient {
         const currentRequestId = this.fetchRequestId;
         this.isLoadingMore = true;
         try {
-            const params = {};
-            if (this.type) {
-                params.type = this.type;
-            }
-            if (this.sortBy) {
-                params.sortBy = this.sortBy;
-            }
-            if (this.limit) {
-                params.limit = this.limit;
-            }
-            if (this.cursor) {
-                params.cursor = this.cursor;
-            }
+            const params = this.buildFetchParams();
             const response = await this.sdk.fetchIssues(params);
             // Ignore response if component disconnected or a newer request was made
             if (this.isDisconnected || currentRequestId !== this.fetchRequestId) {
@@ -7391,7 +7420,7 @@ class FeedlogIssuesClient {
         const style = hostBg
             ? { '--feedlog-background': hostBg }
             : undefined;
-        return (hAsync("feedlog-issues", { key: '0528f8bbb5f1e735c3b50a4325221ee8bfdfadda', style: style, issues: this.issues, limit: this.limit, maxWidth: this.maxWidth, theme: this.theme, heading: this.heading, subtitle: this.subtitle, emptyStateTitle: this.emptyStateTitle, emptyStateMessage: this.emptyStateMessage, getIssueUrl: this.getIssueUrl, loading: this.loading, error: this.error, hasMore: this.hasMore, isLoadingMore: this.isLoadingMore, onFeedlogUpvote: this.handleUpvote, onFeedlogLoadMore: async () => this.loadMore() }));
+        return (hAsync("feedlog-issues", { key: '4467ffabd5f18f9af6c8407622fb2554981b54bd', style: style, issues: this.issues, limit: this.limit, maxWidth: this.maxWidth, theme: this.theme, heading: this.heading, subtitle: this.subtitle, emptyStateTitle: this.emptyStateTitle, emptyStateMessage: this.emptyStateMessage, getIssueUrl: this.getIssueUrl, loading: this.loading, error: this.error, hasMore: this.hasMore, isLoadingMore: this.isLoadingMore, onFeedlogUpvote: this.handleUpvote, onFeedlogLoadMore: async () => this.loadMore() }));
     }
     get el() { return getElement(this); }
     static get cmpMeta() { return {
@@ -7492,11 +7521,11 @@ class FeedlogIssuesList {
             return null;
         const totalPages = Math.ceil(this.issues.length / this.limit);
         const pageNumbers = this.getPageNumbers();
-        return (hAsync("nav", { class: "pagination", "aria-label": "Issues pagination" }, hAsync("button", { type: "button", class: "pagination-btn pagination-arrow", "aria-label": "Previous page", disabled: this.currentPage <= 1, onClick: () => this.goToPage(this.currentPage - 1) }, "\u2039"), pageNumbers.map((p, i) => p === 'ellipsis' ? (hAsync("span", { key: i, class: "pagination-ellipsis", "aria-hidden": "true" }, "\u2026")) : (hAsync("button", { key: i, type: "button", class: "pagination-btn", "aria-current": p === this.currentPage ? 'page' : undefined, onClick: () => this.goToPage(p) }, p))), hAsync("button", { type: "button", class: "pagination-btn pagination-arrow", "aria-label": "Next page", disabled: this.currentPage >= totalPages, onClick: () => this.goToPage(this.currentPage + 1) }, "\u203A")));
+        return (hAsync("nav", { class: "pagination", "aria-label": "Issues pagination" }, hAsync("button", { type: "button", class: "pagination-btn pagination-arrow", "aria-label": "Previous page", disabled: this.currentPage <= 1, onClick: () => this.goToPage(this.currentPage - 1) }, "\u2039"), pageNumbers.map((p, i) => p === 'ellipsis' ? (hAsync("span", { key: `ellipsis-${i}`, class: "pagination-ellipsis", "aria-hidden": "true" }, "\u2026")) : (hAsync("button", { key: `page-${p}`, type: "button", class: "pagination-btn", "aria-current": p === this.currentPage ? 'page' : undefined, onClick: () => this.goToPage(p) }, p))), hAsync("button", { type: "button", class: "pagination-btn pagination-arrow", "aria-label": "Next page", disabled: this.currentPage >= totalPages, onClick: () => this.goToPage(this.currentPage + 1) }, "\u203A")));
     }
     render() {
         const visibleIssues = this.getVisibleIssues();
-        return (hAsync(Host, { key: '474f5ca0d8edc94a8e9a03d83c6a977270391d65', class: this.theme === 'dark' ? 'dark' : '' }, hAsync("div", { key: '8f2f8125653ec5f80b167945a33cefe483c1a001', class: "issues-list" }, visibleIssues.length === 0 ? (hAsync("div", { class: "empty-state" }, this.emptyStateTitle && this.emptyStateMessage ? (hAsync("div", { class: "empty-state-content" }, this.renderEmptyStateIllustration(), hAsync("h2", { class: "empty-state-title" }, this.emptyStateTitle), hAsync("p", { class: "empty-state-message" }, this.emptyStateMessage))) : (hAsync("p", null, "No issues found")))) : (visibleIssues.map(issue => {
+        return (hAsync(Host, { key: '7721ed64730cd8e6b508fc829767ea79b2531628', class: this.theme === 'dark' ? 'dark' : '' }, hAsync("div", { key: '6a2d83f46ce2391294cef018ec243dd13d06a063', class: "issues-list" }, visibleIssues.length === 0 ? (hAsync("div", { class: "empty-state" }, this.emptyStateTitle && this.emptyStateMessage ? (hAsync("div", { class: "empty-state-content" }, this.renderEmptyStateIllustration(), hAsync("h2", { class: "empty-state-title" }, this.emptyStateTitle), hAsync("p", { class: "empty-state-message" }, this.emptyStateMessage))) : (hAsync("p", null, "No issues found")))) : (visibleIssues.map(issue => {
             var _a, _b;
             return (hAsync("feedlog-issue", { key: issue.id, issue: issue, issueUrl: (_b = (_a = this.getIssueUrl) === null || _a === void 0 ? void 0 : _a.call(this, issue)) !== null && _b !== void 0 ? _b : undefined, theme: this.theme, onFeedlogUpvote: (e) => this.handleUpvote(e) }));
         }))), this.renderPagination()));

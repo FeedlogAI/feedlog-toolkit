@@ -10,7 +10,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { execSync } from 'child_process';
+import { execFileSync, execSync } from 'child_process';
 
 function getCurrentVersion() {
   const corePkg = JSON.parse(fs.readFileSync('packages/core/package.json', 'utf8'));
@@ -107,7 +107,7 @@ function verifyWebcomponentsPack() {
 
   const packPath = path.join(packagePath, packFile);
   try {
-    const fileList = execSync(`tar -tf ${packPath}`, {
+    const fileList = execFileSync('tar', ['-tf', packPath], {
       encoding: 'utf8',
       stdio: 'pipe',
     })
@@ -144,7 +144,8 @@ function publishPackage(packageName) {
   console.log(`\nPublishing ${packageName}...`);
 
   try {
-    execSync(`cd ${packagePath} && npm publish --access=public`, {
+    execFileSync('npm', ['publish', '--access=public'], {
+      cwd: packagePath,
       stdio: 'inherit',
     });
     console.log(`✅ Successfully published ${packageName}`);

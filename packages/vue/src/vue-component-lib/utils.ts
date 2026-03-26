@@ -1,4 +1,5 @@
 // @ts-nocheck
+// Vendored from @stencil/vue-output-target runtime — do not hand-edit without syncing upstream.
 // It's easier and safer for Volar to disable typechecking and let the return type inference do its job.
 import { defineComponent, getCurrentInstance, h, inject, ref, Ref, withDirectives } from 'vue';
 

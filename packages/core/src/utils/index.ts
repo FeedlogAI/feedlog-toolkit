@@ -19,9 +19,12 @@ export function createTimestamp(): number {
 }
 
 /**
- * Generate a unique ID
+ * Generate a unique ID (prefer cryptographically strong randomness when available)
  */
 export function generateId(): string {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID();
+  }
   return `${Date.now()}-${Math.random().toString(36).substring(2, 11)}`;
 }
 

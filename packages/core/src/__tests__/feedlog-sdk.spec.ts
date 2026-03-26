@@ -225,6 +225,25 @@ describe('FeedlogSDK - fetchIssues() Success Cases', () => {
     expect(callUrl).toContain('limit=25');
   });
 
+  it('should clamp limit to 1-100 in request URL', async () => {
+    const mockResponse = {
+      issues: [mockIssue],
+      pagination: { cursor: null, hasMore: false },
+    };
+
+    (global.fetch as jest.Mock).mockResolvedValueOnce(createMockResponse(mockResponse));
+    await sdk.fetchIssues({ limit: 9999 });
+    expect((global.fetch as jest.Mock).mock.calls[0][0]).toContain('limit=100');
+
+    (global.fetch as jest.Mock).mockResolvedValueOnce(createMockResponse(mockResponse));
+    await sdk.fetchIssues({ limit: -5 });
+    expect((global.fetch as jest.Mock).mock.calls[0][0]).toContain('limit=10');
+
+    (global.fetch as jest.Mock).mockResolvedValueOnce(createMockResponse(mockResponse));
+    await sdk.fetchIssues({ limit: NaN as unknown as number });
+    expect((global.fetch as jest.Mock).mock.calls[0][0]).toContain('limit=10');
+  });
+
   it('should fetch issues with all parameters combined', async () => {
     const mockResponse = {
       issues: [mockIssue],
@@ -304,20 +323,26 @@ describe('FeedlogSDK - fetchIssues() Error Cases', () => {
     await expect(sdk.fetchIssues({})).rejects.toThrow(FeedlogNetworkError);
   });
 
-  // Timeout tests are skipped because fake timers don't work well with unresolved promises
-  // They would require mocking the AbortController or using real async timing
-  it.skip('should throw FeedlogTimeoutError on timeout', async () => {
-    (global.fetch as jest.Mock).mockImplementationOnce(
-      () => new Promise(() => {}) // Never resolves
-    );
+  it('should throw FeedlogTimeoutError on timeout', async () => {
+    (global.fetch as jest.Mock).mockImplementation((_url: string, init?: RequestInit) => {
+      return new Promise<Response>((_resolve, reject) => {
+        const signal = init?.signal;
+        if (!signal) {
+          reject(new Error('expected AbortSignal'));
+          return;
+        }
+        signal.addEventListener('abort', () => {
+          const err = new Error('Aborted');
+          err.name = 'AbortError';
+          reject(err);
+        });
+      });
+    });
 
     const fetchPromise = sdk.fetchIssues({});
-
-    // Simulate timeout
-    jest.advanceTimersByTime(30000);
-
+    jest.advanceTimersByTime(30001);
     await expect(fetchPromise).rejects.toThrow(FeedlogTimeoutError);
-  }, 40000);
+  });
 
   it('should throw FeedlogNetworkError on HTTP 500', async () => {
     (global.fetch as jest.Mock).mockResolvedValueOnce({
@@ -632,16 +657,26 @@ describe('FeedlogSDK - toggleUpvote() Error Cases', () => {
     await expect(sdk.toggleUpvote('issue-1')).rejects.toThrow(FeedlogError);
   });
 
-  // Timeout tests are skipped because fake timers don't work well with unresolved promises
-  it.skip('should throw FeedlogTimeoutError on timeout', async () => {
-    (global.fetch as jest.Mock).mockImplementationOnce(() => new Promise(() => {}));
+  it('should throw FeedlogTimeoutError on timeout', async () => {
+    (global.fetch as jest.Mock).mockImplementation((_url: string, init?: RequestInit) => {
+      return new Promise<Response>((_resolve, reject) => {
+        const signal = init?.signal;
+        if (!signal) {
+          reject(new Error('expected AbortSignal'));
+          return;
+        }
+        signal.addEventListener('abort', () => {
+          const err = new Error('Aborted');
+          err.name = 'AbortError';
+          reject(err);
+        });
+      });
+    });
 
     const fetchPromise = sdk.toggleUpvote('issue-1');
-
-    jest.advanceTimersByTime(30000);
-
+    jest.advanceTimersByTime(30001);
     await expect(fetchPromise).rejects.toThrow(FeedlogTimeoutError);
-  }, 40000);
+  });
 
   it('should throw FeedlogValidationError when upvoted is not boolean', async () => {
     (global.fetch as jest.Mock).mockResolvedValueOnce({

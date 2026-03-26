@@ -158,12 +158,12 @@ export class FeedlogIssuesList {
         </button>
         {pageNumbers.map((p, i) =>
           p === 'ellipsis' ? (
-            <span key={i} class="pagination-ellipsis" aria-hidden="true">
+            <span key={`ellipsis-${i}`} class="pagination-ellipsis" aria-hidden="true">
               …
             </span>
           ) : (
             <button
-              key={i}
+              key={`page-${p}`}
               type="button"
               class="pagination-btn"
               aria-current={p === this.currentPage ? 'page' : undefined}
