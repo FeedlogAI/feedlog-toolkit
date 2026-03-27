@@ -5083,6 +5083,15 @@ class FeedlogCard {
 }
 
 /**
+ * Libraries such as isomorphic-dompurify's browser shim reference `self` at load time.
+ * Node (SSR, Vite dev server) does not define `self`; align with `globalThis` before those modules run.
+ */
+if (typeof globalThis !== 'undefined' &&
+    typeof globalThis.self === 'undefined') {
+    globalThis.self = globalThis;
+}
+
+/**
  * marked v17.0.2 - a markdown parser
  * Copyright (c) 2018-2026, MarkedJS. (MIT License)
  * Copyright (c) 2011-2018, Christopher Jeffrey. (MIT License)

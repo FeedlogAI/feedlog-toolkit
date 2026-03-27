@@ -1,6 +1,7 @@
 import React from 'react';
 
 // Import custom elements so the browser bundle still registers them for hydration.
+import '@feedlog-ai/core/ssr-globals';
 import '@feedlog-ai/webcomponents/components/feedlog-badge';
 import '@feedlog-ai/webcomponents/components/feedlog-button';
 import '@feedlog-ai/webcomponents/components/feedlog-card';

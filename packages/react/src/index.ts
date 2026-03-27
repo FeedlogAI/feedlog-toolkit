@@ -7,6 +7,7 @@
  */
 
 import React, { useEffect, useRef } from 'react';
+import '@feedlog-ai/core/ssr-globals';
 import type { FeedlogIssue as FeedlogIssueType } from '@feedlog-ai/core';
 
 // Import custom element components - each import auto-registers the component

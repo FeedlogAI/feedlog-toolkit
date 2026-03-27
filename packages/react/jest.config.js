@@ -32,6 +32,7 @@ module.exports = {
     ],
   },
   moduleNameMapper: {
+    '^@feedlog-ai/core/ssr-globals$': '<rootDir>/src/__tests__/mocks/ssr-globals.js',
     '^@feedlog-ai/webcomponents/components/.*$': '<rootDir>/src/__tests__/mocks/custom-elements.js',
     '^@feedlog-ai/webcomponents/dist/components/.*$':
       '<rootDir>/src/__tests__/mocks/custom-elements.js',

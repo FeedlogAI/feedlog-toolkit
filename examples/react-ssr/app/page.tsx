@@ -1,4 +1,4 @@
-import { FeedlogBadge, FeedlogButton, FeedlogCard } from '@feedlog-ai/react';
+import { FeedlogBadge, FeedlogButton, FeedlogCard } from '@feedlog-ai/react/ssr-components';
 
 export default function Home() {
   return (

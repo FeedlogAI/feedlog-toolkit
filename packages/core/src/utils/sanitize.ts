@@ -2,6 +2,7 @@
  * HTML and XSS sanitization utilities
  */
 
+import './ssr-globals';
 import DOMPurify from 'isomorphic-dompurify';
 
 /**

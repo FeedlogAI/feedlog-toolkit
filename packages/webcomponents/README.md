@@ -19,6 +19,12 @@ Stencil-based web components for GitHub issue management. These are framework-ag
 npm install @feedlog-ai/webcomponents
 ```
 
+## Server-side rendering (SSR) and Node
+
+Imports of these components are evaluated in Node for SSR (for example Vite dev, TanStack Start, or other frameworks that run the same ESM graph on the server). The package aligns with that environment: shared code from `@feedlog-ai/core` and markdown rendering ensure browser-only globals such as `self` are defined on `globalThis` before sanitization libraries load, so you should not need an app-level `self` polyfill for normal usage.
+
+Custom elements still rely on a DOM in the browser for full behavior; use the [Stencil hydrate bundle](https://stenciljs.com/docs/hydrate-app) (`@feedlog-ai/webcomponents/hydrate`) or your framework’s integration (for example `@feedlog-ai/react` with `feedlogSSR()`) for SSR patterns that hydrate on the client.
+
 ## Components
 
 ### FeedlogIssuesClient

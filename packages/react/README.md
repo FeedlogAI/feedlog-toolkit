@@ -70,7 +70,7 @@ export default App;
 
 ## Server-Side Rendering (SSR)
 
-The components support Server-Side Rendering out of the box.
+The components support Server-Side Rendering out of the box. `@feedlog-ai/core/ssr-globals` and the hook-free `@feedlog-ai/react/ssr-components` entry ensure Node does not throw on browser-only globals such as `self` when Stencil bundles load.
 
 ### Next.js (App Router or Pages Router)
 
@@ -87,7 +87,7 @@ const nextConfig = {
 export default withFeedlogSSR(nextConfig);
 ```
 
-Then import components from `@feedlog-ai/react` as usual.
+**App Router — Server Components:** The main package (`@feedlog-ai/react`) uses React hooks (`useEffect`, `useRef`) for custom-element registration and props. **Do not** import it from server components (pages or layouts without `"use client"`). For SSR-safe Badge, Button, and Card, import from `@feedlog-ai/react/ssr-components` instead. For interactive or full-featured wrappers (for example `FeedlogIssuesClient`), use a client boundary: put them in a file marked with `"use client"` and import from `@feedlog-ai/react` there.
 
 ### Vite / Remix
 

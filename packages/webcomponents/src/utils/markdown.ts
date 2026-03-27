@@ -1,3 +1,4 @@
+import '@feedlog-ai/core/ssr-globals';
 import { marked } from 'marked';
 import DOMPurify from 'dompurify';
 
