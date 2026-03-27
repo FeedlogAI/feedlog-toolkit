@@ -179,6 +179,8 @@ function commitAndPush(newVersion) {
 
 function main() {
   const packages = ['core', 'webcomponents', 'react', 'vue'];
+  /** Example apps depend on @feedlog-ai/* from npm; keep their version + caret deps aligned with each release. */
+  const examples = ['react-ssr', 'vue-ssr', 'webcomponent-ssr'];
 
   // Step 1: Bump patch version
   const currentVersion = getCurrentVersion();
@@ -186,6 +188,9 @@ function main() {
   console.log(`📦 Bumping patch version from ${currentVersion} to ${newVersion}`);
   packages.forEach(pkg => {
     updatePackageVersion(`packages/${pkg}`, newVersion);
+  });
+  examples.forEach(name => {
+    updatePackageVersion(`examples/${name}`, newVersion);
   });
   console.log(`✅ All packages bumped to version ${newVersion}!\n`);
 

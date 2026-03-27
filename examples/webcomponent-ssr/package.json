@@ -1,6 +1,6 @@
 {
   "name": "webcomponent-ssr-example",
-  "version": "0.0.40",
+  "version": "0.0.42",
   "private": true,
   "type": "module",
   "scripts": {
@@ -8,7 +8,7 @@
     "dev": "node server.js"
   },
   "dependencies": {
-    "@feedlog-ai/webcomponents": "^0.0.40",
+    "@feedlog-ai/webcomponents": "^0.0.42",
     "express": "^4.21.0"
   }
 }
