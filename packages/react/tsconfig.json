@@ -9,16 +9,8 @@
     "module": "ESNext",
     "moduleResolution": "bundler",
     "target": "ES2020",
-    "strict": false,
-    "noImplicitAny": false,
-    "skipLibCheck": true,
-    "noImplicitReturns": false,
-    "noImplicitThis": false,
-    "noEmitOnError": false,
-    "noImplicitOverride": false,
-    "noPropertyAccessFromIndexSignature": false,
-    "noUncheckedIndexedAccess": false,
-    "checkJs": false
+    "strict": true,
+    "skipLibCheck": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "src/components/stencil-generated", "**/__tests__/**"],

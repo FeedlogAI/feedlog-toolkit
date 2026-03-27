@@ -35,8 +35,8 @@ export class FeedlogIssueComponent {
    */
   @Event() feedlogUpvote!: EventEmitter<{
     issueId: string;
-    currentUpvoted: boolean;
-    currentCount: number;
+    upvoted: boolean;
+    upvoteCount: number;
   }>;
 
   componentDidLoad() {
@@ -67,10 +67,11 @@ export class FeedlogIssueComponent {
 
   private handleUpvote = (event: MouseEvent) => {
     event.stopPropagation();
+    const nextUpvoted = !this.issue.hasUpvoted;
     this.feedlogUpvote.emit({
       issueId: this.issue.id,
-      currentUpvoted: this.issue.hasUpvoted,
-      currentCount: this.issue.upvoteCount,
+      upvoted: nextUpvoted,
+      upvoteCount: Math.max(0, this.issue.upvoteCount + (nextUpvoted ? 1 : -1)),
     });
   };
 

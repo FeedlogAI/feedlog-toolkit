@@ -31,7 +31,7 @@ export class FeedlogIssues {
   /**
    * Theme variant: 'light' or 'dark'
    */
-  @Prop({ mutable: true }) theme: 'light' | 'dark' = 'light';
+  @Prop() theme: 'light' | 'dark' = 'light';
 
   /**
    * Custom heading for the issues section
@@ -84,8 +84,8 @@ export class FeedlogIssues {
    */
   @Event() feedlogUpvote!: EventEmitter<{
     issueId: string;
-    currentUpvoted: boolean;
-    currentCount: number;
+    upvoted: boolean;
+    upvoteCount: number;
   }>;
 
   /**

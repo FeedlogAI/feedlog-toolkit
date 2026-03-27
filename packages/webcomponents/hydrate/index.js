@@ -5083,15 +5083,6 @@ class FeedlogCard {
 }
 
 /**
- * Libraries such as isomorphic-dompurify's browser shim reference `self` at load time.
- * Node (SSR, Vite dev server) does not define `self`; align with `globalThis` before those modules run.
- */
-if (typeof globalThis !== 'undefined' &&
-    typeof globalThis.self === 'undefined') {
-    globalThis.self = globalThis;
-}
-
-/**
  * marked v17.0.2 - a markdown parser
  * Copyright (c) 2018-2026, MarkedJS. (MIT License)
  * Copyright (c) 2011-2018, Christopher Jeffrey. (MIT License)
@@ -5162,6 +5153,35 @@ ${e}</tr>
 `}tablecell(e){let t=this.parser.parseInline(e.tokens),n=e.header?"th":"td";return (e.align?`<${n} align="${e.align}">`:`<${n}>`)+t+`</${n}>
 `}strong({tokens:e}){return `<strong>${this.parser.parseInline(e)}</strong>`}em({tokens:e}){return `<em>${this.parser.parseInline(e)}</em>`}codespan({text:e}){return `<code>${O(e,true)}</code>`}br(e){return "<br>"}del({tokens:e}){return `<del>${this.parser.parseInline(e)}</del>`}link({href:e,title:t,tokens:n}){let r=this.parser.parseInline(n),i=X(e);if(i===null)return r;e=i;let s='<a href="'+e+'"';return t&&(s+=' title="'+O(t)+'"'),s+=">"+r+"</a>",s}image({href:e,title:t,text:n,tokens:r}){r&&(n=this.parser.parseInline(r,this.parser.textRenderer));let i=X(e);if(i===null)return O(n);e=i;let s=`<img src="${e}" alt="${n}"`;return t&&(s+=` title="${O(t)}"`),s+=">",s}text(e){return "tokens"in e&&e.tokens?this.parser.parseInline(e.tokens):"escaped"in e&&e.escaped?e.text:O(e.text)}};var $=class{strong({text:e}){return e}em({text:e}){return e}codespan({text:e}){return e}del({text:e}){return e}html({text:e}){return e}text({text:e}){return e}link({text:e}){return ""+e}image({text:e}){return ""+e}br(){return ""}checkbox({raw:e}){return e}};var b=class u{options;renderer;textRenderer;constructor(e){this.options=e||T,this.options.renderer=this.options.renderer||new y,this.renderer=this.options.renderer,this.renderer.options=this.options,this.renderer.parser=this,this.textRenderer=new $;}static parse(e,t){return new u(t).parse(e)}static parseInline(e,t){return new u(t).parseInline(e)}parse(e){let t="";for(let n=0;n<e.length;n++){let r=e[n];if(this.options.extensions?.renderers?.[r.type]){let s=r,a=this.options.extensions.renderers[s.type].call({parser:this},s);if(a!==false||!["space","hr","heading","code","table","blockquote","list","html","def","paragraph","text"].includes(s.type)){t+=a||"";continue}}let i=r;switch(i.type){case "space":{t+=this.renderer.space(i);break}case "hr":{t+=this.renderer.hr(i);break}case "heading":{t+=this.renderer.heading(i);break}case "code":{t+=this.renderer.code(i);break}case "table":{t+=this.renderer.table(i);break}case "blockquote":{t+=this.renderer.blockquote(i);break}case "list":{t+=this.renderer.list(i);break}case "checkbox":{t+=this.renderer.checkbox(i);break}case "html":{t+=this.renderer.html(i);break}case "def":{t+=this.renderer.def(i);break}case "paragraph":{t+=this.renderer.paragraph(i);break}case "text":{t+=this.renderer.text(i);break}default:{let s='Token with "'+i.type+'" type was not found.';if(this.options.silent)return console.error(s),"";throw new Error(s)}}}return t}parseInline(e,t=this.renderer){let n="";for(let r=0;r<e.length;r++){let i=e[r];if(this.options.extensions?.renderers?.[i.type]){let a=this.options.extensions.renderers[i.type].call({parser:this},i);if(a!==false||!["escape","html","link","image","strong","em","codespan","br","del","text"].includes(i.type)){n+=a||"";continue}}let s=i;switch(s.type){case "escape":{n+=t.text(s);break}case "html":{n+=t.html(s);break}case "link":{n+=t.link(s);break}case "image":{n+=t.image(s);break}case "checkbox":{n+=t.checkbox(s);break}case "strong":{n+=t.strong(s);break}case "em":{n+=t.em(s);break}case "codespan":{n+=t.codespan(s);break}case "br":{n+=t.br(s);break}case "del":{n+=t.del(s);break}case "text":{n+=t.text(s);break}default:{let a='Token with "'+s.type+'" type was not found.';if(this.options.silent)return console.error(a),"";throw new Error(a)}}}return n}};var P=class{options;block;constructor(e){this.options=e||T;}static passThroughHooks=new Set(["preprocess","postprocess","processAllTokens","emStrongMask"]);static passThroughHooksRespectAsync=new Set(["preprocess","postprocess","processAllTokens"]);preprocess(e){return e}postprocess(e){return e}processAllTokens(e){return e}emStrongMask(e){return e}provideLexer(){return this.block?x.lex:x.lexInline}provideParser(){return this.block?b.parse:b.parseInline}};var B=class{defaults=M();options=this.setOptions;parse=this.parseMarkdown(true);parseInline=this.parseMarkdown(false);Parser=b;Renderer=y;TextRenderer=$;Lexer=x;Tokenizer=w;Hooks=P;constructor(...e){this.use(...e);}walkTokens(e,t){let n=[];for(let r of e)switch(n=n.concat(t.call(this,r)),r.type){case "table":{let i=r;for(let s of i.header)n=n.concat(this.walkTokens(s.tokens,t));for(let s of i.rows)for(let a of s)n=n.concat(this.walkTokens(a.tokens,t));break}case "list":{let i=r;n=n.concat(this.walkTokens(i.items,t));break}default:{let i=r;this.defaults.extensions?.childTokens?.[i.type]?this.defaults.extensions.childTokens[i.type].forEach(s=>{let a=i[s].flat(1/0);n=n.concat(this.walkTokens(a,t));}):i.tokens&&(n=n.concat(this.walkTokens(i.tokens,t)));}}return n}use(...e){let t=this.defaults.extensions||{renderers:{},childTokens:{}};return e.forEach(n=>{let r={...n};if(r.async=this.defaults.async||r.async||false,n.extensions&&(n.extensions.forEach(i=>{if(!i.name)throw new Error("extension name required");if("renderer"in i){let s=t.renderers[i.name];s?t.renderers[i.name]=function(...a){let o=i.renderer.apply(this,a);return o===false&&(o=s.apply(this,a)),o}:t.renderers[i.name]=i.renderer;}if("tokenizer"in i){if(!i.level||i.level!=="block"&&i.level!=="inline")throw new Error("extension level must be 'block' or 'inline'");let s=t[i.level];s?s.unshift(i.tokenizer):t[i.level]=[i.tokenizer],i.start&&(i.level==="block"?t.startBlock?t.startBlock.push(i.start):t.startBlock=[i.start]:i.level==="inline"&&(t.startInline?t.startInline.push(i.start):t.startInline=[i.start]));}"childTokens"in i&&i.childTokens&&(t.childTokens[i.name]=i.childTokens);}),r.extensions=t),n.renderer){let i=this.defaults.renderer||new y(this.defaults);for(let s in n.renderer){if(!(s in i))throw new Error(`renderer '${s}' does not exist`);if(["options","parser"].includes(s))continue;let a=s,o=n.renderer[a],l=i[a];i[a]=(...p)=>{let c=o.apply(i,p);return c===false&&(c=l.apply(i,p)),c||""};}r.renderer=i;}if(n.tokenizer){let i=this.defaults.tokenizer||new w(this.defaults);for(let s in n.tokenizer){if(!(s in i))throw new Error(`tokenizer '${s}' does not exist`);if(["options","rules","lexer"].includes(s))continue;let a=s,o=n.tokenizer[a],l=i[a];i[a]=(...p)=>{let c=o.apply(i,p);return c===false&&(c=l.apply(i,p)),c};}r.tokenizer=i;}if(n.hooks){let i=this.defaults.hooks||new P;for(let s in n.hooks){if(!(s in i))throw new Error(`hook '${s}' does not exist`);if(["options","block"].includes(s))continue;let a=s,o=n.hooks[a],l=i[a];P.passThroughHooks.has(s)?i[a]=p=>{if(this.defaults.async&&P.passThroughHooksRespectAsync.has(s))return (async()=>{let d=await o.call(i,p);return l.call(i,d)})();let c=o.call(i,p);return l.call(i,c)}:i[a]=(...p)=>{if(this.defaults.async)return (async()=>{let d=await o.apply(i,p);return d===false&&(d=await l.apply(i,p)),d})();let c=o.apply(i,p);return c===false&&(c=l.apply(i,p)),c};}r.hooks=i;}if(n.walkTokens){let i=this.defaults.walkTokens,s=n.walkTokens;r.walkTokens=function(a){let o=[];return o.push(s.call(this,a)),i&&(o=o.concat(i.call(this,a))),o};}this.defaults={...this.defaults,...r};}),this}setOptions(e){return this.defaults={...this.defaults,...e},this}lexer(e,t){return x.lex(e,t??this.defaults)}parser(e,t){return b.parse(e,t??this.defaults)}parseMarkdown(e){return (n,r)=>{let i={...r},s={...this.defaults,...i},a=this.onError(!!s.silent,!!s.async);if(this.defaults.async===true&&i.async===false)return a(new Error("marked(): The async option was set to true by an extension. Remove async: false from the parse options object to return a Promise."));if(typeof n>"u"||n===null)return a(new Error("marked(): input parameter is undefined or null"));if(typeof n!="string")return a(new Error("marked(): input parameter is of type "+Object.prototype.toString.call(n)+", string expected"));if(s.hooks&&(s.hooks.options=s,s.hooks.block=e),s.async)return (async()=>{let o=s.hooks?await s.hooks.preprocess(n):n,p=await(s.hooks?await s.hooks.provideLexer():e?x.lex:x.lexInline)(o,s),c=s.hooks?await s.hooks.processAllTokens(p):p;s.walkTokens&&await Promise.all(this.walkTokens(c,s.walkTokens));let h=await(s.hooks?await s.hooks.provideParser():e?b.parse:b.parseInline)(c,s);return s.hooks?await s.hooks.postprocess(h):h})().catch(a);try{s.hooks&&(n=s.hooks.preprocess(n));let l=(s.hooks?s.hooks.provideLexer():e?x.lex:x.lexInline)(n,s);s.hooks&&(l=s.hooks.processAllTokens(l)),s.walkTokens&&this.walkTokens(l,s.walkTokens);let c=(s.hooks?s.hooks.provideParser():e?b.parse:b.parseInline)(l,s);return s.hooks&&(c=s.hooks.postprocess(c)),c}catch(o){return a(o)}}}onError(e,t){return n=>{if(n.message+=`
 Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error occurred:</p><pre>"+O(n.message+"",true)+"</pre>";return t?Promise.resolve(r):r}if(t)return Promise.reject(n);throw n}}};var L=new B;function g(u,e){return L.parse(u,e)}g.options=g.setOptions=function(u){return L.setOptions(u),g.defaults=L.defaults,H(g.defaults),g};g.getDefaults=M;g.defaults=T;g.use=function(...u){return L.use(...u),g.defaults=L.defaults,H(g.defaults),g};g.walkTokens=function(u,e){return L.walkTokens(u,e)};g.parseInline=L.parseInline;g.Parser=b;g.parser=b.parse;g.Renderer=y;g.TextRenderer=$;g.Lexer=x;g.lexer=x.lex;g.Tokenizer=w;g.Hooks=P;g.parse=g;
+
+function getDefaultExportFromCjs (x) {
+	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
+}
+
+function getAugmentedNamespace(n) {
+  if (n.__esModule) return n;
+  var f = n.default;
+	if (typeof f == "function") {
+		var a = function a () {
+			if (this instanceof a) {
+        return Reflect.construct(f, arguments, this.constructor);
+			}
+			return f.apply(this, arguments);
+		};
+		a.prototype = f.prototype;
+  } else a = {};
+  Object.defineProperty(a, '__esModule', {value: true});
+	Object.keys(n).forEach(function (k) {
+		var d = Object.getOwnPropertyDescriptor(n, k);
+		Object.defineProperty(a, k, d.get ? d : {
+			enumerable: true,
+			get: function () {
+				return n[k];
+			}
+		});
+	});
+	return a;
+}
 
 /*! @license DOMPurify 3.3.3 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/3.3.3/LICENSE */
 
@@ -6554,6 +6574,21 @@ var purify_es = /*#__PURE__*/Object.freeze({
   default: purify
 });
 
+var require$$0 = /*@__PURE__*/getAugmentedNamespace(purify_es);
+
+var browser;
+var hasRequiredBrowser;
+
+function requireBrowser () {
+	if (hasRequiredBrowser) return browser;
+	hasRequiredBrowser = 1;
+	browser = self.DOMPurify || (self.DOMPurify = require$$0.default || require$$0);
+	return browser;
+}
+
+var browserExports = requireBrowser();
+var DOMPurify = /*@__PURE__*/getDefaultExportFromCjs(browserExports);
+
 /**
  * Parse markdown to sanitized HTML for safe rendering.
  * Uses marked for parsing and DOMPurify for XSS protection.
@@ -6571,7 +6606,7 @@ function parseMarkdown(markdown) {
         throw new Error('marked.parse returned a Promise; async markdown is not supported');
     }
     const html = parsed;
-    return purify.sanitize(html, {
+    return DOMPurify.sanitize(html, {
         ALLOWED_TAGS: [
             'p',
             'br',
@@ -6626,10 +6661,11 @@ class FeedlogIssueComponent {
         };
         this.handleUpvote = (event) => {
             event.stopPropagation();
+            const nextUpvoted = !this.issue.hasUpvoted;
             this.feedlogUpvote.emit({
                 issueId: this.issue.id,
-                currentUpvoted: this.issue.hasUpvoted,
-                currentCount: this.issue.upvoteCount,
+                upvoted: nextUpvoted,
+                upvoteCount: Math.max(0, this.issue.upvoteCount + (nextUpvoted ? 1 : -1)),
             });
         };
     }
@@ -6818,7 +6854,7 @@ class FeedlogIssues {
         const containerStyle = {
             maxWidth: this.maxWidth,
         };
-        return (hAsync(Host, { key: '15ca787d3e5b45331a6582ea908b35b94b3a528c', class: this.theme === 'dark' ? 'dark' : '' }, hAsync("div", { key: '79d655ca18778660f0156fbdec54764491eaac49', class: "issues-container", style: containerStyle }, (this.heading || this.subtitle) && (hAsync("header", { key: 'e9e1b05451f55db894a1b6248dde4d9d90a96068', class: "issues-header" }, hAsync("div", { key: 'b2921e777986f9c6afc3ba1cbf8023311c868b34', class: "header-content" }, this.heading && hAsync("h1", { key: 'e484da412ff1a92b876f3075489e60be273076b3', class: "issues-title" }, this.heading), this.subtitle && hAsync("p", { key: '5030cbb2fdf2deab3681c1177a14e2b540d2ea33', class: "issues-subtitle" }, this.subtitle)))), this.loading && (hAsync("div", { key: 'f3fb2c02af4637832c518714f670ca2ae2624d49', class: "loading-state", role: "status", "aria-label": "Loading issues" }, hAsync("div", { key: '14e60e4174d22dd2474677a7ec6365d053fe40e7', class: "loading-skeletons" }, [1, 2, 3].map(i => (hAsync("div", { key: i, class: "skeleton-card" }, hAsync("div", { class: "skeleton-content" }, hAsync("div", { class: "skeleton-header" }, hAsync("div", { class: "skeleton-badge" }), hAsync("div", { class: "skeleton-timestamp" })), hAsync("div", { class: "skeleton-main" }, hAsync("div", { class: "skeleton-title" }), hAsync("div", { class: "skeleton-body" }, hAsync("div", { class: "skeleton-line" }), hAsync("div", { class: "skeleton-line short" })), hAsync("div", { class: "skeleton-repo" })), hAsync("div", { class: "skeleton-footer" }, hAsync("div", { class: "skeleton-upvote" }))))))))), this.error && (hAsync("div", { key: '0c301ece57faeee2c6bbf2a4e346a88b6bc535cc', class: "error-state", role: "alert" }, hAsync("div", { key: 'bab84dcbca74730ba44162c57baf65454ffb78c0', class: "error-state-content" }, this.renderErrorIcon(), hAsync("h2", { key: '247b25d17323d08ec9c527ebec1352600614f3be', class: "error-state-title" }, "Something went wrong"), hAsync("p", { key: '45501981e34a2a163e20724881945a0b75ef57d1', class: "error-state-message" }, this.error)))), !this.loading && !this.error && (hAsync("div", { key: 'ca5a2697c898b61121c16a9d1f4320ad35a0bf84' }, this.renderIssuesList(), this.hasMore && (hAsync("div", { key: '1896d074714f083c3e171d0516d1d71155cbcd6a', class: "load-more-container" }, hAsync("feedlog-button", { key: 'b34a2081a91b14e13aa4ace4d67b4d812f4a1d77', onFeedlogClick: this.handleLoadMore, disabled: this.isLoadingMore, variant: "outline" }, this.isLoadingMore ? 'Loading...' : 'Load More Issues'))))))));
+        return (hAsync(Host, { key: 'efed57e0c474b689a24e202f0fb6b67afd310572', class: this.theme === 'dark' ? 'dark' : '' }, hAsync("div", { key: 'ddb7185c3ace088f2883b2dcd193beb8af213cf3', class: "issues-container", style: containerStyle }, (this.heading || this.subtitle) && (hAsync("header", { key: '59aeafb96ac34de3ed7d0ecbd20f958dbc4d9ce9', class: "issues-header" }, hAsync("div", { key: 'cba96e346d2e09c28cf253bca55e5bc822f69762', class: "header-content" }, this.heading && hAsync("h1", { key: '7ce0ea76eb114c453a46592f2e5b1ea81b406cc4', class: "issues-title" }, this.heading), this.subtitle && hAsync("p", { key: 'a83fbcc2baab2aeb2b72ff3dbfc03cd3c77a0278', class: "issues-subtitle" }, this.subtitle)))), this.loading && (hAsync("div", { key: 'cf24d3838ef214697abfc2d8a03182e08e0ed6e7', class: "loading-state", role: "status", "aria-label": "Loading issues" }, hAsync("div", { key: 'd2a1547e4cbd7f41518153d7a8ea757beb384088', class: "loading-skeletons" }, [1, 2, 3].map(i => (hAsync("div", { key: i, class: "skeleton-card" }, hAsync("div", { class: "skeleton-content" }, hAsync("div", { class: "skeleton-header" }, hAsync("div", { class: "skeleton-badge" }), hAsync("div", { class: "skeleton-timestamp" })), hAsync("div", { class: "skeleton-main" }, hAsync("div", { class: "skeleton-title" }), hAsync("div", { class: "skeleton-body" }, hAsync("div", { class: "skeleton-line" }), hAsync("div", { class: "skeleton-line short" })), hAsync("div", { class: "skeleton-repo" })), hAsync("div", { class: "skeleton-footer" }, hAsync("div", { class: "skeleton-upvote" }))))))))), this.error && (hAsync("div", { key: '79c70736a6ba731432ef2ba84c5902e52a2ed864', class: "error-state", role: "alert" }, hAsync("div", { key: '31e987295d26e65c09187ae45e7305a46db27b32', class: "error-state-content" }, this.renderErrorIcon(), hAsync("h2", { key: 'c030fb77e635ee6e50b9bebe16d8a97f75e2921c', class: "error-state-title" }, "Something went wrong"), hAsync("p", { key: '5c725c8d65d304e58c06ce574366f7ab6f18ea59', class: "error-state-message" }, this.error)))), !this.loading && !this.error && (hAsync("div", { key: '4217556c83dbd193eeed23ec50c40ec5fedbf420' }, this.renderIssuesList(), this.hasMore && (hAsync("div", { key: 'df669ef16de0c2316715b97edd9c9af935e96464', class: "load-more-container" }, hAsync("feedlog-button", { key: 'ba1498e81606245a55d0f428e8b3b7b0bf609367', onFeedlogClick: this.handleLoadMore, disabled: this.isLoadingMore, variant: "outline" }, this.isLoadingMore ? 'Loading...' : 'Load More Issues'))))))));
     }
     static get style() { return feedlogIssuesCss(); }
     static get cmpMeta() { return {
@@ -6828,7 +6864,7 @@ class FeedlogIssues {
             "issues": [16],
             "maxWidth": [1, "max-width"],
             "limit": [2],
-            "theme": [1025],
+            "theme": [1],
             "heading": [1],
             "subtitle": [1],
             "emptyStateTitle": [1, "empty-state-title"],
@@ -6844,50 +6880,6 @@ class FeedlogIssues {
         "$attrsToReflect$": []
     }; }
 }
-
-function getDefaultExportFromCjs (x) {
-	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
-}
-
-function getAugmentedNamespace(n) {
-  if (n.__esModule) return n;
-  var f = n.default;
-	if (typeof f == "function") {
-		var a = function a () {
-			if (this instanceof a) {
-        return Reflect.construct(f, arguments, this.constructor);
-			}
-			return f.apply(this, arguments);
-		};
-		a.prototype = f.prototype;
-  } else a = {};
-  Object.defineProperty(a, '__esModule', {value: true});
-	Object.keys(n).forEach(function (k) {
-		var d = Object.getOwnPropertyDescriptor(n, k);
-		Object.defineProperty(a, k, d.get ? d : {
-			enumerable: true,
-			get: function () {
-				return n[k];
-			}
-		});
-	});
-	return a;
-}
-
-var require$$0 = /*@__PURE__*/getAugmentedNamespace(purify_es);
-
-var browser;
-var hasRequiredBrowser;
-
-function requireBrowser () {
-	if (hasRequiredBrowser) return browser;
-	hasRequiredBrowser = 1;
-	browser = self.DOMPurify || (self.DOMPurify = require$$0.default || require$$0);
-	return browser;
-}
-
-var browserExports = requireBrowser();
-var DOMPurify = /*@__PURE__*/getDefaultExportFromCjs(browserExports);
 
 /**
  * HTML and XSS sanitization utilities
@@ -6952,7 +6944,7 @@ class FeedlogTimeoutError extends FeedlogError {
 class FeedlogSDK {
     constructor(config) {
         this.config = {
-            credentials: 'include',
+            credentials: 'same-origin',
             ...config,
         };
         this.apiKey = this.config.apiKey;
@@ -7255,13 +7247,17 @@ class FeedlogIssuesClient {
             if (!this.sdk || this.isDisconnected) {
                 return;
             }
-            const { issueId, currentUpvoted, currentCount } = event.detail;
+            const { issueId, upvoted, upvoteCount } = event.detail;
+            const currentIssue = this.issues.find(issue => issue.id === issueId);
+            if (!currentIssue) {
+                return;
+            }
             // Track request to handle race conditions
             const requestId = (this.upvoteRequestIds.get(issueId) || 0) + 1;
             this.upvoteRequestIds.set(issueId, requestId);
             // Optimistic update
             this.issues = this.issues.map(issue => issue.id === issueId
-                ? Object.assign(Object.assign({}, issue), { hasUpvoted: !currentUpvoted, upvoteCount: currentUpvoted ? currentCount - 1 : currentCount + 1 }) : issue);
+                ? Object.assign(Object.assign({}, issue), { hasUpvoted: upvoted, upvoteCount }) : issue);
             try {
                 const result = await this.sdk.toggleUpvote(issueId);
                 // Ignore if component disconnected or request is stale
@@ -7284,16 +7280,13 @@ class FeedlogIssuesClient {
                 }
                 // Revert optimistic update on error
                 this.issues = this.issues.map(issue => issue.id === issueId
-                    ? Object.assign(Object.assign({}, issue), { hasUpvoted: currentUpvoted, upvoteCount: currentCount }) : issue);
+                    ? Object.assign(Object.assign({}, issue), { hasUpvoted: currentIssue.hasUpvoted, upvoteCount: currentIssue.upvoteCount }) : issue);
                 const errorMsg = err instanceof Error ? err.message : 'Failed to toggle upvote';
                 this.feedlogError.emit({ error: errorMsg });
             }
         };
     }
     componentWillLoad() {
-        this.previousType = this.type;
-        this.previousLimit = this.limit;
-        this.previousSortBy = this.sortBy;
         this.initializeSDK();
         // Return the promise so SSR waits for the fetch before serializing HTML.
         // During client hydration, skip fetch if we already have server-rendered data.
@@ -7307,25 +7300,27 @@ class FeedlogIssuesClient {
         this.isDisconnected = true;
         this.fetchRequestId++;
     }
-    componentDidUpdate() {
-        // Re-fetch if any props changed
-        const typeChanged = this.previousType !== this.type;
-        const limitChanged = this.previousLimit !== this.limit;
-        const sortByChanged = this.previousSortBy !== this.sortBy;
-        if (typeChanged || limitChanged || sortByChanged) {
-            // Invalidate any in-flight requests
-            this.fetchRequestId++;
-            // Reset pagination when filters change
-            this.cursor = null;
-            this.hasMore = false;
-            this.issues = [];
-            void this.fetchIssues().catch(() => {
-                /* errors handled inside fetchIssues */
-            });
-            this.previousType = this.type;
-            this.previousLimit = this.limit;
-            this.previousSortBy = this.sortBy;
+    handleQueryParamChange(newValue, oldValue) {
+        if (newValue === oldValue) {
+            return;
         }
+        void this.resetAndRefetchIssues();
+    }
+    handleSdkConfigChange(newValue, oldValue) {
+        if (newValue === oldValue) {
+            return;
+        }
+        this.initializeSDK();
+        void this.resetAndRefetchIssues();
+    }
+    async resetAndRefetchIssues() {
+        // Invalidate any in-flight requests and reset derived state before reloading.
+        this.fetchRequestId++;
+        this.cursor = null;
+        this.hasMore = false;
+        this.issues = [];
+        this.upvoteRequestIds.clear();
+        await this.fetchIssues();
     }
     initializeSDK() {
         try {
@@ -7440,9 +7435,26 @@ class FeedlogIssuesClient {
         const style = hostBg
             ? { '--feedlog-background': hostBg }
             : undefined;
-        return (hAsync("feedlog-issues", { key: '4467ffabd5f18f9af6c8407622fb2554981b54bd', style: style, issues: this.issues, limit: this.limit, maxWidth: this.maxWidth, theme: this.theme, heading: this.heading, subtitle: this.subtitle, emptyStateTitle: this.emptyStateTitle, emptyStateMessage: this.emptyStateMessage, getIssueUrl: this.getIssueUrl, loading: this.loading, error: this.error, hasMore: this.hasMore, isLoadingMore: this.isLoadingMore, onFeedlogUpvote: this.handleUpvote, onFeedlogLoadMore: async () => this.loadMore() }));
+        return (hAsync("feedlog-issues", { key: 'd98b8366830171a8a09d01cc9e2b19a19850a5fd', style: style, issues: this.issues, limit: this.limit, maxWidth: this.maxWidth, theme: this.theme, heading: this.heading, subtitle: this.subtitle, emptyStateTitle: this.emptyStateTitle, emptyStateMessage: this.emptyStateMessage, getIssueUrl: this.getIssueUrl, loading: this.loading, error: this.error, hasMore: this.hasMore, isLoadingMore: this.isLoadingMore, onFeedlogUpvote: this.handleUpvote, onFeedlogLoadMore: async () => this.loadMore() }));
     }
     get el() { return getElement(this); }
+    static get watchers() { return {
+        "type": [{
+                "handleQueryParamChange": 0
+            }],
+        "limit": [{
+                "handleQueryParamChange": 0
+            }],
+        "sortBy": [{
+                "handleQueryParamChange": 0
+            }],
+        "apiKey": [{
+                "handleSdkConfigChange": 0
+            }],
+        "endpoint": [{
+                "handleSdkConfigChange": 0
+            }]
+    }; }
     static get cmpMeta() { return {
         "$flags$": 9,
         "$tagName$": "feedlog-issues-client",
@@ -7545,7 +7557,7 @@ class FeedlogIssuesList {
     }
     render() {
         const visibleIssues = this.getVisibleIssues();
-        return (hAsync(Host, { key: '7721ed64730cd8e6b508fc829767ea79b2531628', class: this.theme === 'dark' ? 'dark' : '' }, hAsync("div", { key: '6a2d83f46ce2391294cef018ec243dd13d06a063', class: "issues-list" }, visibleIssues.length === 0 ? (hAsync("div", { class: "empty-state" }, this.emptyStateTitle && this.emptyStateMessage ? (hAsync("div", { class: "empty-state-content" }, this.renderEmptyStateIllustration(), hAsync("h2", { class: "empty-state-title" }, this.emptyStateTitle), hAsync("p", { class: "empty-state-message" }, this.emptyStateMessage))) : (hAsync("p", null, "No issues found")))) : (visibleIssues.map(issue => {
+        return (hAsync(Host, { key: 'b2b009625ec2cec47449afd7602202a9f95b8740', class: this.theme === 'dark' ? 'dark' : '' }, hAsync("div", { key: 'f108815569c064e45a78272a83f7048708470a3d', class: "issues-list" }, visibleIssues.length === 0 ? (hAsync("div", { class: "empty-state" }, this.emptyStateTitle && this.emptyStateMessage ? (hAsync("div", { class: "empty-state-content" }, this.renderEmptyStateIllustration(), hAsync("h2", { class: "empty-state-title" }, this.emptyStateTitle), hAsync("p", { class: "empty-state-message" }, this.emptyStateMessage))) : (hAsync("p", null, "No issues found")))) : (visibleIssues.map(issue => {
             var _a, _b;
             return (hAsync("feedlog-issue", { key: issue.id, issue: issue, issueUrl: (_b = (_a = this.getIssueUrl) === null || _a === void 0 ? void 0 : _a.call(this, issue)) !== null && _b !== void 0 ? _b : undefined, theme: this.theme, onFeedlogUpvote: (e) => this.handleUpvote(e) }));
         }))), this.renderPagination()));

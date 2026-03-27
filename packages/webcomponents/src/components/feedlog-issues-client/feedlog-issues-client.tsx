@@ -1,4 +1,4 @@
-import { Component, Element, Prop, Event, EventEmitter, h, State } from '@stencil/core';
+import { Component, Element, Prop, Event, EventEmitter, h, State, Watch } from '@stencil/core';
 import { FeedlogSDK, FetchIssuesParams } from '@feedlog-ai/core';
 import type { FeedlogIssue as FeedlogIssueType, GetIssueUrlFn, SortBy } from '@feedlog-ai/core';
 
@@ -17,7 +17,8 @@ export class FeedlogIssuesClient {
    * API key for Feedlog authentication (required)
    * The API key determines which repositories' issues are fetched
    */
-  @Prop() apiKey!: string;
+  /** Set via JS property only; not reflected to an HTML attribute (see Stencil `reflect`). */
+  @Prop({ reflect: false }) apiKey!: string;
 
   /**
    * Filter issues by type: 'bug' or 'enhancement'
@@ -95,9 +96,6 @@ export class FeedlogIssuesClient {
   @State() isLoadingMore: boolean = false;
 
   private sdk: FeedlogSDK | null = null;
-  private previousType?: 'bug' | 'enhancement';
-  private previousLimit?: number;
-  private previousSortBy?: SortBy;
   /** Counter to track fetch operations and prevent stale updates */
   private fetchRequestId: number = 0;
   /** Flag to prevent state updates after component disconnect */
@@ -107,9 +105,6 @@ export class FeedlogIssuesClient {
   private upvoteRequestIds: Map<string, number> = new Map();
 
   componentWillLoad() {
-    this.previousType = this.type;
-    this.previousLimit = this.limit;
-    this.previousSortBy = this.sortBy;
     this.initializeSDK();
     // Return the promise so SSR waits for the fetch before serializing HTML.
     // During client hydration, skip fetch if we already have server-rendered data.
@@ -125,28 +120,40 @@ export class FeedlogIssuesClient {
     this.fetchRequestId++;
   }
 
-  componentDidUpdate() {
-    // Re-fetch if any props changed
-    const typeChanged = this.previousType !== this.type;
-    const limitChanged = this.previousLimit !== this.limit;
-    const sortByChanged = this.previousSortBy !== this.sortBy;
-
-    if (typeChanged || limitChanged || sortByChanged) {
-      // Invalidate any in-flight requests
-      this.fetchRequestId++;
-
-      // Reset pagination when filters change
-      this.cursor = null;
-      this.hasMore = false;
-      this.issues = [];
-
-      void this.fetchIssues().catch(() => {
-        /* errors handled inside fetchIssues */
-      });
-      this.previousType = this.type;
-      this.previousLimit = this.limit;
-      this.previousSortBy = this.sortBy;
+  @Watch('type')
+  @Watch('limit')
+  @Watch('sortBy')
+  handleQueryParamChange(
+    newValue: 'bug' | 'enhancement' | number | SortBy | undefined,
+    oldValue: typeof newValue
+  ) {
+    if (newValue === oldValue) {
+      return;
     }
+
+    void this.resetAndRefetchIssues();
+  }
+
+  @Watch('apiKey')
+  @Watch('endpoint')
+  handleSdkConfigChange(newValue: string | undefined, oldValue: string | undefined) {
+    if (newValue === oldValue) {
+      return;
+    }
+
+    this.initializeSDK();
+    void this.resetAndRefetchIssues();
+  }
+
+  private async resetAndRefetchIssues() {
+    // Invalidate any in-flight requests and reset derived state before reloading.
+    this.fetchRequestId++;
+    this.cursor = null;
+    this.hasMore = false;
+    this.issues = [];
+    this.upvoteRequestIds.clear();
+
+    await this.fetchIssues();
   }
 
   private initializeSDK() {
@@ -280,15 +287,19 @@ export class FeedlogIssuesClient {
   private handleUpvote = async (
     event: CustomEvent<{
       issueId: string;
-      currentUpvoted: boolean;
-      currentCount: number;
+      upvoted: boolean;
+      upvoteCount: number;
     }>
   ) => {
     if (!this.sdk || this.isDisconnected) {
       return;
     }
 
-    const { issueId, currentUpvoted, currentCount } = event.detail;
+    const { issueId, upvoted, upvoteCount } = event.detail;
+    const currentIssue = this.issues.find(issue => issue.id === issueId);
+    if (!currentIssue) {
+      return;
+    }
 
     // Track request to handle race conditions
     const requestId = (this.upvoteRequestIds.get(issueId) || 0) + 1;
@@ -299,8 +310,8 @@ export class FeedlogIssuesClient {
       issue.id === issueId
         ? {
             ...issue,
-            hasUpvoted: !currentUpvoted,
-            upvoteCount: currentUpvoted ? currentCount - 1 : currentCount + 1,
+            hasUpvoted: upvoted,
+            upvoteCount,
           }
         : issue
     );
@@ -340,8 +351,8 @@ export class FeedlogIssuesClient {
         issue.id === issueId
           ? {
               ...issue,
-              hasUpvoted: currentUpvoted,
-              upvoteCount: currentCount,
+              hasUpvoted: currentIssue.hasUpvoted,
+              upvoteCount: currentIssue.upvoteCount,
             }
           : issue
       );

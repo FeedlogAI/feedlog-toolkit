@@ -38,7 +38,7 @@ export class FeedlogSDK {
 
   constructor(config: FeedlogSDKConfig) {
     this.config = {
-      credentials: 'include',
+      credentials: 'same-origin',
       ...config,
     };
 

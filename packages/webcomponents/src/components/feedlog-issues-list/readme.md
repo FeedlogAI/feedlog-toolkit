@@ -21,9 +21,9 @@ A component for displaying a list of GitHub issues with support for bugs and enh
 
 ## Events
 
-| Event           | Description                      | Type                                                                               |
-| --------------- | -------------------------------- | ---------------------------------------------------------------------------------- |
-| `feedlogUpvote` | Emitted when an issue is upvoted | `CustomEvent<{ issueId: string; currentUpvoted: boolean; currentCount: number; }>` |
+| Event           | Description                      | Type                                                                       |
+| --------------- | -------------------------------- | -------------------------------------------------------------------------- |
+| `feedlogUpvote` | Emitted when an issue is upvoted | `CustomEvent<{ issueId: string; upvoted: boolean; upvoteCount: number; }>` |
 
 ## Dependencies
 

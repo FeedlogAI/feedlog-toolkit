@@ -55,8 +55,8 @@ export class FeedlogIssuesList {
    */
   @Event() feedlogUpvote!: EventEmitter<{
     issueId: string;
-    currentUpvoted: boolean;
-    currentCount: number;
+    upvoted: boolean;
+    upvoteCount: number;
   }>;
 
   private renderEmptyStateIllustration() {
@@ -98,8 +98,8 @@ export class FeedlogIssuesList {
   private handleUpvote = (
     event: CustomEvent<{
       issueId: string;
-      currentUpvoted: boolean;
-      currentCount: number;
+      upvoted: boolean;
+      upvoteCount: number;
     }>
   ) => {
     event.stopPropagation();

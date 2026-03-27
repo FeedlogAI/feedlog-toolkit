@@ -1,14 +1,15 @@
 import React from 'react';
 
-// Import custom elements so the browser bundle still registers them for hydration.
+/**
+ * SSR entry for `@feedlog-ai/react/ssr-components` (Badge, Button, Card only).
+ * Import only these custom elements so the server bundle does not pull in
+ * issues/DOMPurify code that references the browser global `self` (breaks Node SSR).
+ * Other wrappers live in `./index` and load in Client Components.
+ */
 import '@feedlog-ai/core/ssr-globals';
 import '@feedlog-ai/webcomponents/components/feedlog-badge';
 import '@feedlog-ai/webcomponents/components/feedlog-button';
 import '@feedlog-ai/webcomponents/components/feedlog-card';
-import '@feedlog-ai/webcomponents/components/feedlog-issue';
-import '@feedlog-ai/webcomponents/components/feedlog-issues';
-import '@feedlog-ai/webcomponents/components/feedlog-issues-client';
-import '@feedlog-ai/webcomponents/components/feedlog-issues-list';
 
 export type { FeedlogIssue } from '@feedlog-ai/core';
 

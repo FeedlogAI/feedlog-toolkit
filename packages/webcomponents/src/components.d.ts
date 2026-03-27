@@ -142,7 +142,7 @@ export namespace Components {
    */
   interface FeedlogIssuesClient {
     /**
-     * API key for Feedlog authentication (required) The API key determines which repositories' issues are fetched
+     * Set via JS property only; not reflected to an HTML attribute (see Stencil `reflect`).
      */
     apiKey: string;
     /**
@@ -326,8 +326,8 @@ declare global {
   interface HTMLFeedlogIssueElementEventMap {
     feedlogUpvote: {
       issueId: string;
-      currentUpvoted: boolean;
-      currentCount: number;
+      upvoted: boolean;
+      upvoteCount: number;
     };
   }
   /**
@@ -389,8 +389,8 @@ declare global {
   interface HTMLFeedlogIssuesElementEventMap {
     feedlogUpvote: {
       issueId: string;
-      currentUpvoted: boolean;
-      currentCount: number;
+      upvoted: boolean;
+      upvoteCount: number;
     };
     feedlogLoadMore: void;
   }
@@ -516,8 +516,8 @@ declare global {
   interface HTMLFeedlogIssuesListElementEventMap {
     feedlogUpvote: {
       issueId: string;
-      currentUpvoted: boolean;
-      currentCount: number;
+      upvoted: boolean;
+      upvoteCount: number;
     };
   }
   /**
@@ -652,8 +652,8 @@ declare namespace LocalJSX {
     onFeedlogUpvote?: (
       event: FeedlogIssueCustomEvent<{
         issueId: string;
-        currentUpvoted: boolean;
-        currentCount: number;
+        upvoted: boolean;
+        upvoteCount: number;
       }>
     ) => void;
     /**
@@ -728,8 +728,8 @@ declare namespace LocalJSX {
     onFeedlogUpvote?: (
       event: FeedlogIssuesCustomEvent<{
         issueId: string;
-        currentUpvoted: boolean;
-        currentCount: number;
+        upvoted: boolean;
+        upvoteCount: number;
       }>
     ) => void;
     /**
@@ -749,7 +749,7 @@ declare namespace LocalJSX {
    */
   interface FeedlogIssuesClient {
     /**
-     * API key for Feedlog authentication (required) The API key determines which repositories' issues are fetched
+     * Set via JS property only; not reflected to an HTML attribute (see Stencil `reflect`).
      */
     apiKey: string;
     /**
@@ -847,8 +847,8 @@ declare namespace LocalJSX {
     onFeedlogUpvote?: (
       event: FeedlogIssuesListCustomEvent<{
         issueId: string;
-        currentUpvoted: boolean;
-        currentCount: number;
+        upvoted: boolean;
+        upvoteCount: number;
       }>
     ) => void;
     /**

@@ -95,9 +95,9 @@ A component for displaying a single GitHub issue.
 
 ## Events
 
-| Event           | Description                             | Type                                                                               |
-| --------------- | --------------------------------------- | ---------------------------------------------------------------------------------- |
-| `feedlogUpvote` | Event emitted when the issue is upvoted | `CustomEvent<{ issueId: string; currentUpvoted: boolean; currentCount: number; }>` |
+| Event           | Description                             | Type                                                                       |
+| --------------- | --------------------------------------- | -------------------------------------------------------------------------- |
+| `feedlogUpvote` | Event emitted when the issue is upvoted | `CustomEvent<{ issueId: string; upvoted: boolean; upvoteCount: number; }>` |
 
 ## Shadow Parts
 

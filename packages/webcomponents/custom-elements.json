@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-27T15:39:56",
+  "timestamp": "2026-03-27T16:23:59",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.40.1",
@@ -383,11 +383,11 @@
       "events": [
         {
           "event": "feedlogUpvote",
-          "detail": "{ issueId: string; currentUpvoted: boolean; currentCount: number; }",
+          "detail": "{ issueId: string; upvoted: boolean; upvoteCount: number; }",
           "bubbles": true,
           "complexType": {
-            "original": "{\n    issueId: string;\n    currentUpvoted: boolean;\n    currentCount: number;\n  }",
-            "resolved": "{ issueId: string; currentUpvoted: boolean; currentCount: number; }",
+            "original": "{\n    issueId: string;\n    upvoted: boolean;\n    upvoteCount: number;\n  }",
+            "resolved": "{ issueId: string; upvoted: boolean; upvoteCount: number; }",
             "references": {}
           },
           "cancelable": true,
@@ -786,7 +786,7 @@
             "resolved": "\"dark\" | \"light\"",
             "references": {}
           },
-          "mutable": true,
+          "mutable": false,
           "attr": "theme",
           "reflectToAttr": false,
           "docs": "Theme variant: 'light' or 'dark'",
@@ -831,11 +831,11 @@
         },
         {
           "event": "feedlogUpvote",
-          "detail": "{ issueId: string; currentUpvoted: boolean; currentCount: number; }",
+          "detail": "{ issueId: string; upvoted: boolean; upvoteCount: number; }",
           "bubbles": true,
           "complexType": {
-            "original": "{\n    issueId: string;\n    currentUpvoted: boolean;\n    currentCount: number;\n  }",
-            "resolved": "{ issueId: string; currentUpvoted: boolean; currentCount: number; }",
+            "original": "{\n    issueId: string;\n    upvoted: boolean;\n    upvoteCount: number;\n  }",
+            "resolved": "{ issueId: string; upvoted: boolean; upvoteCount: number; }",
             "references": {}
           },
           "cancelable": true,
@@ -877,7 +877,7 @@
           "mutable": false,
           "attr": "api-key",
           "reflectToAttr": false,
-          "docs": "API key for Feedlog authentication (required)\nThe API key determines which repositories' issues are fetched",
+          "docs": "Set via JS property only; not reflected to an HTML attribute (see Stencil `reflect`).",
           "docsTags": [],
           "values": [
             {
@@ -1455,11 +1455,11 @@
       "events": [
         {
           "event": "feedlogUpvote",
-          "detail": "{ issueId: string; currentUpvoted: boolean; currentCount: number; }",
+          "detail": "{ issueId: string; upvoted: boolean; upvoteCount: number; }",
           "bubbles": true,
           "complexType": {
-            "original": "{\n    issueId: string;\n    currentUpvoted: boolean;\n    currentCount: number;\n  }",
-            "resolved": "{ issueId: string; currentUpvoted: boolean; currentCount: number; }",
+            "original": "{\n    issueId: string;\n    upvoted: boolean;\n    upvoteCount: number;\n  }",
+            "resolved": "{ issueId: string; upvoted: boolean; upvoteCount: number; }",
             "references": {}
           },
           "cancelable": true,

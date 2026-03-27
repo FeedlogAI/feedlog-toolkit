@@ -28,13 +28,13 @@ export type { FeedlogIssue } from '@feedlog-ai/core';
 /**
  * Helper to merge refs
  */
-function mergeRefs<T>(...refs: (React.Ref<T> | undefined)[]): React.RefCallback<T> {
-  return (value: T) => {
+function mergeRefs<T>(...refs: Array<React.Ref<T> | undefined>): React.RefCallback<T> {
+  return (value: T | null) => {
     refs.forEach(ref => {
       if (typeof ref === 'function') {
         ref(value);
       } else if (ref && typeof ref === 'object') {
-        (ref as React.MutableRefObject<T>).current = value;
+        (ref as React.MutableRefObject<T | null>).current = value;
       }
     });
   };
@@ -94,7 +94,7 @@ function separateProps(props: Record<string, unknown>): {
       key === 'suppressHydrationWarning'
     ) {
       primitiveProps[key] = value;
-    } else if (key.startsWith('on') && key[2] === key[2].toUpperCase()) {
+    } else if (key.startsWith('on') && key.length > 2 && key[2] === key[2].toUpperCase()) {
       // Event handlers
       eventProps[key] = value;
     } else {
@@ -150,7 +150,7 @@ function useWebComponentProps(
       if (typeof handler === 'function') {
         // Convert onFeedlogUpvote -> feedlogUpvote
         const eventName = key.substring(2);
-        const eventNameLc = eventName[0].toLowerCase() + eventName.substring(1);
+        const eventNameLc = eventName.charAt(0).toLowerCase() + eventName.substring(1);
         const listener = handler as EventListener;
         element.addEventListener(eventNameLc, listener);
         currentListeners.set(eventNameLc, listener);
@@ -223,8 +223,8 @@ export interface FeedlogIssuesProps extends React.HTMLAttributes<HTMLElement> {
   onFeedlogUpvote?: (
     event: CustomEvent<{
       issueId: string;
-      currentUpvoted: boolean;
-      currentCount: number;
+      upvoted: boolean;
+      upvoteCount: number;
     }>
   ) => void;
   onFeedlogLoadMore?: (event: CustomEvent<void>) => void;
@@ -273,6 +273,10 @@ export const FeedlogIssuesClient = React.forwardRef<HTMLElement, FeedlogIssuesCl
   ({ children, ...props }, ref) => {
     const internalRef = useRef<HTMLElement>(null);
     const { primitiveProps, complexProps, eventProps } = separateProps(props);
+    if (primitiveProps.apiKey !== undefined) {
+      complexProps.apiKey = primitiveProps.apiKey;
+      delete primitiveProps.apiKey;
+    }
 
     useWebComponentProps(internalRef, complexProps, eventProps);
 
@@ -294,8 +298,8 @@ export interface FeedlogIssuesListProps extends React.HTMLAttributes<HTMLElement
   onFeedlogUpvote?: (
     event: CustomEvent<{
       issueId: string;
-      currentUpvoted: boolean;
-      currentCount: number;
+      upvoted: boolean;
+      upvoteCount: number;
     }>
   ) => void;
 }
@@ -326,8 +330,8 @@ export interface FeedlogIssueProps extends React.HTMLAttributes<HTMLElement> {
   onFeedlogUpvote?: (
     event: CustomEvent<{
       issueId: string;
-      currentUpvoted: boolean;
-      currentCount: number;
+      upvoted: boolean;
+      upvoteCount: number;
     }>
   ) => void;
 }
