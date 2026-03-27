@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
 /**
- * Publish Patch script for Feedlog Toolkit monorepo
+ * Publish script for Feedlog Toolkit monorepo
  *
- * Combines bumping patch version, npm login, building, and publishing all packages
- * Increments the patch version of all packages, logs into npm, builds, and publishes to npm with public access.
+ * Default release is patch; pass patch | minor | major as the first argument.
+ * Runs unit tests and e2e before bumping versions, then npm login, build, verify, publish.
  */
 
 import fs from 'fs';
@@ -12,14 +12,37 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { execFileSync, execSync } from 'child_process';
 
+const VALID_RELEASE_TYPES = ['patch', 'minor', 'major'];
+
+function parseReleaseType() {
+  const arg = process.argv[2];
+  if (!arg) {
+    return 'patch';
+  }
+  if (!VALID_RELEASE_TYPES.includes(arg)) {
+    console.error(`Invalid release type: ${arg}. Use: ${VALID_RELEASE_TYPES.join(', ')}`);
+    process.exit(1);
+  }
+  return arg;
+}
+
 function getCurrentVersion() {
   const corePkg = JSON.parse(fs.readFileSync('packages/core/package.json', 'utf8'));
   return corePkg.version;
 }
 
-function bumpPatchVersion(version) {
+function bumpVersion(version, releaseType) {
   const parts = version.split('.').map(Number);
-  parts[2]++; // Increment patch version
+  if (releaseType === 'patch') {
+    parts[2]++;
+  } else if (releaseType === 'minor') {
+    parts[1]++;
+    parts[2] = 0;
+  } else {
+    parts[0]++;
+    parts[1] = 0;
+    parts[2] = 0;
+  }
   return parts.join('.');
 }
 
@@ -65,6 +88,18 @@ function updateInternalDependencies(pkg, newVersion) {
         pkg.devDependencies[pkgName] = `^${newVersion}`;
       }
     });
+  }
+}
+
+function runNpmScript(scriptName) {
+  console.log(`\n▶ npm run ${scriptName}...\n`);
+  try {
+    execSync(`npm run ${scriptName}`, {
+      stdio: 'inherit',
+    });
+  } catch (error) {
+    console.error(`\n❌ npm run ${scriptName} failed — aborting publish`);
+    process.exit(1);
   }
 }
 
@@ -178,14 +213,19 @@ function commitAndPush(newVersion) {
 }
 
 function main() {
+  const releaseType = parseReleaseType();
   const packages = ['core', 'webcomponents', 'react', 'vue'];
   /** Example apps depend on @feedlog-ai/* from npm; keep their version + caret deps aligned with each release. */
   const examples = ['react-ssr', 'vue-ssr', 'webcomponent-ssr'];
 
-  // Step 1: Bump patch version
+  // Before changing versions: run tests (fail fast, no partial release state)
+  runNpmScript('test');
+  runNpmScript('e2e');
+
+  // Bump version
   const currentVersion = getCurrentVersion();
-  const newVersion = bumpPatchVersion(currentVersion);
-  console.log(`📦 Bumping patch version from ${currentVersion} to ${newVersion}`);
+  const newVersion = bumpVersion(currentVersion, releaseType);
+  console.log(`\n📦 Bumping ${releaseType} version from ${currentVersion} to ${newVersion}`);
   packages.forEach(pkg => {
     updatePackageVersion(`packages/${pkg}`, newVersion);
   });
@@ -194,10 +234,10 @@ function main() {
   });
   console.log(`✅ All packages bumped to version ${newVersion}!\n`);
 
-  // Step 2: npm login
+  // npm login
   npmLogin();
 
-  // Step 3: Build all packages
+  // Build all packages
   console.log('\n🔨 Starting build of all packages...\n');
   try {
     execSync('npm run build', {
@@ -208,20 +248,20 @@ function main() {
     throw error;
   }
 
-  // Step 4: Verify webcomponents pack contains built artifacts
+  // Verify webcomponents pack contains built artifacts
   verifyWebcomponentsPack();
 
-  // Step 5: Publish all packages
+  // Publish all packages
   console.log('\n📤 Starting publication of all packages...\n');
   for (const pkg of packages) {
     publishPackage(pkg);
   }
 
-  // Step 6: Format code before committing
+  // Format code before committing
   console.log('\n📝 Formatting code...');
   execSync('npm run format', { stdio: 'inherit' });
 
-  // Step 7: Commit and push changes after successful publish
+  // Commit and push changes after successful publish
   commitAndPush(newVersion);
 
   console.log(`\n✅ All packages published successfully!`);
