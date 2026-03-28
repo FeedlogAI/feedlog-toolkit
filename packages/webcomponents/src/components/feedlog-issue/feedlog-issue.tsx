@@ -253,7 +253,9 @@ export class FeedlogIssueComponent {
                 </div>
               </div>
 
-              <h3 class="issue-title">{displayTitle}</h3>
+              <h3 class="issue-title">
+                <span class="issue-title-text">{displayTitle}</span>
+              </h3>
               {issue.body != null && issue.body !== '' && (
                 <div class="issue-body" innerHTML={parseMarkdown(issue.body)} />
               )}
