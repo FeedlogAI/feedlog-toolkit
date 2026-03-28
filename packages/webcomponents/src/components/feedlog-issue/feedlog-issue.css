@@ -181,6 +181,11 @@
   flex-wrap: wrap;
 }
 
+/* Keeps upvote on the right when repo/GitHub meta is omitted (null name, no link). */
+.issue-footer .upvote-button {
+  margin-left: auto;
+}
+
 .issue-footer-meta {
   display: flex;
   align-items: center;
