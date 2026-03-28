@@ -34,9 +34,10 @@ const customSdk = new FeedlogSDK({
   apiKey: 'your-api-key', // Required: API key for authentication
   endpoint: 'https://api.feedlog.app', // Custom API endpoint (optional)
   timeout: 30000, // Request timeout in milliseconds (optional)
-  credentials: 'include', // Fetch credentials mode (optional)
 });
 ```
+
+The SDK defaults `credentials` to `'include'` so cookies (for example anonymous user/session) are sent on cross-origin requests to the API. Pass `credentials: 'same-origin'` or `'omit'` if you need to avoid that.
 
 ### Fetching Issues
 

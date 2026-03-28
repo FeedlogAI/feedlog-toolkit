@@ -97,9 +97,9 @@ export interface FeedlogSDKConfig {
   endpoint?: string; // API base URL, defaults to https://api.feedlog.app
   timeout?: number; // Request timeout in milliseconds, defaults to 30000
   /**
-   * Fetch `credentials` mode. Defaults to `'same-origin'` to avoid sending
-   * cross-origin cookies unless the embedding app explicitly opts in.
-   * Use `'include'` when you need anonymous user/session cookies on API requests.
+   * Fetch `credentials` mode. Defaults to `'include'` so anonymous user/session
+   * cookies are sent on cross-origin API requests. Use `'same-origin'` or `'omit'`
+   * if you want to avoid sending cookies to the API.
    */
   credentials?: RequestCredentials;
 }
