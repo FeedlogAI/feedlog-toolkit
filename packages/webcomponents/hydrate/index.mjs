@@ -6942,7 +6942,7 @@ class FeedlogTimeoutError extends FeedlogError {
 class FeedlogSDK {
     constructor(config) {
         this.config = {
-            credentials: 'same-origin',
+            credentials: 'include',
             ...config,
         };
         this.apiKey = this.config.apiKey;

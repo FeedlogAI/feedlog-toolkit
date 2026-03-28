@@ -1,6 +1,6 @@
 {
   "name": "@feedlog-ai/react",
-  "version": "0.0.44",
+  "version": "0.0.45",
   "description": "React bindings for Feedlog Toolkit Web Components",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -55,7 +55,7 @@
     }
   },
   "dependencies": {
-    "@feedlog-ai/webcomponents": "^0.0.44"
+    "@feedlog-ai/webcomponents": "^0.0.45"
   },
   "devDependencies": {
     "@jest/test-sequencer": "^29.7.0",
