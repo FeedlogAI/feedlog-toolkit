@@ -158,9 +158,11 @@ The compiler-based SSR (used by Vite, Remix, and Next.js with `feedlogSSR` / `wi
 
 This is a [documented limitation](https://stenciljs.com/docs/server-side-rendering) of Stencil's compiler approach ("Static props only").
 
-### Build Your Own Feedlog (Full SSR)
+### Build your own changelog
 
-For full SSR of the issues list (no flash of empty content), build a custom wrapper that fetches on the server and passes data to `FeedlogIssues`. See [Build Your Own Feedlog](../../docs/BUILD_YOUR_OWN_FEEDLOG.md) for copy-paste instructions for AI assistants and code generators.
+- [Build Your Own Feedlog (hub)](../../docs/BUILD_YOUR_OWN_FEEDLOG.md) — three tiers (client, composable, core-only) and AI copy-paste blocks
+- [Top-level client](./BUILD_FEEDLOG_CLIENT.md) — `FeedlogIssuesClient`
+- [Composable + your data](./BUILD_FEEDLOG_COMPOSABLE.md) — `FeedlogSDK` + `FeedlogIssues` (full SSR, loaders)
 
 ### Event Handling
 

@@ -8,7 +8,7 @@ description: >-
 
 # Customize Feedlog styling (CSS only)
 
-This guide covers **CSS custom properties** for the Feedlog changelog widget (`feedlog-issues-client`, `feedlog-issues`, and nested cards). It does **not** cover custom data flow or SSR; for that, see [Build Your Own Feedlog](BUILD_YOUR_OWN_FEEDLOG.md).
+This guide covers **CSS custom properties** for the Feedlog changelog widget (`feedlog-issues-client`, `feedlog-issues`, and nested cards). It does **not** cover custom data flow, SSR, or fully custom UI; for those integration levels (top-level client, composable components, or core-only SDK), see [Build Your Own Feedlog](BUILD_YOUR_OWN_FEEDLOG.md).
 
 ## Where to set variables
 

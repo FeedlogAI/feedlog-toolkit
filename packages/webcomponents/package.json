@@ -50,7 +50,9 @@
   "files": [
     "dist",
     "loader",
-    "hydrate"
+    "hydrate",
+    "BUILD_FEEDLOG_CLIENT.md",
+    "BUILD_FEEDLOG_COMPOSABLE.md"
   ],
   "sideEffects": [
     "dist/components/*.js"

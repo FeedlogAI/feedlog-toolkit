@@ -159,12 +159,6 @@ const handleError = (event: CustomEvent) => {
 </script>
 ```
 
-## Build Your Own Feedlog
-
-Need custom data flow, or a framework-specific setup? See [Build Your Own Feedlog](docs/BUILD_YOUR_OWN_FEEDLOG.md) for instructions you can copy into an AI assistant or code generator to create a custom implementation without `FeedlogIssuesClient`.
-
-To theme the widget with **CSS only** (no custom data flow), see [Customize Feedlog styling](docs/CUSTOMIZE_FEEDLOG_STYLING.md).
-
 ## 🎨 Style Customization
 
 Customize the changelog widget to match your product. Set CSS custom properties on the component—works with vanilla HTML, React, Vue, or any framework. For the **full `--feedlog-*` reference** (grouped by component and source file), see [Customize Feedlog styling](docs/CUSTOMIZE_FEEDLOG_STYLING.md).
@@ -232,6 +226,12 @@ feedlog-issues {
 - **[feedlog-issue readme](packages/webcomponents/src/components/feedlog-issue/readme.md#css-customization)** — issue card examples, upvote and accent gradients, and what you cannot do with variables alone (`::part`, slots).
 
 See the [CustomCSSVars story](packages/webcomponents/src/components/feedlog-issues/feedlog-issues.stories.tsx) in Storybook for a live example. Run `npm run storybook` to explore all variants.
+
+## Build Your Own Feedlog
+
+Pick how much you own: **all-in-one client** (built-in fetch), **composable UI** (you fetch with `FeedlogSDK`, Feedlog renders the list), or **core-only** (your markup, SDK for data and upvotes). See [Build Your Own Feedlog](docs/BUILD_YOUR_OWN_FEEDLOG.md) for the overview, links to per-package guides, and copy-paste blocks for AI assistants.
+
+To theme the widget with **CSS only** (no custom data flow), see [Customize Feedlog styling](docs/CUSTOMIZE_FEEDLOG_STYLING.md).
 
 ## 🛠 Development
 

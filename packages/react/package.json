@@ -33,7 +33,9 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "BUILD_FEEDLOG_CLIENT.md",
+    "BUILD_FEEDLOG_COMPOSABLE.md"
   ],
   "sideEffects": false,
   "scripts": {

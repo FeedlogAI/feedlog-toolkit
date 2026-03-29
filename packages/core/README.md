@@ -112,6 +112,10 @@ new FeedlogSDK(config: FeedlogSDKConfig)
 
 - `sanitizeHtml(html: string): string` - Sanitize HTML content to prevent XSS
 
+## Custom changelog UI (core-only)
+
+To render your own markup with `FeedlogSDK` only—no React, Vue, or web component UI packages—see [BUILD_FEEDLOG_SDK_ONLY.md](./BUILD_FEEDLOG_SDK_ONLY.md). For an overview of all integration tiers, see [Build Your Own Feedlog](../../docs/BUILD_YOUR_OWN_FEEDLOG.md).
+
 ## Error Handling
 
 The SDK provides specific error types for different failure scenarios:

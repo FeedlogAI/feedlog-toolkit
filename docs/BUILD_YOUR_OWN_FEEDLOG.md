@@ -1,58 +1,96 @@
 ---
 name: build-your-own-feedlog
 description: >-
-  Builds a custom feedlog implementation without FeedlogIssuesClient for full SSR,
-  custom data flow, or framework-specific patterns. Use when the user needs
-  server-rendered issues, cannot use FeedlogIssuesClient due to dynamic props,
-  or wants to implement their own data fetching.
+  Guides building a Feedlog changelog at three levels: top-level client,
+  composable components with custom data flow (SSR, loaders), or core-only
+  custom UI. Use when choosing integration depth, full SSR, or AI-assisted codegen.
 ---
 
 # Build Your Own Feedlog
 
-When you need full SSR (no flash of empty content), custom data flow, or framework-specific patterns, you can build your own feedlog without using `FeedlogIssuesClient`. Use `FeedlogSDK` from `@feedlog-ai/core` for fetching and upvoting, and `FeedlogIssues` from `@feedlog-ai/react` for display.
+Choose how much of the stack you control:
 
-## Instructions
+1. **Top-level client** — `FeedlogIssuesClient` / `<feedlog-issues-client>` fetches and renders; fastest path.
+2. **Composable changelog** — You fetch with `FeedlogSDK` and pass `issues` into `FeedlogIssues` (or smaller pieces); best for SSR, loaders, and custom orchestration.
+3. **Core-only** — Only `@feedlog-ai/core`: types, `fetchIssues`, `toggleUpvote`, optional `sanitizeHtml`; you build all UI.
 
-1. **Fetch on the server** (or in a route loader): Use `FeedlogSDK.fetchIssues()` with your API key.
-2. **Pass data to `FeedlogIssues`**: Render `<FeedlogIssues issues={issues} theme="light" ... />` with the fetched array.
-3. **Handle upvotes client-side**: Listen for `feedlogUpvote` events, call `sdk.toggleUpvote(issueId)`, and update local state (or re-fetch).
-4. **Import from `@feedlog-ai/react`**: Do not use `@feedlog-ai/react/ssr-components` or `@feedlog-ai/react/next` for the issues components.
+Per-package walkthroughs:
 
-See [@feedlog-ai/core](../packages/core/README.md) for SDK API details.
+| Tier          | Web components                                                                       | React                                                                        | Vue                                                                        | Core                                                                    |
+| ------------- | ------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------- | -------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| 1. Client     | [BUILD_FEEDLOG_CLIENT.md](../packages/webcomponents/BUILD_FEEDLOG_CLIENT.md)         | [BUILD_FEEDLOG_CLIENT.md](../packages/react/BUILD_FEEDLOG_CLIENT.md)         | [BUILD_FEEDLOG_CLIENT.md](../packages/vue/BUILD_FEEDLOG_CLIENT.md)         | —                                                                       |
+| 2. Composable | [BUILD_FEEDLOG_COMPOSABLE.md](../packages/webcomponents/BUILD_FEEDLOG_COMPOSABLE.md) | [BUILD_FEEDLOG_COMPOSABLE.md](../packages/react/BUILD_FEEDLOG_COMPOSABLE.md) | [BUILD_FEEDLOG_COMPOSABLE.md](../packages/vue/BUILD_FEEDLOG_COMPOSABLE.md) | —                                                                       |
+| 3. SDK-only   | —                                                                                    | —                                                                            | —                                                                          | [BUILD_FEEDLOG_SDK_ONLY.md](../packages/core/BUILD_FEEDLOG_SDK_ONLY.md) |
 
-## Copy to Clipboard
+Styling with CSS variables (no custom data flow): [Customize Feedlog styling](CUSTOMIZE_FEEDLOG_STYLING.md). SDK API reference: [@feedlog-ai/core README](../packages/core/README.md).
 
-Copy the block below and paste it into your AI assistant or code generator (e.g. Claude Code, Cursor, GitHub Copilot) to generate a custom implementation:
+---
 
-````markdown
-You are helping build a custom feedlog implementation without using FeedlogIssuesClient.
+## 1. Top-level client
 
-**Context:** FeedlogIssuesClient fetches internally and cannot resolve dynamic props at build time for SSR. For full server-rendered issues (no flash of empty content), build a custom wrapper that fetches on the server and passes data to FeedlogIssues.
+**When to use:** You want one component with an API key; the widget handles fetching, errors, and upvotes.
+
+**Summary:** Install `@feedlog-ai/webcomponents`, `@feedlog-ai/react`, or `@feedlog-ai/vue` and use `FeedlogIssuesClient` / `<feedlog-issues-client>`.
+
+**Guides:** [Web components](../packages/webcomponents/BUILD_FEEDLOG_CLIENT.md) · [React](../packages/react/BUILD_FEEDLOG_CLIENT.md) · [Vue](../packages/vue/BUILD_FEEDLOG_CLIENT.md)
+
+### Copy to Clipboard (tier 1)
+
+```markdown
+You are integrating Feedlog using the top-level client only.
 
 **Approach:**
 
-- Use FeedlogSDK from @feedlog-ai/core for fetching and upvoting
-- Use FeedlogIssues (or FeedlogIssuesList, FeedlogIssueComponent) from @feedlog-ai/react for display
-- Do NOT use FeedlogIssuesClient
+- Use FeedlogIssuesClient (React/Vue) or `<feedlog-issues-client>` (vanilla) from the matching @feedlog-ai package
+- Pass apiKey and optional type, limit, theme, maxWidth
+- Listen for upvote/error events as documented in the package README
+
+**Do not** implement manual fetch unless the user asks for composable or core-only patterns.
+```
+
+---
+
+## 2. Composable changelog
+
+**When to use:** Full SSR without an empty flash, route loaders, dynamic props at request time, or custom loading/error UX while keeping Feedlog’s list and cards.
+
+**Summary:** Use `FeedlogSDK` from `@feedlog-ai/core` to fetch (server or loader). Pass the `issues` array into `FeedlogIssues` / `<feedlog-issues>` (or `FeedlogIssuesList`, single-issue components). Handle `feedlogUpvote` with `sdk.toggleUpvote` and update state.
+
+**Guides:** [Web components](../packages/webcomponents/BUILD_FEEDLOG_COMPOSABLE.md) · [React](../packages/react/BUILD_FEEDLOG_COMPOSABLE.md) · [Vue](../packages/vue/BUILD_FEEDLOG_COMPOSABLE.md)
+
+**React note:** Import issues components from `@feedlog-ai/react`, not `@feedlog-ai/react/ssr-components` or `@feedlog-ai/react/next`.
+
+### Copy to Clipboard (tier 2)
+
+````markdown
+You are building a composable Feedlog changelog: custom data flow + Feedlog UI components.
+
+**Context:** FeedlogIssuesClient fetches internally; for SSR or request-time props, fetch with FeedlogSDK and pass data into FeedlogIssues (or feedlog-issues).
+
+**Approach:**
+
+- FeedlogSDK from @feedlog-ai/core for fetchIssues and toggleUpvote
+- Presentation: FeedlogIssues / FeedlogIssuesList / FeedlogIssueComponent (React), or feedlog-issues (web components), or FeedlogIssues / FeedlogIssuesList / FeedlogIssue (Vue)
+- Do NOT use FeedlogIssuesClient for this pattern
 
 **Data flow:**
 
-1. Fetch issues on the server (or in route loader) with FeedlogSDK.fetchIssues({ type?, limit?, sortBy?, cursor? })
-2. Pass the issues array to FeedlogIssues: <FeedlogIssues issues={issues} theme="light" maxWidth="42rem" ... />
-3. Handle feedlogUpvote events client-side: call sdk.toggleUpvote(issueId), then optimistically update the issues array or re-fetch
+1. Fetch with FeedlogSDK.fetchIssues({ type?, limit?, cursor?, ... }) where your framework resolves the API key (server, loader, etc.)
+2. Pass issues into the presentation component as a property/array prop
+3. On feedlogUpvote: sdk.toggleUpvote(issueId), then optimistically update issues or re-fetch
 
 **Framework patterns:**
 
-- Next.js App Router: Create an async Server Component that calls new FeedlogSDK({ apiKey }).fetchIssues(), then renders FeedlogIssues with the result
-- Next.js Pages Router: Use getServerSideProps or getStaticProps to fetch issues, pass to page, render FeedlogIssues
-- Vite / Remix: Fetch in the route loader, pass data to the page component, render FeedlogIssues with the fetched issues array
+- Next.js App Router: async Server Component calls fetchIssues, renders FeedlogIssues with issues; wrap upvote handling in a client component if needed
+- Next.js Pages: getServerSideProps / getStaticProps → pass issues to FeedlogIssues
+- Vite / Remix: loader fetch → page renders FeedlogIssues with data
+- Vanilla: dynamic import SDK + components; set element.issues after fetch
 
-**Important:** The wrapper must run on the server so props are resolved at request time. Import FeedlogIssues from @feedlog-ai/react (not @feedlog-ai/react/ssr-components or @feedlog-ai/react/next).
+**React imports:** @feedlog-ai/react for FeedlogIssues (not ssr-components/next for the issues list).
 
 **Example (Next.js App Router):**
 
 ```tsx
-// app/issues/page.tsx
 import { FeedlogIssues } from '@feedlog-ai/react';
 import { FeedlogSDK } from '@feedlog-ai/core';
 
@@ -63,5 +101,29 @@ export default async function IssuesPage() {
 }
 ```
 
-For upvote handling, create a client component that wraps FeedlogIssues, listens for feedlogUpvote, calls sdk.toggleUpvote(issueId), and updates local state.
+For upvotes, use a client component that listens for feedlogUpvote, calls sdk.toggleUpvote(issueId), and updates local state.
 ````
+
+---
+
+## 3. Core-only custom UI
+
+**When to use:** You want full control over HTML/CSS/framework components and only need the Feedlog API and types.
+
+**Summary:** Install `@feedlog-ai/core` only. You do **not** need `@feedlog-ai/react`, `@feedlog-ai/vue`, or `@feedlog-ai/webcomponents` for rendering. Use `FeedlogSDK`, `FeedlogIssue` types, and optionally `sanitizeHtml` for issue bodies.
+
+**Guide:** [BUILD_FEEDLOG_SDK_ONLY.md](../packages/core/BUILD_FEEDLOG_SDK_ONLY.md)
+
+### Copy to Clipboard (tier 3)
+
+```markdown
+You are building a Feedlog-powered changelog with a fully custom UI (no Feedlog web components or React/Vue bindings).
+
+**Approach:**
+
+- Only @feedlog-ai/core: FeedlogSDK, types (FeedlogIssue), sanitizeHtml for HTML bodies
+- fetchIssues for the list; toggleUpvote(issueId) when the user votes
+- Render your own markup; handle loading, errors, and pagination in your app
+
+**Do not** import @feedlog-ai/react, @feedlog-ai/vue, or @feedlog-ai/webcomponents unless the user explicitly wants those layers.
+```

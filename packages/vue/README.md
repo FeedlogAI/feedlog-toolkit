@@ -307,6 +307,12 @@ If you're migrating from using web components directly:
 - Event names remain the same (kebab-case)
 - All props and events are properly typed
 
+## Build your own changelog
+
+- [Build Your Own Feedlog (hub)](../../docs/BUILD_YOUR_OWN_FEEDLOG.md) — three tiers and AI copy-paste blocks
+- [Top-level client](./BUILD_FEEDLOG_CLIENT.md) — `FeedlogIssuesClient`
+- [Composable + your data](./BUILD_FEEDLOG_COMPOSABLE.md) — `FeedlogSDK` + `FeedlogIssues`
+
 ## License
 
 MIT
