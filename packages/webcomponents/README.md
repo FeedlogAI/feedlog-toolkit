@@ -292,6 +292,7 @@ feedlog-issues {
   --feedlog-shadow-hover-enhancement: 0 4px 12px -2px rgba(0, 0, 0, 0.1);
   --feedlog-shadow-hover-bug: 0 4px 12px -2px rgba(0, 0, 0, 0.1);
   /* Typography */
+  --feedlog-title-font-family: system-ui, sans-serif;
   --feedlog-title-font-size: 1.125rem;
   --feedlog-title-font-weight: 600;
   --feedlog-body-font-size: 0.875rem;

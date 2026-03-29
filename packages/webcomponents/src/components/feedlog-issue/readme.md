@@ -24,6 +24,7 @@ feedlog-issue {
 
   /* Typography */
   --feedlog-font-family: system-ui, sans-serif;
+  --feedlog-title-font-family: 'Georgia', serif;
   --feedlog-title-font-size: 1.125rem;
   --feedlog-title-font-weight: 600;
   --feedlog-title-line-height: 1.3;

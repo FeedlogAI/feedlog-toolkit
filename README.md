@@ -241,6 +241,7 @@ feedlog-issues {
 | `--feedlog-shadow`                    | Card box shadow                  | (see theme)                       |
 | `--feedlog-shadow-hover-enhancement`  | Hover shadow (enhancement cards) | (see theme)                       |
 | `--feedlog-shadow-hover-bug`          | Hover shadow (bug cards)         | (see theme)                       |
+| `--feedlog-title-font-family`         | Issue title font family          | `var(--feedlog-font-family)`      |
 | `--feedlog-title-font-size`           | Issue title size                 | `1.125rem`                        |
 | `--feedlog-title-font-weight`         | Issue title weight               | `600`                             |
 | `--feedlog-body-font-size`            | Body text size                   | `0.875rem`                        |
