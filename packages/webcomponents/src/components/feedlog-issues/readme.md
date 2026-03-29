@@ -1,5 +1,9 @@
 # feedlog-issues
 
+## Styling
+
+Container and list chrome tokens are set on `:host` in [`feedlog-issues.css`](./feedlog-issues.css). Override `--feedlog-*` on `feedlog-issues` or `feedlog-issues-client` (or an ancestor). Full reference: [Customize Feedlog styling](../../../../../docs/CUSTOMIZE_FEEDLOG_STYLING.md). Per-issue card and upvote variables: [feedlog-issue readme](../feedlog-issue/readme.md#css-customization).
+
 <!-- Auto Generated Below -->
 
 ## Overview

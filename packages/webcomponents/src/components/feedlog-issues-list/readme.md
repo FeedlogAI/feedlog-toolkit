@@ -1,5 +1,9 @@
 # feedlog-issues-list
 
+## Styling
+
+Empty-state illustration colors use `--feedlog-empty-illustration-*` on `:host` in [`feedlog-issues-list.css`](./feedlog-issues-list.css); values typically inherit from parent feed components. See [Customize Feedlog styling](../../../../../docs/CUSTOMIZE_FEEDLOG_STYLING.md).
+
 <!-- Auto Generated Below -->
 
 ## Overview

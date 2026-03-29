@@ -1,5 +1,9 @@
 # feedlog-badge
 
+## Styling
+
+`--feedlog-badge-*` and variant colors (`--feedlog-blue-*`, `--feedlog-red-*`, `--feedlog-muted-*`) are defined on `:host` in [`feedlog-badge.css`](./feedlog-badge.css); override from a parent such as `feedlog-issues` or `feedlog-issues-client`. See [Customize Feedlog styling](../../../../../docs/CUSTOMIZE_FEEDLOG_STYLING.md).
+
 <!-- Auto Generated Below -->
 
 ## Overview

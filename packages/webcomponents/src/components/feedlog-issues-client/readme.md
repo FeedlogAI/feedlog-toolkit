@@ -1,5 +1,9 @@
 # feedlog-issues-client
 
+## Styling
+
+Set `--feedlog-*` on this element or a wrapper; custom properties inherit through shadow DOM into `feedlog-issues` and issue cards. See [Customize Feedlog styling](../../../../../docs/CUSTOMIZE_FEEDLOG_STYLING.md) and [feedlog-issue readme](../feedlog-issue/readme.md#css-customization).
+
 <!-- Auto Generated Below -->
 
 ## Overview

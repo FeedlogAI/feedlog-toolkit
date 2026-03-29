@@ -279,30 +279,18 @@ interface ErrorEventDetail {
 
 ## Styling
 
-Components use Shadow DOM for encapsulation. You can style them using CSS custom properties. See the [main README](../../README.md#-style-customization) for full copy-paste examples.
+Components use Shadow DOM for encapsulation. Theme them with CSS custom properties on `feedlog-issues-client` or `feedlog-issues` (they inherit into nested components).
+
+- **[Customize Feedlog styling](../../docs/CUSTOMIZE_FEEDLOG_STYLING.md)** — full `--feedlog-*` reference and source file links
+- **[Main README quick examples](../../README.md#-style-customization)** — copy-paste themes
+- **[feedlog-issue readme](src/components/feedlog-issue/readme.md#css-customization)** — card, upvote, `::part` / slots
 
 ```css
 feedlog-issues-client,
 feedlog-issues {
-  /* Card */
-  --feedlog-card-padding: 1.25rem;
-  --feedlog-card-radius: 0.75rem;
-  --feedlog-radius: 0.625rem;
-  --feedlog-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
-  --feedlog-shadow-hover-enhancement: 0 4px 12px -2px rgba(0, 0, 0, 0.1);
-  --feedlog-shadow-hover-bug: 0 4px 12px -2px rgba(0, 0, 0, 0.1);
-  /* Typography */
-  --feedlog-title-font-family: system-ui, sans-serif;
-  --feedlog-title-font-size: 1.125rem;
-  --feedlog-title-font-weight: 600;
-  --feedlog-body-font-size: 0.875rem;
-  --feedlog-body-line-height: 1.6;
-  --feedlog-timestamp-font-size: 0.6875rem;
-  /* Colors */
   --feedlog-accent-color: #2563eb;
-  --feedlog-muted: #f1f5f9;
-  --feedlog-muted-foreground: #64748b;
-  --feedlog-border: rgba(0, 0, 0, 0.08);
+  --feedlog-card-padding: 1.25rem;
+  --feedlog-radius: 0.625rem;
 }
 ```
 
