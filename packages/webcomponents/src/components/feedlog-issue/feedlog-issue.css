@@ -540,6 +540,73 @@
   border-color: var(--feedlog-upvote-upvoted-border-hover);
 }
 
+/* Closed enhancements: native disabled + frozen styles (no hover / lift) */
+.upvote-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.92;
+}
+
+.upvote-button:disabled,
+.upvote-button:disabled:hover,
+.upvote-button:disabled:active {
+  transform: none;
+  box-shadow: var(--feedlog-upvote-shadow);
+}
+
+.upvote-button:disabled:not(.upvoted),
+.upvote-button:disabled:not(.upvoted):hover,
+.upvote-button:disabled:not(.upvoted):active {
+  background: var(--feedlog-upvote-bg);
+  border-color: var(--feedlog-upvote-border);
+}
+
+.upvote-button.upvoted:disabled,
+.upvote-button.upvoted:disabled:hover,
+.upvote-button.upvoted:disabled:active {
+  background: var(--feedlog-upvote-upvoted-bg);
+  border-color: var(--feedlog-upvote-upvoted-border);
+}
+
+.upvote-button:disabled .upvote-action,
+.upvote-button:disabled:hover .upvote-action,
+.upvote-button:disabled:active .upvote-action {
+  color: var(--feedlog-upvote-text);
+}
+
+.upvote-button.upvoted:disabled .upvote-action,
+.upvote-button.upvoted:disabled:hover .upvote-action,
+.upvote-button.upvoted:disabled:active .upvote-action {
+  color: var(--feedlog-upvote-upvoted-text);
+}
+
+.upvote-button:disabled .upvote-count,
+.upvote-button:disabled:hover .upvote-count,
+.upvote-button:disabled:active .upvote-count {
+  color: var(--feedlog-upvote-text);
+}
+
+.upvote-button.upvoted:disabled .upvote-count,
+.upvote-button.upvoted:disabled:hover .upvote-count,
+.upvote-button.upvoted:disabled:active .upvote-count {
+  color: var(--feedlog-upvote-upvoted-text);
+}
+
+.upvote-button:disabled .reel-container,
+.upvote-button:disabled:hover .reel-container {
+  border-color: var(--feedlog-upvote-reel-border);
+}
+
+.upvote-button.upvoted:disabled .reel-container,
+.upvote-button.upvoted:disabled:hover .reel-container {
+  border-color: var(--feedlog-upvote-reel-border-upvoted);
+}
+
+.upvote-button:disabled .upvote-icon,
+.upvote-button:disabled:hover .upvote-icon,
+.upvote-button:disabled:active .upvote-icon {
+  transform: none;
+}
+
 .upvote-action {
   display: flex;
   flex-direction: row;

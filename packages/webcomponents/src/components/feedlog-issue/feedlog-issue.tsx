@@ -65,8 +65,15 @@ export class FeedlogIssueComponent {
     mediaEl.classList.toggle('has-media', !!slot);
   }
 
+  /** Closed enhancements cannot change upvote state (implemented / shipped). */
+  private isUpvoteReadonly(): boolean {
+    const { issue } = this;
+    return issue.type === 'enhancement' && issue.status === 'closed';
+  }
+
   private handleUpvote = (event: MouseEvent) => {
     event.stopPropagation();
+    if (this.isUpvoteReadonly()) return;
     const nextUpvoted = !this.issue.hasUpvoted;
     this.feedlogUpvote.emit({
       issueId: this.issue.id,
@@ -218,6 +225,7 @@ export class FeedlogIssueComponent {
     const statusBadgeLabel = this.getStatusBadgeLabel();
     const githubUrl = issue.githubIssueLink ?? issueUrl;
     const showGithubButton = githubUrl != null && githubUrl !== '';
+    const upvoteReadonly = this.isUpvoteReadonly();
 
     return (
       <Host
@@ -286,10 +294,18 @@ export class FeedlogIssueComponent {
                   )}
                   {issue.type !== 'bug' && (
                     <button
+                      type="button"
                       part="upvote-button"
                       class={`upvote-button ${issue.hasUpvoted ? 'upvoted' : ''}`}
+                      disabled={upvoteReadonly}
                       onClick={(e: MouseEvent) => this.handleUpvote(e)}
-                      title={issue.hasUpvoted ? 'Remove upvote' : 'Upvote this issue'}
+                      title={
+                        upvoteReadonly
+                          ? 'Upvoting is closed for implemented items'
+                          : issue.hasUpvoted
+                            ? 'Remove upvote'
+                            : 'Upvote this issue'
+                      }
                     >
                       <div class="upvote-action">
                         <slot name="upvote-icon">{this.renderUpvoteIcon(issue.hasUpvoted)}</slot>
