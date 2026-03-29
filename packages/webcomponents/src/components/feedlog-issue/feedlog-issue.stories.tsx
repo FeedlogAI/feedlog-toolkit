@@ -271,6 +271,29 @@ export const CustomCSSVars: Story = {
   ),
 };
 
+/** Explicit tokens aligned with feedlog.dev marketing surfaces (compare to Default). */
+export const FeedLogMarketingTheme: Story = {
+  args: {
+    issue: sampleEnhancementIssue,
+  },
+  render: (props: any) => (
+    <feedlog-issue
+      {...props}
+      style={
+        {
+          '--feedlog-font-family':
+            "ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+          '--feedlog-muted': '#f4f4f5',
+          '--feedlog-border': 'rgba(0, 0, 0, 0.06)',
+          '--feedlog-card-radius': '1rem',
+          '--feedlog-card-accent-height': '3px',
+          '--feedlog-shadow': '0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.04)',
+        } as any
+      }
+    />
+  ),
+};
+
 /* --- API Change Stories (2025-02-16) --- */
 
 export const RepositoryNullName: Story = {

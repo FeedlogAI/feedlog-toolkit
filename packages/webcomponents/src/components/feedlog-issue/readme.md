@@ -4,7 +4,7 @@ A component for displaying a single GitHub issue with support for bugs and enhan
 
 ## CSS Customization
 
-You can customize the appearance by setting CSS variables on the `feedlog-issue` element:
+You can customize the appearance by setting CSS variables on the `feedlog-issue` element (or on a parent such as `feedlog-issues` / `feedlog-issues-client` when inheritance applies):
 
 ```css
 feedlog-issue {
@@ -23,12 +23,72 @@ feedlog-issue {
     inset 0 1px 0 rgba(255, 255, 255, 0.6);
 
   /* Typography */
+  --feedlog-font-family: system-ui, sans-serif;
   --feedlog-title-font-size: 1.125rem;
   --feedlog-title-font-weight: 600;
+  --feedlog-title-line-height: 1.3;
+  --feedlog-title-margin-bottom: 0.75rem;
+  --feedlog-title-letter-spacing: -0.02em;
   --feedlog-body-font-size: 0.875rem;
   --feedlog-body-line-height: 1.6;
   --feedlog-timestamp-font-size: 0.6875rem;
   --feedlog-timestamp-color: var(--feedlog-muted-foreground);
+
+  /* Card chrome */
+  --feedlog-card-accent-height: 3px;
+  --feedlog-card-accent-opacity: 0.85;
+  --feedlog-card-hover-translate-y: 0;
+  --feedlog-content-gap: 0.875rem;
+  --feedlog-footer-margin-top: 1rem;
+  --feedlog-footer-padding-top: 1.25rem;
+  --feedlog-header-margin-bottom: 0.875rem;
+  --feedlog-title-underline-width: 3rem;
+  --feedlog-title-underline-height: 2px;
+  --feedlog-title-underline-offset: -4px;
+  --feedlog-title-underline-radius: 2px;
+  --feedlog-card-padding-mobile: 1rem;
+  --feedlog-content-gap-mobile: 0.75rem;
+  --feedlog-title-font-size-mobile: 1.25rem;
+
+  /* Optional: replace the entire top accent bar gradient */
+  --feedlog-card-accent-gradient-enhancement: linear-gradient(
+    90deg,
+    var(--feedlog-blue-400),
+    var(--feedlog-accent-color),
+    var(--feedlog-blue-600)
+  );
+  --feedlog-card-accent-gradient-bug: linear-gradient(
+    90deg,
+    var(--feedlog-red-600),
+    var(--feedlog-destructive),
+    var(--feedlog-red-600)
+  );
+
+  /* Upvote pill (light defaults; dark theme overrides these on :host(.dark)) */
+  --feedlog-upvote-bg: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(248, 250, 252, 0.8) 100%
+  );
+  --feedlog-upvote-bg-hover: linear-gradient(
+    180deg,
+    rgba(248, 250, 252, 0.9) 0%,
+    rgba(241, 245, 249, 0.9) 100%
+  );
+  --feedlog-upvote-border: rgba(226, 232, 240, 0.8);
+  --feedlog-upvote-border-hover: #cbd5e1;
+  --feedlog-upvote-shadow: 0 2px 4px rgba(0, 0, 0, 0.02), inset 0 1px 0 rgba(255, 255, 255, 1);
+  --feedlog-upvote-shadow-hover:
+    0 8px 16px -4px rgba(0, 0, 0, 0.05), 0 4px 8px -2px rgba(0, 0, 0, 0.02),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+  --feedlog-upvote-text: #475569;
+  --feedlog-upvote-text-hover: #0f172a;
+  --feedlog-upvote-upvoted-bg: linear-gradient(180deg, #eff6ff 0%, #e0e7ff 100%);
+  --feedlog-upvote-upvoted-border: #bfdbfe;
+  --feedlog-upvote-upvoted-text: #2563eb;
+  --feedlog-upvote-reel-border: #e2e8f0;
+  --feedlog-upvote-hover-lift: -2px;
+  --feedlog-upvote-backdrop-blur: 8px;
 
   /* Colors (inherited from theme) */
   --feedlog-card: #ffffff;
@@ -44,6 +104,22 @@ feedlog-issue {
   --feedlog-upvote-icon-filled-color: var(--feedlog-red-600);
 }
 ```
+
+### What you can customize with CSS variables
+
+Any `--feedlog-*` token declared on the component’s `:host` in `feedlog-issue.css` can be overridden from the outside by setting the same name on `feedlog-issue` (or a parent, when the cascade applies). That includes theme colors, radii, shadows, padding, typography, the top accent bar (height, opacity, or full gradient via `--feedlog-card-accent-gradient-*`), card hover lift, content/footer spacing, title underline, mobile padding/gap/title size, and the upvote control backgrounds, borders, shadows, and text colors.
+
+### What you cannot customize with CSS variables alone
+
+- **DOM and structure:** Markdown output inside the body (headings, lists, blockquotes), which slots exist, and whether the footer or upvote row appears.
+- **SVG metrics in the component source:** Default pin/upvote icon sizes, `viewBox`, and stroke width (change via **slots**—e.g. `upvote-icon`—or a future prop).
+- **Behavior:** `feedlogUpvote` payload, `theme` prop handling, issue type → enhancement vs bug styling class.
+- **Shadow piercing:** External stylesheets cannot target internal class names. Use **CSS variables on the host**, **`::part`** (`github-link`, `media`, `upvote-button`), or **slots** (`media`, `upvote-icon`).
+- **Values never wired to `var()`:** Anything still literal in the stylesheet cannot be themed until a matching `--feedlog-*` is added in component CSS.
+
+### Making something new customizable
+
+Expose it as a custom property on `:host` with a sensible default, then reference it with `var(--feedlog-…, fallback)` in the rules. Layout or behavior changes need **props**, **slots**, or extra **`part`** / **`exportparts`** in the template.
 
 ### Media slot (images/videos)
 
