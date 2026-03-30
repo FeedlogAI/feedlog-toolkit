@@ -31,7 +31,6 @@
   /* Customization variables */
   --feedlog-card-padding: 1.5rem;
   --feedlog-title-font-size: 1.5rem;
-  --feedlog-title-font-family: var(--feedlog-font-family);
   --feedlog-title-font-weight: 700;
   --feedlog-title-line-height: 1.3;
   --feedlog-title-margin-bottom: 0.75rem;
@@ -308,7 +307,7 @@
 }
 
 .issue-title {
-  font-family: var(--feedlog-title-font-family);
+  font-family: var(--feedlog-title-font-family, var(--feedlog-font-family));
   font-size: var(--feedlog-title-font-size);
   font-weight: var(--feedlog-title-font-weight);
   margin: 0 0 var(--feedlog-title-margin-bottom) 0;

@@ -256,6 +256,7 @@ export const CustomCSSVars: Story = {
             '0 8px 24px -4px rgba(220, 38, 38, 0.15), 0 4px 8px -2px rgba(220, 38, 38, 0.1)',
           /* Typography */
           '--feedlog-title-font-size': '1.0625rem',
+          '--feedlog-title-font-family': 'Caveat, cursive',
           '--feedlog-title-font-weight': '700',
           '--feedlog-body-font-size': '0.875rem',
           '--feedlog-body-line-height': '1.6',
