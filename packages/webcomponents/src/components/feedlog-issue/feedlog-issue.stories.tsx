@@ -261,6 +261,9 @@ export const CustomCSSVars: Story = {
           '--feedlog-body-font-size': '0.875rem',
           '--feedlog-body-line-height': '1.6',
           '--feedlog-timestamp-font-size': '0.75rem',
+          '--feedlog-timestamp-color': '#b45309',
+          '--feedlog-icon-color-muted': '#0f766e',
+          '--feedlog-upvote-icon-color': '#059669',
           /* Colors */
           '--feedlog-accent-color': '#059669',
           '--feedlog-muted': '#ecfdf5',

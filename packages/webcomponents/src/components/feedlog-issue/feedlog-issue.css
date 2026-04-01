@@ -37,13 +37,7 @@
   --feedlog-body-font-size: 0.9375rem;
   --feedlog-body-line-height: 1.65;
   --feedlog-timestamp-font-size: 0.75rem;
-  --feedlog-timestamp-color: var(--feedlog-muted-foreground);
   --feedlog-card-radius: 1rem;
-  --feedlog-icon-color: var(--feedlog-muted-foreground);
-  --feedlog-icon-color-muted: var(--feedlog-muted-foreground);
-  --feedlog-pin-color: var(--feedlog-accent-color);
-  --feedlog-upvote-icon-color: var(--feedlog-blue-600);
-  --feedlog-upvote-icon-filled-color: var(--feedlog-red-600);
 
   /* Card chrome */
   --feedlog-card-accent-height: 3px;
@@ -79,10 +73,6 @@
   --feedlog-shadow:
     0 1px 2px rgba(0, 0, 0, 0.04),
     0 4px 12px rgba(0, 0, 0, 0.04);
-  /* Default: no extra elevation on hover (override for lift/glow) */
-  --feedlog-shadow-hover-enhancement: var(--feedlog-shadow);
-  --feedlog-shadow-hover-bug: var(--feedlog-shadow);
-
   /* Upvote control (light) */
   --feedlog-upvote-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, rgba(248, 250, 252, 0.8) 100%);
   --feedlog-upvote-bg-hover: linear-gradient(180deg, rgba(248, 250, 252, 0.9) 0%, rgba(241, 245, 249, 0.9) 100%);
@@ -96,16 +86,17 @@
     0 4px 8px -2px rgba(0, 0, 0, 0.02),
     inset 0 1px 0 rgba(255, 255, 255, 1);
   --feedlog-upvote-shadow-active: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --feedlog-upvote-text: #475569;
-  --feedlog-upvote-text-hover: #0f172a;
+  /* Internal defaults so --feedlog-upvote-* can inherit from outside the host */
+  --_issue-upvote-text: #475569;
+  --_issue-upvote-text-hover: #0f172a;
   --feedlog-upvote-upvoted-bg: linear-gradient(180deg, #eff6ff 0%, #e0e7ff 100%);
   --feedlog-upvote-upvoted-bg-hover: linear-gradient(180deg, #dbeafe 0%, #c7d2fe 100%);
   --feedlog-upvote-upvoted-border: #bfdbfe;
   --feedlog-upvote-upvoted-border-hover: #93c5fd;
-  --feedlog-upvote-upvoted-text: #2563eb;
-  --feedlog-upvote-upvoted-text-hover: #1d4ed8;
-  --feedlog-upvote-reel-border: #e2e8f0;
-  --feedlog-upvote-reel-border-hover: #cbd5e1;
+  --_issue-upvote-upvoted-text: #2563eb;
+  --_issue-upvote-upvoted-text-hover: #1d4ed8;
+  --_issue-upvote-reel-border: #e2e8f0;
+  --_issue-upvote-reel-border-hover: #cbd5e1;
   --feedlog-upvote-reel-border-upvoted: #bfdbfe;
   --feedlog-upvote-reel-border-upvoted-hover: #93c5fd;
   --feedlog-upvote-hover-lift: -2px;
@@ -125,13 +116,9 @@
   --feedlog-blue-300: oklch(0.78 0.12 255);
   --feedlog-blue-400: oklch(0.707 0.165 254.624);
   --feedlog-blue-600: oklch(0.546 0.245 262.881);
-  --feedlog-upvote-icon-color: var(--feedlog-blue-400);
-  --feedlog-upvote-icon-filled-color: var(--feedlog-red-600);
   --feedlog-shadow:
     0 1px 2px rgba(0, 0, 0, 0.2),
     0 4px 12px rgba(0, 0, 0, 0.25);
-  --feedlog-shadow-hover-enhancement: var(--feedlog-shadow);
-  --feedlog-shadow-hover-bug: var(--feedlog-shadow);
 
   --feedlog-upvote-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
   --feedlog-upvote-bg-hover: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%);
@@ -145,16 +132,16 @@
     0 4px 8px -2px rgba(0, 0, 0, 0.2),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
   --feedlog-upvote-shadow-active: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --feedlog-upvote-text: var(--feedlog-muted-foreground);
-  --feedlog-upvote-text-hover: var(--feedlog-card-foreground);
+  --_issue-upvote-text: var(--feedlog-muted-foreground);
+  --_issue-upvote-text-hover: var(--feedlog-card-foreground);
   --feedlog-upvote-upvoted-bg: linear-gradient(180deg, rgba(37, 99, 235, 0.2) 0%, rgba(37, 99, 235, 0.1) 100%);
   --feedlog-upvote-upvoted-bg-hover: linear-gradient(180deg, rgba(37, 99, 235, 0.25) 0%, rgba(37, 99, 235, 0.15) 100%);
   --feedlog-upvote-upvoted-border: rgba(37, 99, 235, 0.4);
   --feedlog-upvote-upvoted-border-hover: rgba(37, 99, 235, 0.5);
-  --feedlog-upvote-upvoted-text: var(--feedlog-blue-400);
-  --feedlog-upvote-upvoted-text-hover: var(--feedlog-blue-300);
-  --feedlog-upvote-reel-border: var(--feedlog-border);
-  --feedlog-upvote-reel-border-hover: var(--feedlog-muted-foreground);
+  --_issue-upvote-upvoted-text: var(--feedlog-blue-400);
+  --_issue-upvote-upvoted-text-hover: var(--feedlog-blue-300);
+  --_issue-upvote-reel-border: var(--feedlog-border);
+  --_issue-upvote-reel-border-hover: var(--feedlog-muted-foreground);
   --feedlog-upvote-reel-border-upvoted: rgba(37, 99, 235, 0.3);
   --feedlog-upvote-reel-border-upvoted-hover: rgba(37, 99, 235, 0.4);
 }
@@ -194,11 +181,11 @@
 }
 
 .issue-card.issue-type-enhancement:hover {
-  box-shadow: var(--feedlog-shadow-hover-enhancement);
+  box-shadow: var(--feedlog-shadow-hover-enhancement, var(--feedlog-shadow));
 }
 
 .issue-card.issue-type-bug:hover {
-  box-shadow: var(--feedlog-shadow-hover-bug);
+  box-shadow: var(--feedlog-shadow-hover-bug, var(--feedlog-shadow));
 }
 
 /* Media area - ready for future images/videos. Hidden until media support is added. */
@@ -268,7 +255,7 @@
 
 .issue-timestamp {
   font-size: var(--feedlog-timestamp-font-size);
-  color: var(--feedlog-timestamp-color);
+  color: var(--feedlog-timestamp-color, var(--feedlog-muted-foreground));
   white-space: nowrap;
   flex-shrink: 0;
   cursor: help;
@@ -302,7 +289,7 @@
   align-items: center;
   gap: 0.75rem;
   font-size: 0.8125rem;
-  color: var(--feedlog-muted-foreground);
+  color: var(--feedlog-icon-color, var(--feedlog-muted-foreground));
   flex-wrap: wrap;
 }
 
@@ -464,7 +451,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.375rem;
-  color: var(--feedlog-muted-foreground);
+  color: var(--feedlog-icon-color-muted, var(--feedlog-muted-foreground));
   text-decoration: none;
   font-weight: 500;
   font-size: 0.8125rem;
@@ -571,30 +558,30 @@
 .upvote-button:disabled .upvote-action,
 .upvote-button:disabled:hover .upvote-action,
 .upvote-button:disabled:active .upvote-action {
-  color: var(--feedlog-upvote-text);
+  color: var(--feedlog-upvote-text, var(--_issue-upvote-text));
 }
 
 .upvote-button.upvoted:disabled .upvote-action,
 .upvote-button.upvoted:disabled:hover .upvote-action,
 .upvote-button.upvoted:disabled:active .upvote-action {
-  color: var(--feedlog-upvote-upvoted-text);
+  color: var(--feedlog-upvote-upvoted-text, var(--_issue-upvote-upvoted-text));
 }
 
 .upvote-button:disabled .upvote-count,
 .upvote-button:disabled:hover .upvote-count,
 .upvote-button:disabled:active .upvote-count {
-  color: var(--feedlog-upvote-text);
+  color: var(--feedlog-upvote-text, var(--_issue-upvote-text));
 }
 
 .upvote-button.upvoted:disabled .upvote-count,
 .upvote-button.upvoted:disabled:hover .upvote-count,
 .upvote-button.upvoted:disabled:active .upvote-count {
-  color: var(--feedlog-upvote-upvoted-text);
+  color: var(--feedlog-upvote-upvoted-text, var(--_issue-upvote-upvoted-text));
 }
 
 .upvote-button:disabled .reel-container,
 .upvote-button:disabled:hover .reel-container {
-  border-color: var(--feedlog-upvote-reel-border);
+  border-color: var(--feedlog-upvote-reel-border, var(--_issue-upvote-reel-border));
 }
 
 .upvote-button.upvoted:disabled .reel-container,
@@ -613,22 +600,22 @@
   flex-direction: row;
   align-items: center;
   gap: 0.375rem;
-  color: var(--feedlog-upvote-text);
+  color: var(--feedlog-upvote-text, var(--_issue-upvote-text));
   font-size: 0.875rem;
   font-weight: 600;
   transition: color 0.2s ease;
 }
 
 .upvote-button:hover .upvote-action {
-  color: var(--feedlog-upvote-text-hover);
+  color: var(--feedlog-upvote-text-hover, var(--_issue-upvote-text-hover));
 }
 
 .upvote-button.upvoted .upvote-action {
-  color: var(--feedlog-upvote-upvoted-text);
+  color: var(--feedlog-upvote-upvoted-text, var(--_issue-upvote-upvoted-text));
 }
 
 .upvote-button.upvoted:hover .upvote-action {
-  color: var(--feedlog-upvote-upvoted-text-hover);
+  color: var(--feedlog-upvote-upvoted-text-hover, var(--_issue-upvote-upvoted-text-hover));
 }
 
 .upvote-icon {
@@ -652,11 +639,11 @@
 }
 
 .upvote-icon.filled {
-  color: inherit;
+  color: var(--feedlog-upvote-icon-filled-color, inherit);
 }
 
 .upvote-icon.outline {
-  color: inherit;
+  color: var(--feedlog-upvote-icon-color, inherit);
 }
 
 .reel-container {
@@ -665,13 +652,13 @@
   align-items: center;
   height: 1.25rem;
   overflow: hidden;
-  border-left: 1px solid var(--feedlog-upvote-reel-border);
+  border-left: 1px solid var(--feedlog-upvote-reel-border, var(--_issue-upvote-reel-border));
   padding-left: 0.5rem;
   transition: border-color 0.2s ease;
 }
 
 .upvote-button:hover .reel-container {
-  border-color: var(--feedlog-upvote-reel-border-hover);
+  border-color: var(--feedlog-upvote-reel-border-hover, var(--_issue-upvote-reel-border-hover));
 }
 
 .upvote-button.upvoted .reel-container {
@@ -685,21 +672,21 @@
 .upvote-count {
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--feedlog-upvote-text);
+  color: var(--feedlog-upvote-text, var(--_issue-upvote-text));
   transition: color 0.2s ease;
   line-height: 1.25rem;
 }
 
 .upvote-button:hover .upvote-count {
-  color: var(--feedlog-upvote-text-hover);
+  color: var(--feedlog-upvote-text-hover, var(--_issue-upvote-text-hover));
 }
 
 .upvote-button.upvoted .upvote-count {
-  color: var(--feedlog-upvote-upvoted-text);
+  color: var(--feedlog-upvote-upvoted-text, var(--_issue-upvote-upvoted-text));
 }
 
 .upvote-button.upvoted:hover .upvote-count {
-  color: var(--feedlog-upvote-upvoted-text-hover);
+  color: var(--feedlog-upvote-upvoted-text-hover, var(--_issue-upvote-upvoted-text-hover));
 }
 
 .reel-number {

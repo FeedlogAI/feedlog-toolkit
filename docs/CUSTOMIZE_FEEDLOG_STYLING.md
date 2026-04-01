@@ -98,43 +98,45 @@ The issues container background uses `var(--feedlog-background, var(--feedlog-th
 
 ## Reference: `feedlog-issue` ([feedlog-issue.css](../packages/webcomponents/src/components/feedlog-issue/feedlog-issue.css))
 
+Several optional tokens (for example `--feedlog-title-font-family`, `--feedlog-timestamp-color`, upvote label colors) are **not** assigned on `:host` when their default is “same as another token.” They use `var(--token, fallback)` at the use site instead, so values you set on an **ancestor** keep inheriting into the shadow tree.
+
 ### Base, colors, typography
 
-| Variable                             | Role                               | Default (light)                   |
-| ------------------------------------ | ---------------------------------- | --------------------------------- |
-| `--feedlog-font-family`              | Card font stack                    | system UI stack                   |
-| `--feedlog-background`               | Host background (card context)     | `#ffffff`                         |
-| `--feedlog-foreground`               | Foreground                         | `oklch(0.145 0 0)`                |
-| `--feedlog-card`                     | Card background                    | `#ffffff`                         |
-| `--feedlog-card-foreground`          | Card text                          | `oklch(0.145 0 0)`                |
-| `--feedlog-muted`                    | Muted fills                        | `#f4f4f5`                         |
-| `--feedlog-muted-foreground`         | Muted text                         | `#64748b`                         |
-| `--feedlog-border`                   | Borders                            | `rgba(0, 0, 0, 0.06)`             |
-| `--feedlog-accent-color`             | Links, accents                     | `#2563eb`                         |
-| `--feedlog-destructive`              | Bug stripe / destructive           | `#d4183d`                         |
-| `--feedlog-blue-400`                 | Gradients, icons                   | oklch                             |
-| `--feedlog-blue-600`                 | Icons                              | oklch                             |
-| `--feedlog-red-600`                  | Gradients, filled upvote           | `#db2777`                         |
-| `--feedlog-blue-300`                 | Dark theme upvote text hover chain | (dark only)                       |
-| `--feedlog-radius`                   | Fallback radius                    | `0.625rem`                        |
-| `--feedlog-gap`                      | (host)                             | `0.5rem`                          |
-| `--feedlog-card-padding`             | Card body padding                  | `1.5rem`                          |
-| `--feedlog-card-radius`              | Card radius                        | `1rem`                            |
-| `--feedlog-title-font-family`        | Title font                         | `var(--feedlog-font-family)`      |
-| `--feedlog-title-font-size`          | Title size                         | `1.5rem`                          |
-| `--feedlog-title-font-weight`        | Title weight                       | `700`                             |
-| `--feedlog-title-line-height`        | Title line height                  | `1.3`                             |
-| `--feedlog-title-margin-bottom`      | Title spacing                      | `0.75rem`                         |
-| `--feedlog-title-letter-spacing`     | Title tracking                     | `-0.02em`                         |
-| `--feedlog-body-font-size`           | Body                               | `0.9375rem`                       |
-| `--feedlog-body-line-height`         | Body                               | `1.65`                            |
-| `--feedlog-timestamp-font-size`      | Timestamp                          | `0.75rem`                         |
-| `--feedlog-timestamp-color`          | Timestamp color                    | `var(--feedlog-muted-foreground)` |
-| `--feedlog-icon-color`               | Icons                              | `var(--feedlog-muted-foreground)` |
-| `--feedlog-icon-color-muted`         | Muted icons                        | `var(--feedlog-muted-foreground)` |
-| `--feedlog-pin-color`                | Pin icon                           | `var(--feedlog-accent-color)`     |
-| `--feedlog-upvote-icon-color`        | Upvote outline                     | `var(--feedlog-blue-600)`         |
-| `--feedlog-upvote-icon-filled-color` | Upvote filled                      | `var(--feedlog-red-600)`          |
+| Variable                             | Role                               | Default (light)              |
+| ------------------------------------ | ---------------------------------- | ---------------------------- |
+| `--feedlog-font-family`              | Card font stack                    | system UI stack              |
+| `--feedlog-background`               | Host background (card context)     | `#ffffff`                    |
+| `--feedlog-foreground`               | Foreground                         | `oklch(0.145 0 0)`           |
+| `--feedlog-card`                     | Card background                    | `#ffffff`                    |
+| `--feedlog-card-foreground`          | Card text                          | `oklch(0.145 0 0)`           |
+| `--feedlog-muted`                    | Muted fills                        | `#f4f4f5`                    |
+| `--feedlog-muted-foreground`         | Muted text                         | `#64748b`                    |
+| `--feedlog-border`                   | Borders                            | `rgba(0, 0, 0, 0.06)`        |
+| `--feedlog-accent-color`             | Links, accents                     | `#2563eb`                    |
+| `--feedlog-destructive`              | Bug stripe / destructive           | `#d4183d`                    |
+| `--feedlog-blue-400`                 | Gradients, icons                   | oklch                        |
+| `--feedlog-blue-600`                 | Icons                              | oklch                        |
+| `--feedlog-red-600`                  | Gradients, filled upvote           | `#db2777`                    |
+| `--feedlog-blue-300`                 | Dark theme upvote text hover chain | (dark only)                  |
+| `--feedlog-radius`                   | Fallback radius                    | `0.625rem`                   |
+| `--feedlog-gap`                      | (host)                             | `0.5rem`                     |
+| `--feedlog-card-padding`             | Card body padding                  | `1.5rem`                     |
+| `--feedlog-card-radius`              | Card radius                        | `1rem`                       |
+| `--feedlog-title-font-family`        | Title font                         | `var(--feedlog-font-family)` |
+| `--feedlog-title-font-size`          | Title size                         | `1.5rem`                     |
+| `--feedlog-title-font-weight`        | Title weight                       | `700`                        |
+| `--feedlog-title-line-height`        | Title line height                  | `1.3`                        |
+| `--feedlog-title-margin-bottom`      | Title spacing                      | `0.75rem`                    |
+| `--feedlog-title-letter-spacing`     | Title tracking                     | `-0.02em`                    |
+| `--feedlog-body-font-size`           | Body                               | `0.9375rem`                  |
+| `--feedlog-body-line-height`         | Body                               | `1.65`                       |
+| `--feedlog-timestamp-font-size`      | Timestamp                          | `0.75rem`                    |
+| `--feedlog-timestamp-color`          | Timestamp color                    | `--feedlog-muted-foreground` |
+| `--feedlog-icon-color`               | Footer meta text (repo line)       | `--feedlog-muted-foreground` |
+| `--feedlog-icon-color-muted`         | GitHub link row                    | `--feedlog-muted-foreground` |
+| `--feedlog-pin-color`                | Pin icon                           | `--feedlog-accent-color`     |
+| `--feedlog-upvote-icon-color`        | Upvote outline icon                | `inherit` (label color)      |
+| `--feedlog-upvote-icon-filled-color` | Upvote filled icon                 | `inherit` (label color)      |
 
 ### Card chrome, layout, underline, mobile
 
@@ -186,7 +188,7 @@ The issues container background uses `var(--feedlog-background, var(--feedlog-th
 | `--feedlog-upvote-hover-lift`                | TranslateY on hover (default `-2px`) |
 | `--feedlog-upvote-backdrop-blur`             | Backdrop blur (default `8px`)        |
 
-Dark theme redefines the color-related upvote and shadow tokens in the same file.
+Dark theme redefines palette-backed tokens in the same file. Label and reel **text/border** colors (`--feedlog-upvote-text`, `--feedlog-upvote-text-hover`, upvoted variants, `--feedlog-upvote-reel-border`, etc.) use internal host defaults (`--_issue-*`) so you can override them from a wrapper without `:host` resetting them.
 
 ---
 
