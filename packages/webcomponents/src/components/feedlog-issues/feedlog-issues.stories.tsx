@@ -341,6 +341,7 @@ export const CustomCSSVars: Story = {
           '--feedlog-card-padding': '1.5rem',
           '--feedlog-card-radius': '0.875rem',
           '--feedlog-radius': '0.875rem',
+          '--feedlog-gap': '1.25rem',
           '--feedlog-shadow': '0 2px 8px 0 rgba(0, 0, 0, 0.12), 0 1px 3px -1px rgba(0, 0, 0, 0.1)',
           '--feedlog-shadow-hover-enhancement':
             '0 8px 24px -4px rgba(5, 150, 105, 0.15), 0 4px 8px -2px rgba(5, 150, 105, 0.1)',
