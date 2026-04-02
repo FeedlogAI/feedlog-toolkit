@@ -68,4 +68,4 @@ Theme **`feedlog-issues`** (or an ancestor) with `--feedlog-*` variables: [Custo
 ## See also
 
 - [@feedlog-ai/core README](../core/README.md) — `fetchIssues`, `toggleUpvote`, types
-- [Build Your Own Feedlog hub](../../docs/BUILD_YOUR_OWN_FEEDLOG.md)
+- [Build Feedlog](../../README.md#build-feedlog)

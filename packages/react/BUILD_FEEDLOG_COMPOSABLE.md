@@ -82,4 +82,4 @@ You can also use:
 
 - [@feedlog-ai/core README](../core/README.md)
 - [README](./README.md) — SSR plugins and troubleshooting
-- [Build Your Own Feedlog hub](../../docs/BUILD_YOUR_OWN_FEEDLOG.md)
+- [Build Feedlog](../../README.md#build-feedlog)

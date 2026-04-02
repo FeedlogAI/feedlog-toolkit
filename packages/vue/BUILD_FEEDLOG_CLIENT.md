@@ -48,5 +48,5 @@ Nuxt can server-render Stencil-based Vue components as Declarative Shadow DOM in
 ## See also
 
 - [README](./README.md) — Options API, Vue 2, global registration
-- [Build Your Own Feedlog hub](../../docs/BUILD_YOUR_OWN_FEEDLOG.md)
+- [Build Feedlog](../../README.md#build-feedlog)
 - [Customize Feedlog styling](../../docs/CUSTOMIZE_FEEDLOG_STYLING.md)

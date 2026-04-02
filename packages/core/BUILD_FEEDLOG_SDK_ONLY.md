@@ -65,4 +65,4 @@ Use **`pagination.cursor`** and **`pagination.hasMore`** from `fetchIssues` and 
 ## See also
 
 - [README](./README.md) — full SDK reference, error types, configuration
-- [Build Your Own Feedlog hub](../../docs/BUILD_YOUR_OWN_FEEDLOG.md)
+- [Build Feedlog](../../README.md#build-feedlog)

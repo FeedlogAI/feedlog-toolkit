@@ -62,4 +62,4 @@ If your framework passes serialized issues from the server (e.g. Nuxt `useAsyncD
 
 - [@feedlog-ai/core README](../core/README.md)
 - [README](./README.md)
-- [Build Your Own Feedlog hub](../../docs/BUILD_YOUR_OWN_FEEDLOG.md)
+- [Build Feedlog](../../README.md#build-feedlog)

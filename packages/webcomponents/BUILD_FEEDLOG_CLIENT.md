@@ -55,5 +55,5 @@ npm install @feedlog-ai/webcomponents
 ## See also
 
 - [README](./README.md) — full package docs, playground, SSR notes
-- [Build Your Own Feedlog hub](../../docs/BUILD_YOUR_OWN_FEEDLOG.md) — other tiers
+- [Build Feedlog](../../README.md#build-feedlog) — other tiers
 - [Customize Feedlog styling](../../docs/CUSTOMIZE_FEEDLOG_STYLING.md) — `--feedlog-*` variables

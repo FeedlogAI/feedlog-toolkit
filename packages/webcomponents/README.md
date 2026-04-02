@@ -296,7 +296,7 @@ feedlog-issues {
 
 ## Build your own changelog
 
-- [Build Your Own Feedlog (hub)](../../docs/BUILD_YOUR_OWN_FEEDLOG.md) — three tiers and AI copy-paste blocks
+- [Build Feedlog](../../README.md#build-feedlog) — three tiers and AI copy-paste blocks
 - [Top-level client](./BUILD_FEEDLOG_CLIENT.md) — `<feedlog-issues-client>`
 - [Composable + your data](./BUILD_FEEDLOG_COMPOSABLE.md) — `FeedlogSDK` + `<feedlog-issues>`
 

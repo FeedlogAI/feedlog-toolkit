@@ -46,5 +46,5 @@ In the **Next.js App Router**, any file that imports `@feedlog-ai/react` for int
 ## See also
 
 - [README](./README.md) — SSR (`withFeedlogSSR`, `feedlogSSR`), TanStack Start, limitations
-- [Build Your Own Feedlog hub](../../docs/BUILD_YOUR_OWN_FEEDLOG.md)
+- [Build Feedlog](../../README.md#build-feedlog)
 - [Customize Feedlog styling](../../docs/CUSTOMIZE_FEEDLOG_STYLING.md)
