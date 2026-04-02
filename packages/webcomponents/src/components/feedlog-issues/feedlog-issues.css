@@ -22,7 +22,7 @@
   --feedlog-radius: 0.625rem;
   --feedlog-gap: 0.5rem;
   --feedlog-padding: 2rem;
-  --feedlog-padding-mobile: 0;
+  --feedlog-padding-mobile: 1rem;
   --feedlog-min-height: 100%;
   --feedlog-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px -1px rgba(0, 0, 0, 0.08);
 }
