@@ -270,28 +270,34 @@
 
 .issue-footer {
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
+  justify-content: flex-start;
+  gap: 1rem;
   margin-top: var(--feedlog-footer-margin-top);
   padding-top: var(--feedlog-footer-padding-top);
   border-top: 1px solid var(--feedlog-border);
-  flex-wrap: wrap;
 }
 
-/* Keeps upvote on the right when repo/GitHub meta is omitted (null name, no link). */
-.issue-footer .upvote-button {
-  margin-left: auto;
-}
-
+/* Grows on the first flex line so the upvote stays right; when the button wraps, it starts a new line at the left. */
 .issue-footer-meta {
+  flex: 1 1 auto;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 0.75rem;
+  min-width: 0;
   font-size: 0.8125rem;
   color: var(--feedlog-icon-color, var(--feedlog-muted-foreground));
-  flex-wrap: wrap;
+}
+
+.issue-footer .upvote-button {
+  flex-shrink: 0;
+}
+
+/* Sole footer child: keep upvote on the right when repo/GitHub meta is omitted. */
+.issue-footer .upvote-button:only-child {
+  margin-left: auto;
 }
 
 .issue-title {
@@ -722,14 +728,6 @@
   }
 
   .issue-footer {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-
-  .issue-footer .upvote-button {
-    margin-left: 0;
-    width: 100%;
-    justify-content: center;
+    gap: 0.5rem;
   }
 }
