@@ -88,5 +88,7 @@ module.exports = {
     '*.config.ts',
     'packages/webcomponents/hydrate',
     '**/next-env.d.ts',
+    'playwright-report',
+    'test-results',
   ],
 };

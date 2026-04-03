@@ -24,9 +24,15 @@ export class FeedlogIssues {
   @Prop() maxWidth: string = '42rem';
 
   /**
-   * Page size for issues list pagination. When set, enables pagination when issues exceed this limit.
+   * Number of items per page. Used to determine skeleton count during load-more.
    */
   @Prop() limit?: number;
+
+  /**
+   * Pagination strategy: 'load-more' appends issues with a button,
+   * 'prev-next' shows prev/next arrow navigation.
+   */
+  @Prop() paginationType: 'load-more' | 'prev-next' = 'load-more';
 
   /**
    * Theme variant: 'light' or 'dark'
@@ -64,9 +70,14 @@ export class FeedlogIssues {
   @Prop() error: string | null = null;
 
   /**
-   * Whether there are more issues to load
+   * Whether there are more issues available (controls Next button / Load More visibility)
    */
   @Prop() hasMore: boolean = false;
+
+  /**
+   * Whether a previous page is available (for prev-next mode)
+   */
+  @Prop() hasPrev: boolean = false;
 
   /**
    * Whether more issues are currently loading
@@ -89,9 +100,14 @@ export class FeedlogIssues {
   }>;
 
   /**
-   * Event emitted to load more issues
+   * Event emitted to load more issues (load-more mode)
    */
   @Event() feedlogLoadMore!: EventEmitter<void>;
+
+  /**
+   * Event emitted when navigating pages (prev-next mode)
+   */
+  @Event() feedlogPageChange!: EventEmitter<{ direction: 'prev' | 'next' }>;
 
   private handleUpvote = (event: CustomEvent) => {
     event.stopPropagation();
@@ -128,13 +144,89 @@ export class FeedlogIssues {
     return (
       <feedlog-issues-list
         issues={this.issues}
-        limit={this.limit}
         theme={this.theme}
         getIssueUrl={this.getIssueUrl}
         emptyStateTitle={this.emptyStateTitle ?? 'No updates yet'}
         emptyStateMessage={this.emptyStateMessage ?? 'Check back later for new updates.'}
         onFeedlogUpvote={(e: CustomEvent) => this.handleUpvote(e)}
       />
+    );
+  }
+
+  private renderSkeletonCards(count: number) {
+    return (
+      <div class="loading-skeletons">
+        {Array.from({ length: count }, (_, i) => (
+          <div key={i} class="skeleton-card">
+            <div class="skeleton-content">
+              <div class="skeleton-header">
+                <div class="skeleton-badge" />
+                <div class="skeleton-timestamp" />
+              </div>
+              <div class="skeleton-main">
+                <div class="skeleton-title" />
+                <div class="skeleton-body">
+                  <div class="skeleton-line" />
+                  <div class="skeleton-line short" />
+                </div>
+                <div class="skeleton-repo" />
+              </div>
+              <div class="skeleton-footer">
+                <div class="skeleton-upvote" />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  private renderLoadMorePagination() {
+    return (
+      <div>
+        {this.renderIssuesList()}
+        {this.isLoadingMore && (
+          <div class="load-more-skeletons">{this.renderSkeletonCards(this.limit ?? 3)}</div>
+        )}
+        {this.hasMore && !this.isLoadingMore && (
+          <div class="load-more-container">
+            <feedlog-button onFeedlogClick={this.handleLoadMore} variant="outline">
+              Load More Issues
+            </feedlog-button>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  private renderPrevNextPagination() {
+    const showNav = this.hasPrev || this.hasMore;
+    return (
+      <div>
+        {this.renderIssuesList()}
+        {showNav && (
+          <nav class="pagination" aria-label="Issues pagination">
+            <button
+              type="button"
+              class="pagination-btn pagination-arrow"
+              aria-label="Previous page"
+              disabled={!this.hasPrev}
+              onClick={() => this.feedlogPageChange.emit({ direction: 'prev' })}
+            >
+              ‹
+            </button>
+            <button
+              type="button"
+              class="pagination-btn pagination-arrow"
+              aria-label="Next page"
+              disabled={!this.hasMore}
+              onClick={() => this.feedlogPageChange.emit({ direction: 'next' })}
+            >
+              ›
+            </button>
+          </nav>
+        )}
+      </div>
     );
   }
 
@@ -157,29 +249,7 @@ export class FeedlogIssues {
 
           {this.loading && (
             <div class="loading-state" role="status" aria-label="Loading issues">
-              <div class="loading-skeletons">
-                {[1, 2, 3].map(i => (
-                  <div key={i} class="skeleton-card">
-                    <div class="skeleton-content">
-                      <div class="skeleton-header">
-                        <div class="skeleton-badge" />
-                        <div class="skeleton-timestamp" />
-                      </div>
-                      <div class="skeleton-main">
-                        <div class="skeleton-title" />
-                        <div class="skeleton-body">
-                          <div class="skeleton-line" />
-                          <div class="skeleton-line short" />
-                        </div>
-                        <div class="skeleton-repo" />
-                      </div>
-                      <div class="skeleton-footer">
-                        <div class="skeleton-upvote" />
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              {this.renderSkeletonCards(3)}
             </div>
           )}
 
@@ -193,23 +263,11 @@ export class FeedlogIssues {
             </div>
           )}
 
-          {!this.loading && !this.error && (
-            <div>
-              {this.renderIssuesList()}
-
-              {this.hasMore && (
-                <div class="load-more-container">
-                  <feedlog-button
-                    onFeedlogClick={this.handleLoadMore}
-                    disabled={this.isLoadingMore}
-                    variant="outline"
-                  >
-                    {this.isLoadingMore ? 'Loading...' : 'Load More Issues'}
-                  </feedlog-button>
-                </div>
-              )}
-            </div>
-          )}
+          {!this.loading &&
+            !this.error &&
+            (this.paginationType === 'prev-next'
+              ? this.renderPrevNextPagination()
+              : this.renderLoadMorePagination())}
         </div>
       </Host>
     );

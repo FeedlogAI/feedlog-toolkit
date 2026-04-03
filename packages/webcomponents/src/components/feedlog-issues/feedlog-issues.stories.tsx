@@ -120,12 +120,6 @@ const sampleIssues: FeedlogIssue[] = [
   },
 ];
 
-const manyIssues: FeedlogIssue[] = Array.from({ length: 200 }, (_, i) => ({
-  ...sampleIssues[0]!,
-  id: `issue-${i + 1}`,
-  title: `Issue ${i + 1}`,
-}));
-
 const meta: Meta = {
   title: 'Components/Issues',
   component: 'feedlog-issues',
@@ -164,7 +158,12 @@ const meta: Meta = {
     },
     limit: {
       control: 'number',
-      description: 'Page size for pagination',
+      description: 'Items per page (skeleton count for load-more)',
+    },
+    paginationType: {
+      control: 'select',
+      options: ['load-more', 'prev-next'],
+      description: 'Pagination strategy',
     },
   },
   args: {
@@ -302,10 +301,12 @@ export const TransparentBackground: Story = {
   },
 };
 
-export const Paginated: Story = {
+export const LoadMore: Story = {
   args: {
-    issues: manyIssues,
-    limit: 10,
+    issues: sampleIssues.slice(0, 3),
+    hasMore: true,
+    limit: 3,
+    paginationType: 'load-more',
     heading: 'Community feedback',
     subtitle: 'Upvote issues you care about',
   },
@@ -313,16 +314,106 @@ export const Paginated: Story = {
     docs: {
       description: {
         story:
-          'Pagination with 200 issues, 10 per page. Shows first/last pages, 3 pages around current, and prev/next arrows.',
+          'Load-more pagination. Click the button to simulate loading more issues with skeleton placeholders.',
       },
     },
   },
   render: props => <feedlog-issues {...props} />,
   play: async ({ canvasElement, args }) => {
     const element = canvasElement.querySelector('feedlog-issues');
-    if (element && args.issues) {
-      (element as any).issues = args.issues;
+    if (element) {
+      if (args.issues) (element as any).issues = args.issues;
+      (element as any).hasMore = true;
       (element as any).limit = args.limit;
+      (element as any).paginationType = 'load-more';
+    }
+  },
+};
+
+export const LoadMoreLoading: Story = {
+  args: {
+    issues: sampleIssues.slice(0, 3),
+    hasMore: true,
+    isLoadingMore: true,
+    limit: 3,
+    paginationType: 'load-more',
+    heading: 'Community feedback',
+    subtitle: 'Loading more...',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Load-more in loading state: skeleton cards appear below existing issues while new ones are fetched.',
+      },
+    },
+  },
+  render: props => <feedlog-issues {...props} />,
+  play: async ({ canvasElement, args }) => {
+    const element = canvasElement.querySelector('feedlog-issues');
+    if (element) {
+      if (args.issues) (element as any).issues = args.issues;
+      (element as any).hasMore = true;
+      (element as any).isLoadingMore = true;
+      (element as any).limit = args.limit;
+      (element as any).paginationType = 'load-more';
+    }
+  },
+};
+
+export const PrevNext: Story = {
+  args: {
+    issues: sampleIssues.slice(0, 3),
+    hasMore: true,
+    hasPrev: false,
+    paginationType: 'prev-next',
+    heading: 'Community feedback',
+    subtitle: 'Page 1 of issues',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Prev/next pagination with simple arrow buttons. Prev is disabled on the first page.',
+      },
+    },
+  },
+  render: props => <feedlog-issues {...props} />,
+  play: async ({ canvasElement, args }) => {
+    const element = canvasElement.querySelector('feedlog-issues');
+    if (element) {
+      if (args.issues) (element as any).issues = args.issues;
+      (element as any).hasMore = true;
+      (element as any).hasPrev = false;
+      (element as any).paginationType = 'prev-next';
+    }
+  },
+};
+
+export const PrevNextMiddlePage: Story = {
+  args: {
+    issues: sampleIssues.slice(2, 5),
+    hasMore: true,
+    hasPrev: true,
+    paginationType: 'prev-next',
+    heading: 'Community feedback',
+    subtitle: 'Page 2 of issues',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Prev/next on a middle page: both Prev and Next are enabled.',
+      },
+    },
+  },
+  render: props => <feedlog-issues {...props} />,
+  play: async ({ canvasElement, args }) => {
+    const element = canvasElement.querySelector('feedlog-issues');
+    if (element) {
+      if (args.issues) (element as any).issues = args.issues;
+      (element as any).hasMore = true;
+      (element as any).hasPrev = true;
+      (element as any).paginationType = 'prev-next';
     }
   },
 };

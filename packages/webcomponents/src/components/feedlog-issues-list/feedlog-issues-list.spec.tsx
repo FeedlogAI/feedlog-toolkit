@@ -21,168 +21,85 @@ const createMockIssue = (id: string, title: string): FeedlogIssue => ({
 const createMockIssues = (count: number): FeedlogIssue[] =>
   Array.from({ length: count }, (_, i) => createMockIssue(`issue-${i + 1}`, `Issue ${i + 1}`));
 
-describe('feedlog-issues-list - Pagination', () => {
-  it('should hide pagination when issues.length <= limit', async () => {
+describe('feedlog-issues-list', () => {
+  it('should render all issues passed to it', async () => {
     const page = await newSpecPage({
       components: [FeedlogIssuesList],
       html: '<feedlog-issues-list></feedlog-issues-list>',
     });
 
     (page.root as HTMLFeedlogIssuesListElement).issues = createMockIssues(5);
-    (page.root as HTMLFeedlogIssuesListElement).limit = 10;
+    await page.waitForChanges();
+
+    const issueElements = page.root?.shadowRoot?.querySelectorAll('feedlog-issue');
+    expect(issueElements?.length).toBe(5);
+  });
+
+  it('should render empty state when no issues', async () => {
+    const page = await newSpecPage({
+      components: [FeedlogIssuesList],
+      html: '<feedlog-issues-list></feedlog-issues-list>',
+    });
+
+    (page.root as HTMLFeedlogIssuesListElement).issues = [];
+    (page.root as HTMLFeedlogIssuesListElement).emptyStateTitle = 'No updates yet';
+    (page.root as HTMLFeedlogIssuesListElement).emptyStateMessage = 'Check back later.';
+    await page.waitForChanges();
+
+    const emptyState = page.root?.shadowRoot?.querySelector('.empty-state-content');
+    expect(emptyState).not.toBeNull();
+    expect(emptyState?.querySelector('.empty-state-title')?.textContent).toBe('No updates yet');
+  });
+
+  it('should render fallback empty state without title/message', async () => {
+    const page = await newSpecPage({
+      components: [FeedlogIssuesList],
+      html: '<feedlog-issues-list></feedlog-issues-list>',
+    });
+
+    (page.root as HTMLFeedlogIssuesListElement).issues = [];
+    await page.waitForChanges();
+
+    const emptyState = page.root?.shadowRoot?.querySelector('.empty-state');
+    expect(emptyState?.querySelector('p')?.textContent).toBe('No issues found');
+  });
+
+  it('should not contain any pagination elements', async () => {
+    const page = await newSpecPage({
+      components: [FeedlogIssuesList],
+      html: '<feedlog-issues-list></feedlog-issues-list>',
+    });
+
+    (page.root as HTMLFeedlogIssuesListElement).issues = createMockIssues(50);
     await page.waitForChanges();
 
     const pagination = page.root?.shadowRoot?.querySelector('.pagination');
     expect(pagination).toBeNull();
-  });
-
-  it('should show pagination when issues.length > limit', async () => {
-    const page = await newSpecPage({
-      components: [FeedlogIssuesList],
-      html: '<feedlog-issues-list></feedlog-issues-list>',
-    });
-
-    (page.root as HTMLFeedlogIssuesListElement).issues = createMockIssues(50);
-    (page.root as HTMLFeedlogIssuesListElement).limit = 10;
-    await page.waitForChanges();
-
-    const pagination = page.root?.shadowRoot?.querySelector('.pagination');
-    expect(pagination).not.toBeNull();
-  });
-
-  it('should display first page of issues (limit items) when paginated', async () => {
-    const page = await newSpecPage({
-      components: [FeedlogIssuesList],
-      html: '<feedlog-issues-list></feedlog-issues-list>',
-    });
-
-    const issues = createMockIssues(50);
-    (page.root as HTMLFeedlogIssuesListElement).issues = issues;
-    (page.root as HTMLFeedlogIssuesListElement).limit = 10;
-    await page.waitForChanges();
 
     const issueElements = page.root?.shadowRoot?.querySelectorAll('feedlog-issue');
-    expect(issueElements?.length).toBe(10);
+    expect(issueElements?.length).toBe(50);
   });
 
-  it('should display correct page numbers: first, last, 3 around current, arrows', async () => {
+  it('should emit feedlogUpvote when child emits upvote', async () => {
     const page = await newSpecPage({
       components: [FeedlogIssuesList],
       html: '<feedlog-issues-list></feedlog-issues-list>',
     });
 
-    (page.root as HTMLFeedlogIssuesListElement).issues = createMockIssues(200);
-    (page.root as HTMLFeedlogIssuesListElement).limit = 10;
+    (page.root as HTMLFeedlogIssuesListElement).issues = createMockIssues(1);
     await page.waitForChanges();
 
-    const pagination = page.root?.shadowRoot?.querySelector('.pagination');
-    expect(pagination).not.toBeNull();
+    const spy = jest.fn();
+    page.root?.addEventListener('feedlogUpvote', spy);
 
-    const prevBtn = pagination?.querySelector(
-      'button[aria-label="Previous page"]'
-    ) as HTMLButtonElement;
-    const nextBtn = pagination?.querySelector(
-      'button[aria-label="Next page"]'
-    ) as HTMLButtonElement;
-    expect(prevBtn).toBeDefined();
-    expect(nextBtn).toBeDefined();
-
-    const pageButtons = pagination?.querySelectorAll(
-      'button.pagination-btn:not(.pagination-arrow)'
+    const issueEl = page.root?.shadowRoot?.querySelector('feedlog-issue');
+    issueEl?.dispatchEvent(
+      new CustomEvent('feedlogUpvote', {
+        detail: { issueId: 'issue-1', upvoted: true, upvoteCount: 1 },
+        bubbles: true,
+      })
     );
-    const pageNumbers = Array.from(pageButtons || []).map(b => b.textContent?.trim());
-    expect(pageNumbers).toContain('1');
-    expect(pageNumbers).toContain('20');
-    expect(pageNumbers.some(n => n === '1' || n === '2' || n === '3')).toBe(true);
-  });
 
-  it('should disable Prev on page 1 and disable Next on last page', async () => {
-    const page = await newSpecPage({
-      components: [FeedlogIssuesList],
-      html: '<feedlog-issues-list></feedlog-issues-list>',
-    });
-
-    (page.root as HTMLFeedlogIssuesListElement).issues = createMockIssues(50);
-    (page.root as HTMLFeedlogIssuesListElement).limit = 10;
-    await page.waitForChanges();
-
-    const pagination = page.root?.shadowRoot?.querySelector('.pagination');
-    const prevBtn = pagination?.querySelector(
-      'button[aria-label="Previous page"]'
-    ) as HTMLButtonElement;
-    const nextBtn = pagination?.querySelector(
-      'button[aria-label="Next page"]'
-    ) as HTMLButtonElement;
-
-    expect(prevBtn).toBeDefined();
-    expect(prevBtn?.hasAttribute('disabled')).toBe(true);
-    expect(nextBtn).toBeDefined();
-    expect(nextBtn?.hasAttribute('disabled')).toBe(false);
-
-    nextBtn?.click();
-    await page.waitForChanges();
-    nextBtn?.click();
-    await page.waitForChanges();
-    nextBtn?.click();
-    await page.waitForChanges();
-    nextBtn?.click();
-    await page.waitForChanges();
-
-    const prevBtnAfter = pagination?.querySelector(
-      'button[aria-label="Previous page"]'
-    ) as HTMLButtonElement;
-    const nextBtnAfter = pagination?.querySelector(
-      'button[aria-label="Next page"]'
-    ) as HTMLButtonElement;
-    expect(prevBtnAfter?.hasAttribute('disabled')).toBe(false);
-    expect(nextBtnAfter?.hasAttribute('disabled')).toBe(true);
-  });
-
-  it('should change displayed issues when clicking Next', async () => {
-    const page = await newSpecPage({
-      components: [FeedlogIssuesList],
-      html: '<feedlog-issues-list></feedlog-issues-list>',
-    });
-
-    const issues = createMockIssues(50);
-    (page.root as HTMLFeedlogIssuesListElement).issues = issues;
-    (page.root as HTMLFeedlogIssuesListElement).limit = 10;
-    await page.waitForChanges();
-
-    const firstPageFirstId = (page.root?.shadowRoot?.querySelector('feedlog-issue') as any)?.issue
-      ?.id;
-    expect(firstPageFirstId).toBe('issue-1');
-
-    const nextBtn = page.root?.shadowRoot?.querySelector(
-      'button[aria-label="Next page"]'
-    ) as HTMLButtonElement;
-    nextBtn?.click();
-    await page.waitForChanges();
-
-    const secondPageFirstId = (page.root?.shadowRoot?.querySelector('feedlog-issue') as any)?.issue
-      ?.id;
-    expect(secondPageFirstId).toBe('issue-11');
-  });
-
-  it('should change displayed issues when clicking a page number', async () => {
-    const page = await newSpecPage({
-      components: [FeedlogIssuesList],
-      html: '<feedlog-issues-list></feedlog-issues-list>',
-    });
-
-    const issues = createMockIssues(50);
-    (page.root as HTMLFeedlogIssuesListElement).issues = issues;
-    (page.root as HTMLFeedlogIssuesListElement).limit = 10;
-    await page.waitForChanges();
-
-    const page2Button = Array.from(
-      page.root?.shadowRoot?.querySelectorAll('button.pagination-btn') || []
-    ).find(b => b.textContent?.trim() === '2') as HTMLButtonElement | undefined;
-    page2Button?.click();
-    await page.waitForChanges();
-
-    const displayedFirstId = (page.root?.shadowRoot?.querySelector('feedlog-issue') as any)?.issue
-      ?.id;
-    expect(displayedFirstId).toBe('issue-11');
+    expect(spy).toHaveBeenCalled();
   });
 });

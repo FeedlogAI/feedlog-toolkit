@@ -6806,7 +6806,7 @@ class FeedlogIssueComponent {
     }; }
 }
 
-const feedlogIssuesCss = () => `:host{display:block;font-family:ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;--feedlog-theme-bg:#ffffff;--feedlog-foreground:oklch(0.145 0 0);--feedlog-card:#ffffff;--feedlog-card-foreground:oklch(0.145 0 0);--feedlog-muted:#ececf0;--feedlog-muted-foreground:#717182;--feedlog-border:rgba(0, 0, 0, 0.1);--feedlog-accent-color:#2563eb;--feedlog-destructive:#d4183d;--feedlog-blue-400:oklch(0.707 0.165 254.624);--feedlog-blue-600:oklch(0.546 0.245 262.881);--feedlog-blue-100:oklch(0.932 0.032 255.585);--feedlog-red-100:#fce7f3;--feedlog-red-400:#f472b6;--feedlog-red-600:#db2777;--feedlog-radius:0.625rem;--feedlog-gap:0.5rem;--feedlog-padding:2rem;--feedlog-padding-mobile:1rem;--feedlog-min-height:100%;--feedlog-shadow:0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px -1px rgba(0, 0, 0, 0.08)}:host(.dark){--feedlog-theme-bg:oklch(0.18 0.01 260);--feedlog-foreground:oklch(0.985 0 0);--feedlog-card:oklch(0.24 0.01 260);--feedlog-card-foreground:oklch(0.985 0 0);--feedlog-muted:oklch(0.32 0.01 260);--feedlog-muted-foreground:oklch(0.72 0.02 260);--feedlog-border:oklch(0.34 0.01 260);--feedlog-accent-color:#3b82f6;--feedlog-destructive:oklch(0.396 0.141 25.723);--feedlog-blue-400:oklch(0.707 0.165 254.624);--feedlog-blue-600:oklch(0.546 0.245 262.881);--feedlog-shadow:0 1px 3px 0 rgba(0, 0, 0, 0.3)}.issues-container{min-height:var(--feedlog-min-height);background-color:var(--feedlog-background, var(--feedlog-theme-bg, #ffffff));padding:var(--feedlog-padding);margin:0 auto;border-radius:var(--feedlog-radius)}@media (max-width: 640px){.issues-container{padding:var(--feedlog-padding-mobile)}}.issues-header{margin-bottom:1.5rem;display:flex;align-items:flex-start;justify-content:space-between}.header-content{flex:1}.issues-title{color:var(--feedlog-foreground);margin:0 0 0.25rem 0;font-size:1.5rem;font-weight:500;line-height:1.5}.issues-subtitle{color:var(--feedlog-muted-foreground);font-size:0.875rem;margin:0}.loading-state{padding:0}.loading-skeletons{display:flex;flex-direction:column;gap:var(--feedlog-gap)}.skeleton-card{background-color:var(--feedlog-card);border:1px solid var(--feedlog-border);border-radius:var(--feedlog-radius);box-shadow:var(--feedlog-shadow);position:relative;overflow:hidden}.skeleton-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--feedlog-muted)}.skeleton-content{padding:1.25rem;padding-left:calc(1.25rem + 3px);display:flex;flex-direction:column;gap:0.875rem}.skeleton-header{display:flex;align-items:center;justify-content:space-between;gap:0.75rem}.skeleton-badge{width:4.5rem;height:1.25rem;border-radius:0.375rem;background-color:var(--feedlog-muted);animation:skeleton-pulse 1.5s ease-in-out infinite}.skeleton-timestamp{width:3rem;height:0.75rem;border-radius:0.25rem;background-color:var(--feedlog-muted);animation:skeleton-pulse 1.5s ease-in-out infinite 0.2s}.skeleton-main{display:flex;flex-direction:column;gap:0.5rem}.skeleton-title{height:0.9375rem;border-radius:0.25rem;background-color:var(--feedlog-muted);animation:skeleton-pulse 1.5s ease-in-out infinite 0.1s;width:85%}.skeleton-body{display:flex;flex-direction:column;gap:0.375rem}.skeleton-line{height:0.8125rem;border-radius:0.25rem;background-color:var(--feedlog-muted);animation:skeleton-pulse 1.5s ease-in-out infinite 0.15s;width:100%}.skeleton-line.short{width:70%}.skeleton-repo{width:6rem;height:0.75rem;border-radius:0.25rem;background-color:var(--feedlog-muted);animation:skeleton-pulse 1.5s ease-in-out infinite 0.25s}.skeleton-footer{display:flex;justify-content:flex-end}.skeleton-upvote{width:2.5rem;height:2rem;border-radius:0.5rem;background-color:var(--feedlog-muted);animation:skeleton-pulse 1.5s ease-in-out infinite 0.3s}@keyframes skeleton-pulse{0%,100%{opacity:1}50%{opacity:0.5}}.error-state{display:flex;align-items:center;justify-content:center;padding:3rem 2rem;min-height:12rem}.error-state-content{display:flex;flex-direction:column;align-items:center;text-align:center;max-width:20rem;padding:2rem}.error-icon{color:var(--feedlog-muted-foreground);opacity:0.8;margin-bottom:1rem}.error-state-title{margin:0 0 0.5rem 0;font-size:1.125rem;font-weight:600;color:var(--feedlog-foreground);line-height:1.4}.error-state-message{margin:0 0 1.25rem 0;font-size:0.875rem;color:var(--feedlog-muted-foreground);line-height:1.5}.load-more-container{display:flex;justify-content:center;padding:2rem 0;gap:1rem}`;
+const feedlogIssuesCss = () => `:host{display:block;font-family:ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;--feedlog-theme-bg:#ffffff;--feedlog-foreground:oklch(0.145 0 0);--feedlog-card:#ffffff;--feedlog-card-foreground:oklch(0.145 0 0);--feedlog-muted:#ececf0;--feedlog-muted-foreground:#717182;--feedlog-border:rgba(0, 0, 0, 0.1);--feedlog-accent-color:#2563eb;--feedlog-destructive:#d4183d;--feedlog-blue-400:oklch(0.707 0.165 254.624);--feedlog-blue-600:oklch(0.546 0.245 262.881);--feedlog-blue-100:oklch(0.932 0.032 255.585);--feedlog-red-100:#fce7f3;--feedlog-red-400:#f472b6;--feedlog-red-600:#db2777;--feedlog-radius:0.625rem;--feedlog-gap:0.5rem;--feedlog-padding:2rem;--feedlog-padding-mobile:1rem;--feedlog-min-height:100%;--feedlog-shadow:0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px -1px rgba(0, 0, 0, 0.08)}:host(.dark){--feedlog-theme-bg:oklch(0.18 0.01 260);--feedlog-foreground:oklch(0.985 0 0);--feedlog-card:oklch(0.24 0.01 260);--feedlog-card-foreground:oklch(0.985 0 0);--feedlog-muted:oklch(0.32 0.01 260);--feedlog-muted-foreground:oklch(0.72 0.02 260);--feedlog-border:oklch(0.34 0.01 260);--feedlog-accent-color:#3b82f6;--feedlog-destructive:oklch(0.396 0.141 25.723);--feedlog-blue-400:oklch(0.707 0.165 254.624);--feedlog-blue-600:oklch(0.546 0.245 262.881);--feedlog-shadow:0 1px 3px 0 rgba(0, 0, 0, 0.3)}.issues-container{min-height:var(--feedlog-min-height);background-color:var(--feedlog-background, var(--feedlog-theme-bg, #ffffff));padding:var(--feedlog-padding);margin:0 auto;border-radius:var(--feedlog-radius)}@media (max-width: 640px){.issues-container{padding:var(--feedlog-padding-mobile)}}.issues-header{margin-bottom:1.5rem;display:flex;align-items:flex-start;justify-content:space-between}.header-content{flex:1}.issues-title{color:var(--feedlog-foreground);margin:0 0 0.25rem 0;font-size:1.5rem;font-weight:500;line-height:1.5}.issues-subtitle{color:var(--feedlog-muted-foreground);font-size:0.875rem;margin:0}.loading-state{padding:0}.loading-skeletons{display:flex;flex-direction:column;gap:var(--feedlog-gap)}.skeleton-card{background-color:var(--feedlog-card);border:1px solid var(--feedlog-border);border-radius:var(--feedlog-radius);box-shadow:var(--feedlog-shadow);position:relative;overflow:hidden}.skeleton-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--feedlog-muted)}.skeleton-content{padding:1.25rem;padding-left:calc(1.25rem + 3px);display:flex;flex-direction:column;gap:0.875rem}.skeleton-header{display:flex;align-items:center;justify-content:space-between;gap:0.75rem}.skeleton-badge{width:4.5rem;height:1.25rem;border-radius:0.375rem;background-color:var(--feedlog-muted);animation:skeleton-pulse 1.5s ease-in-out infinite}.skeleton-timestamp{width:3rem;height:0.75rem;border-radius:0.25rem;background-color:var(--feedlog-muted);animation:skeleton-pulse 1.5s ease-in-out infinite 0.2s}.skeleton-main{display:flex;flex-direction:column;gap:0.5rem}.skeleton-title{height:0.9375rem;border-radius:0.25rem;background-color:var(--feedlog-muted);animation:skeleton-pulse 1.5s ease-in-out infinite 0.1s;width:85%}.skeleton-body{display:flex;flex-direction:column;gap:0.375rem}.skeleton-line{height:0.8125rem;border-radius:0.25rem;background-color:var(--feedlog-muted);animation:skeleton-pulse 1.5s ease-in-out infinite 0.15s;width:100%}.skeleton-line.short{width:70%}.skeleton-repo{width:6rem;height:0.75rem;border-radius:0.25rem;background-color:var(--feedlog-muted);animation:skeleton-pulse 1.5s ease-in-out infinite 0.25s}.skeleton-footer{display:flex;justify-content:flex-end}.skeleton-upvote{width:2.5rem;height:2rem;border-radius:0.5rem;background-color:var(--feedlog-muted);animation:skeleton-pulse 1.5s ease-in-out infinite 0.3s}@keyframes skeleton-pulse{0%,100%{opacity:1}50%{opacity:0.5}}.error-state{display:flex;align-items:center;justify-content:center;padding:3rem 2rem;min-height:12rem}.error-state-content{display:flex;flex-direction:column;align-items:center;text-align:center;max-width:20rem;padding:2rem}.error-icon{color:var(--feedlog-muted-foreground);opacity:0.8;margin-bottom:1rem}.error-state-title{margin:0 0 0.5rem 0;font-size:1.125rem;font-weight:600;color:var(--feedlog-foreground);line-height:1.4}.error-state-message{margin:0 0 1.25rem 0;font-size:0.875rem;color:var(--feedlog-muted-foreground);line-height:1.5}.load-more-container{display:flex;justify-content:center;padding:2rem 0;gap:1rem}.load-more-skeletons{margin-top:var(--feedlog-gap)}.pagination{display:flex;align-items:center;justify-content:center;gap:0.5rem;margin-top:1.5rem}.pagination-btn{min-width:2rem;height:2rem;padding:0 0.5rem;color:var(--feedlog-foreground);background:transparent;border:1px solid var(--feedlog-border, oklch(0.9 0 0));border-radius:var(--feedlog-radius, 0.375rem);font-size:0.875rem;font-weight:500;cursor:pointer;transition:background-color 0.15s, border-color 0.15s}.pagination-btn:hover:not(:disabled){background:var(--feedlog-muted, oklch(0.96 0 0))}.pagination-btn:disabled{opacity:0.5;cursor:not-allowed}.pagination-arrow{font-size:1.25rem;line-height:1}:host(.dark) .pagination-btn{border-color:oklch(0.4 0.02 260)}:host(.dark) .pagination-btn:hover:not(:disabled){background:oklch(0.35 0.02 260)}`;
 
 /**
  * Feedlog Issues Component
@@ -6819,6 +6819,7 @@ class FeedlogIssues {
         registerInstance(this, hostRef);
         this.feedlogUpvote = createEvent(this, "feedlogUpvote");
         this.feedlogLoadMore = createEvent(this, "feedlogLoadMore");
+        this.feedlogPageChange = createEvent(this, "feedlogPageChange");
         /**
          * Array of issues to display
          */
@@ -6827,6 +6828,11 @@ class FeedlogIssues {
          * Maximum width of the container
          */
         this.maxWidth = '42rem';
+        /**
+         * Pagination strategy: 'load-more' appends issues with a button,
+         * 'prev-next' shows prev/next arrow navigation.
+         */
+        this.paginationType = 'load-more';
         /**
          * Theme variant: 'light' or 'dark'
          */
@@ -6840,9 +6846,13 @@ class FeedlogIssues {
          */
         this.error = null;
         /**
-         * Whether there are more issues to load
+         * Whether there are more issues available (controls Next button / Load More visibility)
          */
         this.hasMore = false;
+        /**
+         * Whether a previous page is available (for prev-next mode)
+         */
+        this.hasPrev = false;
         /**
          * Whether more issues are currently loading
          */
@@ -6860,13 +6870,28 @@ class FeedlogIssues {
     }
     renderIssuesList() {
         var _a, _b;
-        return (hAsync("feedlog-issues-list", { issues: this.issues, limit: this.limit, theme: this.theme, getIssueUrl: this.getIssueUrl, emptyStateTitle: (_a = this.emptyStateTitle) !== null && _a !== void 0 ? _a : 'No updates yet', emptyStateMessage: (_b = this.emptyStateMessage) !== null && _b !== void 0 ? _b : 'Check back later for new updates.', onFeedlogUpvote: (e) => this.handleUpvote(e) }));
+        return (hAsync("feedlog-issues-list", { issues: this.issues, theme: this.theme, getIssueUrl: this.getIssueUrl, emptyStateTitle: (_a = this.emptyStateTitle) !== null && _a !== void 0 ? _a : 'No updates yet', emptyStateMessage: (_b = this.emptyStateMessage) !== null && _b !== void 0 ? _b : 'Check back later for new updates.', onFeedlogUpvote: (e) => this.handleUpvote(e) }));
+    }
+    renderSkeletonCards(count) {
+        return (hAsync("div", { class: "loading-skeletons" }, Array.from({ length: count }, (_, i) => (hAsync("div", { key: i, class: "skeleton-card" }, hAsync("div", { class: "skeleton-content" }, hAsync("div", { class: "skeleton-header" }, hAsync("div", { class: "skeleton-badge" }), hAsync("div", { class: "skeleton-timestamp" })), hAsync("div", { class: "skeleton-main" }, hAsync("div", { class: "skeleton-title" }), hAsync("div", { class: "skeleton-body" }, hAsync("div", { class: "skeleton-line" }), hAsync("div", { class: "skeleton-line short" })), hAsync("div", { class: "skeleton-repo" })), hAsync("div", { class: "skeleton-footer" }, hAsync("div", { class: "skeleton-upvote" }))))))));
+    }
+    renderLoadMorePagination() {
+        var _a;
+        return (hAsync("div", null, this.renderIssuesList(), this.isLoadingMore && (hAsync("div", { class: "load-more-skeletons" }, this.renderSkeletonCards((_a = this.limit) !== null && _a !== void 0 ? _a : 3))), this.hasMore && !this.isLoadingMore && (hAsync("div", { class: "load-more-container" }, hAsync("feedlog-button", { onFeedlogClick: this.handleLoadMore, variant: "outline" }, "Load More Issues")))));
+    }
+    renderPrevNextPagination() {
+        const showNav = this.hasPrev || this.hasMore;
+        return (hAsync("div", null, this.renderIssuesList(), showNav && (hAsync("nav", { class: "pagination", "aria-label": "Issues pagination" }, hAsync("button", { type: "button", class: "pagination-btn pagination-arrow", "aria-label": "Previous page", disabled: !this.hasPrev, onClick: () => this.feedlogPageChange.emit({ direction: 'prev' }) }, "\u2039"), hAsync("button", { type: "button", class: "pagination-btn pagination-arrow", "aria-label": "Next page", disabled: !this.hasMore, onClick: () => this.feedlogPageChange.emit({ direction: 'next' }) }, "\u203A")))));
     }
     render() {
         const containerStyle = {
             maxWidth: this.maxWidth,
         };
-        return (hAsync(Host, { key: 'efed57e0c474b689a24e202f0fb6b67afd310572', class: this.theme === 'dark' ? 'dark' : '' }, hAsync("div", { key: 'ddb7185c3ace088f2883b2dcd193beb8af213cf3', class: "issues-container", style: containerStyle }, (this.heading || this.subtitle) && (hAsync("header", { key: '59aeafb96ac34de3ed7d0ecbd20f958dbc4d9ce9', class: "issues-header" }, hAsync("div", { key: 'cba96e346d2e09c28cf253bca55e5bc822f69762', class: "header-content" }, this.heading && hAsync("h1", { key: '7ce0ea76eb114c453a46592f2e5b1ea81b406cc4', class: "issues-title" }, this.heading), this.subtitle && hAsync("p", { key: 'a83fbcc2baab2aeb2b72ff3dbfc03cd3c77a0278', class: "issues-subtitle" }, this.subtitle)))), this.loading && (hAsync("div", { key: 'cf24d3838ef214697abfc2d8a03182e08e0ed6e7', class: "loading-state", role: "status", "aria-label": "Loading issues" }, hAsync("div", { key: 'd2a1547e4cbd7f41518153d7a8ea757beb384088', class: "loading-skeletons" }, [1, 2, 3].map(i => (hAsync("div", { key: i, class: "skeleton-card" }, hAsync("div", { class: "skeleton-content" }, hAsync("div", { class: "skeleton-header" }, hAsync("div", { class: "skeleton-badge" }), hAsync("div", { class: "skeleton-timestamp" })), hAsync("div", { class: "skeleton-main" }, hAsync("div", { class: "skeleton-title" }), hAsync("div", { class: "skeleton-body" }, hAsync("div", { class: "skeleton-line" }), hAsync("div", { class: "skeleton-line short" })), hAsync("div", { class: "skeleton-repo" })), hAsync("div", { class: "skeleton-footer" }, hAsync("div", { class: "skeleton-upvote" }))))))))), this.error && (hAsync("div", { key: '79c70736a6ba731432ef2ba84c5902e52a2ed864', class: "error-state", role: "alert" }, hAsync("div", { key: '31e987295d26e65c09187ae45e7305a46db27b32', class: "error-state-content" }, this.renderErrorIcon(), hAsync("h2", { key: 'c030fb77e635ee6e50b9bebe16d8a97f75e2921c', class: "error-state-title" }, "Something went wrong"), hAsync("p", { key: '5c725c8d65d304e58c06ce574366f7ab6f18ea59', class: "error-state-message" }, this.error)))), !this.loading && !this.error && (hAsync("div", { key: '4217556c83dbd193eeed23ec50c40ec5fedbf420' }, this.renderIssuesList(), this.hasMore && (hAsync("div", { key: 'df669ef16de0c2316715b97edd9c9af935e96464', class: "load-more-container" }, hAsync("feedlog-button", { key: 'ba1498e81606245a55d0f428e8b3b7b0bf609367', onFeedlogClick: this.handleLoadMore, disabled: this.isLoadingMore, variant: "outline" }, this.isLoadingMore ? 'Loading...' : 'Load More Issues'))))))));
+        return (hAsync(Host, { key: 'ead861ae53343e608f3a7bba6680f27187e3ea3c', class: this.theme === 'dark' ? 'dark' : '' }, hAsync("div", { key: '250fcbf891d82e475cd026eab4fcd9782aa95c4b', class: "issues-container", style: containerStyle }, (this.heading || this.subtitle) && (hAsync("header", { key: '2d2753915c975a21b90e1598407bd635fd75b2f1', class: "issues-header" }, hAsync("div", { key: '7c34be861c8f2c5c05e8282cebfc60f3c59fe875', class: "header-content" }, this.heading && hAsync("h1", { key: '23d809cf0666f418a778b1575f5e9d2fc0830a10', class: "issues-title" }, this.heading), this.subtitle && hAsync("p", { key: '98d90972083ac993de18abe1516db8e9a0e3aba2', class: "issues-subtitle" }, this.subtitle)))), this.loading && (hAsync("div", { key: 'c78dff2ed985295d6fc317a1ee7394e7638fc0a8', class: "loading-state", role: "status", "aria-label": "Loading issues" }, this.renderSkeletonCards(3))), this.error && (hAsync("div", { key: 'ceee44ffef1406e59df7a69322ca8ed2824b135f', class: "error-state", role: "alert" }, hAsync("div", { key: '7478aef6cc1e2f16d8a8acf5f218aaf391969297', class: "error-state-content" }, this.renderErrorIcon(), hAsync("h2", { key: 'da9122c20599e1f0241fe8f08ed02c9c7ec95986', class: "error-state-title" }, "Something went wrong"), hAsync("p", { key: '937ec85b44b2bd55078a5c810a3a85e560f5bd98', class: "error-state-message" }, this.error)))), !this.loading &&
+            !this.error &&
+            (this.paginationType === 'prev-next'
+                ? this.renderPrevNextPagination()
+                : this.renderLoadMorePagination()))));
     }
     static get style() { return feedlogIssuesCss(); }
     static get cmpMeta() { return {
@@ -6876,6 +6901,7 @@ class FeedlogIssues {
             "issues": [16],
             "maxWidth": [1, "max-width"],
             "limit": [2],
+            "paginationType": [1, "pagination-type"],
             "theme": [1],
             "heading": [1],
             "subtitle": [1],
@@ -6884,6 +6910,7 @@ class FeedlogIssues {
             "loading": [4],
             "error": [1],
             "hasMore": [4, "has-more"],
+            "hasPrev": [4, "has-prev"],
             "isLoadingMore": [4, "is-loading-more"],
             "getIssueUrl": [16]
         },
@@ -7239,6 +7266,16 @@ class FeedlogIssuesClient {
          */
         this.maxWidth = '42rem';
         /**
+         * Pagination strategy: 'load-more' appends issues with a button,
+         * 'prev-next' shows prev/next arrow navigation with prefetching.
+         */
+        this.paginationType = 'load-more';
+        /**
+         * Minimum time in ms to display skeleton placeholders before replacing
+         * with real data. Prevents flickering on fast networks.
+         */
+        this.minSkeletonTime = 250;
+        /**
          * Theme variant: 'light' or 'dark'
          */
         this.theme = 'light';
@@ -7248,13 +7285,20 @@ class FeedlogIssuesClient {
         this.cursor = null;
         this.hasMore = false;
         this.isLoadingMore = false;
+        /** Cached page arrays for prev-next mode */
+        this.pages = [];
+        this.currentPageIndex = 0;
+        this.hasPrev = false;
         this.sdk = null;
         /** Counter to track fetch operations and prevent stale updates */
         this.fetchRequestId = 0;
         /** Flag to prevent state updates after component disconnect */
         this.isDisconnected = false;
+        /** Whether a prefetch is already in flight (prev-next mode) */
+        this.isPrefetching = false;
         /** Map to track the latest upvote request ID for each issue to handle race conditions */
         this.upvoteRequestIds = new Map();
+        // ── Upvotes (shared) ──
         this.handleUpvote = async (event) => {
             if (!this.sdk || this.isDisconnected) {
                 return;
@@ -7264,21 +7308,24 @@ class FeedlogIssuesClient {
             if (!currentIssue) {
                 return;
             }
-            // Track request to handle race conditions
             const requestId = (this.upvoteRequestIds.get(issueId) || 0) + 1;
             this.upvoteRequestIds.set(issueId, requestId);
+            const updateIssue = (issues, patch) => issues.map(i => (i.id === issueId ? Object.assign(Object.assign({}, i), patch) : i));
             // Optimistic update
-            this.issues = this.issues.map(issue => issue.id === issueId
-                ? Object.assign(Object.assign({}, issue), { hasUpvoted: upvoted, upvoteCount }) : issue);
+            this.issues = updateIssue(this.issues, { hasUpvoted: upvoted, upvoteCount });
+            if (this.paginationType === 'prev-next') {
+                this.pages = this.pages.map(page => updateIssue(page, { hasUpvoted: upvoted, upvoteCount }));
+            }
             try {
                 const result = await this.sdk.toggleUpvote(issueId);
-                // Ignore if component disconnected or request is stale
                 if (this.isDisconnected || this.upvoteRequestIds.get(issueId) !== requestId) {
                     return;
                 }
-                // Update with server response
-                this.issues = this.issues.map(issue => issue.id === issueId
-                    ? Object.assign(Object.assign({}, issue), { hasUpvoted: result.upvoted, upvoteCount: result.upvoteCount }) : issue);
+                const serverPatch = { hasUpvoted: result.upvoted, upvoteCount: result.upvoteCount };
+                this.issues = updateIssue(this.issues, serverPatch);
+                if (this.paginationType === 'prev-next') {
+                    this.pages = this.pages.map(page => updateIssue(page, serverPatch));
+                }
                 this.feedlogUpvote.emit({
                     issueId,
                     upvoted: result.upvoted,
@@ -7286,13 +7333,17 @@ class FeedlogIssuesClient {
                 });
             }
             catch (err) {
-                // Ignore if component disconnected or request is stale
                 if (this.isDisconnected || this.upvoteRequestIds.get(issueId) !== requestId) {
                     return;
                 }
-                // Revert optimistic update on error
-                this.issues = this.issues.map(issue => issue.id === issueId
-                    ? Object.assign(Object.assign({}, issue), { hasUpvoted: currentIssue.hasUpvoted, upvoteCount: currentIssue.upvoteCount }) : issue);
+                const revertPatch = {
+                    hasUpvoted: currentIssue.hasUpvoted,
+                    upvoteCount: currentIssue.upvoteCount,
+                };
+                this.issues = updateIssue(this.issues, revertPatch);
+                if (this.paginationType === 'prev-next') {
+                    this.pages = this.pages.map(page => updateIssue(page, revertPatch));
+                }
                 const errorMsg = err instanceof Error ? err.message : 'Failed to toggle upvote';
                 this.feedlogError.emit({ error: errorMsg });
             }
@@ -7300,15 +7351,15 @@ class FeedlogIssuesClient {
     }
     componentWillLoad() {
         this.initializeSDK();
-        // Return the promise so SSR waits for the fetch before serializing HTML.
-        // During client hydration, skip fetch if we already have server-rendered data.
         if (this.issues.length > 0 && !this.loading) {
             return;
+        }
+        if (this.paginationType === 'prev-next') {
+            return this.fetchPagesInitial();
         }
         return this.fetchIssues();
     }
     disconnectedCallback() {
-        // Prevent any pending async operations from updating state
         this.isDisconnected = true;
         this.fetchRequestId++;
     }
@@ -7326,13 +7377,21 @@ class FeedlogIssuesClient {
         void this.resetAndRefetchIssues();
     }
     async resetAndRefetchIssues() {
-        // Invalidate any in-flight requests and reset derived state before reloading.
         this.fetchRequestId++;
         this.cursor = null;
         this.hasMore = false;
         this.issues = [];
+        this.pages = [];
+        this.currentPageIndex = 0;
+        this.hasPrev = false;
+        this.isPrefetching = false;
         this.upvoteRequestIds.clear();
-        await this.fetchIssues();
+        if (this.paginationType === 'prev-next') {
+            await this.fetchPagesInitial();
+        }
+        else {
+            await this.fetchIssues();
+        }
     }
     initializeSDK() {
         try {
@@ -7364,18 +7423,17 @@ class FeedlogIssuesClient {
         }
         return params;
     }
+    // ── Load More mode ──
     async fetchIssues() {
         if (!this.sdk) {
             return;
         }
-        // Capture current request ID to detect stale responses
         const currentRequestId = this.fetchRequestId;
         try {
             this.loading = true;
             this.error = null;
             const params = this.buildFetchParams();
             const response = await this.sdk.fetchIssues(params);
-            // Ignore response if component disconnected or a newer request was made
             if (this.isDisconnected || currentRequestId !== this.fetchRequestId) {
                 return;
             }
@@ -7384,7 +7442,6 @@ class FeedlogIssuesClient {
             this.hasMore = response.pagination.hasMore;
         }
         catch (err) {
-            // Ignore errors from stale requests
             if (this.isDisconnected || currentRequestId !== this.fetchRequestId) {
                 return;
             }
@@ -7397,7 +7454,6 @@ class FeedlogIssuesClient {
             });
         }
         finally {
-            // Only update loading state if this is still the current request
             if (!this.isDisconnected && currentRequestId === this.fetchRequestId) {
                 this.loading = false;
                 this.isLoadingMore = false;
@@ -7408,13 +7464,13 @@ class FeedlogIssuesClient {
         if (!this.sdk || !this.hasMore || this.isLoadingMore || this.loading) {
             return;
         }
-        // Capture current request ID to detect stale responses
         const currentRequestId = this.fetchRequestId;
         this.isLoadingMore = true;
         try {
-            const params = this.buildFetchParams();
-            const response = await this.sdk.fetchIssues(params);
-            // Ignore response if component disconnected or a newer request was made
+            const [response] = await Promise.all([
+                this.sdk.fetchIssues(this.buildFetchParams()),
+                new Promise(resolve => setTimeout(resolve, this.minSkeletonTime)),
+            ]);
             if (this.isDisconnected || currentRequestId !== this.fetchRequestId) {
                 return;
             }
@@ -7423,7 +7479,6 @@ class FeedlogIssuesClient {
             this.hasMore = response.pagination.hasMore;
         }
         catch (err) {
-            // Ignore errors from stale requests
             if (this.isDisconnected || currentRequestId !== this.fetchRequestId) {
                 return;
             }
@@ -7434,20 +7489,178 @@ class FeedlogIssuesClient {
             });
         }
         finally {
-            // Only update loading state if this is still the current request
             if (!this.isDisconnected && currentRequestId === this.fetchRequestId) {
                 this.isLoadingMore = false;
             }
         }
     }
+    // ── Prev / Next mode ──
+    get pageSize() {
+        var _a;
+        return (_a = this.limit) !== null && _a !== void 0 ? _a : 10;
+    }
+    /**
+     * Fetch 2x limit from API, split into page-sized chunks, and append to cache.
+     */
+    async fetchPagesInitial() {
+        var _a;
+        if (!this.sdk) {
+            return;
+        }
+        const currentRequestId = this.fetchRequestId;
+        try {
+            this.loading = true;
+            this.error = null;
+            const params = this.buildFetchParams();
+            params.limit = this.pageSize * 2;
+            const response = await this.sdk.fetchIssues(params);
+            if (this.isDisconnected || currentRequestId !== this.fetchRequestId) {
+                return;
+            }
+            const newPages = this.splitIntoPages(response.issues);
+            this.pages = newPages;
+            this.currentPageIndex = 0;
+            this.hasPrev = false;
+            this.issues = (_a = newPages[0]) !== null && _a !== void 0 ? _a : [];
+            this.cursor = response.pagination.cursor;
+            this.hasMore = response.pagination.hasMore;
+        }
+        catch (err) {
+            if (this.isDisconnected || currentRequestId !== this.fetchRequestId) {
+                return;
+            }
+            const errorMsg = err instanceof Error ? err.message : "Couldn't load updates";
+            this.error = errorMsg;
+            this.issues = [];
+            this.pages = [];
+            this.feedlogError.emit({
+                error: errorMsg,
+                code: err === null || err === void 0 ? void 0 : err.statusCode,
+            });
+        }
+        finally {
+            if (!this.isDisconnected && currentRequestId === this.fetchRequestId) {
+                this.loading = false;
+            }
+        }
+    }
+    /**
+     * Prefetch additional pages in the background (fire-and-forget).
+     */
+    async prefetchPages() {
+        if (!this.sdk || !this.hasMore || this.isPrefetching) {
+            return;
+        }
+        const currentRequestId = this.fetchRequestId;
+        this.isPrefetching = true;
+        try {
+            const params = this.buildFetchParams();
+            params.limit = this.pageSize * 2;
+            const response = await this.sdk.fetchIssues(params);
+            if (this.isDisconnected || currentRequestId !== this.fetchRequestId) {
+                return;
+            }
+            const newPages = this.splitIntoPages(response.issues);
+            this.pages = [...this.pages, ...newPages];
+            this.cursor = response.pagination.cursor;
+            this.hasMore = response.pagination.hasMore;
+        }
+        catch (_err) {
+            // Prefetch failures are non-critical; next navigation will retry
+        }
+        finally {
+            if (!this.isDisconnected && currentRequestId === this.fetchRequestId) {
+                this.isPrefetching = false;
+            }
+        }
+    }
+    splitIntoPages(issues) {
+        const result = [];
+        for (let i = 0; i < issues.length; i += this.pageSize) {
+            result.push(issues.slice(i, i + this.pageSize));
+        }
+        return result;
+    }
+    goToPage(direction) {
+        var _a;
+        if (direction === 'prev' && this.currentPageIndex > 0) {
+            this.currentPageIndex--;
+        }
+        else if (direction === 'next') {
+            const nextIndex = this.currentPageIndex + 1;
+            if (nextIndex < this.pages.length) {
+                this.currentPageIndex = nextIndex;
+            }
+            else if (this.hasMore) {
+                // Need to fetch more pages before we can advance
+                void this.fetchAndAdvance();
+                return;
+            }
+            else {
+                return;
+            }
+            // Prefetch when we're near the end of the cache
+            if (this.currentPageIndex >= this.pages.length - 1 && this.hasMore) {
+                void this.prefetchPages();
+            }
+        }
+        this.hasPrev = this.currentPageIndex > 0;
+        this.issues = (_a = this.pages[this.currentPageIndex]) !== null && _a !== void 0 ? _a : [];
+    }
+    /**
+     * When navigating Next but we have no cached page, fetch and then advance.
+     */
+    async fetchAndAdvance() {
+        var _a;
+        if (!this.sdk || this.isLoadingMore) {
+            return;
+        }
+        const currentRequestId = this.fetchRequestId;
+        this.isLoadingMore = true;
+        try {
+            const params = this.buildFetchParams();
+            params.limit = this.pageSize * 2;
+            const response = await this.sdk.fetchIssues(params);
+            if (this.isDisconnected || currentRequestId !== this.fetchRequestId) {
+                return;
+            }
+            const newPages = this.splitIntoPages(response.issues);
+            this.pages = [...this.pages, ...newPages];
+            this.cursor = response.pagination.cursor;
+            this.hasMore = response.pagination.hasMore;
+            if (newPages.length > 0) {
+                this.currentPageIndex++;
+                this.hasPrev = this.currentPageIndex > 0;
+                this.issues = (_a = this.pages[this.currentPageIndex]) !== null && _a !== void 0 ? _a : [];
+            }
+        }
+        catch (err) {
+            if (this.isDisconnected || currentRequestId !== this.fetchRequestId) {
+                return;
+            }
+            const errorMsg = err instanceof Error ? err.message : 'Failed to load more issues';
+            this.feedlogError.emit({
+                error: errorMsg,
+                code: err === null || err === void 0 ? void 0 : err.statusCode,
+            });
+        }
+        finally {
+            if (!this.isDisconnected && currentRequestId === this.fetchRequestId) {
+                this.isLoadingMore = false;
+            }
+        }
+    }
+    // ── Render ──
     render() {
         var _a, _b;
-        // Explicitly forward --feedlog-background from host to child (inheritance can fail across nested shadow DOM)
         const hostBg = (_b = (_a = this.el) === null || _a === void 0 ? void 0 : _a.style) === null || _b === void 0 ? void 0 : _b.getPropertyValue('--feedlog-background');
         const style = hostBg
             ? { '--feedlog-background': hostBg }
             : undefined;
-        return (hAsync("feedlog-issues", { key: 'd98b8366830171a8a09d01cc9e2b19a19850a5fd', style: style, issues: this.issues, limit: this.limit, maxWidth: this.maxWidth, theme: this.theme, heading: this.heading, subtitle: this.subtitle, emptyStateTitle: this.emptyStateTitle, emptyStateMessage: this.emptyStateMessage, getIssueUrl: this.getIssueUrl, loading: this.loading, error: this.error, hasMore: this.hasMore, isLoadingMore: this.isLoadingMore, onFeedlogUpvote: this.handleUpvote, onFeedlogLoadMore: async () => this.loadMore() }));
+        const hasMoreOrNextCached = this.paginationType === 'prev-next'
+            ? this.hasMore || this.currentPageIndex < this.pages.length - 1
+            : this.hasMore;
+        return (hAsync("feedlog-issues", { key: '1420a890b64c924240c33253679b29a70903e3ce', style: style, issues: this.issues, limit: this.limit, paginationType: this.paginationType, maxWidth: this.maxWidth, theme: this.theme, heading: this.heading, subtitle: this.subtitle, emptyStateTitle: this.emptyStateTitle, emptyStateMessage: this.emptyStateMessage, getIssueUrl: this.getIssueUrl, loading: this.loading, error: this.error, hasMore: hasMoreOrNextCached, hasPrev: this.hasPrev, isLoadingMore: this.isLoadingMore, onFeedlogUpvote: this.handleUpvote, onFeedlogLoadMore: async () => this.loadMore(), onFeedlogPageChange: (e) => this.goToPage(e.detail.direction) }));
     }
     get el() { return getElement(this); }
     static get watchers() { return {
@@ -7477,6 +7690,8 @@ class FeedlogIssuesClient {
             "sortBy": [1, "sort-by"],
             "endpoint": [1],
             "maxWidth": [1, "max-width"],
+            "paginationType": [1, "pagination-type"],
+            "minSkeletonTime": [2, "min-skeleton-time"],
             "theme": [1],
             "heading": [1],
             "subtitle": [1],
@@ -7488,7 +7703,10 @@ class FeedlogIssuesClient {
             "error": [32],
             "cursor": [32],
             "hasMore": [32],
-            "isLoadingMore": [32]
+            "isLoadingMore": [32],
+            "pages": [32],
+            "currentPageIndex": [32],
+            "hasPrev": [32]
         },
         "$listeners$": undefined,
         "$lazyBundleId$": "-",
@@ -7496,7 +7714,7 @@ class FeedlogIssuesClient {
     }; }
 }
 
-const feedlogIssuesListCss = () => `:host{display:block;--feedlog-muted-foreground:#64748b;--feedlog-foreground:oklch(0.145 0 0);--feedlog-empty-illustration-bg:oklch(0.96 0.01 260);--feedlog-empty-illustration-stroke:oklch(0.75 0.02 260);--feedlog-empty-illustration-muted:oklch(0.82 0.01 260)}:host(.dark){--feedlog-muted-foreground:oklch(0.72 0.02 260);--feedlog-foreground:oklch(0.985 0 0);--feedlog-empty-illustration-bg:oklch(0.28 0.02 260);--feedlog-empty-illustration-stroke:oklch(0.45 0.02 260);--feedlog-empty-illustration-muted:oklch(0.38 0.01 260)}.issues-list{display:flex;flex-direction:column;gap:var(--feedlog-gap)}.empty-state{text-align:center;padding:3rem 1.5rem;color:var(--feedlog-muted-foreground);font-size:0.875rem}.empty-state-content{display:flex;flex-direction:column;align-items:center;text-align:center;max-width:20rem;margin-inline:auto}.empty-state-illustration{margin-bottom:1.5rem;opacity:0.9}.empty-state-title{margin:0 0 0.5rem 0;font-size:1.125rem;font-weight:600;color:var(--feedlog-foreground);line-height:1.4}.empty-state-message{margin:0;font-size:0.875rem;color:var(--feedlog-muted-foreground);line-height:1.5}.pagination{display:flex;align-items:center;justify-content:center;gap:0.25rem;margin-top:1.5rem;flex-wrap:wrap}.pagination-btn{min-width:2rem;height:2rem;padding:0 0.5rem;color:var(--feedlog-foreground);background:transparent;border:1px solid var(--feedlog-border, oklch(0.9 0 0));border-radius:var(--feedlog-radius, 0.375rem);font-size:0.875rem;font-weight:500;cursor:pointer;transition:background-color 0.15s, border-color 0.15s}.pagination-btn:hover:not(:disabled){background:var(--feedlog-muted, oklch(0.96 0 0))}.pagination-btn[aria-current='page']{background:var(--feedlog-accent-color, oklch(0.55 0.2 250));color:white;border-color:var(--feedlog-accent-color, oklch(0.55 0.2 250))}.pagination-btn:disabled{opacity:0.5;cursor:not-allowed}.pagination-arrow{font-size:1.25rem;line-height:1}.pagination-ellipsis{padding:0 0.25rem;color:var(--feedlog-muted-foreground);font-size:0.875rem}:host(.dark) .pagination-btn{border-color:oklch(0.4 0.02 260)}:host(.dark) .pagination-btn:hover:not(:disabled){background:oklch(0.35 0.02 260)}`;
+const feedlogIssuesListCss = () => `:host{display:block;--feedlog-muted-foreground:#64748b;--feedlog-foreground:oklch(0.145 0 0);--feedlog-empty-illustration-bg:oklch(0.96 0.01 260);--feedlog-empty-illustration-stroke:oklch(0.75 0.02 260);--feedlog-empty-illustration-muted:oklch(0.82 0.01 260)}:host(.dark){--feedlog-muted-foreground:oklch(0.72 0.02 260);--feedlog-foreground:oklch(0.985 0 0);--feedlog-empty-illustration-bg:oklch(0.28 0.02 260);--feedlog-empty-illustration-stroke:oklch(0.45 0.02 260);--feedlog-empty-illustration-muted:oklch(0.38 0.01 260)}.issues-list{display:flex;flex-direction:column;gap:var(--feedlog-gap)}.empty-state{text-align:center;padding:3rem 1.5rem;color:var(--feedlog-muted-foreground);font-size:0.875rem}.empty-state-content{display:flex;flex-direction:column;align-items:center;text-align:center;max-width:20rem;margin-inline:auto}.empty-state-illustration{margin-bottom:1.5rem;opacity:0.9}.empty-state-title{margin:0 0 0.5rem 0;font-size:1.125rem;font-weight:600;color:var(--feedlog-foreground);line-height:1.4}.empty-state-message{margin:0;font-size:0.875rem;color:var(--feedlog-muted-foreground);line-height:1.5}`;
 
 /**
  * Feedlog Issues List Component
@@ -7515,85 +7733,30 @@ class FeedlogIssuesList {
          * Theme variant: 'light' or 'dark'
          */
         this.theme = 'light';
-        this.currentPage = 1;
         this.handleUpvote = (event) => {
             event.stopPropagation();
             this.feedlogUpvote.emit(event.detail);
         };
     }
-    resetPage() {
-        this.currentPage = 1;
-    }
     renderEmptyStateIllustration() {
         return (hAsync("svg", { class: "empty-state-illustration", xmlns: "http://www.w3.org/2000/svg", width: "120", height: "96", viewBox: "0 0 120 96", fill: "none", "aria-hidden": "true" }, hAsync("path", { d: "M20 36h80v44c0 4.4-3.6 8-8 8H28c-4.4 0-8-3.6-8-8V36z", fill: "var(--feedlog-empty-illustration-bg)", stroke: "var(--feedlog-empty-illustration-stroke)", "stroke-width": "1.5", "stroke-linejoin": "round" }), hAsync("path", { d: "M20 36l20-24h40l20 24", fill: "none", stroke: "var(--feedlog-empty-illustration-stroke)", "stroke-width": "1.5", "stroke-linecap": "round", "stroke-linejoin": "round" }), hAsync("path", { d: "M44 52h32M44 60h24M44 68h28", stroke: "var(--feedlog-empty-illustration-muted)", "stroke-width": "1.25", "stroke-linecap": "round" })));
     }
-    getVisibleIssues() {
-        if (this.issues.length === 0)
-            return [];
-        if (this.limit == null || this.issues.length <= this.limit) {
-            return this.issues;
-        }
-        const offset = (this.currentPage - 1) * this.limit;
-        return this.issues.slice(offset, offset + this.limit);
-    }
-    getPageNumbers() {
-        if (this.limit == null)
-            return [];
-        const totalPages = Math.ceil(this.issues.length / this.limit);
-        if (totalPages <= 1)
-            return [];
-        const toShow = new Set([1, totalPages]);
-        const start = Math.max(1, this.currentPage - 1);
-        const end = Math.min(totalPages, this.currentPage + 1);
-        for (let i = start; i <= end; i++)
-            toShow.add(i);
-        const sorted = Array.from(toShow).sort((a, b) => a - b);
-        const result = [];
-        for (let i = 0; i < sorted.length; i++) {
-            if (i > 0 && sorted[i] - sorted[i - 1] > 1)
-                result.push('ellipsis');
-            result.push(sorted[i]);
-        }
-        return result;
-    }
-    goToPage(page) {
-        const totalPages = this.limit != null ? Math.ceil(this.issues.length / this.limit) : 1;
-        this.currentPage = Math.max(1, Math.min(page, totalPages));
-    }
-    renderPagination() {
-        if (this.limit == null || this.issues.length <= this.limit)
-            return null;
-        const totalPages = Math.ceil(this.issues.length / this.limit);
-        const pageNumbers = this.getPageNumbers();
-        return (hAsync("nav", { class: "pagination", "aria-label": "Issues pagination" }, hAsync("button", { type: "button", class: "pagination-btn pagination-arrow", "aria-label": "Previous page", disabled: this.currentPage <= 1, onClick: () => this.goToPage(this.currentPage - 1) }, "\u2039"), pageNumbers.map((p, i) => p === 'ellipsis' ? (hAsync("span", { key: `ellipsis-${i}`, class: "pagination-ellipsis", "aria-hidden": "true" }, "\u2026")) : (hAsync("button", { key: `page-${p}`, type: "button", class: "pagination-btn", "aria-current": p === this.currentPage ? 'page' : undefined, onClick: () => this.goToPage(p) }, p))), hAsync("button", { type: "button", class: "pagination-btn pagination-arrow", "aria-label": "Next page", disabled: this.currentPage >= totalPages, onClick: () => this.goToPage(this.currentPage + 1) }, "\u203A")));
-    }
     render() {
-        const visibleIssues = this.getVisibleIssues();
-        return (hAsync(Host, { key: 'b2b009625ec2cec47449afd7602202a9f95b8740', class: this.theme === 'dark' ? 'dark' : '' }, hAsync("div", { key: 'f108815569c064e45a78272a83f7048708470a3d', class: "issues-list" }, visibleIssues.length === 0 ? (hAsync("div", { class: "empty-state" }, this.emptyStateTitle && this.emptyStateMessage ? (hAsync("div", { class: "empty-state-content" }, this.renderEmptyStateIllustration(), hAsync("h2", { class: "empty-state-title" }, this.emptyStateTitle), hAsync("p", { class: "empty-state-message" }, this.emptyStateMessage))) : (hAsync("p", null, "No issues found")))) : (visibleIssues.map(issue => {
+        return (hAsync(Host, { key: '7d5efa1c872dc73d0ca0d4169b8b5a6bec0045fd', class: this.theme === 'dark' ? 'dark' : '' }, hAsync("div", { key: 'da1ffddfc8a109a6918093405645bc36a2e94270', class: "issues-list" }, this.issues.length === 0 ? (hAsync("div", { class: "empty-state" }, this.emptyStateTitle && this.emptyStateMessage ? (hAsync("div", { class: "empty-state-content" }, this.renderEmptyStateIllustration(), hAsync("h2", { class: "empty-state-title" }, this.emptyStateTitle), hAsync("p", { class: "empty-state-message" }, this.emptyStateMessage))) : (hAsync("p", null, "No issues found")))) : (this.issues.map(issue => {
             var _a, _b;
             return (hAsync("feedlog-issue", { key: issue.id, issue: issue, issueUrl: (_b = (_a = this.getIssueUrl) === null || _a === void 0 ? void 0 : _a.call(this, issue)) !== null && _b !== void 0 ? _b : undefined, theme: this.theme, onFeedlogUpvote: (e) => this.handleUpvote(e) }));
-        }))), this.renderPagination()));
+        })))));
     }
-    static get watchers() { return {
-        "issues": [{
-                "resetPage": 0
-            }],
-        "limit": [{
-                "resetPage": 0
-            }]
-    }; }
     static get style() { return feedlogIssuesListCss(); }
     static get cmpMeta() { return {
         "$flags$": 9,
         "$tagName$": "feedlog-issues-list",
         "$members$": {
             "issues": [16],
-            "limit": [2],
             "theme": [1],
             "getIssueUrl": [16],
             "emptyStateTitle": [1, "empty-state-title"],
-            "emptyStateMessage": [1, "empty-state-message"],
-            "currentPage": [32]
+            "emptyStateMessage": [1, "empty-state-message"]
         },
         "$listeners$": undefined,
         "$lazyBundleId$": "-",

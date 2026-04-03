@@ -53,5 +53,10 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
       testMatch: /vue-ssr\.spec\.ts/,
     },
+    {
+      name: 'pagination',
+      use: { ...devices['Desktop Chrome'] },
+      testMatch: /pagination\.spec\.ts/,
+    },
   ],
 });

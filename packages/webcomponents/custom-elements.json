@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-04-02T14:59:54",
+  "timestamp": "2026-04-03T07:36:08",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.40.1",
@@ -561,7 +561,36 @@
           "mutable": false,
           "attr": "has-more",
           "reflectToAttr": false,
-          "docs": "Whether there are more issues to load",
+          "docs": "Whether there are more issues available (controls Next button / Load More visibility)",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "false"
+            }
+          ],
+          "default": "false",
+          "values": [
+            {
+              "type": "boolean"
+            }
+          ],
+          "optional": false,
+          "required": false,
+          "getter": false,
+          "setter": false
+        },
+        {
+          "name": "hasPrev",
+          "type": "boolean",
+          "complexType": {
+            "original": "boolean",
+            "resolved": "boolean",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "has-prev",
+          "reflectToAttr": false,
+          "docs": "Whether a previous page is available (for prev-next mode)",
           "docsTags": [
             {
               "name": "default",
@@ -679,7 +708,7 @@
           "mutable": false,
           "attr": "limit",
           "reflectToAttr": false,
-          "docs": "Page size for issues list pagination. When set, enables pagination when issues exceed this limit.",
+          "docs": "Number of items per page. Used to determine skeleton count during load-more.",
           "docsTags": [],
           "values": [
             {
@@ -744,6 +773,40 @@
           "default": "'42rem'",
           "values": [
             {
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false,
+          "getter": false,
+          "setter": false
+        },
+        {
+          "name": "paginationType",
+          "type": "\"load-more\" | \"prev-next\"",
+          "complexType": {
+            "original": "'load-more' | 'prev-next'",
+            "resolved": "\"load-more\" | \"prev-next\"",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "pagination-type",
+          "reflectToAttr": false,
+          "docs": "Pagination strategy: 'load-more' appends issues with a button,\n'prev-next' shows prev/next arrow navigation.",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "'load-more'"
+            }
+          ],
+          "default": "'load-more'",
+          "values": [
+            {
+              "value": "load-more",
+              "type": "string"
+            },
+            {
+              "value": "prev-next",
               "type": "string"
             }
           ],
@@ -826,7 +889,21 @@
           },
           "cancelable": true,
           "composed": true,
-          "docs": "Event emitted to load more issues",
+          "docs": "Event emitted to load more issues (load-more mode)",
+          "docsTags": []
+        },
+        {
+          "event": "feedlogPageChange",
+          "detail": "{ direction: \"prev\" | \"next\"; }",
+          "bubbles": true,
+          "complexType": {
+            "original": "{ direction: 'prev' | 'next' }",
+            "resolved": "{ direction: \"prev\" | \"next\"; }",
+            "references": {}
+          },
+          "cancelable": true,
+          "composed": true,
+          "docs": "Event emitted when navigating pages (prev-next mode)",
           "docsTags": []
         },
         {
@@ -1041,7 +1118,7 @@
           "mutable": false,
           "attr": "limit",
           "reflectToAttr": false,
-          "docs": "Maximum number of issues to fetch (1-100, default 10)",
+          "docs": "Maximum number of issues per page (1-100, default 10)",
           "docsTags": [],
           "values": [
             {
@@ -1077,6 +1154,69 @@
           "default": "'42rem'",
           "values": [
             {
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false,
+          "getter": false,
+          "setter": false
+        },
+        {
+          "name": "minSkeletonTime",
+          "type": "number",
+          "complexType": {
+            "original": "number",
+            "resolved": "number",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "min-skeleton-time",
+          "reflectToAttr": false,
+          "docs": "Minimum time in ms to display skeleton placeholders before replacing\nwith real data. Prevents flickering on fast networks.",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "250"
+            }
+          ],
+          "default": "250",
+          "values": [
+            {
+              "type": "number"
+            }
+          ],
+          "optional": false,
+          "required": false,
+          "getter": false,
+          "setter": false
+        },
+        {
+          "name": "paginationType",
+          "type": "\"load-more\" | \"prev-next\"",
+          "complexType": {
+            "original": "'load-more' | 'prev-next'",
+            "resolved": "\"load-more\" | \"prev-next\"",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "pagination-type",
+          "reflectToAttr": false,
+          "docs": "Pagination strategy: 'load-more' appends issues with a button,\n'prev-next' shows prev/next arrow navigation with prefetching.",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "'load-more'"
+            }
+          ],
+          "default": "'load-more'",
+          "values": [
+            {
+              "value": "load-more",
+              "type": "string"
+            },
+            {
+              "value": "prev-next",
               "type": "string"
             }
           ],
@@ -1386,32 +1526,6 @@
             }
           ],
           "optional": false,
-          "required": false,
-          "getter": false,
-          "setter": false
-        },
-        {
-          "name": "limit",
-          "type": "number | undefined",
-          "complexType": {
-            "original": "number",
-            "resolved": "number | undefined",
-            "references": {}
-          },
-          "mutable": false,
-          "attr": "limit",
-          "reflectToAttr": false,
-          "docs": "Page size (items per page). When set, enables pagination when issues exceed this limit.",
-          "docsTags": [],
-          "values": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "undefined"
-            }
-          ],
-          "optional": true,
           "required": false,
           "getter": false,
           "setter": false

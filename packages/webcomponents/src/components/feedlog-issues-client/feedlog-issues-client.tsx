@@ -26,7 +26,7 @@ export class FeedlogIssuesClient {
   @Prop() type?: 'bug' | 'enhancement';
 
   /**
-   * Maximum number of issues to fetch (1-100, default 10)
+   * Maximum number of issues per page (1-100, default 10)
    */
   @Prop() limit?: number;
 
@@ -44,6 +44,18 @@ export class FeedlogIssuesClient {
    * Maximum width of the container
    */
   @Prop() maxWidth: string = '42rem';
+
+  /**
+   * Pagination strategy: 'load-more' appends issues with a button,
+   * 'prev-next' shows prev/next arrow navigation with prefetching.
+   */
+  @Prop() paginationType: 'load-more' | 'prev-next' = 'load-more';
+
+  /**
+   * Minimum time in ms to display skeleton placeholders before replacing
+   * with real data. Prevents flickering on fast networks.
+   */
+  @Prop() minSkeletonTime: number = 250;
 
   /**
    * Theme variant: 'light' or 'dark'
@@ -95,27 +107,34 @@ export class FeedlogIssuesClient {
   @State() hasMore: boolean = false;
   @State() isLoadingMore: boolean = false;
 
+  /** Cached page arrays for prev-next mode */
+  @State() pages: FeedlogIssueType[][] = [];
+  @State() currentPageIndex: number = 0;
+  @State() hasPrev: boolean = false;
+
   private sdk: FeedlogSDK | null = null;
   /** Counter to track fetch operations and prevent stale updates */
   private fetchRequestId: number = 0;
   /** Flag to prevent state updates after component disconnect */
   private isDisconnected: boolean = false;
+  /** Whether a prefetch is already in flight (prev-next mode) */
+  private isPrefetching: boolean = false;
 
   /** Map to track the latest upvote request ID for each issue to handle race conditions */
   private upvoteRequestIds: Map<string, number> = new Map();
 
   componentWillLoad() {
     this.initializeSDK();
-    // Return the promise so SSR waits for the fetch before serializing HTML.
-    // During client hydration, skip fetch if we already have server-rendered data.
     if (this.issues.length > 0 && !this.loading) {
       return;
+    }
+    if (this.paginationType === 'prev-next') {
+      return this.fetchPagesInitial();
     }
     return this.fetchIssues();
   }
 
   disconnectedCallback() {
-    // Prevent any pending async operations from updating state
     this.isDisconnected = true;
     this.fetchRequestId++;
   }
@@ -146,14 +165,21 @@ export class FeedlogIssuesClient {
   }
 
   private async resetAndRefetchIssues() {
-    // Invalidate any in-flight requests and reset derived state before reloading.
     this.fetchRequestId++;
     this.cursor = null;
     this.hasMore = false;
     this.issues = [];
+    this.pages = [];
+    this.currentPageIndex = 0;
+    this.hasPrev = false;
+    this.isPrefetching = false;
     this.upvoteRequestIds.clear();
 
-    await this.fetchIssues();
+    if (this.paginationType === 'prev-next') {
+      await this.fetchPagesInitial();
+    } else {
+      await this.fetchIssues();
+    }
   }
 
   private initializeSDK() {
@@ -196,12 +222,13 @@ export class FeedlogIssuesClient {
     return params;
   }
 
+  // ── Load More mode ──
+
   private async fetchIssues() {
     if (!this.sdk) {
       return;
     }
 
-    // Capture current request ID to detect stale responses
     const currentRequestId = this.fetchRequestId;
 
     try {
@@ -209,10 +236,8 @@ export class FeedlogIssuesClient {
       this.error = null;
 
       const params = this.buildFetchParams();
-
       const response = await this.sdk.fetchIssues(params);
 
-      // Ignore response if component disconnected or a newer request was made
       if (this.isDisconnected || currentRequestId !== this.fetchRequestId) {
         return;
       }
@@ -221,7 +246,6 @@ export class FeedlogIssuesClient {
       this.cursor = response.pagination.cursor;
       this.hasMore = response.pagination.hasMore;
     } catch (err) {
-      // Ignore errors from stale requests
       if (this.isDisconnected || currentRequestId !== this.fetchRequestId) {
         return;
       }
@@ -234,7 +258,6 @@ export class FeedlogIssuesClient {
         code: (err as any)?.statusCode,
       });
     } finally {
-      // Only update loading state if this is still the current request
       if (!this.isDisconnected && currentRequestId === this.fetchRequestId) {
         this.loading = false;
         this.isLoadingMore = false;
@@ -247,17 +270,15 @@ export class FeedlogIssuesClient {
       return;
     }
 
-    // Capture current request ID to detect stale responses
     const currentRequestId = this.fetchRequestId;
-
     this.isLoadingMore = true;
 
     try {
-      const params = this.buildFetchParams();
+      const [response] = await Promise.all([
+        this.sdk.fetchIssues(this.buildFetchParams()),
+        new Promise<void>(resolve => setTimeout(resolve, this.minSkeletonTime)),
+      ]);
 
-      const response = await this.sdk.fetchIssues(params);
-
-      // Ignore response if component disconnected or a newer request was made
       if (this.isDisconnected || currentRequestId !== this.fetchRequestId) {
         return;
       }
@@ -266,7 +287,6 @@ export class FeedlogIssuesClient {
       this.cursor = response.pagination.cursor;
       this.hasMore = response.pagination.hasMore;
     } catch (err) {
-      // Ignore errors from stale requests
       if (this.isDisconnected || currentRequestId !== this.fetchRequestId) {
         return;
       }
@@ -277,12 +297,185 @@ export class FeedlogIssuesClient {
         code: (err as any)?.statusCode,
       });
     } finally {
-      // Only update loading state if this is still the current request
       if (!this.isDisconnected && currentRequestId === this.fetchRequestId) {
         this.isLoadingMore = false;
       }
     }
   }
+
+  // ── Prev / Next mode ──
+
+  private get pageSize(): number {
+    return this.limit ?? 10;
+  }
+
+  /**
+   * Fetch 2x limit from API, split into page-sized chunks, and append to cache.
+   */
+  private async fetchPagesInitial() {
+    if (!this.sdk) {
+      return;
+    }
+
+    const currentRequestId = this.fetchRequestId;
+
+    try {
+      this.loading = true;
+      this.error = null;
+
+      const params = this.buildFetchParams();
+      params.limit = this.pageSize * 2;
+
+      const response = await this.sdk.fetchIssues(params);
+
+      if (this.isDisconnected || currentRequestId !== this.fetchRequestId) {
+        return;
+      }
+
+      const newPages = this.splitIntoPages(response.issues);
+      this.pages = newPages;
+      this.currentPageIndex = 0;
+      this.hasPrev = false;
+      this.issues = newPages[0] ?? [];
+      this.cursor = response.pagination.cursor;
+      this.hasMore = response.pagination.hasMore;
+    } catch (err) {
+      if (this.isDisconnected || currentRequestId !== this.fetchRequestId) {
+        return;
+      }
+
+      const errorMsg = err instanceof Error ? err.message : "Couldn't load updates";
+      this.error = errorMsg;
+      this.issues = [];
+      this.pages = [];
+      this.feedlogError.emit({
+        error: errorMsg,
+        code: (err as any)?.statusCode,
+      });
+    } finally {
+      if (!this.isDisconnected && currentRequestId === this.fetchRequestId) {
+        this.loading = false;
+      }
+    }
+  }
+
+  /**
+   * Prefetch additional pages in the background (fire-and-forget).
+   */
+  private async prefetchPages() {
+    if (!this.sdk || !this.hasMore || this.isPrefetching) {
+      return;
+    }
+
+    const currentRequestId = this.fetchRequestId;
+    this.isPrefetching = true;
+
+    try {
+      const params = this.buildFetchParams();
+      params.limit = this.pageSize * 2;
+
+      const response = await this.sdk.fetchIssues(params);
+
+      if (this.isDisconnected || currentRequestId !== this.fetchRequestId) {
+        return;
+      }
+
+      const newPages = this.splitIntoPages(response.issues);
+      this.pages = [...this.pages, ...newPages];
+      this.cursor = response.pagination.cursor;
+      this.hasMore = response.pagination.hasMore;
+    } catch (_err) {
+      // Prefetch failures are non-critical; next navigation will retry
+    } finally {
+      if (!this.isDisconnected && currentRequestId === this.fetchRequestId) {
+        this.isPrefetching = false;
+      }
+    }
+  }
+
+  private splitIntoPages(issues: FeedlogIssueType[]): FeedlogIssueType[][] {
+    const result: FeedlogIssueType[][] = [];
+    for (let i = 0; i < issues.length; i += this.pageSize) {
+      result.push(issues.slice(i, i + this.pageSize));
+    }
+    return result;
+  }
+
+  private goToPage(direction: 'prev' | 'next') {
+    if (direction === 'prev' && this.currentPageIndex > 0) {
+      this.currentPageIndex--;
+    } else if (direction === 'next') {
+      const nextIndex = this.currentPageIndex + 1;
+
+      if (nextIndex < this.pages.length) {
+        this.currentPageIndex = nextIndex;
+      } else if (this.hasMore) {
+        // Need to fetch more pages before we can advance
+        void this.fetchAndAdvance();
+        return;
+      } else {
+        return;
+      }
+
+      // Prefetch when we're near the end of the cache
+      if (this.currentPageIndex >= this.pages.length - 1 && this.hasMore) {
+        void this.prefetchPages();
+      }
+    }
+
+    this.hasPrev = this.currentPageIndex > 0;
+    this.issues = this.pages[this.currentPageIndex] ?? [];
+  }
+
+  /**
+   * When navigating Next but we have no cached page, fetch and then advance.
+   */
+  private async fetchAndAdvance() {
+    if (!this.sdk || this.isLoadingMore) {
+      return;
+    }
+
+    const currentRequestId = this.fetchRequestId;
+    this.isLoadingMore = true;
+
+    try {
+      const params = this.buildFetchParams();
+      params.limit = this.pageSize * 2;
+
+      const response = await this.sdk.fetchIssues(params);
+
+      if (this.isDisconnected || currentRequestId !== this.fetchRequestId) {
+        return;
+      }
+
+      const newPages = this.splitIntoPages(response.issues);
+      this.pages = [...this.pages, ...newPages];
+      this.cursor = response.pagination.cursor;
+      this.hasMore = response.pagination.hasMore;
+
+      if (newPages.length > 0) {
+        this.currentPageIndex++;
+        this.hasPrev = this.currentPageIndex > 0;
+        this.issues = this.pages[this.currentPageIndex] ?? [];
+      }
+    } catch (err) {
+      if (this.isDisconnected || currentRequestId !== this.fetchRequestId) {
+        return;
+      }
+
+      const errorMsg = err instanceof Error ? err.message : 'Failed to load more issues';
+      this.feedlogError.emit({
+        error: errorMsg,
+        code: (err as any)?.statusCode,
+      });
+    } finally {
+      if (!this.isDisconnected && currentRequestId === this.fetchRequestId) {
+        this.isLoadingMore = false;
+      }
+    }
+  }
+
+  // ── Upvotes (shared) ──
 
   private handleUpvote = async (
     event: CustomEvent<{
@@ -301,39 +494,30 @@ export class FeedlogIssuesClient {
       return;
     }
 
-    // Track request to handle race conditions
     const requestId = (this.upvoteRequestIds.get(issueId) || 0) + 1;
     this.upvoteRequestIds.set(issueId, requestId);
 
+    const updateIssue = (issues: FeedlogIssueType[], patch: Partial<FeedlogIssueType>) =>
+      issues.map(i => (i.id === issueId ? { ...i, ...patch } : i));
+
     // Optimistic update
-    this.issues = this.issues.map(issue =>
-      issue.id === issueId
-        ? {
-            ...issue,
-            hasUpvoted: upvoted,
-            upvoteCount,
-          }
-        : issue
-    );
+    this.issues = updateIssue(this.issues, { hasUpvoted: upvoted, upvoteCount });
+    if (this.paginationType === 'prev-next') {
+      this.pages = this.pages.map(page => updateIssue(page, { hasUpvoted: upvoted, upvoteCount }));
+    }
 
     try {
       const result = await this.sdk.toggleUpvote(issueId);
 
-      // Ignore if component disconnected or request is stale
       if (this.isDisconnected || this.upvoteRequestIds.get(issueId) !== requestId) {
         return;
       }
 
-      // Update with server response
-      this.issues = this.issues.map(issue =>
-        issue.id === issueId
-          ? {
-              ...issue,
-              hasUpvoted: result.upvoted,
-              upvoteCount: result.upvoteCount,
-            }
-          : issue
-      );
+      const serverPatch = { hasUpvoted: result.upvoted, upvoteCount: result.upvoteCount };
+      this.issues = updateIssue(this.issues, serverPatch);
+      if (this.paginationType === 'prev-next') {
+        this.pages = this.pages.map(page => updateIssue(page, serverPatch));
+      }
 
       this.feedlogUpvote.emit({
         issueId,
@@ -341,39 +525,43 @@ export class FeedlogIssuesClient {
         upvoteCount: result.upvoteCount,
       });
     } catch (err) {
-      // Ignore if component disconnected or request is stale
       if (this.isDisconnected || this.upvoteRequestIds.get(issueId) !== requestId) {
         return;
       }
 
-      // Revert optimistic update on error
-      this.issues = this.issues.map(issue =>
-        issue.id === issueId
-          ? {
-              ...issue,
-              hasUpvoted: currentIssue.hasUpvoted,
-              upvoteCount: currentIssue.upvoteCount,
-            }
-          : issue
-      );
+      const revertPatch = {
+        hasUpvoted: currentIssue.hasUpvoted,
+        upvoteCount: currentIssue.upvoteCount,
+      };
+      this.issues = updateIssue(this.issues, revertPatch);
+      if (this.paginationType === 'prev-next') {
+        this.pages = this.pages.map(page => updateIssue(page, revertPatch));
+      }
 
       const errorMsg = err instanceof Error ? err.message : 'Failed to toggle upvote';
       this.feedlogError.emit({ error: errorMsg });
     }
   };
 
+  // ── Render ──
+
   render() {
-    // Explicitly forward --feedlog-background from host to child (inheritance can fail across nested shadow DOM)
     const hostBg = this.el?.style?.getPropertyValue('--feedlog-background');
     const style = hostBg
       ? ({ '--feedlog-background': hostBg } as Record<string, string>)
       : undefined;
+
+    const hasMoreOrNextCached =
+      this.paginationType === 'prev-next'
+        ? this.hasMore || this.currentPageIndex < this.pages.length - 1
+        : this.hasMore;
 
     return (
       <feedlog-issues
         style={style}
         issues={this.issues}
         limit={this.limit}
+        paginationType={this.paginationType}
         maxWidth={this.maxWidth}
         theme={this.theme}
         heading={this.heading}
@@ -383,10 +571,14 @@ export class FeedlogIssuesClient {
         getIssueUrl={this.getIssueUrl}
         loading={this.loading}
         error={this.error}
-        hasMore={this.hasMore}
+        hasMore={hasMoreOrNextCached}
+        hasPrev={this.hasPrev}
         isLoadingMore={this.isLoadingMore}
         onFeedlogUpvote={this.handleUpvote}
         onFeedlogLoadMore={async () => this.loadMore()}
+        onFeedlogPageChange={(e: CustomEvent<{ direction: 'prev' | 'next' }>) =>
+          this.goToPage(e.detail.direction)
+        }
       ></feedlog-issues>
     );
   }

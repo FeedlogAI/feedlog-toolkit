@@ -93,10 +93,15 @@ export namespace Components {
      */
     getIssueUrl?: GetIssueUrlFn;
     /**
-     * Whether there are more issues to load
+     * Whether there are more issues available (controls Next button / Load More visibility)
      * @default false
      */
     hasMore: boolean;
+    /**
+     * Whether a previous page is available (for prev-next mode)
+     * @default false
+     */
+    hasPrev: boolean;
     /**
      * Custom heading for the issues section
      */
@@ -112,7 +117,7 @@ export namespace Components {
      */
     issues: FeedlogIssueType[];
     /**
-     * Page size for issues list pagination. When set, enables pagination when issues exceed this limit.
+     * Number of items per page. Used to determine skeleton count during load-more.
      */
     limit?: number;
     /**
@@ -125,6 +130,11 @@ export namespace Components {
      * @default '42rem'
      */
     maxWidth: string;
+    /**
+     * Pagination strategy: 'load-more' appends issues with a button, 'prev-next' shows prev/next arrow navigation.
+     * @default 'load-more'
+     */
+    paginationType: 'load-more' | 'prev-next';
     /**
      * Custom subtitle for the issues section
      */
@@ -166,7 +176,7 @@ export namespace Components {
      */
     heading?: string;
     /**
-     * Maximum number of issues to fetch (1-100, default 10)
+     * Maximum number of issues per page (1-100, default 10)
      */
     limit?: number;
     /**
@@ -174,6 +184,16 @@ export namespace Components {
      * @default '42rem'
      */
     maxWidth: string;
+    /**
+     * Minimum time in ms to display skeleton placeholders before replacing with real data. Prevents flickering on fast networks.
+     * @default 250
+     */
+    minSkeletonTime: number;
+    /**
+     * Pagination strategy: 'load-more' appends issues with a button, 'prev-next' shows prev/next arrow navigation with prefetching.
+     * @default 'load-more'
+     */
+    paginationType: 'load-more' | 'prev-next';
     /**
      * Sort issues by field: 'createdAt' or 'updatedAt'
      */
@@ -214,10 +234,6 @@ export namespace Components {
      * @default []
      */
     issues: FeedlogIssueType[];
-    /**
-     * Page size (items per page). When set, enables pagination when issues exceed this limit.
-     */
-    limit?: number;
     /**
      * Theme variant: 'light' or 'dark'
      * @default 'light'
@@ -393,6 +409,7 @@ declare global {
       upvoteCount: number;
     };
     feedlogLoadMore: void;
+    feedlogPageChange: { direction: 'prev' | 'next' };
   }
   /**
    * Feedlog Issues Component
@@ -686,10 +703,15 @@ declare namespace LocalJSX {
      */
     getIssueUrl?: GetIssueUrlFn;
     /**
-     * Whether there are more issues to load
+     * Whether there are more issues available (controls Next button / Load More visibility)
      * @default false
      */
     hasMore?: boolean;
+    /**
+     * Whether a previous page is available (for prev-next mode)
+     * @default false
+     */
+    hasPrev?: boolean;
     /**
      * Custom heading for the issues section
      */
@@ -705,7 +727,7 @@ declare namespace LocalJSX {
      */
     issues?: FeedlogIssueType[];
     /**
-     * Page size for issues list pagination. When set, enables pagination when issues exceed this limit.
+     * Number of items per page. Used to determine skeleton count during load-more.
      */
     limit?: number;
     /**
@@ -719,9 +741,13 @@ declare namespace LocalJSX {
      */
     maxWidth?: string;
     /**
-     * Event emitted to load more issues
+     * Event emitted to load more issues (load-more mode)
      */
     onFeedlogLoadMore?: (event: FeedlogIssuesCustomEvent<void>) => void;
+    /**
+     * Event emitted when navigating pages (prev-next mode)
+     */
+    onFeedlogPageChange?: (event: FeedlogIssuesCustomEvent<{ direction: 'prev' | 'next' }>) => void;
     /**
      * Event emitted when an issue is upvoted
      */
@@ -732,6 +758,11 @@ declare namespace LocalJSX {
         upvoteCount: number;
       }>
     ) => void;
+    /**
+     * Pagination strategy: 'load-more' appends issues with a button, 'prev-next' shows prev/next arrow navigation.
+     * @default 'load-more'
+     */
+    paginationType?: 'load-more' | 'prev-next';
     /**
      * Custom subtitle for the issues section
      */
@@ -773,7 +804,7 @@ declare namespace LocalJSX {
      */
     heading?: string;
     /**
-     * Maximum number of issues to fetch (1-100, default 10)
+     * Maximum number of issues per page (1-100, default 10)
      */
     limit?: number;
     /**
@@ -781,6 +812,11 @@ declare namespace LocalJSX {
      * @default '42rem'
      */
     maxWidth?: string;
+    /**
+     * Minimum time in ms to display skeleton placeholders before replacing with real data. Prevents flickering on fast networks.
+     * @default 250
+     */
+    minSkeletonTime?: number;
     /**
      * Event emitted on error
      */
@@ -797,6 +833,11 @@ declare namespace LocalJSX {
         upvoteCount: number;
       }>
     ) => void;
+    /**
+     * Pagination strategy: 'load-more' appends issues with a button, 'prev-next' shows prev/next arrow navigation with prefetching.
+     * @default 'load-more'
+     */
+    paginationType?: 'load-more' | 'prev-next';
     /**
      * Sort issues by field: 'createdAt' or 'updatedAt'
      */
@@ -837,10 +878,6 @@ declare namespace LocalJSX {
      * @default []
      */
     issues?: FeedlogIssueType[];
-    /**
-     * Page size (items per page). When set, enables pagination when issues exceed this limit.
-     */
-    limit?: number;
     /**
      * Emitted when an issue is upvoted
      */

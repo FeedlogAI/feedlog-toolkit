@@ -75,6 +75,7 @@ export const FeedlogIssues: StencilVueComponent<JSX.FeedlogIssues> = /*@__PURE__
         'issues',
         'maxWidth',
         'limit',
+        'paginationType',
         'theme',
         'heading',
         'subtitle',
@@ -83,12 +84,14 @@ export const FeedlogIssues: StencilVueComponent<JSX.FeedlogIssues> = /*@__PURE__
         'loading',
         'error',
         'hasMore',
+        'hasPrev',
         'isLoadingMore',
         'getIssueUrl',
         'feedlogUpvote',
         'feedlogLoadMore',
+        'feedlogPageChange',
       ],
-      ['feedlogUpvote', 'feedlogLoadMore']
+      ['feedlogUpvote', 'feedlogLoadMore', 'feedlogPageChange']
     )
   : defineStencilSSRComponent<JSX.FeedlogIssues>({
       tagName: 'feedlog-issues',
@@ -96,6 +99,7 @@ export const FeedlogIssues: StencilVueComponent<JSX.FeedlogIssues> = /*@__PURE__
       props: {
         maxWidth: [String, 'max-width'],
         limit: [Number, 'limit'],
+        paginationType: [String, 'pagination-type'],
         theme: [String, 'theme'],
         heading: [String, 'heading'],
         subtitle: [String, 'subtitle'],
@@ -104,9 +108,11 @@ export const FeedlogIssues: StencilVueComponent<JSX.FeedlogIssues> = /*@__PURE__
         loading: [Boolean, 'loading'],
         error: [String, 'error'],
         hasMore: [Boolean, 'has-more'],
+        hasPrev: [Boolean, 'has-prev'],
         isLoadingMore: [Boolean, 'is-loading-more'],
         onFeedlogUpvote: [Function],
         onFeedlogLoadMore: [Function],
+        onFeedlogPageChange: [Function],
       },
     });
 
@@ -122,6 +128,8 @@ export const FeedlogIssuesClient: StencilVueComponent<JSX.FeedlogIssuesClient> =
           'sortBy',
           'endpoint',
           'maxWidth',
+          'paginationType',
+          'minSkeletonTime',
           'theme',
           'heading',
           'subtitle',
@@ -143,6 +151,8 @@ export const FeedlogIssuesClient: StencilVueComponent<JSX.FeedlogIssuesClient> =
           sortBy: [String, 'sort-by'],
           endpoint: [String, 'endpoint'],
           maxWidth: [String, 'max-width'],
+          paginationType: [String, 'pagination-type'],
+          minSkeletonTime: [Number, 'min-skeleton-time'],
           theme: [String, 'theme'],
           heading: [String, 'heading'],
           subtitle: [String, 'subtitle'],
@@ -158,22 +168,13 @@ export const FeedlogIssuesList: StencilVueComponent<JSX.FeedlogIssuesList> =
     ? defineContainer<JSX.FeedlogIssuesList>(
         'feedlog-issues-list',
         undefined,
-        [
-          'issues',
-          'limit',
-          'theme',
-          'getIssueUrl',
-          'emptyStateTitle',
-          'emptyStateMessage',
-          'feedlogUpvote',
-        ],
+        ['issues', 'theme', 'getIssueUrl', 'emptyStateTitle', 'emptyStateMessage', 'feedlogUpvote'],
         ['feedlogUpvote']
       )
     : defineStencilSSRComponent<JSX.FeedlogIssuesList>({
         tagName: 'feedlog-issues-list',
         hydrateModule: import('@feedlog-ai/webcomponents/hydrate'),
         props: {
-          limit: [Number, 'limit'],
           theme: [String, 'theme'],
           emptyStateTitle: [String, 'empty-state-title'],
           emptyStateMessage: [String, 'empty-state-message'],
