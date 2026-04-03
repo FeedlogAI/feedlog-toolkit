@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-04-03T09:12:24",
+  "timestamp": "2026-04-03T09:22:28",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.40.1",
@@ -440,7 +440,7 @@
           "mutable": false,
           "attr": "empty-state-message",
           "reflectToAttr": false,
-          "docs": "Empty state message. Defaults to \"Check back later for new updates.\".",
+          "docs": "Empty state message. Defaults to \"Check back later for the latest news and updates.\".",
           "docsTags": [],
           "values": [
             {
@@ -466,7 +466,7 @@
           "mutable": false,
           "attr": "empty-state-title",
           "reflectToAttr": false,
-          "docs": "Empty state title. Defaults to \"No updates yet\".",
+          "docs": "Empty state title. Defaults to \"Nothing to see here\".",
           "docsTags": [],
           "values": [
             {

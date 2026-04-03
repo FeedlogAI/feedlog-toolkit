@@ -76,11 +76,11 @@ export namespace Components {
    */
   interface FeedlogIssues {
     /**
-     * Empty state message. Defaults to "Check back later for new updates.".
+     * Empty state message. Defaults to "Check back later for the latest news and updates.".
      */
     emptyStateMessage?: string;
     /**
-     * Empty state title. Defaults to "No updates yet".
+     * Empty state title. Defaults to "Nothing to see here".
      */
     emptyStateTitle?: string;
     /**
@@ -687,11 +687,11 @@ declare namespace LocalJSX {
    */
   interface FeedlogIssues {
     /**
-     * Empty state message. Defaults to "Check back later for new updates.".
+     * Empty state message. Defaults to "Check back later for the latest news and updates.".
      */
     emptyStateMessage?: string;
     /**
-     * Empty state title. Defaults to "No updates yet".
+     * Empty state title. Defaults to "Nothing to see here".
      */
     emptyStateTitle?: string;
     /**

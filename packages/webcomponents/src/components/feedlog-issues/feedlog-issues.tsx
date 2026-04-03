@@ -50,12 +50,12 @@ export class FeedlogIssues {
   @Prop() subtitle?: string;
 
   /**
-   * Empty state title. Defaults to "No updates yet".
+   * Empty state title. Defaults to "Nothing to see here".
    */
   @Prop() emptyStateTitle?: string;
 
   /**
-   * Empty state message. Defaults to "Check back later for new updates.".
+   * Empty state message. Defaults to "Check back later for the latest news and updates.".
    */
   @Prop() emptyStateMessage?: string;
 
@@ -175,8 +175,10 @@ export class FeedlogIssues {
         issues={this.issues}
         theme={this.theme}
         getIssueUrl={this.getIssueUrl}
-        emptyStateTitle={this.emptyStateTitle ?? 'No updates yet'}
-        emptyStateMessage={this.emptyStateMessage ?? 'Check back later for new updates.'}
+        emptyStateTitle={this.emptyStateTitle ?? 'Nothing to see here'}
+        emptyStateMessage={
+          this.emptyStateMessage ?? 'Check back later for the latest news and updates.'
+        }
         onFeedlogUpvote={(e: CustomEvent) => this.handleUpvote(e)}
       />
     );

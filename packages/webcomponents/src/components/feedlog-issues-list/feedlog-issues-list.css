@@ -23,9 +23,17 @@
 
 .empty-state {
   text-align: center;
-  padding: 3rem 1.5rem;
+  padding: 4rem 2rem;
   color: var(--feedlog-muted-foreground);
   font-size: 0.875rem;
+  background-color: rgba(0, 0, 0, 0.015);
+  border: 1px dashed var(--feedlog-empty-illustration-stroke);
+  border-radius: var(--feedlog-card-radius, 1rem);
+  margin: 1rem 0;
+}
+
+:host(.dark) .empty-state {
+  background-color: rgba(255, 255, 255, 0.02);
 }
 
 .empty-state-content {
@@ -39,13 +47,18 @@
 
 .empty-state-illustration {
   margin-bottom: 1.5rem;
-  opacity: 0.9;
+  opacity: 1;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.05));
+}
+
+:host(.dark) .empty-state-illustration {
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.2));
 }
 
 .empty-state-title {
   margin: 0 0 0.5rem 0;
-  font-size: 1.125rem;
-  font-weight: 600;
+  font-size: 1.25rem;
+  font-weight: 500;
   color: var(--feedlog-foreground);
   line-height: 1.4;
 }
