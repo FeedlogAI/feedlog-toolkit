@@ -159,20 +159,23 @@ export class FeedlogIssues {
         {Array.from({ length: count }, (_, i) => (
           <div key={i} class="skeleton-card">
             <div class="skeleton-content">
-              <div class="skeleton-header">
-                <div class="skeleton-badge" />
-                <div class="skeleton-timestamp" />
-              </div>
               <div class="skeleton-main">
+                <div class="skeleton-header">
+                  <div class="skeleton-badge" />
+                  <div class="skeleton-timestamp" />
+                </div>
                 <div class="skeleton-title" />
                 <div class="skeleton-body">
                   <div class="skeleton-line" />
+                  <div class="skeleton-line" />
                   <div class="skeleton-line short" />
                 </div>
-                <div class="skeleton-repo" />
-              </div>
-              <div class="skeleton-footer">
-                <div class="skeleton-upvote" />
+                <div class="skeleton-footer">
+                  <div class="skeleton-footer-meta">
+                    <div class="skeleton-repo" />
+                  </div>
+                  <div class="skeleton-upvote" />
+                </div>
               </div>
             </div>
           </div>
