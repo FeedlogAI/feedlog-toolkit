@@ -196,8 +196,6 @@ export const Loading: Story = {
   args: {
     issues: [],
     loading: true,
-    heading: 'Community feedback',
-    subtitle: 'Upvote issues you care about',
   },
   render: props => <feedlog-issues {...props} />,
   play: async ({ canvasElement, args }) => {
@@ -213,8 +211,6 @@ export const Error: Story = {
     issues: [],
     loading: false,
     error: "Couldn't load updates",
-    heading: 'Community feedback',
-    subtitle: 'Upvote issues you care about',
   },
   render: props => <feedlog-issues {...props} />,
   play: async ({ canvasElement, args }) => {
@@ -230,8 +226,6 @@ export const Empty: Story = {
     issues: [],
     loading: false,
     error: null,
-    heading: 'Community feedback',
-    subtitle: 'Upvote issues you care about',
   },
   render: props => <feedlog-issues {...props} />,
   play: async ({ canvasElement, args }) => {
@@ -286,7 +280,6 @@ export const TransparentBackground: Story = {
     <div
       style={{
         background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-        padding: '2rem',
         borderRadius: '8px',
       }}
     >
@@ -307,8 +300,6 @@ export const LoadMore: Story = {
     hasMore: true,
     limit: 3,
     paginationType: 'load-more',
-    heading: 'Community feedback',
-    subtitle: 'Upvote issues you care about',
   },
   parameters: {
     docs: {
@@ -337,8 +328,6 @@ export const LoadMoreLoading: Story = {
     isLoadingMore: true,
     limit: 3,
     paginationType: 'load-more',
-    heading: 'Community feedback',
-    subtitle: 'Loading more...',
   },
   parameters: {
     docs: {
@@ -367,8 +356,6 @@ export const PrevNext: Story = {
     hasMore: true,
     hasPrev: false,
     paginationType: 'prev-next',
-    heading: 'Community feedback',
-    subtitle: 'Page 1 of issues',
   },
   parameters: {
     docs: {
@@ -396,8 +383,6 @@ export const PrevNextMiddlePage: Story = {
     hasMore: true,
     hasPrev: true,
     paginationType: 'prev-next',
-    heading: 'Community feedback',
-    subtitle: 'Page 2 of issues',
   },
   parameters: {
     docs: {

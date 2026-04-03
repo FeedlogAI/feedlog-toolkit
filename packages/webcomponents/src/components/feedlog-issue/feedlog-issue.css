@@ -221,7 +221,7 @@
 .issue-header-top {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 1rem;
   margin-bottom: var(--feedlog-header-margin-bottom);
@@ -256,6 +256,7 @@
 
 .issue-timestamp {
   font-size: var(--feedlog-timestamp-font-size);
+  line-height: 1.25;
   color: var(--feedlog-timestamp-color, var(--feedlog-muted-foreground));
   white-space: nowrap;
   flex-shrink: 0;
