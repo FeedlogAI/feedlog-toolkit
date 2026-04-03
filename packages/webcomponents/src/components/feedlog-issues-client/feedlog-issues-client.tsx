@@ -575,6 +575,7 @@ export class FeedlogIssuesClient {
         hasPrev={this.hasPrev}
         isLoadingMore={this.isLoadingMore}
         onFeedlogUpvote={this.handleUpvote}
+        onFeedlogRetry={() => void this.resetAndRefetchIssues()}
         onFeedlogLoadMore={async () => this.loadMore()}
         onFeedlogPageChange={(e: CustomEvent<{ direction: 'prev' | 'next' }>) =>
           this.goToPage(e.detail.direction)

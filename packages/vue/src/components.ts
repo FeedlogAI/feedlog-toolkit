@@ -90,8 +90,9 @@ export const FeedlogIssues: StencilVueComponent<JSX.FeedlogIssues> = /*@__PURE__
         'feedlogUpvote',
         'feedlogLoadMore',
         'feedlogPageChange',
+        'feedlogRetry',
       ],
-      ['feedlogUpvote', 'feedlogLoadMore', 'feedlogPageChange']
+      ['feedlogUpvote', 'feedlogLoadMore', 'feedlogPageChange', 'feedlogRetry']
     )
   : defineStencilSSRComponent<JSX.FeedlogIssues>({
       tagName: 'feedlog-issues',
@@ -113,6 +114,7 @@ export const FeedlogIssues: StencilVueComponent<JSX.FeedlogIssues> = /*@__PURE__
         onFeedlogUpvote: [Function],
         onFeedlogLoadMore: [Function],
         onFeedlogPageChange: [Function],
+        onFeedlogRetry: [Function],
       },
     });
 

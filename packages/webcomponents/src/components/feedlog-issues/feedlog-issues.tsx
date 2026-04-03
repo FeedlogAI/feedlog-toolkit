@@ -109,6 +109,11 @@ export class FeedlogIssues {
    */
   @Event() feedlogPageChange!: EventEmitter<{ direction: 'prev' | 'next' }>;
 
+  /**
+   * Event emitted when the user clicks retry on the error state
+   */
+  @Event() feedlogRetry!: EventEmitter<void>;
+
   private handleUpvote = (event: CustomEvent) => {
     event.stopPropagation();
     this.feedlogUpvote.emit(event.detail);
@@ -121,21 +126,45 @@ export class FeedlogIssues {
   private renderErrorIcon() {
     return (
       <svg
-        class="error-icon"
+        class="error-state-illustration"
         xmlns="http://www.w3.org/2000/svg"
-        width="48"
-        height="48"
-        viewBox="0 0 24 24"
+        width="120"
+        height="96"
+        viewBox="0 0 120 96"
         fill="none"
-        stroke="currentColor"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
         aria-hidden="true"
       >
-        <circle cx="12" cy="12" r="10" />
-        <line x1="12" y1="8" x2="12" y2="12" />
-        <line x1="12" y1="16" x2="12.01" y2="16" />
+        <path
+          d="M36 28h48c4.4 0 8 3.6 8 8v44c0 4.4-3.6 8-8 8H36c-4.4 0-8-3.6-8-8V36c0-4.4 3.6-8 8-8z"
+          fill="var(--feedlog-illustration-bg)"
+          stroke="var(--feedlog-illustration-stroke)"
+          stroke-width="1.5"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M28 52l16-12 16 16 16-12 16 16"
+          fill="none"
+          stroke="var(--feedlog-theme-bg)"
+          stroke-width="4"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M28 52l16-12 16 16 16-12 16 16"
+          fill="none"
+          stroke="var(--feedlog-illustration-stroke)"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <circle cx="60" cy="40" r="12" fill="var(--feedlog-destructive)" opacity="0.1" />
+        <path
+          d="M60 36v4M60 46h.01"
+          stroke="var(--feedlog-destructive)"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
       </svg>
     );
   }
@@ -262,6 +291,13 @@ export class FeedlogIssues {
                 {this.renderErrorIcon()}
                 <h2 class="error-state-title">Something went wrong</h2>
                 <p class="error-state-message">{this.error}</p>
+                <button
+                  type="button"
+                  class="error-retry-btn"
+                  onClick={() => this.feedlogRetry.emit()}
+                >
+                  Try again
+                </button>
               </div>
             </div>
           )}

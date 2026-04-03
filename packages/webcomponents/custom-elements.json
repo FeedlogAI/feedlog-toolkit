@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-04-03T09:05:24",
+  "timestamp": "2026-04-03T09:12:24",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.40.1",
@@ -904,6 +904,20 @@
           "cancelable": true,
           "composed": true,
           "docs": "Event emitted when navigating pages (prev-next mode)",
+          "docsTags": []
+        },
+        {
+          "event": "feedlogRetry",
+          "detail": "void",
+          "bubbles": true,
+          "complexType": {
+            "original": "void",
+            "resolved": "void",
+            "references": {}
+          },
+          "cancelable": true,
+          "composed": true,
+          "docs": "Event emitted when the user clicks retry on the error state",
           "docsTags": []
         },
         {

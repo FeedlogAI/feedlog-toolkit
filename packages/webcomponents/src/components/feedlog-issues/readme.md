@@ -35,11 +35,12 @@ Includes full list rendering, loading/error states, and pagination support.
 
 ## Events
 
-| Event               | Description                                          | Type                                                                       |
-| ------------------- | ---------------------------------------------------- | -------------------------------------------------------------------------- |
-| `feedlogLoadMore`   | Event emitted to load more issues (load-more mode)   | `CustomEvent<void>`                                                        |
-| `feedlogPageChange` | Event emitted when navigating pages (prev-next mode) | `CustomEvent<{ direction: "prev" \| "next"; }>`                            |
-| `feedlogUpvote`     | Event emitted when an issue is upvoted               | `CustomEvent<{ issueId: string; upvoted: boolean; upvoteCount: number; }>` |
+| Event               | Description                                                 | Type                                                                       |
+| ------------------- | ----------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `feedlogLoadMore`   | Event emitted to load more issues (load-more mode)          | `CustomEvent<void>`                                                        |
+| `feedlogPageChange` | Event emitted when navigating pages (prev-next mode)        | `CustomEvent<{ direction: "prev" \| "next"; }>`                            |
+| `feedlogRetry`      | Event emitted when the user clicks retry on the error state | `CustomEvent<void>`                                                        |
+| `feedlogUpvote`     | Event emitted when an issue is upvoted                      | `CustomEvent<{ issueId: string; upvoted: boolean; upvoteCount: number; }>` |
 
 ## Dependencies
 

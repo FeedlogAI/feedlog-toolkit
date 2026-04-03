@@ -410,6 +410,7 @@ declare global {
     };
     feedlogLoadMore: void;
     feedlogPageChange: { direction: 'prev' | 'next' };
+    feedlogRetry: void;
   }
   /**
    * Feedlog Issues Component
@@ -748,6 +749,10 @@ declare namespace LocalJSX {
      * Event emitted when navigating pages (prev-next mode)
      */
     onFeedlogPageChange?: (event: FeedlogIssuesCustomEvent<{ direction: 'prev' | 'next' }>) => void;
+    /**
+     * Event emitted when the user clicks retry on the error state
+     */
+    onFeedlogRetry?: (event: FeedlogIssuesCustomEvent<void>) => void;
     /**
      * Event emitted when an issue is upvoted
      */
