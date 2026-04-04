@@ -60,7 +60,9 @@ export interface FetchIssuesParams {
   repositoryIds?: string | string[]; // Single ID or array of IDs
   type?: 'bug' | 'enhancement';
   sortBy?: SortBy; // Sort order: 'createdAt' or 'updatedAt'
-  cursor?: string; // Opaque pagination cursor
+  cursor?: string; // Opaque pagination cursor (or stringified offset; see SDK URL building)
+  /** Explicit offset for APIs that use offset-based pagination instead of cursor */
+  offset?: number;
   limit?: number; // 1-100, default 10
 }
 
@@ -68,7 +70,8 @@ export interface FetchIssuesParams {
  * Pagination information
  */
 export interface PaginationInfo {
-  cursor: string | null; // Opaque cursor for next page
+  /** Next-page token (opaque cursor or stringified offset, depending on API) */
+  cursor: string | null;
   hasMore: boolean;
 }
 

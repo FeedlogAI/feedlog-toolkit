@@ -163,6 +163,32 @@ app.get('/pagination', async (_req, res) => {
   }
 });
 
+/**
+ * feedlog-issues-client against the same origin — e2e tests mock GET /api/issues via Playwright route.
+ */
+app.get('/pagination-client', (_req, res) => {
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pagination client (SDK)</title>
+</head>
+<body>
+  <feedlog-issues-client
+    id="client-widget"
+    api-key="e2e-mock-key"
+    endpoint="http://127.0.0.1:${PORT}"
+    limit="3"
+    min-skeleton-time="0"
+    heading="Mock API (offset pagination)"
+  ></feedlog-issues-client>
+  <script type="module" src="/feedlog/feedlog-toolkit/feedlog-toolkit.esm.js"></script>
+</body>
+</html>`;
+  res.type('html').send(html);
+});
+
 app.listen(PORT, () => {
   console.log(`Webcomponent SSR example running at http://localhost:${PORT}`);
 });

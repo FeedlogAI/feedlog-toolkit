@@ -56,7 +56,7 @@ export default defineConfig({
     {
       name: 'pagination',
       use: { ...devices['Desktop Chrome'] },
-      testMatch: /pagination\.spec\.ts/,
+      testMatch: /pagination.*\.spec\.ts/,
     },
   ],
 });

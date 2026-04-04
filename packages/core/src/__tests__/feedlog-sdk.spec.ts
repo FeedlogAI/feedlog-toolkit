@@ -225,6 +225,146 @@ describe('FeedlogSDK - fetchIssues() Success Cases', () => {
     expect(result.pagination.hasMore).toBe(true);
   });
 
+  it('should map pagination.nextOffset to pagination.cursor in response', async () => {
+    const mockResponse = {
+      issues: [mockIssue],
+      pagination: { nextOffset: 20, hasMore: true },
+    };
+
+    (global.fetch as jest.Mock).mockResolvedValueOnce(createMockResponse(mockResponse));
+
+    const result = await sdk.fetchIssues({});
+
+    expect(result.pagination.cursor).toBe('20');
+    expect(result.pagination.hasMore).toBe(true);
+  });
+
+  it('should map pagination.offset to pagination.cursor when no cursor fields', async () => {
+    const mockResponse = {
+      issues: [mockIssue],
+      pagination: { offset: 10, hasMore: true },
+    };
+
+    (global.fetch as jest.Mock).mockResolvedValueOnce(createMockResponse(mockResponse));
+
+    const result = await sdk.fetchIssues({});
+
+    expect(result.pagination.cursor).toBe('10');
+    expect(result.pagination.hasMore).toBe(true);
+  });
+
+  it('should send numeric cursor as offset query param', async () => {
+    const mockResponse = {
+      issues: [mockIssue],
+      pagination: { cursor: null, hasMore: false },
+    };
+
+    (global.fetch as jest.Mock).mockResolvedValueOnce(createMockResponse(mockResponse));
+
+    await sdk.fetchIssues({ cursor: '15' });
+
+    const callUrl = (global.fetch as jest.Mock).mock.calls[0][0];
+    expect(callUrl).toContain('offset=15');
+    expect(callUrl).not.toContain('cursor=');
+  });
+
+  it('should send explicit offset query param', async () => {
+    const mockResponse = {
+      issues: [mockIssue],
+      pagination: { cursor: null, hasMore: false },
+    };
+
+    (global.fetch as jest.Mock).mockResolvedValueOnce(createMockResponse(mockResponse));
+
+    await sdk.fetchIssues({ offset: 30, limit: 10 });
+
+    const callUrl = (global.fetch as jest.Mock).mock.calls[0][0];
+    expect(callUrl).toContain('offset=30');
+    expect(callUrl).toContain('limit=10');
+  });
+
+  it('should prefer explicit offset over cursor in request URL', async () => {
+    const mockResponse = {
+      issues: [mockIssue],
+      pagination: { cursor: null, hasMore: false },
+    };
+
+    (global.fetch as jest.Mock).mockResolvedValueOnce(createMockResponse(mockResponse));
+
+    await sdk.fetchIssues({ offset: 5, cursor: 'opaque-token' });
+
+    const callUrl = (global.fetch as jest.Mock).mock.calls[0][0];
+    expect(callUrl).toContain('offset=5');
+    expect(callUrl).not.toContain('opaque-token');
+  });
+
+  it('should map pagination.skip to pagination.cursor in response', async () => {
+    const mockResponse = {
+      issues: [mockIssue],
+      pagination: { skip: 40, hasMore: true },
+    };
+
+    (global.fetch as jest.Mock).mockResolvedValueOnce(createMockResponse(mockResponse));
+
+    const result = await sdk.fetchIssues({});
+
+    expect(result.pagination.cursor).toBe('40');
+  });
+
+  it('should prefer cursor over nextOffset when both are present', async () => {
+    const mockResponse = {
+      issues: [mockIssue],
+      pagination: { cursor: 'win', nextOffset: 99, hasMore: true },
+    };
+
+    (global.fetch as jest.Mock).mockResolvedValueOnce(createMockResponse(mockResponse));
+
+    const result = await sdk.fetchIssues({});
+
+    expect(result.pagination.cursor).toBe('win');
+  });
+
+  it('should prefer nextOffset over plain offset when both are present', async () => {
+    const mockResponse = {
+      issues: [mockIssue],
+      pagination: { nextOffset: 7, offset: 2, hasMore: true },
+    };
+
+    (global.fetch as jest.Mock).mockResolvedValueOnce(createMockResponse(mockResponse));
+
+    const result = await sdk.fetchIssues({});
+
+    expect(result.pagination.cursor).toBe('7');
+  });
+
+  it('should truncate float nextOffset in normalized cursor', async () => {
+    const mockResponse = {
+      issues: [mockIssue],
+      pagination: { nextOffset: 12.9, hasMore: true },
+    };
+
+    (global.fetch as jest.Mock).mockResolvedValueOnce(createMockResponse(mockResponse));
+
+    const result = await sdk.fetchIssues({});
+
+    expect(result.pagination.cursor).toBe('12');
+  });
+
+  it('should send negative numeric cursor as offset query param', async () => {
+    const mockResponse = {
+      issues: [mockIssue],
+      pagination: { cursor: null, hasMore: false },
+    };
+
+    (global.fetch as jest.Mock).mockResolvedValueOnce(createMockResponse(mockResponse));
+
+    await sdk.fetchIssues({ cursor: '-1' });
+
+    const callUrl = (global.fetch as jest.Mock).mock.calls[0][0];
+    expect(callUrl).toContain('offset=-1');
+    expect(callUrl).not.toContain('cursor=');
+  });
+
   it('should fetch issues with limit', async () => {
     const mockResponse = {
       issues: [mockIssue],

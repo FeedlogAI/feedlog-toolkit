@@ -87,6 +87,7 @@ module.exports = {
     '*.config.js',
     '*.config.ts',
     'packages/webcomponents/hydrate',
+    '**/storybook-static/**',
     '**/next-env.d.ts',
     'playwright-report',
     'test-results',

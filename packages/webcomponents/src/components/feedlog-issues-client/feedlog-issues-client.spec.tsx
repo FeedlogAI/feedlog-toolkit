@@ -195,6 +195,42 @@ describe('feedlog-issues-client - load-more mode', () => {
     // Only one additional fetch should have been made (guard prevents duplicates)
     expect(fetchFn.mock.calls.length).toBe(initialCallCount + 1);
   });
+
+  it('should pass the next-page token from the SDK on load more (numeric string)', async () => {
+    const batch1 = createMockIssues(3, 1);
+    const batch2 = createMockIssues(3, 4);
+
+    const fetchFn = jest
+      .fn()
+      .mockResolvedValueOnce(mockResponse(batch1, true, '3'))
+      .mockResolvedValueOnce(mockResponse(batch2, false, null));
+
+    FeedlogSDKMock.mockImplementation(() => ({
+      fetchIssues: fetchFn,
+      toggleUpvote: jest.fn(),
+    }));
+
+    const page = await newSpecPage({
+      components: [FeedlogIssuesClient],
+      template: () => (
+        <feedlog-issues-client
+          apiKey="test-key"
+          limit={3}
+          minSkeletonTime={0}
+        ></feedlog-issues-client>
+      ),
+    });
+    await page.waitForChanges();
+
+    const child = page.root?.shadowRoot?.querySelector('feedlog-issues');
+    child?.dispatchEvent(new CustomEvent('feedlogLoadMore', { bubbles: true }));
+
+    await new Promise(r => setTimeout(r, 50));
+    await page.waitForChanges();
+
+    expect(fetchFn.mock.calls.length).toBe(2);
+    expect(fetchFn.mock.calls[1][0]).toEqual(expect.objectContaining({ cursor: '3', limit: 3 }));
+  });
 });
 
 describe('feedlog-issues-client - prev-next mode', () => {

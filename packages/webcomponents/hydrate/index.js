@@ -7078,8 +7078,20 @@ class FeedlogSDK {
         if (params.sortBy) {
             url.searchParams.set('sortBy', params.sortBy);
         }
-        if (params.cursor != null && params.cursor !== '') {
-            url.searchParams.set('cursor', String(params.cursor));
+        if (params.offset != null && Number.isFinite(Number(params.offset))) {
+            url.searchParams.set('offset', String(Math.max(0, Math.floor(Number(params.offset)))));
+        }
+        else if (params.cursor != null && params.cursor !== '') {
+            const c = String(params.cursor).trim();
+            if (c !== '') {
+                // Numeric tokens are sent as `offset` — some APIs ignore `cursor` and default offset to 0.
+                if (/^-?\d+$/.test(c)) {
+                    url.searchParams.set('offset', c);
+                }
+                else {
+                    url.searchParams.set('cursor', c);
+                }
+            }
         }
         if (params.limit !== undefined) {
             const n = Number(params.limit);
@@ -7152,13 +7164,21 @@ class FeedlogSDK {
             },
         };
     }
-    /** Resolve next-page cursor from API pagination (supports common aliases). */
+    /** Resolve next-page token from API pagination (supports cursor and offset-style fields). */
     static normalizePaginationCursor(pagination) {
-        const raw = pagination.cursor ?? pagination.nextCursor;
+        const raw = pagination.cursor ??
+            pagination.nextCursor ??
+            pagination.nextOffset ??
+            pagination.skip ??
+            pagination.offset;
         if (raw == null || raw === '') {
             return null;
         }
-        return String(raw);
+        if (typeof raw === 'number') {
+            return Number.isFinite(raw) ? String(Math.trunc(raw)) : null;
+        }
+        const s = String(raw).trim();
+        return s === '' ? null : s;
     }
     /**
      * Validate and sanitize an individual issue
