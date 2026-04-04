@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-04-04T13:10:20",
+  "timestamp": "2026-04-04T13:18:17",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.40.1",
@@ -263,7 +263,7 @@
       "filePath": "src/components/feedlog-card/feedlog-card.tsx",
       "encapsulation": "shadow",
       "tag": "feedlog-card",
-      "readme": "# feedlog-card\n",
+      "readme": "# feedlog-card\n\nNamed slots: `header`, `content`, and `footer`. Styling uses [`feedlog-card.css`](./feedlog-card.css); parent themes can set `--feedlog-*` where shared with other Feedlog components.\n",
       "docs": "Feedlog Card Component\n\nA reusable card container component with header and content areas.",
       "docsTags": [],
       "usage": {},

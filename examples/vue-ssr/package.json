@@ -1,6 +1,6 @@
 {
   "name": "vue-ssr-example",
-  "version": "0.0.50",
+  "version": "0.0.51",
   "private": true,
   "type": "module",
   "scripts": {
@@ -9,7 +9,7 @@
     "start": "nuxt start --port 3003"
   },
   "dependencies": {
-    "@feedlog-ai/vue": "^0.0.50",
+    "@feedlog-ai/vue": "^0.0.51",
     "nuxt": "^3.13.0",
     "vue": "^3.4.15"
   },
