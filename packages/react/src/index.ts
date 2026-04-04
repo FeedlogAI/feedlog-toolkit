@@ -8,7 +8,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import '@feedlog-ai/core/ssr-globals';
-import type { FeedlogIssue as FeedlogIssueType } from '@feedlog-ai/core';
+import type { FeedlogIssue as FeedlogIssueType, GetIssueUrlFn, SortBy } from '@feedlog-ai/core';
 
 // Import custom element components - each import auto-registers the component
 // and its dependencies. This uses the dist-custom-elements output which works
@@ -23,7 +23,9 @@ import '@feedlog-ai/webcomponents/components/feedlog-button';
 import '@feedlog-ai/webcomponents/components/feedlog-card';
 
 // Re-export types for convenience
-export type { FeedlogIssue } from '@feedlog-ai/core';
+export type { FeedlogIssue, GetIssueUrlFn, SortBy } from '@feedlog-ai/core';
+/** Stencil component prop / element types (includes paginationType, loadMoreLabel, etc.). */
+export type { Components, JSX } from '@feedlog-ai/webcomponents';
 
 /**
  * Helper to merge refs
@@ -213,13 +215,20 @@ FeedlogCard.displayName = 'FeedlogCard';
 export interface FeedlogIssuesProps extends React.HTMLAttributes<HTMLElement> {
   issues?: FeedlogIssueType[];
   maxWidth?: string;
+  limit?: number;
+  paginationType?: 'load-more' | 'prev-next';
+  loadMoreLabel?: string;
   theme?: 'light' | 'dark';
   heading?: string;
   subtitle?: string;
+  emptyStateTitle?: string;
+  emptyStateMessage?: string;
   loading?: boolean;
   error?: string | null;
   hasMore?: boolean;
+  hasPrev?: boolean;
   isLoadingMore?: boolean;
+  getIssueUrl?: GetIssueUrlFn;
   onFeedlogUpvote?: (
     event: CustomEvent<{
       issueId: string;
@@ -228,6 +237,8 @@ export interface FeedlogIssuesProps extends React.HTMLAttributes<HTMLElement> {
     }>
   ) => void;
   onFeedlogLoadMore?: (event: CustomEvent<void>) => void;
+  onFeedlogPageChange?: (event: CustomEvent<{ direction: 'prev' | 'next' }>) => void;
+  onFeedlogRetry?: (event: CustomEvent<void>) => void;
 }
 
 export const FeedlogIssues = React.forwardRef<HTMLElement, FeedlogIssuesProps>(
@@ -255,10 +266,17 @@ export interface FeedlogIssuesClientProps extends React.HTMLAttributes<HTMLEleme
   endpoint?: string;
   type?: 'bug' | 'enhancement';
   limit?: number;
+  sortBy?: SortBy;
   maxWidth?: string;
+  paginationType?: 'load-more' | 'prev-next';
+  loadMoreLabel?: string;
+  minSkeletonTime?: number;
   theme?: 'light' | 'dark';
   heading?: string;
   subtitle?: string;
+  emptyStateTitle?: string;
+  emptyStateMessage?: string;
+  getIssueUrl?: GetIssueUrlFn;
   onFeedlogUpvote?: (
     event: CustomEvent<{
       issueId: string;
