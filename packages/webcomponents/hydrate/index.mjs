@@ -7351,7 +7351,12 @@ class FeedlogIssuesClient {
     componentWillLoad() {
         this.initializeSDK();
         if (this.issues.length > 0 && !this.loading) {
-            return;
+            // SSR/hydration can restore issues (and hasMore) without the pagination cursor,
+            // because cursor is internal state and may not be serialized. Skipping fetch
+            // would leave cursor unset so "load more" repeats the first page.
+            if (!this.hasMore || this.cursor != null) {
+                return;
+            }
         }
         if (this.paginationType === 'prev-next') {
             return this.fetchPagesInitial();
@@ -7417,7 +7422,7 @@ class FeedlogIssuesClient {
         if (this.limit) {
             params.limit = this.limit;
         }
-        if (this.cursor) {
+        if (this.cursor != null && this.cursor !== '') {
             params.cursor = this.cursor;
         }
         return params;
@@ -7659,7 +7664,7 @@ class FeedlogIssuesClient {
         const hasMoreOrNextCached = this.paginationType === 'prev-next'
             ? this.hasMore || this.currentPageIndex < this.pages.length - 1
             : this.hasMore;
-        return (hAsync("feedlog-issues", { key: '806b738607bcd1ad6c9a1921f2f99c4603ea5f2b', style: style, issues: this.issues, limit: this.limit, paginationType: this.paginationType, maxWidth: this.maxWidth, theme: this.theme, heading: this.heading, subtitle: this.subtitle, emptyStateTitle: this.emptyStateTitle, emptyStateMessage: this.emptyStateMessage, getIssueUrl: this.getIssueUrl, loading: this.loading, error: this.error, hasMore: hasMoreOrNextCached, hasPrev: this.hasPrev, isLoadingMore: this.isLoadingMore, onFeedlogUpvote: this.handleUpvote, onFeedlogRetry: () => void this.resetAndRefetchIssues(), onFeedlogLoadMore: async () => this.loadMore(), onFeedlogPageChange: (e) => this.goToPage(e.detail.direction) }));
+        return (hAsync("feedlog-issues", { key: 'd4b69c89e0640de87dfd4ae664e4a6892ba0401b', style: style, issues: this.issues, limit: this.limit, paginationType: this.paginationType, maxWidth: this.maxWidth, theme: this.theme, heading: this.heading, subtitle: this.subtitle, emptyStateTitle: this.emptyStateTitle, emptyStateMessage: this.emptyStateMessage, getIssueUrl: this.getIssueUrl, loading: this.loading, error: this.error, hasMore: hasMoreOrNextCached, hasPrev: this.hasPrev, isLoadingMore: this.isLoadingMore, onFeedlogUpvote: this.handleUpvote, onFeedlogRetry: () => void this.resetAndRefetchIssues(), onFeedlogLoadMore: async () => this.loadMore(), onFeedlogPageChange: (e) => this.goToPage(e.detail.direction) }));
     }
     get el() { return getElement(this); }
     static get watchers() { return {

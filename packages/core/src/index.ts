@@ -149,8 +149,8 @@ export class FeedlogSDK {
       url.searchParams.set('sortBy', params.sortBy);
     }
 
-    if (params.cursor) {
-      url.searchParams.set('cursor', params.cursor);
+    if (params.cursor != null && params.cursor !== '') {
+      url.searchParams.set('cursor', String(params.cursor));
     }
 
     if (params.limit !== undefined) {
@@ -232,14 +232,24 @@ export class FeedlogSDK {
     }
 
     const issues = (response.issues as unknown[]).map(issue => this.validateIssue(issue));
+    const pagination = response.pagination as Record<string, unknown>;
 
     return {
       issues,
       pagination: {
-        cursor: (response.pagination as Record<string, unknown>).cursor as string | null,
-        hasMore: Boolean((response.pagination as Record<string, unknown>).hasMore),
+        cursor: FeedlogSDK.normalizePaginationCursor(pagination),
+        hasMore: Boolean(pagination.hasMore),
       },
     };
+  }
+
+  /** Resolve next-page cursor from API pagination (supports common aliases). */
+  private static normalizePaginationCursor(pagination: Record<string, unknown>): string | null {
+    const raw = pagination.cursor ?? pagination.nextCursor;
+    if (raw == null || raw === '') {
+      return null;
+    }
+    return String(raw);
   }
 
   /**

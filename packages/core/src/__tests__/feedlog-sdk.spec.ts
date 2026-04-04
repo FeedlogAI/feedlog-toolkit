@@ -211,6 +211,20 @@ describe('FeedlogSDK - fetchIssues() Success Cases', () => {
     expect(callUrl).toContain('cursor=abc123');
   });
 
+  it('should map pagination.nextCursor to pagination.cursor in response', async () => {
+    const mockResponse = {
+      issues: [mockIssue],
+      pagination: { nextCursor: 'from-next-field', hasMore: true },
+    };
+
+    (global.fetch as jest.Mock).mockResolvedValueOnce(createMockResponse(mockResponse));
+
+    const result = await sdk.fetchIssues({});
+
+    expect(result.pagination.cursor).toBe('from-next-field');
+    expect(result.pagination.hasMore).toBe(true);
+  });
+
   it('should fetch issues with limit', async () => {
     const mockResponse = {
       issues: [mockIssue],

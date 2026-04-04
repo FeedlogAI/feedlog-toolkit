@@ -126,7 +126,12 @@ export class FeedlogIssuesClient {
   componentWillLoad() {
     this.initializeSDK();
     if (this.issues.length > 0 && !this.loading) {
-      return;
+      // SSR/hydration can restore issues (and hasMore) without the pagination cursor,
+      // because cursor is internal state and may not be serialized. Skipping fetch
+      // would leave cursor unset so "load more" repeats the first page.
+      if (!this.hasMore || this.cursor != null) {
+        return;
+      }
     }
     if (this.paginationType === 'prev-next') {
       return this.fetchPagesInitial();
@@ -215,7 +220,7 @@ export class FeedlogIssuesClient {
       params.limit = this.limit;
     }
 
-    if (this.cursor) {
+    if (this.cursor != null && this.cursor !== '') {
       params.cursor = this.cursor;
     }
 
