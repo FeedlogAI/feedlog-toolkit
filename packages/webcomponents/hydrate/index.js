@@ -6835,6 +6835,10 @@ class FeedlogIssues {
          */
         this.paginationType = 'load-more';
         /**
+         * Label for the load-more button (load-more pagination mode only).
+         */
+        this.loadMoreLabel = 'Load More';
+        /**
          * Theme variant: 'light' or 'dark'
          */
         this.theme = 'light';
@@ -6878,7 +6882,7 @@ class FeedlogIssues {
     }
     renderLoadMorePagination() {
         var _a;
-        return (hAsync("div", null, this.renderIssuesList(), this.isLoadingMore && (hAsync("div", { class: "load-more-skeletons" }, this.renderSkeletonCards((_a = this.limit) !== null && _a !== void 0 ? _a : 3))), this.hasMore && !this.isLoadingMore && (hAsync("div", { class: "load-more-container" }, hAsync("feedlog-button", { onFeedlogClick: this.handleLoadMore, variant: "outline" }, "Load More Issues")))));
+        return (hAsync("div", null, this.renderIssuesList(), this.isLoadingMore && (hAsync("div", { class: "load-more-skeletons" }, this.renderSkeletonCards((_a = this.limit) !== null && _a !== void 0 ? _a : 3))), this.hasMore && !this.isLoadingMore && (hAsync("div", { class: "load-more-container" }, hAsync("feedlog-button", { onFeedlogClick: this.handleLoadMore, variant: "outline" }, this.loadMoreLabel)))));
     }
     renderPrevNextPagination() {
         const showNav = this.hasPrev || this.hasMore;
@@ -6888,7 +6892,7 @@ class FeedlogIssues {
         const containerStyle = {
             maxWidth: this.maxWidth,
         };
-        return (hAsync(Host, { key: '532084cd87f8458a88a263e6470aea05f4b4e00c', class: this.theme === 'dark' ? 'dark' : '' }, hAsync("div", { key: '645c17ca7cff33ec511a42579c9f5e3714760347', class: "issues-container", style: containerStyle }, (this.heading || this.subtitle) && (hAsync("header", { key: 'dd667da80a53e1045ae2c03a250e5c45968179aa', class: "issues-header" }, hAsync("div", { key: '259afb7335a23354a0c72d5874b3dc3388a97959', class: "header-content" }, this.heading && hAsync("h1", { key: '4adb6dd200386c871b85ecec1cad901eced89376', class: "issues-title" }, this.heading), this.subtitle && hAsync("p", { key: '7abdc8106df0bbd575cf4b1bd474bec616a655c7', class: "issues-subtitle" }, this.subtitle)))), this.loading && (hAsync("div", { key: '588d3d8a3ec88d57e14ff669224d895305fe0c10', class: "loading-state", role: "status", "aria-label": "Loading issues" }, this.renderSkeletonCards(3))), this.error && (hAsync("div", { key: 'e00f2e95eeb3b9c6ab1db91656a63f575453c96d', class: "error-state", role: "alert" }, hAsync("div", { key: '3802c0c818e1dd1631cb541868a55fca8d551554', class: "error-state-content" }, this.renderErrorIcon(), hAsync("h2", { key: '6ae16004946d08edb64fc9947b8a343bbe8f812d', class: "error-state-title" }, "Something went wrong"), hAsync("p", { key: 'b948a78a8a607595868106c322a185da17bdf193', class: "error-state-message" }, this.error), hAsync("button", { key: '3682e7bed1d3c4a9d7b9076986c50b93d3fd1e59', type: "button", class: "error-retry-btn", onClick: () => this.feedlogRetry.emit() }, "Try again")))), !this.loading &&
+        return (hAsync(Host, { key: 'ef37fd65e61f5300ed16a745a41cd6fadfe0da79', class: this.theme === 'dark' ? 'dark' : '' }, hAsync("div", { key: '6af75a551ee4b5baec624f60f6d9d37a3caa16b6', class: "issues-container", style: containerStyle }, (this.heading || this.subtitle) && (hAsync("header", { key: 'd089bc70a445a12430efb88dbe5f0e82f5b292c0', class: "issues-header" }, hAsync("div", { key: 'b965de775ddc5b5d494f4f0fd0d72320fac6f2ed', class: "header-content" }, this.heading && hAsync("h1", { key: 'e9a5fc96b3a84c9ae386f97ade8b2771e13ffa94', class: "issues-title" }, this.heading), this.subtitle && hAsync("p", { key: 'f91443a0ee2df4b353be0128e36210dd6f8fd774', class: "issues-subtitle" }, this.subtitle)))), this.loading && (hAsync("div", { key: '422102a3b2ffcde8bf9776130338f5b4a70e7406', class: "loading-state", role: "status", "aria-label": "Loading issues" }, this.renderSkeletonCards(3))), this.error && (hAsync("div", { key: '021ba5d097bf4436d8ceef8bd355554a6cf0cdd7', class: "error-state", role: "alert" }, hAsync("div", { key: '0ad6c8df62ac79b34d2878f6c6dc2ea14d6dab34', class: "error-state-content" }, this.renderErrorIcon(), hAsync("h2", { key: '355961499ab3b27fadacbe800c169b46815f0deb', class: "error-state-title" }, "Something went wrong"), hAsync("p", { key: '8578b5116d523cea0629fcb63f148c6eaa1b21ec', class: "error-state-message" }, this.error), hAsync("button", { key: 'c97f632ebf5aaed0e6b5b2809634b6882d4e0377', type: "button", class: "error-retry-btn", onClick: () => this.feedlogRetry.emit() }, "Try again")))), !this.loading &&
             !this.error &&
             (this.paginationType === 'prev-next'
                 ? this.renderPrevNextPagination()
@@ -6903,6 +6907,7 @@ class FeedlogIssues {
             "maxWidth": [1, "max-width"],
             "limit": [2],
             "paginationType": [1, "pagination-type"],
+            "loadMoreLabel": [1, "load-more-label"],
             "theme": [1],
             "heading": [1],
             "subtitle": [1],
@@ -7073,8 +7078,8 @@ class FeedlogSDK {
         if (params.sortBy) {
             url.searchParams.set('sortBy', params.sortBy);
         }
-        if (params.cursor) {
-            url.searchParams.set('cursor', params.cursor);
+        if (params.cursor != null && params.cursor !== '') {
+            url.searchParams.set('cursor', String(params.cursor));
         }
         if (params.limit !== undefined) {
             const n = Number(params.limit);
@@ -7138,13 +7143,22 @@ class FeedlogSDK {
             throw new FeedlogValidationError('Invalid API response: pagination is required');
         }
         const issues = response.issues.map(issue => this.validateIssue(issue));
+        const pagination = response.pagination;
         return {
             issues,
             pagination: {
-                cursor: response.pagination.cursor,
-                hasMore: Boolean(response.pagination.hasMore),
+                cursor: FeedlogSDK.normalizePaginationCursor(pagination),
+                hasMore: Boolean(pagination.hasMore),
             },
         };
+    }
+    /** Resolve next-page cursor from API pagination (supports common aliases). */
+    static normalizePaginationCursor(pagination) {
+        const raw = pagination.cursor ?? pagination.nextCursor;
+        if (raw == null || raw === '') {
+            return null;
+        }
+        return String(raw);
     }
     /**
      * Validate and sanitize an individual issue
@@ -7271,6 +7285,10 @@ class FeedlogIssuesClient {
          * 'prev-next' shows prev/next arrow navigation with prefetching.
          */
         this.paginationType = 'load-more';
+        /**
+         * Label for the load-more button (load-more pagination mode only).
+         */
+        this.loadMoreLabel = 'Load More';
         /**
          * Minimum time in ms to display skeleton placeholders before replacing
          * with real data. Prevents flickering on fast networks.
@@ -7666,7 +7684,7 @@ class FeedlogIssuesClient {
         const hasMoreOrNextCached = this.paginationType === 'prev-next'
             ? this.hasMore || this.currentPageIndex < this.pages.length - 1
             : this.hasMore;
-        return (hAsync("feedlog-issues", { key: 'd4b69c89e0640de87dfd4ae664e4a6892ba0401b', style: style, issues: this.issues, limit: this.limit, paginationType: this.paginationType, maxWidth: this.maxWidth, theme: this.theme, heading: this.heading, subtitle: this.subtitle, emptyStateTitle: this.emptyStateTitle, emptyStateMessage: this.emptyStateMessage, getIssueUrl: this.getIssueUrl, loading: this.loading, error: this.error, hasMore: hasMoreOrNextCached, hasPrev: this.hasPrev, isLoadingMore: this.isLoadingMore, onFeedlogUpvote: this.handleUpvote, onFeedlogRetry: () => void this.resetAndRefetchIssues(), onFeedlogLoadMore: async () => this.loadMore(), onFeedlogPageChange: (e) => this.goToPage(e.detail.direction) }));
+        return (hAsync("feedlog-issues", { key: '7249893e5b7a08e4bf4487c8752693b9809a5557', style: style, issues: this.issues, limit: this.limit, paginationType: this.paginationType, loadMoreLabel: this.loadMoreLabel, maxWidth: this.maxWidth, theme: this.theme, heading: this.heading, subtitle: this.subtitle, emptyStateTitle: this.emptyStateTitle, emptyStateMessage: this.emptyStateMessage, getIssueUrl: this.getIssueUrl, loading: this.loading, error: this.error, hasMore: hasMoreOrNextCached, hasPrev: this.hasPrev, isLoadingMore: this.isLoadingMore, onFeedlogUpvote: this.handleUpvote, onFeedlogRetry: () => void this.resetAndRefetchIssues(), onFeedlogLoadMore: async () => this.loadMore(), onFeedlogPageChange: (e) => this.goToPage(e.detail.direction) }));
     }
     get el() { return getElement(this); }
     static get watchers() { return {
@@ -7697,6 +7715,7 @@ class FeedlogIssuesClient {
             "endpoint": [1],
             "maxWidth": [1, "max-width"],
             "paginationType": [1, "pagination-type"],
+            "loadMoreLabel": [1, "load-more-label"],
             "minSkeletonTime": [2, "min-skeleton-time"],
             "theme": [1],
             "heading": [1],

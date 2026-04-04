@@ -72,7 +72,7 @@ app.get('/pagination', async (_req, res) => {
     <feedlog-issues
       id="load-more-widget"
       pagination-type="load-more"
-      heading="Load More Test"
+      heading="Pagination demo"
     ></feedlog-issues>
   </div>
   <div id="prev-next-container">

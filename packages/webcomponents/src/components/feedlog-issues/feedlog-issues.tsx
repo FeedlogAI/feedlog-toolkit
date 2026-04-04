@@ -35,6 +35,11 @@ export class FeedlogIssues {
   @Prop() paginationType: 'load-more' | 'prev-next' = 'load-more';
 
   /**
+   * Label for the load-more button (load-more pagination mode only).
+   */
+  @Prop() loadMoreLabel: string = 'Load More';
+
+  /**
    * Theme variant: 'light' or 'dark'
    */
   @Prop() theme: 'light' | 'dark' = 'light';
@@ -225,7 +230,7 @@ export class FeedlogIssues {
         {this.hasMore && !this.isLoadingMore && (
           <div class="load-more-container">
             <feedlog-button onFeedlogClick={this.handleLoadMore} variant="outline">
-              Load More Issues
+              {this.loadMoreLabel}
             </feedlog-button>
           </div>
         )}

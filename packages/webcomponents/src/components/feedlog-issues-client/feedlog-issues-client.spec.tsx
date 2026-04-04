@@ -4,6 +4,9 @@ import { FeedlogIssuesClient } from './feedlog-issues-client';
 import { FeedlogSDK } from '@feedlog-ai/core';
 import type { FeedlogIssue, FetchIssuesResponse } from '@feedlog-ai/core';
 
+/** Jest replaces FeedlogSDK with a mock; cast for mockImplementation/mockClear. */
+const FeedlogSDKMock = FeedlogSDK as unknown as jest.Mock;
+
 const createMockIssue = (id: string): FeedlogIssue => ({
   id,
   githubIssueLink: `https://github.com/test/repo/issues/${id}`,
@@ -75,7 +78,7 @@ describe('feedlog-issues-client - --feedlog-background forwarding', () => {
 
 describe('feedlog-issues-client - load-more mode', () => {
   beforeEach(() => {
-    (FeedlogSDK as jest.Mock).mockClear();
+    FeedlogSDKMock.mockClear();
   });
 
   it('should default to load-more paginationType', async () => {
@@ -90,7 +93,7 @@ describe('feedlog-issues-client - load-more mode', () => {
 
   it('should fetch issues on load', async () => {
     const issues = createMockIssues(5);
-    (FeedlogSDK as jest.Mock).mockImplementation(() => ({
+    FeedlogSDKMock.mockImplementation(() => ({
       fetchIssues: jest.fn().mockResolvedValue(mockResponse(issues, true, 'cursor-1')),
       toggleUpvote: jest.fn(),
     }));
@@ -116,7 +119,7 @@ describe('feedlog-issues-client - load-more mode', () => {
       .mockResolvedValueOnce(mockResponse(batch1, true, 'cursor-1'))
       .mockResolvedValueOnce(mockResponse(batch2, false, null));
 
-    (FeedlogSDK as jest.Mock).mockImplementation(() => ({
+    FeedlogSDKMock.mockImplementation(() => ({
       fetchIssues: fetchFn,
       toggleUpvote: jest.fn(),
     }));
@@ -158,7 +161,7 @@ describe('feedlog-issues-client - load-more mode', () => {
           )
       );
 
-    (FeedlogSDK as jest.Mock).mockImplementation(() => ({
+    FeedlogSDKMock.mockImplementation(() => ({
       fetchIssues: fetchFn,
       toggleUpvote: jest.fn(),
     }));
@@ -196,7 +199,7 @@ describe('feedlog-issues-client - load-more mode', () => {
 
 describe('feedlog-issues-client - prev-next mode', () => {
   beforeEach(() => {
-    (FeedlogSDK as jest.Mock).mockClear();
+    FeedlogSDKMock.mockClear();
   });
 
   it('should accept paginationType="prev-next"', async () => {
@@ -215,7 +218,7 @@ describe('feedlog-issues-client - prev-next mode', () => {
     const allIssues = createMockIssues(6, 1);
     const fetchFn = jest.fn().mockResolvedValue(mockResponse(allIssues, true, 'cursor-1'));
 
-    (FeedlogSDK as jest.Mock).mockImplementation(() => ({
+    FeedlogSDKMock.mockImplementation(() => ({
       fetchIssues: fetchFn,
       toggleUpvote: jest.fn(),
     }));
@@ -247,7 +250,7 @@ describe('feedlog-issues-client - prev-next mode', () => {
     const allIssues = createMockIssues(6, 1);
     const fetchFn = jest.fn().mockResolvedValue(mockResponse(allIssues, true, 'cursor-1'));
 
-    (FeedlogSDK as jest.Mock).mockImplementation(() => ({
+    FeedlogSDKMock.mockImplementation(() => ({
       fetchIssues: fetchFn,
       toggleUpvote: jest.fn(),
     }));
@@ -288,7 +291,7 @@ describe('feedlog-issues-client - prev-next mode', () => {
     const allIssues = createMockIssues(6, 1);
     const fetchFn = jest.fn().mockResolvedValue(mockResponse(allIssues, false, null));
 
-    (FeedlogSDK as jest.Mock).mockImplementation(() => ({
+    FeedlogSDKMock.mockImplementation(() => ({
       fetchIssues: fetchFn,
       toggleUpvote: jest.fn(),
     }));
@@ -337,7 +340,7 @@ describe('feedlog-issues-client - prev-next mode', () => {
       .fn()
       .mockResolvedValue(mockResponse(createMockIssues(4, 1), true, 'cursor-1'));
 
-    (FeedlogSDK as jest.Mock).mockImplementation(() => ({
+    FeedlogSDKMock.mockImplementation(() => ({
       fetchIssues: fetchFn,
       toggleUpvote: jest.fn(),
     }));
@@ -384,7 +387,7 @@ describe('feedlog-issues-client - prev-next mode', () => {
 
 describe('feedlog-issues-client - slow network simulation', () => {
   beforeEach(() => {
-    (FeedlogSDK as jest.Mock).mockClear();
+    FeedlogSDKMock.mockClear();
   });
 
   it('should show skeletons for at least minSkeletonTime even when API responds instantly', async () => {
@@ -396,7 +399,7 @@ describe('feedlog-issues-client - slow network simulation', () => {
       .mockResolvedValueOnce(mockResponse(batch1, true, 'cursor-1'))
       .mockResolvedValueOnce(mockResponse(batch2, false, null));
 
-    (FeedlogSDK as jest.Mock).mockImplementation(() => ({
+    FeedlogSDKMock.mockImplementation(() => ({
       fetchIssues: fetchFn,
       toggleUpvote: jest.fn(),
     }));
@@ -449,7 +452,7 @@ describe('feedlog-issues-client - slow network simulation', () => {
           )
       );
 
-    (FeedlogSDK as jest.Mock).mockImplementation(() => ({
+    FeedlogSDKMock.mockImplementation(() => ({
       fetchIssues: fetchFn,
       toggleUpvote: jest.fn(),
     }));
@@ -502,7 +505,7 @@ describe('feedlog-issues-client - slow network simulation', () => {
           )
       );
 
-    (FeedlogSDK as jest.Mock).mockImplementation(() => ({
+    FeedlogSDKMock.mockImplementation(() => ({
       fetchIssues: slowFetch,
       toggleUpvote: jest.fn(),
     }));

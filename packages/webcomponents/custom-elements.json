@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-04-04T11:47:08",
+  "timestamp": "2026-04-04T11:54:24",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.40.1",
@@ -724,6 +724,35 @@
           "setter": false
         },
         {
+          "name": "loadMoreLabel",
+          "type": "string",
+          "complexType": {
+            "original": "string",
+            "resolved": "string",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "load-more-label",
+          "reflectToAttr": false,
+          "docs": "Label for the load-more button (load-more pagination mode only).",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "'Load More'"
+            }
+          ],
+          "default": "'Load More'",
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false,
+          "getter": false,
+          "setter": false
+        },
+        {
           "name": "loading",
           "type": "boolean",
           "complexType": {
@@ -1143,6 +1172,35 @@
             }
           ],
           "optional": true,
+          "required": false,
+          "getter": false,
+          "setter": false
+        },
+        {
+          "name": "loadMoreLabel",
+          "type": "string",
+          "complexType": {
+            "original": "string",
+            "resolved": "string",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "load-more-label",
+          "reflectToAttr": false,
+          "docs": "Label for the load-more button (load-more pagination mode only).",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "'Load More'"
+            }
+          ],
+          "default": "'Load More'",
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": false,
           "required": false,
           "getter": false,
           "setter": false

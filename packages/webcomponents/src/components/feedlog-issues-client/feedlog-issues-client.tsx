@@ -52,6 +52,11 @@ export class FeedlogIssuesClient {
   @Prop() paginationType: 'load-more' | 'prev-next' = 'load-more';
 
   /**
+   * Label for the load-more button (load-more pagination mode only).
+   */
+  @Prop() loadMoreLabel: string = 'Load More';
+
+  /**
    * Minimum time in ms to display skeleton placeholders before replacing
    * with real data. Prevents flickering on fast networks.
    */
@@ -567,6 +572,7 @@ export class FeedlogIssuesClient {
         issues={this.issues}
         limit={this.limit}
         paginationType={this.paginationType}
+        loadMoreLabel={this.loadMoreLabel}
         maxWidth={this.maxWidth}
         theme={this.theme}
         heading={this.heading}

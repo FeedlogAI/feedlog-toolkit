@@ -121,6 +121,11 @@ export namespace Components {
      */
     limit?: number;
     /**
+     * Label for the load-more button (load-more pagination mode only).
+     * @default 'Load More'
+     */
+    loadMoreLabel: string;
+    /**
      * Loading state - shows loading indicator when true
      * @default false
      */
@@ -179,6 +184,11 @@ export namespace Components {
      * Maximum number of issues per page (1-100, default 10)
      */
     limit?: number;
+    /**
+     * Label for the load-more button (load-more pagination mode only).
+     * @default 'Load More'
+     */
+    loadMoreLabel: string;
     /**
      * Maximum width of the container
      * @default '42rem'
@@ -732,6 +742,11 @@ declare namespace LocalJSX {
      */
     limit?: number;
     /**
+     * Label for the load-more button (load-more pagination mode only).
+     * @default 'Load More'
+     */
+    loadMoreLabel?: string;
+    /**
      * Loading state - shows loading indicator when true
      * @default false
      */
@@ -812,6 +827,11 @@ declare namespace LocalJSX {
      * Maximum number of issues per page (1-100, default 10)
      */
     limit?: number;
+    /**
+     * Label for the load-more button (load-more pagination mode only).
+     * @default 'Load More'
+     */
+    loadMoreLabel?: string;
     /**
      * Maximum width of the container
      * @default '42rem'

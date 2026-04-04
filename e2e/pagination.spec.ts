@@ -9,8 +9,8 @@ test.describe('Pagination - Load More mode', () => {
     const widget = page.locator('#load-more-widget');
     await expect(widget).toBeVisible();
 
-    await expect(widget).toContainText('Load More Test');
-    await expect(widget).toContainText('Load More Issues');
+    await expect(widget).toContainText('Pagination demo');
+    await expect(widget).toContainText('Load More');
   });
 
   test('shows skeleton cards while loading more', async ({ page }) => {
@@ -20,7 +20,7 @@ test.describe('Pagination - Load More mode', () => {
     await expect(widget).toBeVisible();
 
     // Click Load More
-    const loadMoreBtn = widget.locator('text=Load More Issues');
+    const loadMoreBtn = widget.locator('text=Load More');
     await loadMoreBtn.click();
 
     // Skeletons should appear (the server script uses a 1.5s delay)
@@ -41,14 +41,14 @@ test.describe('Pagination - Load More mode', () => {
 
     // Load more twice (3 pages total, then hasMore=false)
     for (let i = 0; i < 2; i++) {
-      const loadMoreBtn = widget.locator('text=Load More Issues');
+      const loadMoreBtn = widget.locator('text=Load More');
       await loadMoreBtn.click();
       // Wait for loading to finish
       await expect(widget.locator('.skeleton-card').first()).not.toBeVisible({ timeout: 5000 });
     }
 
     // Button should be gone
-    await expect(widget.locator('text=Load More Issues')).not.toBeVisible();
+    await expect(widget.locator('text=Load More')).not.toBeVisible();
   });
 
   test('skeleton cards persist during slow network', async ({ page }) => {
@@ -57,7 +57,7 @@ test.describe('Pagination - Load More mode', () => {
     const widget = page.locator('#load-more-widget');
     await expect(widget).toBeVisible();
 
-    const loadMoreBtn = widget.locator('text=Load More Issues');
+    const loadMoreBtn = widget.locator('text=Load More');
     await loadMoreBtn.click();
 
     // Verify skeletons are visible after 500ms (well within the 1.5s mock delay)

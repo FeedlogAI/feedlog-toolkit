@@ -37,7 +37,24 @@ describe('feedlog-issues - load-more mode', () => {
 
     const btn = page.root?.shadowRoot?.querySelector('.load-more-container feedlog-button');
     expect(btn).not.toBeNull();
-    expect(btn?.textContent).toContain('Load More Issues');
+    expect(btn?.textContent).toContain('Load More');
+  });
+
+  it('should use custom loadMoreLabel when set', async () => {
+    const page = await newSpecPage({
+      components: [FeedlogIssues],
+      template: () => (
+        <feedlog-issues
+          issues={createMockIssues(5)}
+          hasMore={true}
+          paginationType="load-more"
+          loadMoreLabel="Show more updates"
+        ></feedlog-issues>
+      ),
+    });
+
+    const btn = page.root?.shadowRoot?.querySelector('.load-more-container feedlog-button');
+    expect(btn?.textContent).toContain('Show more updates');
   });
 
   it('should hide Load More button when hasMore is false', async () => {
