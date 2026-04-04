@@ -193,7 +193,7 @@ You are integrating Feedlog using the top-level client only.
 **Approach:**
 
 - Use FeedlogIssuesClient (React/Vue) or `<feedlog-issues-client>` (vanilla) from the matching @feedlog-ai package
-- Pass apiKey and optional type, limit, theme, maxWidth
+- Pass `apiKey` and optional filters (`type`, `limit`, `sortBy`), layout (`theme`, `maxWidth`, `heading`, `subtitle`), pagination (`paginationType`, `loadMoreLabel`), and empty-state copy — see the package README for the full list
 - Listen for upvote/error events as documented in the package README
 
 **Do not** implement manual fetch unless the user asks for composable or core-only patterns.

@@ -33,12 +33,19 @@ The main component for displaying GitHub issues with built-in SDK integration.
 
 **Props:**
 
-- `apiKey` (required): API key for Feedlog authentication
-- `type` (optional): Filter by issue type - `'bug'` or `'enhancement'`
-- `limit` (optional): Maximum issues to fetch (1-100, default: 10)
+- `apiKey` (required): API key for Feedlog authentication (set via property; not reflected to an HTML attribute)
+- `type` (optional): Filter by issue type — `'bug'` or `'enhancement'`
+- `limit` (optional): Maximum issues per page (1–100; default from API when omitted)
+- `sortBy` (optional): `'createdAt'` or `'updatedAt'`
 - `endpoint` (optional): Custom API endpoint
 - `maxWidth` (optional): Container max width (default: `'42rem'`)
-- `theme` (optional): Theme variant - `'light'` or `'dark'` (default: `'light'`)
+- `paginationType` (optional): `'load-more'` or `'prev-next'` (default: `'load-more'`)
+- `loadMoreLabel` (optional): Label for the load-more button (default: `'Load More'`)
+- `minSkeletonTime` (optional): Minimum ms to show skeleton UI before showing data (default: `250`)
+- `theme` (optional): `'light'` or `'dark'` (default: `'light'`)
+- `heading` / `subtitle` (optional): Section heading and subtitle
+- `emptyStateTitle` / `emptyStateMessage` (optional): Copy for the empty state
+- `getIssueUrl` (optional): Callback `(issue) => string | null | undefined` when `githubIssueLink` is missing (privacy-safe URLs)
 
 **Events:**
 
@@ -98,15 +105,17 @@ Then visit `http://localhost:3000/playground.html` and refresh after each build.
 
 ### Playground Props
 
-The playground lets you configure:
+The playground UI exposes:
 
 - **API Key** (required): Feedlog authentication key
+- **Endpoint**: API base URL (defaults to a local dev URL; adjust for your environment)
 - **Type**: Filter issues by type (all/bug/enhancement)
 - **Limit**: Number of issues to fetch (1-100)
 - **Max Width**: Container width (CSS values)
 - **Theme**: Light or dark theme
-- **Heading**: Custom section heading
-- **Subtitle**: Custom section subtitle
+- **Heading** / **Subtitle**: Optional section copy
+
+Additional props (`sort-by`, `pagination-type`, `empty-state-*`, `getIssueUrl`, etc.) are available on `<feedlog-issues-client>` in your own markup or by setting properties in JavaScript; see [feedlog-issues-client readme](src/components/feedlog-issues-client/readme.md).
 
 ## Usage
 
@@ -238,11 +247,14 @@ export class AppComponent {
 
 The package also includes additional UI components:
 
-- `feedlog-badge`: Label component with variant support
+- `feedlog-badge`: Label component (`variant`: `default`, `destructive`, `enhancement`, `secondary`)
 - `feedlog-button`: Button component with variants and sizes
-- `feedlog-card`: Reusable card container component
-- `feedlog-issues`: Issues display component (used internally by client)
-- `feedlog-issues-list`: Issues list component (used internally)
+- `feedlog-card`: Reusable card container (header / content / footer slots)
+- `feedlog-issue`: Single issue card
+- `feedlog-issues`: Full list + loading, error, and pagination (composable with `FeedlogSDK`; also used by the client)
+- `feedlog-issues-list`: List of issue cards only
+
+Per-component API tables live in `src/components/<name>/readme.md` (Stencil-generated).
 
 ## Build Outputs
 

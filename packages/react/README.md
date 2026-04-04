@@ -26,11 +26,18 @@ The main component for displaying GitHub issues with built-in SDK integration.
 **Props:**
 
 - `apiKey`: API key for Feedlog authentication (required)
-- `type?`: Filter by issue type - `'bug'` or `'enhancement'`
-- `limit?`: Maximum issues to fetch (1-100, default: 10)
+- `type?`: Filter by issue type — `'bug'` or `'enhancement'`
+- `limit?`: Maximum issues per page (1–100)
+- `sortBy?`: `'createdAt'` or `'updatedAt'`
 - `endpoint?`: Custom API endpoint
 - `maxWidth?`: Container max width (default: `'42rem'`)
-- `theme?`: Theme variant - `'light'` or `'dark'` (default: `'light'`)
+- `paginationType?`: `'load-more'` or `'prev-next'` (default: `'load-more'`)
+- `loadMoreLabel?`: Load-more button label (default: `'Load More'`)
+- `minSkeletonTime?`: Minimum ms for skeleton display (default: `250`)
+- `theme?`: `'light'` or `'dark'` (default: `'light'`)
+- `heading?` / `subtitle?`: Section heading and subtitle
+- `emptyStateTitle?` / `emptyStateMessage?`: Empty-state copy
+- `getIssueUrl?`: `(issue: FeedlogIssue) => string | null | undefined` when `githubIssueLink` is missing
 
 **Events:**
 
@@ -228,15 +235,16 @@ import {
   FeedlogBadge,
   FeedlogButton,
   FeedlogCard,
+  FeedlogIssueComponent,
   FeedlogIssues,
-  FeedlogIssuesList
+  FeedlogIssuesList,
 } from '@feedlog-ai/react';
 
-// Badge component
+// Badge component (variants: default | destructive | enhancement | secondary)
 <FeedlogBadge variant="enhancement">New</FeedlogBadge>
 
-// Button component
-<FeedlogButton variant="primary" size="lg" onFeedlogClick={handleClick}>
+// Button component (variants: default | outline | ghost | destructive)
+<FeedlogButton variant="default" size="lg" onFeedlogClick={handleClick}>
   Click me
 </FeedlogButton>
 

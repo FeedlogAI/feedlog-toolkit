@@ -45,16 +45,20 @@ The SDK defaults `credentials` to `'include'` so cookies (for example anonymous 
 // Fetch issues with default parameters
 const response = await sdk.fetchIssues();
 
+// Optional: offset-based pagination (when the API supports it)
+await sdk.fetchIssues({ offset: 0, limit: 10 });
+
 // Fetch issues with filters
 const filteredResponse = await sdk.fetchIssues({
   type: 'bug', // 'bug' or 'enhancement'
+  sortBy: 'updatedAt', // optional: 'createdAt' | 'updatedAt'
   limit: 20, // Maximum number of issues (1-100)
   cursor: 'next-page-cursor', // For pagination
 });
 
 // Fetch issues from specific repositories
 const repoResponse = await sdk.fetchIssues({
-  repositoryIds: ['repo-id-1', 'repo-id-2'], // Array of repository IDs
+  repositoryIds: ['repo-id-1', 'repo-id-2'], // Array of repository IDs (or a single string)
   type: 'enhancement',
   limit: 10,
 });
@@ -96,7 +100,8 @@ new FeedlogSDK(config: FeedlogSDKConfig)
 
 - `FeedlogIssue` - GitHub issue data structure
 - `Repository` - Repository information
-- `FetchIssuesParams` - Parameters for fetching issues
+- `FetchIssuesParams` - Parameters for fetching issues (includes optional `sortBy`, `offset`, `cursor`, etc.)
+- `SortBy` - `'createdAt' | 'updatedAt'`
 - `FetchIssuesResponse` - Response from fetching issues
 - `UpvoteResponse` - Response from upvoting an issue
 - `FeedlogSDKConfig` - SDK configuration options
