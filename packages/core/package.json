@@ -23,7 +23,7 @@
     "BUILD_FEEDLOG_SDK_ONLY.md"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "npm run clean && tsc",
     "dev": "tsc --watch",
     "clean": "rm -rf dist",
     "test": "jest",
