@@ -1,3 +1,9 @@
+# Release pipeline: Changesets + npm Trusted Publishing (OIDC) only — no NPM_TOKEN.
+# Mirrors main CI gates (format, lint, test, build, verify:pack, e2e) before version/publish steps.
+# Trusted publisher on npmjs.com must list workflow filename: changesets.yml
+#
+# Requirements: npm CLI >= 11.5.1, Node >= 22.14 (see https://docs.npmjs.com/trusted-publishers/)
+
 name: Changesets
 
 on:
@@ -7,17 +13,17 @@ on:
     paths:
       - '.changeset/**'
       - 'packages/**'
+      - 'examples/**'
       - 'package.json'
       - 'package-lock.json'
 
 permissions:
-  id-token: write  # Required for OIDC trusted publishing
-  contents: write
+  id-token: write # OIDC for npm trusted publishing (required)
+  contents: write # changesets/action: commits / PRs
   pull-requests: write
 
 jobs:
   changesets:
-    if: false  # Disabled for now
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -32,9 +38,14 @@ jobs:
           cache: 'npm'
           registry-url: 'https://registry.npmjs.org'
 
+      # OIDC trusted publishing requires npm >= 11.5.1 (npm docs).
+      - name: Use npm CLI compatible with OIDC publish
+        run: npm install -g npm@^11.5.1
+
       - name: Install dependencies
         run: npm ci
 
+      # --- Same gates as .github/workflows/ci.yml (before Changesets) ---
       - name: Check formatting
         run: npm run format:check
 
@@ -42,12 +53,22 @@ jobs:
         run: npm run lint
 
       - name: Run tests
-        run: npm run test:coverage
+        run: npm run test
 
       - name: Build packages
         run: npm run build
 
-      - name: Create Version Packages PR
+      - name: Verify publishable package contents
+        run: npm run verify:pack
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run E2E tests
+        run: npm run e2e
+
+      # --- Changesets: version PR and/or publish (auth = OIDC only) ---
+      - name: Create Version Packages PR / publish
         uses: changesets/action@v1
         with:
           version: npm run version-packages
@@ -56,4 +77,4 @@ jobs:
           publish: npm run publish-packages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_CONFIG_PROVENANCE: true
+          NPM_CONFIG_PROVENANCE: 'true'

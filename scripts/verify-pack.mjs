@@ -13,6 +13,19 @@ const root = path.join(__dirname, '..');
 
 const PACKAGES = ['packages/core', 'packages/webcomponents', 'packages/react', 'packages/vue'];
 
+/**
+ * Required built artifacts under dist/ for @feedlog-ai/webcomponents (matches former publish.js check).
+ */
+const REQUIRED_WEBCOMPONENT_DIST = [
+  'dist/components/feedlog-issues-client.js',
+  'dist/components/feedlog-issues.js',
+  'dist/components/feedlog-issue.js',
+  'dist/components/feedlog-issues-list.js',
+  'dist/components/feedlog-badge.js',
+  'dist/components/feedlog-button.js',
+  'dist/components/feedlog-card.js',
+];
+
 /** Substrings that must not appear in any packed path (POSIX-style). */
 const FORBIDDEN = [
   'storybook-static',
@@ -80,6 +93,20 @@ function main() {
       }
     } else {
       console.log(`✅ ${pkg}: ${files.length} paths, no forbidden patterns`);
+    }
+
+    if (pkg === 'packages/webcomponents') {
+      const joined = files.map(f => f.replace(/\\/g, '/')).join('\n');
+      const missing = REQUIRED_WEBCOMPONENT_DIST.filter(req => !joined.includes(req));
+      if (missing.length) {
+        failed = true;
+        console.error(`\n❌ ${pkg}: missing required dist artifacts in pack:`);
+        for (const m of missing) {
+          console.error(`   - ${m}`);
+        }
+      } else {
+        console.log(`✅ ${pkg}: required dist/components entries present`);
+      }
     }
   }
   if (failed) {
