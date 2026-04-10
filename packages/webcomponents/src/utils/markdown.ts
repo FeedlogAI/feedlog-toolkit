@@ -2,6 +2,29 @@ import '@feedlog-ai/core/ssr-globals';
 import { marked } from 'marked';
 import DOMPurify from 'isomorphic-dompurify';
 
+let noopenerHookRegistered = false;
+
+function ensureNoopenerHook(): void {
+  if (noopenerHookRegistered) {
+    return;
+  }
+  noopenerHookRegistered = true;
+  DOMPurify.addHook('afterSanitizeAttributes', node => {
+    if (node.nodeName !== 'A') {
+      return;
+    }
+    const target = node.getAttribute?.('target');
+    if (target !== '_blank') {
+      return;
+    }
+    const rel = node.getAttribute?.('rel') ?? '';
+    if (/\bnoopener\b/i.test(rel)) {
+      return;
+    }
+    node.setAttribute?.('rel', rel ? `${rel} noopener noreferrer`.trim() : 'noopener noreferrer');
+  });
+}
+
 /**
  * Parse markdown to sanitized HTML for safe rendering.
  * Uses marked for parsing and DOMPurify for XSS protection.
@@ -20,6 +43,8 @@ export function parseMarkdown(markdown: string | null | undefined): string {
     throw new Error('marked.parse returned a Promise; async markdown is not supported');
   }
   const html = parsed;
+
+  ensureNoopenerHook();
 
   return DOMPurify.sanitize(html, {
     ALLOWED_TAGS: [

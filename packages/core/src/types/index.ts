@@ -96,8 +96,18 @@ export interface UpvoteResponse {
  * SDK configuration
  */
 export interface FeedlogSDKConfig {
-  apiKey: string; // API key for authentication
-  endpoint?: string; // API base URL, defaults to https://api.feedlog.app
+  /**
+   * API key sent as `x-api-key` on each request. In browsers and bundled apps
+   * this value is not secret from end users — use a **publishable** key scoped
+   * (e.g. by domain) in the Feedlog dashboard, not a privileged server secret.
+   */
+  apiKey: string;
+  /**
+   * API base URL (no trailing slash). Defaults to `https://api.feedlog.app`.
+   * Must be a trusted value from app configuration — do not derive from
+   * untrusted user input (especially in server-side environments).
+   */
+  endpoint?: string;
   timeout?: number; // Request timeout in milliseconds, defaults to 30000
   /**
    * Fetch `credentials` mode. Defaults to `'include'` so anonymous user/session

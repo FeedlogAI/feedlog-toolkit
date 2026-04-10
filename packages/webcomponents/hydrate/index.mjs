@@ -6587,6 +6587,28 @@ function requireBrowser () {
 var browserExports = requireBrowser();
 var DOMPurify = /*@__PURE__*/getDefaultExportFromCjs(browserExports);
 
+let noopenerHookRegistered = false;
+function ensureNoopenerHook() {
+    if (noopenerHookRegistered) {
+        return;
+    }
+    noopenerHookRegistered = true;
+    DOMPurify.addHook('afterSanitizeAttributes', node => {
+        var _a, _b, _c, _d;
+        if (node.nodeName !== 'A') {
+            return;
+        }
+        const target = (_a = node.getAttribute) === null || _a === void 0 ? void 0 : _a.call(node, 'target');
+        if (target !== '_blank') {
+            return;
+        }
+        const rel = (_c = (_b = node.getAttribute) === null || _b === void 0 ? void 0 : _b.call(node, 'rel')) !== null && _c !== void 0 ? _c : '';
+        if (/\bnoopener\b/i.test(rel)) {
+            return;
+        }
+        (_d = node.setAttribute) === null || _d === void 0 ? void 0 : _d.call(node, 'rel', rel ? `${rel} noopener noreferrer`.trim() : 'noopener noreferrer');
+    });
+}
 /**
  * Parse markdown to sanitized HTML for safe rendering.
  * Uses marked for parsing and DOMPurify for XSS protection.
@@ -6604,6 +6626,7 @@ function parseMarkdown(markdown) {
         throw new Error('marked.parse returned a Promise; async markdown is not supported');
     }
     const html = parsed;
+    ensureNoopenerHook();
     return DOMPurify.sanitize(html, {
         ALLOWED_TAGS: [
             'p',
@@ -6981,8 +7004,8 @@ class FeedlogTimeoutError extends FeedlogError {
  * used across all Feedlog Toolkit packages.
  */
 /**
- * Main Feedlog SDK class
- * Provides methods to interact with the Feedlog API
+ * Main Feedlog SDK class — calls the Feedlog HTTP API with `x-api-key` auth.
+ * See {@link FeedlogSDKConfig} for how `apiKey` behaves in browser vs server contexts.
  */
 class FeedlogSDK {
     constructor(config) {

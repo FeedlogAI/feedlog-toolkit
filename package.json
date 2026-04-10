@@ -4,15 +4,16 @@
   "private": true,
   "overrides": {
     "@stencil/ssr": {
-      "vite": "$vite"
-    }
+      "vite": "6.4.2"
+    },
+    "vite": "6.4.2"
   },
   "workspaces": [
     "packages/*",
     "examples/*"
   ],
   "scripts": {
-    "build": "npm run build:core && npm run build:webcomponents && npm run build:react && npm run build:vue && npm run format",
+    "build": "npm run build:core && npm run build:webcomponents && npm run build:react && npm run build:vue && npm run format && npm run verify:pack",
     "build:core": "npm run build --workspace=@feedlog-ai/core",
     "build:webcomponents": "npm run build --workspace=@feedlog-ai/webcomponents",
     "build:react": "npm run build --workspace=@feedlog-ai/react",
@@ -38,7 +39,8 @@
     "publish-minor": "node scripts/publish.js minor",
     "publish-major": "node scripts/publish.js major",
     "e2e": "npm run build && npm run build:examples && npx playwright install chromium && playwright test",
-    "build:examples": "npm run build --workspace=react-ssr-example && npm run build --workspace=vue-ssr-example"
+    "build:examples": "npm run build --workspace=react-ssr-example && npm run build --workspace=vue-ssr-example",
+    "verify:pack": "node scripts/verify-pack.mjs"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.8",
@@ -60,7 +62,7 @@
     "storybook": "^9.1.17",
     "ts-jest": "^29.1.1",
     "typescript": "^5.3.3",
-    "vite": "^7.3.1"
+    "vite": "6.4.2"
   },
   "engines": {
     "node": ">=18.0.0",

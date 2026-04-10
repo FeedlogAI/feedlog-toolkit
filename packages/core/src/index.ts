@@ -27,8 +27,8 @@ import {
 } from './errors';
 
 /**
- * Main Feedlog SDK class
- * Provides methods to interact with the Feedlog API
+ * Main Feedlog SDK class — calls the Feedlog HTTP API with `x-api-key` auth.
+ * See {@link FeedlogSDKConfig} for how `apiKey` behaves in browser vs server contexts.
  */
 export class FeedlogSDK {
   private config: FeedlogSDKConfig;
