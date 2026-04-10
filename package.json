@@ -67,5 +67,13 @@
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=9.0.0"
+  },
+  "optionalDependencies": {
+    "@oxc-minify/binding-linux-arm64-gnu": "0.117.0",
+    "@oxc-minify/binding-linux-x64-gnu": "0.117.0",
+    "@oxc-parser/binding-linux-arm64-gnu": "0.117.0",
+    "@oxc-parser/binding-linux-x64-gnu": "0.117.0",
+    "@oxc-transform/binding-linux-arm64-gnu": "0.117.0",
+    "@oxc-transform/binding-linux-x64-gnu": "0.117.0"
   }
 }
