@@ -7,5 +7,5 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": []
+  "ignore": ["react-ssr-example", "vue-ssr-example", "webcomponent-ssr-example"]
 }
