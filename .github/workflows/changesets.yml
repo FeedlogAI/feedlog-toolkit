@@ -76,6 +76,8 @@ jobs:
       - name: Create Version Packages PR / publish
         uses: changesets/action@6a0a831ff30acef54f2c6aa1cbbc1096b066edaf # v1.7.0
         with:
+          # Avoid `git push --force` to changeset-release/* (blocked by repo rules). API commits update the branch instead.
+          commitMode: github-api
           version: npm run version-packages
           commit: 'ci: release packages'
           title: 'ci: release packages'
