@@ -38,6 +38,8 @@ const FORBIDDEN = [
   'tsconfig',
   'jest.config',
   'playwright.config',
+  '.stories.ts',
+  '.stories.tsx',
 ];
 
 function listPackedFiles(packageDir) {

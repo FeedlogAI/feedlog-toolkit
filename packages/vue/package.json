@@ -27,7 +27,7 @@
     "test:coverage": "jest --coverage"
   },
   "peerDependencies": {
-    "vue": ">=3.0.0 || >=2.6.0"
+    "vue": "^3.0.0"
   },
   "dependencies": {
     "@feedlog-ai/webcomponents": "^0.0.51"

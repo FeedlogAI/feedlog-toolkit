@@ -35,6 +35,9 @@ build/
 .DS_Store
 Thumbs.db
 
+# Storybook build output
+storybook-static/
+
 # Logs
 logs
 *.log
