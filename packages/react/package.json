@@ -84,6 +84,11 @@
     "components",
     "data-visualization"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FeedlogAI/feedlog-toolkit",
+    "directory": "packages/react"
+  },
   "license": "MIT",
   "publishConfig": {
     "access": "public"
