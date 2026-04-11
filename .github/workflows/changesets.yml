@@ -73,11 +73,33 @@ jobs:
       - name: Run E2E tests
         run: npm run e2e
 
+      # commitMode: github-api still calls GraphQL updateRef(force: true) when changeset-release/main
+      # exists but is not at the workflow base SHA (same as resetting before a version commit). Repo
+      # rules that block force-pushes reject that. Deleting the stale ref when no open release PR
+      # exists makes ghcommit use createRef instead (no force). If a release PR is open and main
+      # has moved, merge/close it first or add a ruleset bypass for github-actions[bot].
+      - name: Delete stale changeset-release branch if no open version PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          repo="${{ github.repository }}"
+          head="${{ github.repository_owner }}:changeset-release/main"
+          open_count=$(gh pr list --repo "$repo" --head "$head" --base main --state open --json number --jq 'length')
+          if [ "$open_count" -eq 0 ]; then
+            if gh api "repos/$repo/git/refs/heads/changeset-release/main" --silent >/dev/null 2>&1; then
+              gh api "repos/$repo/git/refs/heads/changeset-release/main" -X DELETE
+              echo "Deleted stale changeset-release/main (no open release PR)."
+            fi
+          else
+            echo "Open release PR exists; not deleting changeset-release/main."
+          fi
+
       # --- Changesets: version PR and/or publish (auth = OIDC only) ---
       - name: Create Version Packages PR / publish
         uses: changesets/action@6a0a831ff30acef54f2c6aa1cbbc1096b066edaf # v1.7.0
         with:
-          # Avoid `git push --force` to changeset-release/* (blocked by repo rules). API commits update the branch instead.
+          # Still need delete-stale-branch step above: github-api uses forced ref updates when the branch diverged.
           commitMode: github-api
           version: npm run version-packages
           commit: 'ci: release packages'
