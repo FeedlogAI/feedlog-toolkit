@@ -12,6 +12,7 @@ on:
       - main
     paths:
       - '.changeset/**'
+      - '.github/workflows/changesets.yml'
       - 'packages/**'
       - 'examples/**'
       - 'package.json'
