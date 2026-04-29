@@ -1,6 +1,7 @@
 :host {
   display: block;
-  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+  font-family:
+    ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
 
   /* Light theme defaults */
   --feedlog-card: #ffffff;
@@ -52,10 +53,20 @@
   box-shadow: none;
 }
 
-/* Header + inline chevron (no extra horizontal rule here) */
+/* Header: optional `header-meta` row, then `header` + chevron on one row (vertically centered). */
 .feedlog-card__header {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: stretch;
+  min-width: 0;
+}
+
+.feedlog-card__header-meta {
+  min-width: 0;
+}
+
+.feedlog-card__header-title-row {
+  display: flex;
   gap: 0.5rem;
   min-width: 0;
 }
@@ -65,13 +76,9 @@
   min-width: 0;
 }
 
+.feedlog-card__header--collapsible .feedlog-card__header-meta,
 .feedlog-card__header--collapsible .feedlog-card__header-main {
   cursor: pointer;
-}
-
-.feedlog-card__header--collapsible .feedlog-card__header-toggle {
-  align-self: flex-end;
-  margin-bottom: calc(var(--feedlog-title-margin-bottom, 0.75rem) / 2);
 }
 
 .feedlog-card__header-toggle {
@@ -106,10 +113,12 @@
   flex-shrink: 0;
   color: inherit;
   transition: transform 0.2s ease;
+  /* arrow-up asset: 180° = chevron down while collapsed */
+  transform: rotate(180deg);
 }
 
 .feedlog-card__header-toggle-icon--expanded {
-  transform: rotate(180deg);
+  transform: rotate(0deg);
 }
 
 .feedlog-card__body {
@@ -127,6 +136,10 @@
 
 .feedlog-card__footer-wrap--has-footer {
   border-top: 1px solid var(--feedlog-border);
+}
+
+::slotted([slot='header-meta']) {
+  display: block;
 }
 
 ::slotted([slot='header']) {

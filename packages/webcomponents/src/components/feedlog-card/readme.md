@@ -1,6 +1,6 @@
 # feedlog-card
 
-Named slots: `header`, `content`, and `footer`. Styling uses [`feedlog-card.css`](./feedlog-card.css); parent themes can set `--feedlog-*` where shared with other Feedlog components.
+Named slots: optional `header-meta` (top row, e.g. badges and date), `header` (title row alongside the collapsible chevron when `collapsible`), `content`, and `footer`. Styling uses [`feedlog-card.css`](./feedlog-card.css); parent themes can set `--feedlog-*` where shared with other Feedlog components.
 
 <!-- Auto Generated Below -->
 

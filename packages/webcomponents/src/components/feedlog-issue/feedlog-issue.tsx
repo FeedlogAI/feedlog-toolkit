@@ -251,34 +251,31 @@ export class FeedlogIssueComponent {
               collapsible={this.collapsible}
               class={this.theme === 'dark' ? 'dark' : ''}
             >
-              <div slot="header" class="issue-card-header">
-                <div class="issue-header-top">
-                  <div class="issue-badges">
-                    {issue.type === 'bug' ? (
-                      <feedlog-badge variant="destructive">Bug</feedlog-badge>
-                    ) : (
-                      <feedlog-badge variant="enhancement">Enhancement</feedlog-badge>
-                    )}
-                    {statusBadgeLabel && (
-                      <feedlog-badge variant="secondary">{statusBadgeLabel}</feedlog-badge>
-                    )}
-                  </div>
-                  <div class="issue-meta-right">
-                    {issue.pinnedAt && (
-                      <div class="pinned-indicator" title="Pinned issue">
-                        {this.renderPinIcon()}
-                      </div>
-                    )}
-                    <span class="issue-timestamp" title={timestampTitle}>
-                      {timestampLabel} {this.formatDate(timestampDate)}
-                    </span>
-                  </div>
+              <div slot="header-meta" class="issue-header-top">
+                <div class="issue-badges">
+                  {issue.type === 'bug' ? (
+                    <feedlog-badge variant="destructive">Bug</feedlog-badge>
+                  ) : (
+                    <feedlog-badge variant="enhancement">Enhancement</feedlog-badge>
+                  )}
+                  {statusBadgeLabel && (
+                    <feedlog-badge variant="secondary">{statusBadgeLabel}</feedlog-badge>
+                  )}
                 </div>
-
-                <h3 class="issue-title">
-                  <span class="issue-title-text">{displayTitle}</span>
-                </h3>
+                <div class="issue-meta-right">
+                  {issue.pinnedAt && (
+                    <div class="pinned-indicator" title="Pinned issue">
+                      {this.renderPinIcon()}
+                    </div>
+                  )}
+                  <span class="issue-timestamp" title={timestampTitle}>
+                    {timestampLabel} {this.formatDate(timestampDate)}
+                  </span>
+                </div>
               </div>
+              <h3 slot="header" class="issue-title">
+                <span class="issue-title-text">{displayTitle}</span>
+              </h3>
               {issue.body != null && issue.body !== '' && (
                 <div slot="content" class="issue-body" innerHTML={parseMarkdown(issue.body)} />
               )}

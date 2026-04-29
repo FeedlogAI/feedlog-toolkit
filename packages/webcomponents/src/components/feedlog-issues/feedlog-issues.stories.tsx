@@ -459,7 +459,7 @@ export const Collapsible: Story = {
     docs: {
       description: {
         story:
-          'Passes `collapsible` to nested issue cards ([Remix arrow-up-s-line](https://allsvgicons.com/pack/ri/#arrow-up-s-line) toggle in header on each row).',
+          'Passes `collapsible` to nested issue cards (chevron down collapsed, up expanded; [Remix arrow-up-s-line](https://allsvgicons.com/pack/ri/#arrow-up-s-line)).',
       },
     },
   },

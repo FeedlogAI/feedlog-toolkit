@@ -60,10 +60,25 @@ export const HeaderOnly: Story = {
   ),
 };
 
-/** Collapsible header/body; Remix [arrow-up-s-line](https://allsvgicons.com/pack/ri/#arrow-up-s-line) rotates when expanded. */
+/** Collapsible header/body; Remix [arrow-up-s-line](https://allsvgicons.com/pack/ri/#arrow-up-s-line) — points down when collapsed, up when expanded; optional `header-meta` row above. */
 export const CollapsibleBody: Story = {
   render: () => (
     <feedlog-card collapsible={true} style={{ width: '400px' }}>
+      <div
+        slot="header-meta"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: '0.75rem',
+          marginBottom: '0.75rem',
+        }}
+      >
+        <div style={{ display: 'flex', gap: '0.375rem', flexWrap: 'wrap' }}>
+          <feedlog-badge variant="secondary">Meta</feedlog-badge>
+        </div>
+        <span style={{ fontSize: '0.75rem', color: '#64748b' }}>Updated 2d ago</span>
+      </div>
       <div slot="header">
         <h3 style={{ margin: '0 0 0.5rem 0' }}>Compact card</h3>
       </div>

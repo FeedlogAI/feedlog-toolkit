@@ -369,7 +369,7 @@ export const Collapsible: Story = {
     docs: {
       description: {
         story:
-          'Uses nested `feedlog-card` with `collapsible` so the Markdown body hides behind the header until expanded (Remix [arrow-up-s-line](https://allsvgicons.com/pack/ri/#arrow-up-s-line) in header).',
+          'Uses nested `feedlog-card` with `collapsible` so the Markdown body hides until expanded (chevron down collapsed, up expanded; [Remix arrow-up-s-line](https://allsvgicons.com/pack/ri/#arrow-up-s-line)).',
       },
     },
   },

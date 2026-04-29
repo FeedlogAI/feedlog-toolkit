@@ -231,11 +231,6 @@
   font-family: var(--feedlog-font-family);
 }
 
-.issue-card-header {
-  display: flex;
-  flex-direction: column;
-}
-
 .issue-header-top {
   display: flex;
   flex-wrap: wrap;

@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-04-29T06:33:54",
+  "timestamp": "2026-04-29T14:02:15",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.40.1",
@@ -263,8 +263,8 @@
       "filePath": "src/components/feedlog-card/feedlog-card.tsx",
       "encapsulation": "shadow",
       "tag": "feedlog-card",
-      "readme": "# feedlog-card\n\nNamed slots: `header`, `content`, and `footer`. Styling uses [`feedlog-card.css`](./feedlog-card.css); parent themes can set `--feedlog-*` where shared with other Feedlog components.\n",
-      "docs": "Named slots: `header`, `content`, and `footer`. Styling uses [`feedlog-card.css`](./feedlog-card.css); parent themes can set `--feedlog-*` where shared with other Feedlog components.",
+      "readme": "# feedlog-card\n\nNamed slots: optional `header-meta` (top row, e.g. badges and date), `header` (title row alongside the collapsible chevron when `collapsible`), `content`, and `footer`. Styling uses [`feedlog-card.css`](./feedlog-card.css); parent themes can set `--feedlog-*` where shared with other Feedlog components.\n",
+      "docs": "Named slots: optional `header-meta` (top row, e.g. badges and date), `header` (title row alongside the collapsible chevron when `collapsible`), `content`, and `footer`. Styling uses [`feedlog-card.css`](./feedlog-card.css); parent themes can set `--feedlog-*` where shared with other Feedlog components.",
       "docsTags": [],
       "usage": {},
       "props": [

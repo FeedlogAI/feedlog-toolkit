@@ -137,7 +137,7 @@ export class FeedlogCard {
     this.bodyExpanded = !this.bodyExpanded;
   };
 
-  /** Clicks on title/content in the header toggle the body; links and controls do not. */
+  /** Clicks on `header-meta` or `header` areas toggle the body; links, badges, and controls do not. */
   private onHeaderMainClick = (e: MouseEvent) => {
     if (!this.collapsible || !this.hasContentSlot) return;
     const path = e.composedPath();
@@ -187,38 +187,43 @@ export class FeedlogCard {
             'feedlog-card__header--collapsible': showToggle,
           }}
         >
-          <div class="feedlog-card__header-main" onClick={this.onHeaderMainClick}>
-            <slot name="header"></slot>
+          <div class="feedlog-card__header-meta" onClick={this.onHeaderMainClick}>
+            <slot name="header-meta"></slot>
           </div>
-          {showToggle ? (
-            <button
-              type="button"
-              class="feedlog-card__header-toggle"
-              aria-expanded={this.bodyExpanded ? 'true' : 'false'}
-              aria-controls={this.contentRegionId}
-              aria-label={expandAriaLabel}
-              title={expandAriaLabel}
-              onClick={this.onHeaderChevronClick}
-            >
-              <svg
-                class={{
-                  'feedlog-card__header-toggle-icon': true,
-                  'feedlog-card__header-toggle-icon--expanded': this.bodyExpanded,
-                }}
-                width="22"
-                height="22"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
+          <div class="feedlog-card__header-title-row">
+            <div class="feedlog-card__header-main" onClick={this.onHeaderMainClick}>
+              <slot name="header"></slot>
+            </div>
+            {showToggle ? (
+              <button
+                type="button"
+                class="feedlog-card__header-toggle"
+                aria-expanded={this.bodyExpanded ? 'true' : 'false'}
+                aria-controls={this.contentRegionId}
+                aria-label={expandAriaLabel}
+                title={expandAriaLabel}
+                onClick={this.onHeaderChevronClick}
               >
-                {/* Remix Icon arrow-up-s-line — https://allsvgicons.com/pack/ri/#arrow-up-s-line (Apache-2.0) */}
-                <path
-                  fill="currentColor"
-                  d="m12 10.828l-4.95 4.95l-1.414-1.414L12 8l6.364 6.364l-1.414 1.414z"
-                />
-              </svg>
-            </button>
-          ) : null}
+                <svg
+                  class={{
+                    'feedlog-card__header-toggle-icon': true,
+                    'feedlog-card__header-toggle-icon--expanded': this.bodyExpanded,
+                  }}
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  {/* Remix Icon arrow-up-s-line — rotated 180° when collapsed so chevron reads “down”; 0° when expanded = “up” */}
+                  <path
+                    fill="currentColor"
+                    d="m12 10.828l-4.95 4.95l-1.414-1.414L12 8l6.364 6.364l-1.414 1.414z"
+                  />
+                </svg>
+              </button>
+            ) : null}
+          </div>
         </div>
         {showToggle ? (
           <div id={this.contentRegionId} class="feedlog-card__body" hidden={bodyCollapsed}>
