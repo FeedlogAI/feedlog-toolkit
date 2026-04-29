@@ -1,14 +1,16 @@
 :host {
   display: block;
   font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
-  
+
   /* Light theme defaults */
   --feedlog-card: #ffffff;
   --feedlog-card-foreground: oklch(0.145 0 0);
   --feedlog-border: rgba(0, 0, 0, 0.1);
   --feedlog-radius: 0.625rem;
   --feedlog-card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-  --feedlog-card-hover-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --feedlog-card-hover-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --feedlog-muted-foreground: oklch(0.45 0 0);
 }
 
 :host(.dark) {
@@ -17,7 +19,13 @@
   --feedlog-card-foreground: oklch(0.985 0 0);
   --feedlog-border: oklch(0.269 0 0);
   --feedlog-card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
-  --feedlog-card-hover-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+  --feedlog-card-hover-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+  --feedlog-muted-foreground: oklch(0.72 0.02 260);
+}
+
+:host([embed]) {
+  font-family: inherit;
 }
 
 .feedlog-card {
@@ -34,14 +42,101 @@
   box-shadow: var(--feedlog-card-hover-shadow);
 }
 
-::slotted([slot="header"]) {
+.feedlog-card--embed {
+  background-color: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.feedlog-card--embed:hover {
+  box-shadow: none;
+}
+
+/* Header + inline chevron (no extra horizontal rule here) */
+.feedlog-card__header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.feedlog-card__header-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.feedlog-card__header--collapsible .feedlog-card__header-main {
+  cursor: pointer;
+}
+
+.feedlog-card__header--collapsible .feedlog-card__header-toggle {
+  align-self: flex-end;
+  margin-bottom: calc(var(--feedlog-title-margin-bottom, 0.75rem) / 2);
+}
+
+.feedlog-card__header-toggle {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--feedlog-muted-foreground);
+  border-radius: calc(var(--feedlog-radius) * 0.75);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.feedlog-card__header-toggle:hover {
+  background-color: color-mix(in oklch, var(--feedlog-border) 35%, transparent);
+}
+
+.feedlog-card__header-toggle:focus-visible {
+  outline: 2px solid var(--feedlog-border);
+  outline-offset: 2px;
+}
+
+.feedlog-card__header-toggle-icon {
+  display: block;
+  flex-shrink: 0;
+  color: inherit;
+  transition: transform 0.2s ease;
+}
+
+.feedlog-card__header-toggle-icon--expanded {
+  transform: rotate(180deg);
+}
+
+.feedlog-card__body {
   display: block;
 }
 
-::slotted([slot="content"]) {
+.feedlog-card__body[hidden] {
+  display: none;
+}
+
+/* Rule above footer when footer exists; suppressed while collapsible body is collapsed (feedlog-card.tsx). */
+.feedlog-card__footer-wrap {
   display: block;
 }
 
-::slotted([slot="footer"]) {
+.feedlog-card__footer-wrap--has-footer {
+  border-top: 1px solid var(--feedlog-border);
+}
+
+::slotted([slot='header']) {
+  display: block;
+}
+
+::slotted([slot='content']) {
+  display: block;
+}
+
+::slotted([slot='footer']) {
   display: block;
 }

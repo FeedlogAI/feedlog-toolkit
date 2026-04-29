@@ -94,6 +94,11 @@ export class FeedlogIssuesClient {
   @Prop() getIssueUrl?: GetIssueUrlFn;
 
   /**
+   * When true, each issue card uses a collapsible body.
+   */
+  @Prop() collapsible: boolean = false;
+
+  /**
    * Event emitted when an issue is upvoted
    */
   @Event() feedlogUpvote!: EventEmitter<{ issueId: string; upvoted: boolean; upvoteCount: number }>;
@@ -580,6 +585,7 @@ export class FeedlogIssuesClient {
         emptyStateTitle={this.emptyStateTitle}
         emptyStateMessage={this.emptyStateMessage}
         getIssueUrl={this.getIssueUrl}
+        collapsible={this.collapsible}
         loading={this.loading}
         error={this.error}
         hasMore={hasMoreOrNextCached}

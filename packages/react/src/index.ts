@@ -207,8 +207,14 @@ export const FeedlogButton = React.forwardRef<
 });
 FeedlogButton.displayName = 'FeedlogButton';
 
-export const FeedlogCard = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement>>(
-  ({ children, ...props }, ref) => React.createElement('feedlog-card', { ...props, ref }, children)
+export const FeedlogCard = React.forwardRef<
+  HTMLElement,
+  React.HTMLAttributes<HTMLElement> & {
+    collapsible?: boolean;
+    embed?: boolean;
+  }
+>(({ children, ...props }, ref) =>
+  React.createElement('feedlog-card', { ...props, ref }, children)
 );
 FeedlogCard.displayName = 'FeedlogCard';
 
@@ -223,6 +229,7 @@ export interface FeedlogIssuesProps extends React.HTMLAttributes<HTMLElement> {
   subtitle?: string;
   emptyStateTitle?: string;
   emptyStateMessage?: string;
+  collapsible?: boolean;
   loading?: boolean;
   error?: string | null;
   hasMore?: boolean;
@@ -276,6 +283,7 @@ export interface FeedlogIssuesClientProps extends React.HTMLAttributes<HTMLEleme
   subtitle?: string;
   emptyStateTitle?: string;
   emptyStateMessage?: string;
+  collapsible?: boolean;
   getIssueUrl?: GetIssueUrlFn;
   onFeedlogUpvote?: (
     event: CustomEvent<{
@@ -313,6 +321,9 @@ FeedlogIssuesClient.displayName = 'FeedlogIssuesClient';
 
 export interface FeedlogIssuesListProps extends React.HTMLAttributes<HTMLElement> {
   issues?: FeedlogIssueType[];
+  theme?: 'light' | 'dark';
+  collapsible?: boolean;
+  getIssueUrl?: GetIssueUrlFn;
   onFeedlogUpvote?: (
     event: CustomEvent<{
       issueId: string;
@@ -345,6 +356,7 @@ FeedlogIssuesList.displayName = 'FeedlogIssuesList';
 export interface FeedlogIssueProps extends React.HTMLAttributes<HTMLElement> {
   issue: FeedlogIssueType;
   theme?: 'light' | 'dark';
+  collapsible?: boolean;
   onFeedlogUpvote?: (
     event: CustomEvent<{
       issueId: string;

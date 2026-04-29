@@ -40,7 +40,6 @@ feedlog-issue {
   --feedlog-card-accent-opacity: 0.85;
   --feedlog-card-hover-translate-y: 0;
   --feedlog-content-gap: 0.875rem;
-  --feedlog-footer-margin-top: 1rem;
   --feedlog-footer-padding-top: 1.25rem;
   --feedlog-header-margin-bottom: 0.875rem;
   --feedlog-title-underline-width: 3rem;
@@ -164,11 +163,12 @@ A component for displaying a single GitHub issue.
 
 ## Properties
 
-| Property             | Attribute   | Description                                                                                                                                                            | Type                          | Default     |
-| -------------------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- | ----------- |
-| `issue` _(required)_ | --          | The issue to display                                                                                                                                                   | `FeedlogIssue`                | `undefined` |
-| `issueUrl`           | `issue-url` | Optional URL for the GitHub issue. When provided along with githubIssueLink, shows a "View on GitHub" button. Required because owner is no longer in the API response. | `null \| string \| undefined` | `undefined` |
-| `theme`              | `theme`     | Theme variant: 'light' or 'dark'                                                                                                                                       | `"dark" \| "light"`           | `'light'`   |
+| Property             | Attribute     | Description                                                                                                                                                            | Type                          | Default     |
+| -------------------- | ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- | ----------- |
+| `collapsible`        | `collapsible` | When true, nested `feedlog-card` uses a collapsible body (header toggles markdown; footer unchanged).                                                                  | `boolean`                     | `false`     |
+| `issue` _(required)_ | --            | The issue to display                                                                                                                                                   | `FeedlogIssue`                | `undefined` |
+| `issueUrl`           | `issue-url`   | Optional URL for the GitHub issue. When provided along with githubIssueLink, shows a "View on GitHub" button. Required because owner is no longer in the API response. | `null \| string \| undefined` | `undefined` |
+| `theme`              | `theme`       | Theme variant: 'light' or 'dark'                                                                                                                                       | `"dark" \| "light"`           | `'light'`   |
 
 ## Events
 
@@ -192,12 +192,14 @@ A component for displaying a single GitHub issue.
 
 ### Depends on
 
+- [feedlog-card](../feedlog-card)
 - [feedlog-badge](../feedlog-badge)
 
 ### Graph
 
 ```mermaid
 graph TD;
+  feedlog-issue --> feedlog-card
   feedlog-issue --> feedlog-badge
   feedlog-issues-list --> feedlog-issue
   style feedlog-issue fill:#f9f,stroke:#333,stroke-width:4px

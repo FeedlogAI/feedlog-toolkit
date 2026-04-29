@@ -45,16 +45,28 @@ export namespace Components {
      */
     variant: 'default' | 'outline' | 'ghost' | 'destructive';
   }
-  /**
-   * Feedlog Card Component
-   * A reusable card container component with header and content areas.
-   */
-  interface FeedlogCard {}
+  interface FeedlogCard {
+    /**
+     * When true, header toggles collapsing the content slot; footer stays visible. Default off.
+     * @default false
+     */
+    collapsible: boolean;
+    /**
+     * Flat surface (no inner card border/shadow) for nesting inside another shell (e.g. feedlog-issue).
+     * @default false
+     */
+    embed: boolean;
+  }
   /**
    * Feedlog Issue Component
    * A component for displaying a single GitHub issue.
    */
   interface FeedlogIssue {
+    /**
+     * When true, nested `feedlog-card` uses a collapsible body (header toggles markdown; footer unchanged).
+     * @default false
+     */
+    collapsible: boolean;
     /**
      * The issue to display
      */
@@ -75,6 +87,11 @@ export namespace Components {
    * Includes full list rendering, loading/error states, and pagination support.
    */
   interface FeedlogIssues {
+    /**
+     * When true, each issue card uses a collapsible body (header toggles body; footer unchanged).
+     * @default false
+     */
+    collapsible: boolean;
     /**
      * Empty state message. Defaults to "Check back later for the latest news and updates.".
      */
@@ -161,6 +178,11 @@ export namespace Components {
      */
     apiKey: string;
     /**
+     * When true, each issue card uses a collapsible body.
+     * @default false
+     */
+    collapsible: boolean;
+    /**
      * Empty state message (e.g. "Check back later for new updates.")
      */
     emptyStateMessage?: string;
@@ -227,6 +249,11 @@ export namespace Components {
    * A component for displaying a list of GitHub issues with support for bugs and enhancements.
    */
   interface FeedlogIssuesList {
+    /**
+     * When true, each `feedlog-issue` uses a collapsible card body.
+     * @default false
+     */
+    collapsible: boolean;
     /**
      * Empty state message. When provided with emptyStateTitle, shows a richer empty state with illustration.
      */
@@ -340,10 +367,6 @@ declare global {
     prototype: HTMLFeedlogButtonElement;
     new (): HTMLFeedlogButtonElement;
   };
-  /**
-   * Feedlog Card Component
-   * A reusable card container component with header and content areas.
-   */
   interface HTMLFeedlogCardElement extends Components.FeedlogCard, HTMLStencilElement {}
   var HTMLFeedlogCardElement: {
     prototype: HTMLFeedlogCardElement;
@@ -656,16 +679,28 @@ declare namespace LocalJSX {
      */
     variant?: 'default' | 'outline' | 'ghost' | 'destructive';
   }
-  /**
-   * Feedlog Card Component
-   * A reusable card container component with header and content areas.
-   */
-  interface FeedlogCard {}
+  interface FeedlogCard {
+    /**
+     * When true, header toggles collapsing the content slot; footer stays visible. Default off.
+     * @default false
+     */
+    collapsible?: boolean;
+    /**
+     * Flat surface (no inner card border/shadow) for nesting inside another shell (e.g. feedlog-issue).
+     * @default false
+     */
+    embed?: boolean;
+  }
   /**
    * Feedlog Issue Component
    * A component for displaying a single GitHub issue.
    */
   interface FeedlogIssue {
+    /**
+     * When true, nested `feedlog-card` uses a collapsible body (header toggles markdown; footer unchanged).
+     * @default false
+     */
+    collapsible?: boolean;
     /**
      * The issue to display
      */
@@ -696,6 +731,11 @@ declare namespace LocalJSX {
    * Includes full list rendering, loading/error states, and pagination support.
    */
   interface FeedlogIssues {
+    /**
+     * When true, each issue card uses a collapsible body (header toggles body; footer unchanged).
+     * @default false
+     */
+    collapsible?: boolean;
     /**
      * Empty state message. Defaults to "Check back later for the latest news and updates.".
      */
@@ -804,6 +844,11 @@ declare namespace LocalJSX {
      */
     apiKey: string;
     /**
+     * When true, each issue card uses a collapsible body.
+     * @default false
+     */
+    collapsible?: boolean;
+    /**
      * Empty state message (e.g. "Check back later for new updates.")
      */
     emptyStateMessage?: string;
@@ -887,6 +932,11 @@ declare namespace LocalJSX {
    */
   interface FeedlogIssuesList {
     /**
+     * When true, each `feedlog-issue` uses a collapsible card body.
+     * @default false
+     */
+    collapsible?: boolean;
+    /**
      * Empty state message. When provided with emptyStateTitle, shows a richer empty state with illustration.
      */
     emptyStateMessage?: string;
@@ -943,10 +993,6 @@ declare module '@stencil/core' {
        * A button component with variant and size support.
        */
       'feedlog-button': LocalJSX.FeedlogButton & JSXBase.HTMLAttributes<HTMLFeedlogButtonElement>;
-      /**
-       * Feedlog Card Component
-       * A reusable card container component with header and content areas.
-       */
       'feedlog-card': LocalJSX.FeedlogCard & JSXBase.HTMLAttributes<HTMLFeedlogCardElement>;
       /**
        * Feedlog Issue Component

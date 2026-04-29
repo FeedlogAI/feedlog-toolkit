@@ -120,7 +120,7 @@ Several optional tokens (for example `--feedlog-title-font-family`, `--feedlog-t
 | `--feedlog-blue-300`                 | Dark theme upvote text hover chain | (dark only)                  |
 | `--feedlog-radius`                   | Fallback radius                    | `0.625rem`                   |
 | `--feedlog-gap`                      | (host)                             | `0.5rem`                     |
-| `--feedlog-card-padding`             | Card body padding                  | `1.5rem`                     |
+| `--feedlog-card-padding`             | Card body padding                  | `1.25rem`                    |
 | `--feedlog-card-radius`              | Card radius                        | `1rem`                       |
 | `--feedlog-title-font-family`        | Title font                         | `var(--feedlog-font-family)` |
 | `--feedlog-title-font-size`          | Title size                         | `1.5rem`                     |
@@ -152,8 +152,7 @@ Several optional tokens (for example `--feedlog-title-font-family`, `--feedlog-t
 | `--feedlog-shadow-hover-bug`                 | Hover shadow (bug)             | defaults to base shadow |
 | `--feedlog-content-gap`                      | Main column gap                | `0.875rem`              |
 | `--feedlog-header-margin-bottom`             | Header block                   | `0.875rem`              |
-| `--feedlog-footer-margin-top`                | Footer                         | `1rem`                  |
-| `--feedlog-footer-padding-top`               | Footer                         | `1.25rem`               |
+| `--feedlog-footer-padding-top`               | Footer padding below divider   | `1.25rem`               |
 | `--feedlog-title-underline-width`            | Title underline                | `3rem`                  |
 | `--feedlog-title-underline-height`           | Title underline                | `2px`                   |
 | `--feedlog-title-underline-offset`           | Title underline                | `-4px`                  |

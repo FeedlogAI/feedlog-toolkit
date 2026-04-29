@@ -43,18 +43,21 @@ export const FeedlogButton: StencilVueComponent<JSX.FeedlogButton> = /*@__PURE__
     });
 
 export const FeedlogCard: StencilVueComponent<JSX.FeedlogCard> = /*@__PURE__*/ globalThis.window
-  ? defineContainer<JSX.FeedlogCard>('feedlog-card', undefined)
+  ? defineContainer<JSX.FeedlogCard>('feedlog-card', undefined, ['collapsible', 'embed'])
   : defineStencilSSRComponent<JSX.FeedlogCard>({
       tagName: 'feedlog-card',
       hydrateModule: import('@feedlog-ai/webcomponents/hydrate'),
-      props: {},
+      props: {
+        collapsible: [Boolean, 'collapsible'],
+        embed: [Boolean, 'embed'],
+      },
     });
 
 export const FeedlogIssue: StencilVueComponent<JSX.FeedlogIssue> = /*@__PURE__*/ globalThis.window
   ? defineContainer<JSX.FeedlogIssue>(
       'feedlog-issue',
       undefined,
-      ['issue', 'issueUrl', 'theme', 'feedlogUpvote'],
+      ['issue', 'issueUrl', 'theme', 'collapsible', 'feedlogUpvote'],
       ['feedlogUpvote']
     )
   : defineStencilSSRComponent<JSX.FeedlogIssue>({
@@ -63,6 +66,7 @@ export const FeedlogIssue: StencilVueComponent<JSX.FeedlogIssue> = /*@__PURE__*/
       props: {
         issueUrl: [String, 'issue-url'],
         theme: [String, 'theme'],
+        collapsible: [Boolean, 'collapsible'],
         onFeedlogUpvote: [Function],
       },
     });
@@ -88,6 +92,7 @@ export const FeedlogIssues: StencilVueComponent<JSX.FeedlogIssues> = /*@__PURE__
         'hasPrev',
         'isLoadingMore',
         'getIssueUrl',
+        'collapsible',
         'feedlogUpvote',
         'feedlogLoadMore',
         'feedlogPageChange',
@@ -113,6 +118,7 @@ export const FeedlogIssues: StencilVueComponent<JSX.FeedlogIssues> = /*@__PURE__
         hasMore: [Boolean, 'has-more'],
         hasPrev: [Boolean, 'has-prev'],
         isLoadingMore: [Boolean, 'is-loading-more'],
+        collapsible: [Boolean, 'collapsible'],
         onFeedlogUpvote: [Function],
         onFeedlogLoadMore: [Function],
         onFeedlogPageChange: [Function],
@@ -141,6 +147,7 @@ export const FeedlogIssuesClient: StencilVueComponent<JSX.FeedlogIssuesClient> =
           'emptyStateTitle',
           'emptyStateMessage',
           'getIssueUrl',
+          'collapsible',
           'feedlogUpvote',
           'feedlogError',
         ],
@@ -164,6 +171,7 @@ export const FeedlogIssuesClient: StencilVueComponent<JSX.FeedlogIssuesClient> =
           subtitle: [String, 'subtitle'],
           emptyStateTitle: [String, 'empty-state-title'],
           emptyStateMessage: [String, 'empty-state-message'],
+          collapsible: [Boolean, 'collapsible'],
           onFeedlogUpvote: [Function],
           onFeedlogError: [Function],
         },
@@ -174,7 +182,15 @@ export const FeedlogIssuesList: StencilVueComponent<JSX.FeedlogIssuesList> =
     ? defineContainer<JSX.FeedlogIssuesList>(
         'feedlog-issues-list',
         undefined,
-        ['issues', 'theme', 'getIssueUrl', 'emptyStateTitle', 'emptyStateMessage', 'feedlogUpvote'],
+        [
+          'issues',
+          'theme',
+          'getIssueUrl',
+          'collapsible',
+          'emptyStateTitle',
+          'emptyStateMessage',
+          'feedlogUpvote',
+        ],
         ['feedlogUpvote']
       )
     : defineStencilSSRComponent<JSX.FeedlogIssuesList>({
@@ -182,6 +198,7 @@ export const FeedlogIssuesList: StencilVueComponent<JSX.FeedlogIssuesList> =
         hydrateModule: import('@feedlog-ai/webcomponents/hydrate'),
         props: {
           theme: [String, 'theme'],
+          collapsible: [Boolean, 'collapsible'],
           emptyStateTitle: [String, 'empty-state-title'],
           emptyStateMessage: [String, 'empty-state-message'],
           onFeedlogUpvote: [Function],

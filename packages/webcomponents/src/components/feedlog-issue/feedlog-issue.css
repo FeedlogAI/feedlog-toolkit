@@ -1,15 +1,8 @@
 :host {
   display: block;
   --feedlog-font-family:
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
+    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
   font-family: var(--feedlog-font-family);
 
   /* Light theme defaults (calmer, marketing-aligned surfaces) */
@@ -29,7 +22,7 @@
   --feedlog-gap: 0.5rem;
 
   /* Customization variables */
-  --feedlog-card-padding: 1.5rem;
+  --feedlog-card-padding: 1.25rem;
   --feedlog-title-font-size: 1.5rem;
   --feedlog-title-font-weight: 700;
   --feedlog-title-line-height: 1.3;
@@ -44,7 +37,7 @@
   --feedlog-card-accent-opacity: 0.85;
   --feedlog-card-hover-translate-y: 0;
   --feedlog-content-gap: 0.875rem;
-  --feedlog-footer-margin-top: 1rem;
+  /* Footer strip (repo/GitHub/upvote): space below divider */
   --feedlog-footer-padding-top: 1.25rem;
   --feedlog-header-margin-bottom: 0.875rem;
   --feedlog-title-underline-width: 3rem;
@@ -70,20 +63,23 @@
   );
 
   /* Layered shadows */
-  --feedlog-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.04),
-    0 4px 12px rgba(0, 0, 0, 0.04);
+  --feedlog-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.04);
   /* Upvote control (light) */
-  --feedlog-upvote-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, rgba(248, 250, 252, 0.8) 100%);
-  --feedlog-upvote-bg-hover: linear-gradient(180deg, rgba(248, 250, 252, 0.9) 0%, rgba(241, 245, 249, 0.9) 100%);
+  --feedlog-upvote-bg: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(248, 250, 252, 0.8) 100%
+  );
+  --feedlog-upvote-bg-hover: linear-gradient(
+    180deg,
+    rgba(248, 250, 252, 0.9) 0%,
+    rgba(241, 245, 249, 0.9) 100%
+  );
   --feedlog-upvote-border: rgba(226, 232, 240, 0.8);
   --feedlog-upvote-border-hover: #cbd5e1;
-  --feedlog-upvote-shadow:
-    0 2px 4px rgba(0, 0, 0, 0.02),
-    inset 0 1px 0 rgba(255, 255, 255, 1);
+  --feedlog-upvote-shadow: 0 2px 4px rgba(0, 0, 0, 0.02), inset 0 1px 0 rgba(255, 255, 255, 1);
   --feedlog-upvote-shadow-hover:
-    0 8px 16px -4px rgba(0, 0, 0, 0.05),
-    0 4px 8px -2px rgba(0, 0, 0, 0.02),
+    0 8px 16px -4px rgba(0, 0, 0, 0.05), 0 4px 8px -2px rgba(0, 0, 0, 0.02),
     inset 0 1px 0 rgba(255, 255, 255, 1);
   --feedlog-upvote-shadow-active: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   /* Internal defaults so --feedlog-upvote-* can inherit from outside the host */
@@ -116,26 +112,37 @@
   --feedlog-blue-300: oklch(0.78 0.12 255);
   --feedlog-blue-400: oklch(0.707 0.165 254.624);
   --feedlog-blue-600: oklch(0.546 0.245 262.881);
-  --feedlog-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.2),
-    0 4px 12px rgba(0, 0, 0, 0.25);
+  --feedlog-shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 4px 12px rgba(0, 0, 0, 0.25);
 
-  --feedlog-upvote-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
-  --feedlog-upvote-bg-hover: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%);
+  --feedlog-upvote-bg: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+  --feedlog-upvote-bg-hover: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.04) 100%
+  );
   --feedlog-upvote-border: rgba(255, 255, 255, 0.1);
   --feedlog-upvote-border-hover: rgba(255, 255, 255, 0.15);
-  --feedlog-upvote-shadow:
-    0 2px 4px rgba(0, 0, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --feedlog-upvote-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.05);
   --feedlog-upvote-shadow-hover:
-    0 8px 16px -4px rgba(0, 0, 0, 0.3),
-    0 4px 8px -2px rgba(0, 0, 0, 0.2),
+    0 8px 16px -4px rgba(0, 0, 0, 0.3), 0 4px 8px -2px rgba(0, 0, 0, 0.2),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
   --feedlog-upvote-shadow-active: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --_issue-upvote-text: var(--feedlog-muted-foreground);
   --_issue-upvote-text-hover: var(--feedlog-card-foreground);
-  --feedlog-upvote-upvoted-bg: linear-gradient(180deg, rgba(37, 99, 235, 0.2) 0%, rgba(37, 99, 235, 0.1) 100%);
-  --feedlog-upvote-upvoted-bg-hover: linear-gradient(180deg, rgba(37, 99, 235, 0.25) 0%, rgba(37, 99, 235, 0.15) 100%);
+  --feedlog-upvote-upvoted-bg: linear-gradient(
+    180deg,
+    rgba(37, 99, 235, 0.2) 0%,
+    rgba(37, 99, 235, 0.1) 100%
+  );
+  --feedlog-upvote-upvoted-bg-hover: linear-gradient(
+    180deg,
+    rgba(37, 99, 235, 0.25) 0%,
+    rgba(37, 99, 235, 0.15) 100%
+  );
   --feedlog-upvote-upvoted-border: rgba(37, 99, 235, 0.4);
   --feedlog-upvote-upvoted-border-hover: rgba(37, 99, 235, 0.5);
   --_issue-upvote-upvoted-text: var(--feedlog-blue-400);
@@ -218,6 +225,17 @@
   gap: var(--feedlog-content-gap);
 }
 
+.issue-content feedlog-card {
+  display: block;
+  width: 100%;
+  font-family: var(--feedlog-font-family);
+}
+
+.issue-card-header {
+  display: flex;
+  flex-direction: column;
+}
+
 .issue-header-top {
   display: flex;
   flex-wrap: wrap;
@@ -263,22 +281,15 @@
   cursor: help;
 }
 
-.issue-main {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
 .issue-footer {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: baseline;
   justify-content: flex-start;
   gap: 1rem;
-  margin-top: var(--feedlog-footer-margin-top);
   padding-top: var(--feedlog-footer-padding-top);
-  border-top: 1px solid var(--feedlog-border);
 }
+
 
 /* Grows on the first flex line so the upvote stays right; when the button wraps, it starts a new line at the left. */
 .issue-footer-meta {

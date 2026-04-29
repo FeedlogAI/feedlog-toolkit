@@ -4,11 +4,26 @@ Named slots: `header`, `content`, and `footer`. Styling uses [`feedlog-card.css`
 
 <!-- Auto Generated Below -->
 
-## Overview
+## Properties
 
-Feedlog Card Component
+| Property      | Attribute     | Description                                                                                       | Type      | Default |
+| ------------- | ------------- | ------------------------------------------------------------------------------------------------- | --------- | ------- |
+| `collapsible` | `collapsible` | When true, header toggles collapsing the content slot; footer stays visible. Default off.         | `boolean` | `false` |
+| `embed`       | `embed`       | Flat surface (no inner card border/shadow) for nesting inside another shell (e.g. feedlog-issue). | `boolean` | `false` |
 
-A reusable card container component with header and content areas.
+## Dependencies
+
+### Used by
+
+- [feedlog-issue](../feedlog-issue)
+
+### Graph
+
+```mermaid
+graph TD;
+  feedlog-issue --> feedlog-card
+  style feedlog-card fill:#f9f,stroke:#333,stroke-width:4px
+```
 
 ---
 

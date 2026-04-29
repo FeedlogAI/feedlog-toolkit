@@ -28,6 +28,7 @@
   --feedlog-illustration-bg: oklch(0.96 0.01 260);
   --feedlog-illustration-stroke: oklch(0.75 0.02 260);
   --feedlog-illustration-muted: oklch(0.82 0.01 260);
+  --feedlog-footer-padding-top: 1.25rem;
 }
 
 :host(.dark) {
@@ -109,7 +110,7 @@
 }
 
 .skeleton-content {
-  padding: var(--feedlog-card-padding, 1.5rem);
+  padding: var(--feedlog-card-padding, 1.25rem);
   display: flex;
   flex-direction: column;
   gap: var(--feedlog-content-gap, 0.875rem);
@@ -179,8 +180,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  margin-top: var(--feedlog-footer-margin-top, 1.25rem);
-  padding-top: var(--feedlog-footer-padding-top, 1.5rem);
+  padding-top: var(--feedlog-footer-padding-top, 1.25rem);
   border-top: 1px solid var(--feedlog-border);
 }
 

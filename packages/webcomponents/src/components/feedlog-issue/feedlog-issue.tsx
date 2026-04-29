@@ -31,6 +31,11 @@ export class FeedlogIssueComponent {
   @Prop() theme: 'light' | 'dark' = 'light';
 
   /**
+   * When true, nested `feedlog-card` uses a collapsible body (header toggles markdown; footer unchanged).
+   */
+  @Prop() collapsible: boolean = false;
+
+  /**
    * Event emitted when the issue is upvoted
    */
   @Event() feedlogUpvote!: EventEmitter<{
@@ -158,7 +163,11 @@ export class FeedlogIssueComponent {
       if (seconds < 604800) return `${Math.floor(seconds / 86400)}d ago`;
       if (seconds < 2592000) return `${Math.floor(seconds / 604800)}w ago`;
 
-      return date.toLocaleDateString();
+      return date.toLocaleDateString(undefined, {
+        day: 'numeric',
+        month: 'numeric',
+        year: 'numeric',
+      });
     } catch {
       return 'unknown date';
     }
@@ -237,39 +246,44 @@ export class FeedlogIssueComponent {
             <slot name="media" />
           </div>
           <div class="issue-content">
-            <div class="issue-main">
-              <div class="issue-header-top">
-                <div class="issue-badges">
-                  {issue.type === 'bug' ? (
-                    <feedlog-badge variant="destructive">Bug</feedlog-badge>
-                  ) : (
-                    <feedlog-badge variant="enhancement">Enhancement</feedlog-badge>
-                  )}
-                  {statusBadgeLabel && (
-                    <feedlog-badge variant="secondary">{statusBadgeLabel}</feedlog-badge>
-                  )}
+            <feedlog-card
+              embed
+              collapsible={this.collapsible}
+              class={this.theme === 'dark' ? 'dark' : ''}
+            >
+              <div slot="header" class="issue-card-header">
+                <div class="issue-header-top">
+                  <div class="issue-badges">
+                    {issue.type === 'bug' ? (
+                      <feedlog-badge variant="destructive">Bug</feedlog-badge>
+                    ) : (
+                      <feedlog-badge variant="enhancement">Enhancement</feedlog-badge>
+                    )}
+                    {statusBadgeLabel && (
+                      <feedlog-badge variant="secondary">{statusBadgeLabel}</feedlog-badge>
+                    )}
+                  </div>
+                  <div class="issue-meta-right">
+                    {issue.pinnedAt && (
+                      <div class="pinned-indicator" title="Pinned issue">
+                        {this.renderPinIcon()}
+                      </div>
+                    )}
+                    <span class="issue-timestamp" title={timestampTitle}>
+                      {timestampLabel} {this.formatDate(timestampDate)}
+                    </span>
+                  </div>
                 </div>
-                <div class="issue-meta-right">
-                  {issue.pinnedAt && (
-                    <div class="pinned-indicator" title="Pinned issue">
-                      {this.renderPinIcon()}
-                    </div>
-                  )}
-                  <span class="issue-timestamp" title={timestampTitle}>
-                    {timestampLabel} {this.formatDate(timestampDate)}
-                  </span>
-                </div>
+
+                <h3 class="issue-title">
+                  <span class="issue-title-text">{displayTitle}</span>
+                </h3>
               </div>
-
-              <h3 class="issue-title">
-                <span class="issue-title-text">{displayTitle}</span>
-              </h3>
               {issue.body != null && issue.body !== '' && (
-                <div class="issue-body" innerHTML={parseMarkdown(issue.body)} />
+                <div slot="content" class="issue-body" innerHTML={parseMarkdown(issue.body)} />
               )}
-
               {(repoName != null || showGithubButton || issue.type !== 'bug') && (
-                <div class="issue-footer">
+                <div slot="footer" class="issue-footer">
                   {(repoName != null || showGithubButton) && (
                     <div class="issue-footer-meta">
                       {repoName != null && (
@@ -320,7 +334,7 @@ export class FeedlogIssueComponent {
                   )}
                 </div>
               )}
-            </div>
+            </feedlog-card>
           </div>
         </div>
       </Host>

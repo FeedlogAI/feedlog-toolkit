@@ -28,6 +28,11 @@ export class FeedlogIssuesList {
   @Prop() getIssueUrl?: GetIssueUrlFn;
 
   /**
+   * When true, each `feedlog-issue` uses a collapsible card body.
+   */
+  @Prop() collapsible: boolean = false;
+
+  /**
    * Empty state title. When provided with emptyStateMessage, shows a richer empty state with illustration.
    */
   @Prop() emptyStateTitle?: string;
@@ -116,6 +121,7 @@ export class FeedlogIssuesList {
                 issue={issue}
                 issueUrl={this.getIssueUrl?.(issue) ?? undefined}
                 theme={this.theme}
+                collapsible={this.collapsible}
                 onFeedlogUpvote={(e: CustomEvent) => this.handleUpvote(e)}
               />
             ))

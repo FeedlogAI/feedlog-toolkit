@@ -165,6 +165,10 @@ const meta: Meta = {
       options: ['load-more', 'prev-next'],
       description: 'Pagination strategy',
     },
+    collapsible: {
+      control: 'boolean',
+      description: 'When true, each issue card has a collapsible markdown body',
+    },
   },
   args: {
     issues: sampleIssues,
@@ -414,7 +418,7 @@ export const CustomCSSVars: Story = {
         {
           fontFamily: "'Georgia', 'Times New Roman', serif",
           /* Card */
-          '--feedlog-card-padding': '1.5rem',
+          '--feedlog-card-padding': '1.25rem',
           '--feedlog-card-radius': '0.875rem',
           '--feedlog-radius': '0.875rem',
           '--feedlog-gap': '1.25rem',
@@ -438,6 +442,28 @@ export const CustomCSSVars: Story = {
       }
     />
   ),
+  play: async ({ canvasElement, args }) => {
+    const element = canvasElement.querySelector('feedlog-issues');
+    if (element && args.issues) {
+      (element as any).issues = args.issues;
+    }
+  },
+};
+
+export const Collapsible: Story = {
+  args: {
+    issues: sampleIssues.slice(0, 2),
+    collapsible: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Passes `collapsible` to nested issue cards ([Remix arrow-up-s-line](https://allsvgicons.com/pack/ri/#arrow-up-s-line) toggle in header on each row).',
+      },
+    },
+  },
+  render: props => <feedlog-issues {...props} />,
   play: async ({ canvasElement, args }) => {
     const element = canvasElement.querySelector('feedlog-issues');
     if (element && args.issues) {

@@ -16,6 +16,7 @@ A component for displaying a list of GitHub issues with support for bugs and enh
 
 | Property            | Attribute             | Description                                                                                            | Type                                                                  | Default     |
 | ------------------- | --------------------- | ------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------- | ----------- |
+| `collapsible`       | `collapsible`         | When true, each `feedlog-issue` uses a collapsible card body.                                          | `boolean`                                                             | `false`     |
 | `emptyStateMessage` | `empty-state-message` | Empty state message. When provided with emptyStateTitle, shows a richer empty state with illustration. | `string \| undefined`                                                 | `undefined` |
 | `emptyStateTitle`   | `empty-state-title`   | Empty state title. When provided with emptyStateMessage, shows a richer empty state with illustration. | `string \| undefined`                                                 | `undefined` |
 | `getIssueUrl`       | --                    | Optional callback to resolve GitHub issue URL when githubIssueLink is not available.                   | `((issue: FeedlogIssue) => string \| null \| undefined) \| undefined` | `undefined` |
@@ -43,6 +44,7 @@ A component for displaying a list of GitHub issues with support for bugs and enh
 ```mermaid
 graph TD;
   feedlog-issues-list --> feedlog-issue
+  feedlog-issue --> feedlog-card
   feedlog-issue --> feedlog-badge
   feedlog-issues --> feedlog-issues-list
   style feedlog-issues-list fill:#f9f,stroke:#333,stroke-width:4px

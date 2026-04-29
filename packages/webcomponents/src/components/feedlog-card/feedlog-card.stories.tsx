@@ -60,6 +60,43 @@ export const HeaderOnly: Story = {
   ),
 };
 
+/** Collapsible header/body; Remix [arrow-up-s-line](https://allsvgicons.com/pack/ri/#arrow-up-s-line) rotates when expanded. */
+export const CollapsibleBody: Story = {
+  render: () => (
+    <feedlog-card collapsible={true} style={{ width: '400px' }}>
+      <div slot="header">
+        <h3 style={{ margin: '0 0 0.5rem 0' }}>Compact card</h3>
+      </div>
+      <div slot="content">
+        <p style={{ margin: '0', color: '#666' }}>
+          Long body text is hidden until the user expands the card. Footer actions remain visible.
+        </p>
+      </div>
+      <div slot="footer" style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
+        <feedlog-button variant="ghost">Cancel</feedlog-button>
+        <feedlog-button>Confirm</feedlog-button>
+      </div>
+    </feedlog-card>
+  ),
+};
+
+/** `collapsible` defaults to false on the card; this story matches that behavior. */
+export const NotCollapsible: Story = {
+  render: () => (
+    <feedlog-card collapsible={false} style={{ width: '400px' }}>
+      <div slot="header">
+        <h3 style={{ margin: '0 0 0.5rem 0' }}>Always expanded</h3>
+      </div>
+      <div slot="content">
+        <p style={{ margin: '0', color: '#666' }}>
+          Same as default card: body stays open when{' '}
+          <code style={{ fontSize: '0.8125rem' }}>collapsible</code> is omitted or false.
+        </p>
+      </div>
+    </feedlog-card>
+  ),
+};
+
 export const IssueCard: Story = {
   render: () => (
     <feedlog-card style={{ width: '500px' }}>

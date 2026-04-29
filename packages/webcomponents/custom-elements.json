@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-04-11T12:44:30",
+  "timestamp": "2026-04-29T06:33:54",
   "compiler": {
     "name": "@stencil/core",
     "version": "4.40.1",
@@ -264,29 +264,119 @@
       "encapsulation": "shadow",
       "tag": "feedlog-card",
       "readme": "# feedlog-card\n\nNamed slots: `header`, `content`, and `footer`. Styling uses [`feedlog-card.css`](./feedlog-card.css); parent themes can set `--feedlog-*` where shared with other Feedlog components.\n",
-      "docs": "Feedlog Card Component\n\nA reusable card container component with header and content areas.",
+      "docs": "Named slots: `header`, `content`, and `footer`. Styling uses [`feedlog-card.css`](./feedlog-card.css); parent themes can set `--feedlog-*` where shared with other Feedlog components.",
       "docsTags": [],
       "usage": {},
-      "props": [],
+      "props": [
+        {
+          "name": "collapsible",
+          "type": "boolean",
+          "complexType": {
+            "original": "boolean",
+            "resolved": "boolean",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "collapsible",
+          "reflectToAttr": false,
+          "docs": "When true, header toggles collapsing the content slot; footer stays visible. Default off.",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "false"
+            }
+          ],
+          "default": "false",
+          "values": [
+            {
+              "type": "boolean"
+            }
+          ],
+          "optional": false,
+          "required": false,
+          "getter": false,
+          "setter": false
+        },
+        {
+          "name": "embed",
+          "type": "boolean",
+          "complexType": {
+            "original": "boolean",
+            "resolved": "boolean",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "embed",
+          "reflectToAttr": true,
+          "docs": "Flat surface (no inner card border/shadow) for nesting inside another shell (e.g. feedlog-issue).",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "false"
+            }
+          ],
+          "default": "false",
+          "values": [
+            {
+              "type": "boolean"
+            }
+          ],
+          "optional": false,
+          "required": false,
+          "getter": false,
+          "setter": false
+        }
+      ],
       "methods": [],
       "events": [],
       "listeners": [],
       "styles": [],
       "slots": [],
       "parts": [],
-      "dependents": [],
+      "dependents": ["feedlog-issue"],
       "dependencies": [],
-      "dependencyGraph": {}
+      "dependencyGraph": {
+        "feedlog-issue": ["feedlog-card"]
+      }
     },
     {
       "filePath": "src/components/feedlog-issue/feedlog-issue.tsx",
       "encapsulation": "shadow",
       "tag": "feedlog-issue",
-      "readme": "# feedlog-issue\n\nA component for displaying a single GitHub issue with support for bugs and enhancements.\n\n## CSS Customization\n\nYou can customize the appearance by setting CSS variables on the `feedlog-issue` element (or on a parent such as `feedlog-issues` / `feedlog-issues-client` when inheritance applies):\n\n```css\nfeedlog-issue {\n  /* Card */\n  --feedlog-card-padding: 1.25rem;\n  --feedlog-card-radius: 0.75rem;\n  --feedlog-radius: 0.625rem;\n  --feedlog-shadow:\n    0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.06),\n    inset 0 1px 0 rgba(255, 255, 255, 0.5);\n  --feedlog-shadow-hover-enhancement:\n    0 8px 16px rgba(37, 99, 235, 0.08), 0 12px 24px rgba(37, 99, 235, 0.05),\n    inset 0 1px 0 rgba(255, 255, 255, 0.6);\n  --feedlog-shadow-hover-bug:\n    0 8px 16px rgba(212, 24, 61, 0.08), 0 12px 24px rgba(212, 24, 61, 0.05),\n    inset 0 1px 0 rgba(255, 255, 255, 0.6);\n\n  /* Typography */\n  --feedlog-font-family: system-ui, sans-serif;\n  --feedlog-title-font-family: 'Georgia', serif;\n  --feedlog-title-font-size: 1.125rem;\n  --feedlog-title-font-weight: 600;\n  --feedlog-title-line-height: 1.3;\n  --feedlog-title-margin-bottom: 0.75rem;\n  --feedlog-title-letter-spacing: -0.02em;\n  --feedlog-body-font-size: 0.875rem;\n  --feedlog-body-line-height: 1.6;\n  --feedlog-timestamp-font-size: 0.6875rem;\n  --feedlog-timestamp-color: var(--feedlog-muted-foreground);\n\n  /* Card chrome */\n  --feedlog-card-accent-height: 3px;\n  --feedlog-card-accent-opacity: 0.85;\n  --feedlog-card-hover-translate-y: 0;\n  --feedlog-content-gap: 0.875rem;\n  --feedlog-footer-margin-top: 1rem;\n  --feedlog-footer-padding-top: 1.25rem;\n  --feedlog-header-margin-bottom: 0.875rem;\n  --feedlog-title-underline-width: 3rem;\n  --feedlog-title-underline-height: 2px;\n  --feedlog-title-underline-offset: -4px;\n  --feedlog-title-underline-radius: 2px;\n  --feedlog-card-padding-mobile: 1rem;\n  --feedlog-content-gap-mobile: 0.75rem;\n  --feedlog-title-font-size-mobile: 1.25rem;\n\n  /* Optional: replace the entire top accent bar gradient */\n  --feedlog-card-accent-gradient-enhancement: linear-gradient(\n    90deg,\n    var(--feedlog-blue-400),\n    var(--feedlog-accent-color),\n    var(--feedlog-blue-600)\n  );\n  --feedlog-card-accent-gradient-bug: linear-gradient(\n    90deg,\n    var(--feedlog-red-600),\n    var(--feedlog-destructive),\n    var(--feedlog-red-600)\n  );\n\n  /* Upvote pill (light defaults; dark theme overrides these on :host(.dark)) */\n  --feedlog-upvote-bg: linear-gradient(\n    180deg,\n    rgba(255, 255, 255, 0.8) 0%,\n    rgba(248, 250, 252, 0.8) 100%\n  );\n  --feedlog-upvote-bg-hover: linear-gradient(\n    180deg,\n    rgba(248, 250, 252, 0.9) 0%,\n    rgba(241, 245, 249, 0.9) 100%\n  );\n  --feedlog-upvote-border: rgba(226, 232, 240, 0.8);\n  --feedlog-upvote-border-hover: #cbd5e1;\n  --feedlog-upvote-shadow: 0 2px 4px rgba(0, 0, 0, 0.02), inset 0 1px 0 rgba(255, 255, 255, 1);\n  --feedlog-upvote-shadow-hover:\n    0 8px 16px -4px rgba(0, 0, 0, 0.05), 0 4px 8px -2px rgba(0, 0, 0, 0.02),\n    inset 0 1px 0 rgba(255, 255, 255, 1);\n  --feedlog-upvote-text: #475569;\n  --feedlog-upvote-text-hover: #0f172a;\n  --feedlog-upvote-upvoted-bg: linear-gradient(180deg, #eff6ff 0%, #e0e7ff 100%);\n  --feedlog-upvote-upvoted-border: #bfdbfe;\n  --feedlog-upvote-upvoted-text: #2563eb;\n  --feedlog-upvote-reel-border: #e2e8f0;\n  --feedlog-upvote-hover-lift: -2px;\n  --feedlog-upvote-backdrop-blur: 8px;\n\n  /* Colors (inherited from theme) */\n  --feedlog-card: #ffffff;\n  --feedlog-card-foreground: oklch(0.145 0 0);\n  --feedlog-muted: #f1f5f9;\n  --feedlog-muted-foreground: #64748b;\n  --feedlog-border: rgba(0, 0, 0, 0.08);\n  --feedlog-accent-color: #2563eb;\n  --feedlog-destructive: #d4183d;\n  --feedlog-icon-color: var(--feedlog-muted-foreground);\n  --feedlog-pin-color: var(--feedlog-accent-color);\n  --feedlog-upvote-icon-color: var(--feedlog-blue-600);\n  --feedlog-upvote-icon-filled-color: var(--feedlog-red-600);\n}\n```\n\n### What you can customize with CSS variables\n\nAny `--feedlog-*` token declared on the component’s `:host` in `feedlog-issue.css` can be overridden from the outside by setting the same name on `feedlog-issue` (or a parent, when the cascade applies). That includes theme colors, radii, shadows, padding, typography, the top accent bar (height, opacity, or full gradient via `--feedlog-card-accent-gradient-*`), card hover lift, content/footer spacing, title underline, mobile padding/gap/title size, and the upvote control backgrounds, borders, shadows, and text colors.\n\n### What you cannot customize with CSS variables alone\n\n- **DOM and structure:** Markdown output inside the body (headings, lists, blockquotes), which slots exist, and whether the footer or upvote row appears.\n- **SVG metrics in the component source:** Default pin/upvote icon sizes, `viewBox`, and stroke width (change via **slots**—e.g. `upvote-icon`—or a future prop).\n- **Behavior:** `feedlogUpvote` payload, `theme` prop handling, issue type → enhancement vs bug styling class.\n- **Shadow piercing:** External stylesheets cannot target internal class names. Use **CSS variables on the host**, **`::part`** (`github-link`, `media`, `upvote-button`), or **slots** (`media`, `upvote-icon`).\n- **Values never wired to `var()`:** Anything still literal in the stylesheet cannot be themed until a matching `--feedlog-*` is added in component CSS.\n\n### Making something new customizable\n\nExpose it as a custom property on `:host` with a sensible default, then reference it with `var(--feedlog-…, fallback)` in the rules. Layout or behavior changes need **props**, **slots**, or extra **`part`** / **`exportparts`** in the template.\n\n### Media slot (images/videos)\n\nAdd images or videos to the card using the `media` slot. The media appears at the top of the card with a 16:9 aspect ratio:\n\n```html\n<feedlog-issue issue=\"{myIssue}\">\n  <img slot=\"media\" src=\"https://example.com/screenshot.png\" alt=\"Feature preview\" />\n</feedlog-issue>\n```\n\nThe media area is hidden when the slot is empty. Use the `part=\"media\"` to style the media container.\n\n### Custom upvote icon\n\nReplace the default up-arrow icon with a custom icon using the `upvote-icon` slot:\n\n```html\n<feedlog-issue issue=\"{myIssue}\">\n  <svg slot=\"upvote-icon\" viewBox=\"0 0 24 24\" width=\"16\" height=\"16\">\n    <!-- your custom icon -->\n  </svg>\n</feedlog-issue>\n```\n\nStyle the icon based on upvote state using the `data-upvoted` attribute on the host:\n\n```css\nfeedlog-issue[data-upvoted='true'] [slot='upvote-icon'] {\n  fill: var(--your-upvoted-color);\n}\n```\n",
+      "readme": "# feedlog-issue\n\nA component for displaying a single GitHub issue with support for bugs and enhancements.\n\n## CSS Customization\n\nYou can customize the appearance by setting CSS variables on the `feedlog-issue` element (or on a parent such as `feedlog-issues` / `feedlog-issues-client` when inheritance applies):\n\n```css\nfeedlog-issue {\n  /* Card */\n  --feedlog-card-padding: 1.25rem;\n  --feedlog-card-radius: 0.75rem;\n  --feedlog-radius: 0.625rem;\n  --feedlog-shadow:\n    0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.06),\n    inset 0 1px 0 rgba(255, 255, 255, 0.5);\n  --feedlog-shadow-hover-enhancement:\n    0 8px 16px rgba(37, 99, 235, 0.08), 0 12px 24px rgba(37, 99, 235, 0.05),\n    inset 0 1px 0 rgba(255, 255, 255, 0.6);\n  --feedlog-shadow-hover-bug:\n    0 8px 16px rgba(212, 24, 61, 0.08), 0 12px 24px rgba(212, 24, 61, 0.05),\n    inset 0 1px 0 rgba(255, 255, 255, 0.6);\n\n  /* Typography */\n  --feedlog-font-family: system-ui, sans-serif;\n  --feedlog-title-font-family: 'Georgia', serif;\n  --feedlog-title-font-size: 1.125rem;\n  --feedlog-title-font-weight: 600;\n  --feedlog-title-line-height: 1.3;\n  --feedlog-title-margin-bottom: 0.75rem;\n  --feedlog-title-letter-spacing: -0.02em;\n  --feedlog-body-font-size: 0.875rem;\n  --feedlog-body-line-height: 1.6;\n  --feedlog-timestamp-font-size: 0.6875rem;\n  --feedlog-timestamp-color: var(--feedlog-muted-foreground);\n\n  /* Card chrome */\n  --feedlog-card-accent-height: 3px;\n  --feedlog-card-accent-opacity: 0.85;\n  --feedlog-card-hover-translate-y: 0;\n  --feedlog-content-gap: 0.875rem;\n  --feedlog-footer-padding-top: 1.25rem;\n  --feedlog-header-margin-bottom: 0.875rem;\n  --feedlog-title-underline-width: 3rem;\n  --feedlog-title-underline-height: 2px;\n  --feedlog-title-underline-offset: -4px;\n  --feedlog-title-underline-radius: 2px;\n  --feedlog-card-padding-mobile: 1rem;\n  --feedlog-content-gap-mobile: 0.75rem;\n  --feedlog-title-font-size-mobile: 1.25rem;\n\n  /* Optional: replace the entire top accent bar gradient */\n  --feedlog-card-accent-gradient-enhancement: linear-gradient(\n    90deg,\n    var(--feedlog-blue-400),\n    var(--feedlog-accent-color),\n    var(--feedlog-blue-600)\n  );\n  --feedlog-card-accent-gradient-bug: linear-gradient(\n    90deg,\n    var(--feedlog-red-600),\n    var(--feedlog-destructive),\n    var(--feedlog-red-600)\n  );\n\n  /* Upvote pill (light defaults; dark theme overrides these on :host(.dark)) */\n  --feedlog-upvote-bg: linear-gradient(\n    180deg,\n    rgba(255, 255, 255, 0.8) 0%,\n    rgba(248, 250, 252, 0.8) 100%\n  );\n  --feedlog-upvote-bg-hover: linear-gradient(\n    180deg,\n    rgba(248, 250, 252, 0.9) 0%,\n    rgba(241, 245, 249, 0.9) 100%\n  );\n  --feedlog-upvote-border: rgba(226, 232, 240, 0.8);\n  --feedlog-upvote-border-hover: #cbd5e1;\n  --feedlog-upvote-shadow: 0 2px 4px rgba(0, 0, 0, 0.02), inset 0 1px 0 rgba(255, 255, 255, 1);\n  --feedlog-upvote-shadow-hover:\n    0 8px 16px -4px rgba(0, 0, 0, 0.05), 0 4px 8px -2px rgba(0, 0, 0, 0.02),\n    inset 0 1px 0 rgba(255, 255, 255, 1);\n  --feedlog-upvote-text: #475569;\n  --feedlog-upvote-text-hover: #0f172a;\n  --feedlog-upvote-upvoted-bg: linear-gradient(180deg, #eff6ff 0%, #e0e7ff 100%);\n  --feedlog-upvote-upvoted-border: #bfdbfe;\n  --feedlog-upvote-upvoted-text: #2563eb;\n  --feedlog-upvote-reel-border: #e2e8f0;\n  --feedlog-upvote-hover-lift: -2px;\n  --feedlog-upvote-backdrop-blur: 8px;\n\n  /* Colors (inherited from theme) */\n  --feedlog-card: #ffffff;\n  --feedlog-card-foreground: oklch(0.145 0 0);\n  --feedlog-muted: #f1f5f9;\n  --feedlog-muted-foreground: #64748b;\n  --feedlog-border: rgba(0, 0, 0, 0.08);\n  --feedlog-accent-color: #2563eb;\n  --feedlog-destructive: #d4183d;\n  --feedlog-icon-color: var(--feedlog-muted-foreground);\n  --feedlog-pin-color: var(--feedlog-accent-color);\n  --feedlog-upvote-icon-color: var(--feedlog-blue-600);\n  --feedlog-upvote-icon-filled-color: var(--feedlog-red-600);\n}\n```\n\n### What you can customize with CSS variables\n\nAny `--feedlog-*` token declared on the component’s `:host` in `feedlog-issue.css` can be overridden from the outside by setting the same name on `feedlog-issue` (or a parent, when the cascade applies). That includes theme colors, radii, shadows, padding, typography, the top accent bar (height, opacity, or full gradient via `--feedlog-card-accent-gradient-*`), card hover lift, content/footer spacing, title underline, mobile padding/gap/title size, and the upvote control backgrounds, borders, shadows, and text colors.\n\n### What you cannot customize with CSS variables alone\n\n- **DOM and structure:** Markdown output inside the body (headings, lists, blockquotes), which slots exist, and whether the footer or upvote row appears.\n- **SVG metrics in the component source:** Default pin/upvote icon sizes, `viewBox`, and stroke width (change via **slots**—e.g. `upvote-icon`—or a future prop).\n- **Behavior:** `feedlogUpvote` payload, `theme` prop handling, issue type → enhancement vs bug styling class.\n- **Shadow piercing:** External stylesheets cannot target internal class names. Use **CSS variables on the host**, **`::part`** (`github-link`, `media`, `upvote-button`), or **slots** (`media`, `upvote-icon`).\n- **Values never wired to `var()`:** Anything still literal in the stylesheet cannot be themed until a matching `--feedlog-*` is added in component CSS.\n\n### Making something new customizable\n\nExpose it as a custom property on `:host` with a sensible default, then reference it with `var(--feedlog-…, fallback)` in the rules. Layout or behavior changes need **props**, **slots**, or extra **`part`** / **`exportparts`** in the template.\n\n### Media slot (images/videos)\n\nAdd images or videos to the card using the `media` slot. The media appears at the top of the card with a 16:9 aspect ratio:\n\n```html\n<feedlog-issue issue=\"{myIssue}\">\n  <img slot=\"media\" src=\"https://example.com/screenshot.png\" alt=\"Feature preview\" />\n</feedlog-issue>\n```\n\nThe media area is hidden when the slot is empty. Use the `part=\"media\"` to style the media container.\n\n### Custom upvote icon\n\nReplace the default up-arrow icon with a custom icon using the `upvote-icon` slot:\n\n```html\n<feedlog-issue issue=\"{myIssue}\">\n  <svg slot=\"upvote-icon\" viewBox=\"0 0 24 24\" width=\"16\" height=\"16\">\n    <!-- your custom icon -->\n  </svg>\n</feedlog-issue>\n```\n\nStyle the icon based on upvote state using the `data-upvoted` attribute on the host:\n\n```css\nfeedlog-issue[data-upvoted='true'] [slot='upvote-icon'] {\n  fill: var(--your-upvoted-color);\n}\n```\n",
       "docs": "Feedlog Issue Component\n\nA component for displaying a single GitHub issue.",
       "docsTags": [],
       "usage": {},
       "props": [
+        {
+          "name": "collapsible",
+          "type": "boolean",
+          "complexType": {
+            "original": "boolean",
+            "resolved": "boolean",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "collapsible",
+          "reflectToAttr": false,
+          "docs": "When true, nested `feedlog-card` uses a collapsible body (header toggles markdown; footer unchanged).",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "false"
+            }
+          ],
+          "default": "false",
+          "values": [
+            {
+              "type": "boolean"
+            }
+          ],
+          "optional": false,
+          "required": false,
+          "getter": false,
+          "setter": false
+        },
         {
           "name": "issue",
           "type": "FeedlogIssue",
@@ -414,9 +504,9 @@
         }
       ],
       "dependents": ["feedlog-issues-list"],
-      "dependencies": ["feedlog-badge"],
+      "dependencies": ["feedlog-card", "feedlog-badge"],
       "dependencyGraph": {
-        "feedlog-issue": ["feedlog-badge"],
+        "feedlog-issue": ["feedlog-card", "feedlog-badge"],
         "feedlog-issues-list": ["feedlog-issue"]
       }
     },
@@ -429,6 +519,35 @@
       "docsTags": [],
       "usage": {},
       "props": [
+        {
+          "name": "collapsible",
+          "type": "boolean",
+          "complexType": {
+            "original": "boolean",
+            "resolved": "boolean",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "collapsible",
+          "reflectToAttr": false,
+          "docs": "When true, each issue card uses a collapsible body (header toggles body; footer unchanged).",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "false"
+            }
+          ],
+          "default": "false",
+          "values": [
+            {
+              "type": "boolean"
+            }
+          ],
+          "optional": false,
+          "required": false,
+          "getter": false,
+          "setter": false
+        },
         {
           "name": "emptyStateMessage",
           "type": "string | undefined",
@@ -973,7 +1092,7 @@
       "dependencyGraph": {
         "feedlog-issues": ["feedlog-issues-list", "feedlog-button"],
         "feedlog-issues-list": ["feedlog-issue"],
-        "feedlog-issue": ["feedlog-badge"],
+        "feedlog-issue": ["feedlog-card", "feedlog-badge"],
         "feedlog-issues-client": ["feedlog-issues"]
       }
     },
@@ -1006,6 +1125,35 @@
           ],
           "optional": false,
           "required": true,
+          "getter": false,
+          "setter": false
+        },
+        {
+          "name": "collapsible",
+          "type": "boolean",
+          "complexType": {
+            "original": "boolean",
+            "resolved": "boolean",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "collapsible",
+          "reflectToAttr": false,
+          "docs": "When true, each issue card uses a collapsible body.",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "false"
+            }
+          ],
+          "default": "false",
+          "values": [
+            {
+              "type": "boolean"
+            }
+          ],
+          "optional": false,
+          "required": false,
           "getter": false,
           "setter": false
         },
@@ -1467,7 +1615,7 @@
         "feedlog-issues-client": ["feedlog-issues"],
         "feedlog-issues": ["feedlog-issues-list", "feedlog-button"],
         "feedlog-issues-list": ["feedlog-issue"],
-        "feedlog-issue": ["feedlog-badge"]
+        "feedlog-issue": ["feedlog-card", "feedlog-badge"]
       }
     },
     {
@@ -1479,6 +1627,35 @@
       "docsTags": [],
       "usage": {},
       "props": [
+        {
+          "name": "collapsible",
+          "type": "boolean",
+          "complexType": {
+            "original": "boolean",
+            "resolved": "boolean",
+            "references": {}
+          },
+          "mutable": false,
+          "attr": "collapsible",
+          "reflectToAttr": false,
+          "docs": "When true, each `feedlog-issue` uses a collapsible card body.",
+          "docsTags": [
+            {
+              "name": "default",
+              "text": "false"
+            }
+          ],
+          "default": "false",
+          "values": [
+            {
+              "type": "boolean"
+            }
+          ],
+          "optional": false,
+          "required": false,
+          "getter": false,
+          "setter": false
+        },
         {
           "name": "emptyStateMessage",
           "type": "string | undefined",
@@ -1662,7 +1839,7 @@
       "dependencies": ["feedlog-issue"],
       "dependencyGraph": {
         "feedlog-issues-list": ["feedlog-issue"],
-        "feedlog-issue": ["feedlog-badge"],
+        "feedlog-issue": ["feedlog-card", "feedlog-badge"],
         "feedlog-issues": ["feedlog-issues-list"]
       }
     }

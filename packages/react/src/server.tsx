@@ -29,5 +29,10 @@ export const FeedlogButton = ({
   type?: string;
 }) => React.createElement('feedlog-button', props, children);
 
-export const FeedlogCard = ({ children, ...props }: React.HTMLAttributes<HTMLElement>) =>
-  React.createElement('feedlog-card', props, children);
+export const FeedlogCard = ({
+  children,
+  ...props
+}: React.HTMLAttributes<HTMLElement> & {
+  collapsible?: boolean;
+  embed?: boolean;
+}) => React.createElement('feedlog-card', props, children);

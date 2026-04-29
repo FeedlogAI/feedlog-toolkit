@@ -154,6 +154,10 @@ const meta: Meta = {
       options: ['light', 'dark'],
       description: 'Theme variant',
     },
+    collapsible: {
+      control: 'boolean',
+      description: 'When true, collapsible markdown body (header toggle; footer visible)',
+    },
   },
   args: {
     issue: sampleEnhancementIssue,
@@ -246,7 +250,7 @@ export const CustomCSSVars: Story = {
         {
           fontFamily: "'Georgia', 'Times New Roman', serif",
           /* Card */
-          '--feedlog-card-padding': '1.5rem',
+          '--feedlog-card-padding': '1.25rem',
           '--feedlog-card-radius': '0.875rem',
           '--feedlog-radius': '0.875rem',
           '--feedlog-shadow': '0 2px 8px 0 rgba(0, 0, 0, 0.12), 0 1px 3px -1px rgba(0, 0, 0, 0.1)',
@@ -352,6 +356,22 @@ export const WithGithubIssueLink: Story = {
 export const GithubIssueLinkNull: Story = {
   args: {
     issue: issueWithGithubLinkNull,
+  },
+  render: (props: any) => <feedlog-issue {...props} />,
+};
+
+export const Collapsible: Story = {
+  args: {
+    issue: sampleEnhancementIssue,
+    collapsible: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Uses nested `feedlog-card` with `collapsible` so the Markdown body hides behind the header until expanded (Remix [arrow-up-s-line](https://allsvgicons.com/pack/ri/#arrow-up-s-line) in header).',
+      },
+    },
   },
   render: (props: any) => <feedlog-issue {...props} />,
 };

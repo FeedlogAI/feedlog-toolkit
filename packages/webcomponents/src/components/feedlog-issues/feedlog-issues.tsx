@@ -96,6 +96,11 @@ export class FeedlogIssues {
   @Prop() getIssueUrl?: GetIssueUrlFn;
 
   /**
+   * When true, each issue card uses a collapsible body (header toggles body; footer unchanged).
+   */
+  @Prop() collapsible: boolean = false;
+
+  /**
    * Event emitted when an issue is upvoted
    */
   @Event() feedlogUpvote!: EventEmitter<{
@@ -179,6 +184,7 @@ export class FeedlogIssues {
       <feedlog-issues-list
         issues={this.issues}
         theme={this.theme}
+        collapsible={this.collapsible}
         getIssueUrl={this.getIssueUrl}
         emptyStateTitle={this.emptyStateTitle ?? 'Nothing to see here'}
         emptyStateMessage={

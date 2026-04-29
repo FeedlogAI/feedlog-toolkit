@@ -18,6 +18,7 @@ This component uses the SDK internally to fetch data and delegates to feedlog-is
 | Property              | Attribute             | Description                                                                                                                                           | Type                                                                  | Default       |
 | --------------------- | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | ------------- |
 | `apiKey` _(required)_ | `api-key`             | Set via JS property only; not reflected to an HTML attribute (see Stencil `reflect`).                                                                 | `string`                                                              | `undefined`   |
+| `collapsible`         | `collapsible`         | When true, each issue card uses a collapsible body.                                                                                                   | `boolean`                                                             | `false`       |
 | `emptyStateMessage`   | `empty-state-message` | Empty state message (e.g. "Check back later for new updates.")                                                                                        | `string \| undefined`                                                 | `undefined`   |
 | `emptyStateTitle`     | `empty-state-title`   | Empty state title (e.g. "No updates yet")                                                                                                             | `string \| undefined`                                                 | `undefined`   |
 | `endpoint`            | `endpoint`            | Custom API endpoint                                                                                                                                   | `string \| undefined`                                                 | `undefined`   |
@@ -54,6 +55,7 @@ graph TD;
   feedlog-issues --> feedlog-issues-list
   feedlog-issues --> feedlog-button
   feedlog-issues-list --> feedlog-issue
+  feedlog-issue --> feedlog-card
   feedlog-issue --> feedlog-badge
   style feedlog-issues-client fill:#f9f,stroke:#333,stroke-width:4px
 ```

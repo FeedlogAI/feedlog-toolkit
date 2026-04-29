@@ -17,6 +17,7 @@ Includes full list rendering, loading/error states, and pagination support.
 
 | Property            | Attribute             | Description                                                                                                                                           | Type                                                                  | Default       |
 | ------------------- | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | ------------- |
+| `collapsible`       | `collapsible`         | When true, each issue card uses a collapsible body (header toggles body; footer unchanged).                                                           | `boolean`                                                             | `false`       |
 | `emptyStateMessage` | `empty-state-message` | Empty state message. Defaults to "Check back later for the latest news and updates.".                                                                 | `string \| undefined`                                                 | `undefined`   |
 | `emptyStateTitle`   | `empty-state-title`   | Empty state title. Defaults to "Nothing to see here".                                                                                                 | `string \| undefined`                                                 | `undefined`   |
 | `error`             | `error`               | Error message - shows error state when set                                                                                                            | `null \| string`                                                      | `null`        |
@@ -61,6 +62,7 @@ graph TD;
   feedlog-issues --> feedlog-issues-list
   feedlog-issues --> feedlog-button
   feedlog-issues-list --> feedlog-issue
+  feedlog-issue --> feedlog-card
   feedlog-issue --> feedlog-badge
   feedlog-issues-client --> feedlog-issues
   style feedlog-issues fill:#f9f,stroke:#333,stroke-width:4px
