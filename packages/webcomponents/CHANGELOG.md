@@ -1,5 +1,12 @@
 # @feedlog-ai/webcomponents
 
+## 0.2.1
+
+### Patch Changes
+
+- 2a19660: refactor: enhance FeedlogCard component with new header-meta slot and improved styling
+  - @feedlog-ai/core@0.2.1
+
 ## 0.2.0
 
 ### Minor Changes

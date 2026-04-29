@@ -8,7 +8,7 @@
     "start": "next start -p 3002"
   },
   "dependencies": {
-    "@feedlog-ai/react": "^0.2.0",
+    "@feedlog-ai/react": "^0.2.1",
     "next": "^15.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
