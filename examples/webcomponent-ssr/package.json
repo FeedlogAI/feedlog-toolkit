@@ -8,7 +8,7 @@
     "dev": "node server.js"
   },
   "dependencies": {
-    "@feedlog-ai/webcomponents": "^0.2.0",
+    "@feedlog-ai/webcomponents": "^0.2.1",
     "express": "^4.21.0"
   }
 }
