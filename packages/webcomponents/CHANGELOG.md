@@ -1,5 +1,15 @@
 # @feedlog-ai/webcomponents
 
+## 0.2.0
+
+### Minor Changes
+
+- 1b9f88a: Implement collapsible card body
+
+### Patch Changes
+
+- @feedlog-ai/core@0.2.0
+
 ## 0.1.0
 
 ### Minor Changes
