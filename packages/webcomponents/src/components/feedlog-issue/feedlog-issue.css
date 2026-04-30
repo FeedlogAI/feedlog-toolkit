@@ -279,12 +279,11 @@
 .issue-footer {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
+  align-items: center;
   justify-content: flex-start;
   gap: 1rem;
   padding-top: var(--feedlog-footer-padding-top);
 }
-
 
 /* Grows on the first flex line so the upvote stays right; when the button wraps, it starts a new line at the left. */
 .issue-footer-meta {
@@ -514,7 +513,7 @@
   flex-shrink: 0;
   box-shadow: var(--feedlog-upvote-shadow);
   overflow: hidden;
-  padding: 0.4375rem 1rem;
+  padding: 0.25rem 1rem;
   gap: 0.5rem;
   font-family: inherit;
   line-height: 1;
