@@ -1,5 +1,12 @@
 # @feedlog-ai/react
 
+## 0.2.2
+
+### Patch Changes
+
+- Updated dependencies [3e79726]
+  - @feedlog-ai/webcomponents@0.2.2
+
 ## 0.2.1
 
 ### Patch Changes

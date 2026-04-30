@@ -9,7 +9,7 @@
     "start": "nuxt start --port 3003"
   },
   "dependencies": {
-    "@feedlog-ai/vue": "^0.2.1",
+    "@feedlog-ai/vue": "^0.2.2",
     "nuxt": "^3.13.0",
     "vue": "^3.4.15"
   },
